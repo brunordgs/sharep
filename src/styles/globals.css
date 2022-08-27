@@ -1,0 +1,9 @@
+@tailwind base;
+@tailwind utilities;
+@tailwind components;
+
+@layer base {
+	body {
+		@apply font-sans bg-zinc-100 text-zinc-700;
+	}
+}
