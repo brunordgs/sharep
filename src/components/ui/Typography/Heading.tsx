@@ -14,6 +14,7 @@ const sizes = {
 	base: 'text-base',
 	sm: 'text-lg',
 	md: 'text-xl',
+	lg: 'text-2xl',
 	xl: 'text-3xl',
 	'2xl': 'text-4xl',
 	'3xl': 'text-5xl',
