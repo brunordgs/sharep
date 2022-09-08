@@ -35,7 +35,7 @@ export function LinkButton({
 						'px-2 py-1': size === 'small',
 						'': size === 'custom',
 					},
-					'inline-flex items-center justify-center transition-all duration-300 ease-out dark:font-medium',
+					'inline-flex items-center justify-center transition-all duration-300 ease-out dark:font-medium gap-2',
 					className,
 				)}
 				target={isExternal ? '_blank' : '_self'}
