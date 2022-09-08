@@ -7,3 +7,5 @@ export const FONT_WEIGHTS = {
 	bold: 'font-bold',
 	extrabold: 'font-extrabold',
 };
+
+export const VERIFIED_ACCOUNTS = ['brunordgs'];
