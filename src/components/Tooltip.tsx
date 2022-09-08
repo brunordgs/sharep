@@ -15,10 +15,3 @@ export function Tooltip({ children, ...props }: ComponentPropsWithoutRef<'div'>)
 		</>
 	);
 }
-
-{
-	/* <div className='has-tooltip'>
-<span className='tooltip rounded shadow-lg p-1 bg-gray-100 text-red-500 -mt-8'>Some Nice Tooltip Text</span>
-Custom Position (above)
-</div> */
-}
