@@ -19,7 +19,7 @@ export default function About() {
 					</Heading>
 
 					<Heading as="h2" size="base" weight="normal" className="md:text-xl mt-4">
-						Every day, great things have been made!
+						Every day, great things are being made!
 					</Heading>
 				</section>
 
