@@ -1,8 +1,8 @@
 import { VerifiedAccountDialog } from '@/components/Modals/VerifiedAccountDialog';
-import { Tooltip } from '@/components/Tooltip';
+import { Tooltip } from '@/components/ui/Tooltip';
 import { VERIFIED_ACCOUNTS } from '@/shared/constants';
 import { GithubUser } from '@/shared/interfaces/GithubUser';
-import { CircleWavyCheck, PaintBrush } from 'phosphor-react';
+import { PaintBrush } from 'phosphor-react';
 import { FaGithub, FaTwitter } from 'react-icons/fa';
 import { Avatar } from '../../ui/Avatar';
 import { LinkButton } from '../../ui/Buttons/LinkButton';
@@ -13,15 +13,19 @@ interface Props {
 }
 
 export function Profile({ user }: Props) {
-	const isCreator = user.login === 'brunordgs';
+	const isCreator = user.login === 'leovargasdev';
 
 	return (
 		<>
 			<div className="bg-gradient-to-b from-rose-500 to-pink-600 h-48 rounded-b-2xl relative">
 				{isCreator && (
 					<div className="absolute bottom-2 right-4 flex gap-2 z-30">
-						<Tooltip data-tip="Creator since Jun 24, 2022">
-							<LinkButton href="/creators" color="unstyled" className="bg-gradient-to-r from-pink-700 to-pink-800 shadow-md text-zinc-100 rounded-md py-1 px-2 text-sm italic font-semibold inline-flex items-center gap-2">
+						<Tooltip data-tip="Creator since Sep 08, 2022">
+							<LinkButton
+								href="/creators"
+								color="unstyled"
+								className="bg-gradient-to-r from-pink-700 to-pink-800 shadow-md text-zinc-100 rounded-md py-1 px-2 text-sm italic font-semibold inline-flex items-center gap-2"
+							>
 								Creator
 								<PaintBrush size={16} />
 							</LinkButton>
@@ -65,16 +69,7 @@ export function Profile({ user }: Props) {
 						<Text size="xl" weight="bold" className="md:text-3xl">
 							{user.name}
 						</Text>
-						{VERIFIED_ACCOUNTS.includes(user.login) && (
-							<VerifiedAccountDialog>
-								<CircleWavyCheck
-									weight="fill"
-									size={24}
-									className="text-indigo-500"
-									aria-label="Verified account"
-								/>
-							</VerifiedAccountDialog>
-						)}
+						{VERIFIED_ACCOUNTS.includes(user.login) && <VerifiedAccountDialog size={24} />}
 					</div>
 
 					<Text as="span" className="text-[15px]">
