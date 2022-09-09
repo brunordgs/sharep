@@ -55,7 +55,7 @@ export function MobileNavbar() {
 					<Dialog
 						collapse={collapse}
 						onCollapse={setCollapse}
-						className="fixed top-[73px] right-0 bottom-0 left-0 bg-zinc-100 dark:bg-zinc-900 lg:hidden z-10"
+						className="fixed top-[73px] right-0 bottom-0 left-0 bg-zinc-100 dark:bg-zinc-900 lg:hidden z-50"
 					>
 						<nav>
 							<Container>
