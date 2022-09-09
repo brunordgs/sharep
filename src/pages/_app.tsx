@@ -1,10 +1,22 @@
 import { Footer } from '@/components/Footer';
 import { Navbar } from '@/components/Header/Navbar';
 import '@/styles/globals.css';
+import ProgressBar from '@badrap/bar-of-progress';
 import clsx from 'clsx';
 import { SessionProvider } from 'next-auth/react';
 import type { AppProps } from 'next/app';
-import { useRouter } from 'next/router';
+import { Router, useRouter } from 'next/router';
+
+const progress = new ProgressBar({
+	size: 4,
+	color: '#f43f5e',
+	className: 'z-50',
+	delay: 100,
+});
+
+Router.events.on('routeChangeStart', progress.start);
+Router.events.on('routeChangeComplete', progress.finish);
+Router.events.on('routeChangeError', progress.finish);
 
 export default function App({ Component, pageProps: { session, ...pageProps } }: AppProps) {
 	const router = useRouter();
