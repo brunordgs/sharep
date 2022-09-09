@@ -1,4 +1,5 @@
 import { VerifiedAccountDialog } from '@/components/Modals/VerifiedAccountDialog';
+import { ProjectCard } from '@/components/Projects/ProjectCard';
 import { Card } from '@/components/ui/Card';
 import { Tooltip } from '@/components/ui/Tooltip';
 import { Heading } from '@/components/ui/Typography/Heading';
@@ -89,50 +90,8 @@ export function Profile({ user }: Props) {
 							</Heading>
 
 							<Card noPadding>
-								{projects.map(({ url, title, name, description }) => (
-									<div
-										key={url}
-										onClick={() => window.open(url, '_blank')}
-										className="border-b border-zinc-200 last:border-b-0 dark:border-zinc-700 p-6 flex justify-between hover:bg-zinc-50 dark:hover:bg-zinc-700 w-full hover:rounded-t-md cursor-pointer relative"
-									>
-										<div className="flex items-center gap-4">
-											{/* <img
-									src={`https://github.com/${username}.png`}
-									className="w-16 h-16 rounded-full"
-								/> */}
-
-											<div className="bg-rose-500 h-16 w-16 rounded-md flex items-center justify-center font-bold text-zinc-100 text-2xl">
-												{title.charAt(0) + title.charAt(1)}
-											</div>
-
-											<div>
-												<div className="flex items-center gap-1">
-													<Text weight="semibold">{title}</Text>
-												</div>
-
-												<Text
-													size="sm"
-													weight="inherit"
-													className="dark:font-light text-zinc-500 dark:text-inherit"
-												>
-													{description}
-												</Text>
-
-												{/* hover:text-zinc-600 dark:hover:text-zinc-300 */}
-												<div className="flex items-start gap-1 mt-2 font-medium text-zinc-500 dark:text-zinc-400 transition-colors duration-300 text-xs">
-													<FaGithub className="text-sm" />
-													{/* <Link href={source}>
-													<a target="_blank" rel="noopener noreferrer">
-														{name}
-													</a>
-												</Link> */}
-													{name}
-												</div>
-											</div>
-										</div>
-
-										{/* <div></div> */}
-									</div>
+								{projects.map(({ url, ...rest }) => (
+									<ProjectCard key={url} url={url} {...rest} />
 								))}
 							</Card>
 						</>
