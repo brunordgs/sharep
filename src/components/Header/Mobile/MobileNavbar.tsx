@@ -30,7 +30,7 @@ export function MobileNavbar() {
 			<div className="uppercase font-bold text-zinc-600 dark:text-zinc-200 text-xs flex items-center ml-2 select-none gap-4">
 				<span className="bg-zinc-200 dark:bg-zinc-800 rounded-[4px] p-2">Early preview</span>
 
-				<Button type="button" color="unstyled" onClick={() => setCollapse(!collapse)}>
+				<Button type="button" color="unstyled" className="hover:text-black dark:hover:text-white" onClick={() => setCollapse(!collapse)}>
 					{!collapse ? <List size={24} /> : <X size={24} />}
 				</Button>
 			</div>
@@ -55,10 +55,10 @@ export function MobileNavbar() {
 					<Dialog
 						collapse={collapse}
 						onCollapse={setCollapse}
-						className="fixed top-[60px] right-0 bottom-0 left-0 bg-zinc-50 dark:bg-zinc-900 lg:hidden z-10"
+						className="fixed top-[73px] right-0 bottom-0 left-0 bg-zinc-100 dark:bg-zinc-900 lg:hidden z-10"
 					>
 						<nav>
-							<Container className="my-4">
+							<Container>
 								<MobileItem href="/" onClick={() => setCollapse(false)}>
 									<Article size={20} weight="bold" />
 									Projects
