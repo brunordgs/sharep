@@ -14,7 +14,7 @@ export function Avatar({ size = 'base', hasBorder = false, ...props }: Props) {
 					'w-10': size === 'sm',
 					'w-16': size === 'base',
 					'w-36': size === 'md',
-					'border-4 border-zinc-100 dark:border-zinc-800': hasBorder,
+					'border-4 border-zinc-100 dark:border-zinc-900': hasBorder,
 				},
 				'rounded-full',
 			)}
