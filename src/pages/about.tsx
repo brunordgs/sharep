@@ -38,7 +38,7 @@ export default function About() {
 
 							<div className="text-left">
 								<Text weight="bold">Bruno Rodrigues</Text>
-								<Text size="xs">I made this website.</Text>
+								<Text size="xs">I created this site.</Text>
 
 								<LinkButton
 									color="unstyled"
