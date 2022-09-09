@@ -9,3 +9,4 @@ export const FONT_WEIGHTS = {
 };
 
 export const VERIFIED_ACCOUNTS = ['brunordgs'];
+export const CREATORS = ['leovargasdev'];

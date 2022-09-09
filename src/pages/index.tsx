@@ -7,18 +7,9 @@ import { PopularUsersCard } from '@/components/User/PopularUsersCard';
 import Head from 'next/head';
 import { CaretDown } from 'phosphor-react';
 import { FaGithub } from 'react-icons/fa';
+import projects from '@/data/projects.json';
 
 export default function Home() {
-	const projects = [
-		{
-			url: 'https://brchallenges.com',
-			name: 'leovargasdev/br-challenges',
-			title: 'BRChallenges',
-			description: 'Portal de desafios de programação',
-			source: 'https://github.com/leovargasdev/br-challenges',
-		},
-	];
-
 	return (
 		<>
 			<Head>
@@ -34,7 +25,7 @@ export default function Home() {
 				<div className="grid grid-cols-1 lg:grid-cols-6 grid-rows-2 gap-8 mt-6">
 					<Card className="lg:col-span-4 row-span-2" noPadding>
 						{projects.length ? (
-							projects.map(({ url, title, name, description, source }) => (
+							projects.map(({ url, title, name, description }) => (
 								<div
 									key={url}
 									onClick={() => window.open(url, '_blank')}
@@ -64,7 +55,7 @@ export default function Home() {
 											</Text>
 
 											{/* hover:text-zinc-600 dark:hover:text-zinc-300 */}
-											<div className="flex items-start gap-1 mt-2 font-medium text-zinc-500 dark:text-zinc-400 transition-colors duration-300 text-xs"> 
+											<div className="flex items-start gap-1 mt-2 font-medium text-zinc-500 dark:text-zinc-400 transition-colors duration-300 text-xs">
 												<FaGithub className="text-sm" />
 												{/* <Link href={source}>
 													<a target="_blank" rel="noopener noreferrer">

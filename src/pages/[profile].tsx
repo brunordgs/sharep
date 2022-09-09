@@ -33,7 +33,7 @@ export default function ProfilePage({ user }: Props) {
 				</title>
 			</Head>
 
-			<main className="max-w-5xl w-full mx-auto">
+			<main className="max-w-5xl w-full mx-auto mb-10">
 				<Loading loading={router.isFallback} className="my-32">
 					{!userNotFound ? <Profile user={user} /> : <ProfileNotFound username={username} />}
 				</Loading>

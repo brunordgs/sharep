@@ -1,7 +1,6 @@
 import { VERIFIED_ACCOUNTS } from '@/shared/constants';
 import { CircleWavyCheck } from 'phosphor-react';
 import { Footer } from '../Footer';
-import { VerifiedAccountDialog } from '../Modals/VerifiedAccountDialog';
 import { LinkButton } from '../ui/Buttons/LinkButton';
 import { Card } from '../ui/Card';
 import { Heading } from '../ui/Typography/Heading';
