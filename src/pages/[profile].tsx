@@ -23,7 +23,7 @@ export default function ProfilePage({ user }: Props) {
 		if (username.charAt(0) !== '@') {
 			router.push('404');
 		}
-	}, [username]);
+	}, [username, router]);
 
 	return (
 		<>

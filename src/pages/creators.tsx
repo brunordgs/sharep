@@ -1,3 +1,4 @@
+import { Avatar } from '@/components/ui/Avatar';
 import { LinkButton } from '@/components/ui/Buttons/LinkButton';
 import { Card } from '@/components/ui/Card';
 import { Container } from '@/components/ui/Container';
@@ -37,10 +38,7 @@ export default function Creators() {
 								className="border-b border-zinc-200 last:border-b-0 lg:last:border-b dark:border-zinc-700 p-6 flex justify-between hover:bg-zinc-50 dark:hover:bg-zinc-700 w-full"
 							>
 								<div className="flex items-center gap-4">
-									<img
-										src={`https://github.com/${username}.png`}
-										className="w-16 h-16 rounded-full"
-									/>
+									<Avatar src={`https://github.com/${username}.png`} alt={name} />
 
 									<div>
 										<div className="flex items-center gap-1">

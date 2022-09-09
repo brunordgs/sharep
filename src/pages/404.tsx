@@ -14,7 +14,7 @@ export default function Custom404() {
 			</div>
 
 			<Text size="sm" className="md:text-base">
-				We can't seem to find the page you are looking for
+				We can&apos;t seem to find the page you are looking for
 			</Text>
 		</main>
 	);

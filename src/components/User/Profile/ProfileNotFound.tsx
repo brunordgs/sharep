@@ -21,7 +21,7 @@ export function ProfileNotFound({ username }: Props) {
 
 				<div className="flex justify-center text-center mt-20 mb-32">
 					<div>
-						<Text className="text-3xl font-bold">This account doesn't exist</Text>
+						<Text className="text-3xl font-bold">This account doesn&apos;t exist</Text>
 						<Text size="sm" className="text-zinc-500 dark:text-zinc-400">
 							Try searching for another.
 						</Text>
