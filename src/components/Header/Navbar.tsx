@@ -3,7 +3,7 @@ import Link from 'next/link';
 import { useRouter } from 'next/router';
 import { Article, PaintBrush, Question } from 'phosphor-react';
 import { Container } from '../ui/Container';
-import { MobileNavbar } from './MobileNavbar';
+import { MobileNavbar } from './Mobile/MobileNavbar';
 
 export function Navbar() {
 	const router = useRouter();

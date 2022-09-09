@@ -5,7 +5,6 @@ import { Heading } from '@/components/ui/Typography/Heading';
 import { Text } from '@/components/ui/Typography/Text';
 import { PopularUsersCard } from '@/components/User/PopularUsersCard';
 import Head from 'next/head';
-import Link from 'next/link';
 import { CaretDown } from 'phosphor-react';
 import { FaGithub } from 'react-icons/fa';
 
