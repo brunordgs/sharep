@@ -1,15 +1,24 @@
+import { NoProjectFound } from '@/components/Projects/NoProjectFound';
 import { Card } from '@/components/ui/Card';
 import { Container } from '@/components/ui/Container';
-import { Footer } from '@/components/Footer';
-import { NoProjectFound } from '@/components/Projects/NoProjectFound';
-import { LinkButton } from '@/components/ui/Buttons/LinkButton';
 import { Heading } from '@/components/ui/Typography/Heading';
 import { Text } from '@/components/ui/Typography/Text';
+import { PopularUsersCard } from '@/components/User/PopularUsersCard';
 import Head from 'next/head';
-import { useState } from 'react';
+import Link from 'next/link';
+import { CaretDown } from 'phosphor-react';
+import { FaGithub } from 'react-icons/fa';
 
 export default function Home() {
-	const [projects, setProjects] = useState([]);
+	const projects = [
+		{
+			url: 'https://brchallenges.com',
+			name: 'leovargasdev/br-challenges',
+			title: 'BRChallenges',
+			description: 'Portal de desafios de programação',
+			source: 'https://github.com/leovargasdev/br-challenges',
+		},
+	];
 
 	return (
 		<>
@@ -17,61 +26,68 @@ export default function Home() {
 				<title>Home | sharep</title>
 			</Head>
 
-			<Container className="grid grid-cols-1 lg:grid-cols-6 grid-rows-2 gap-8 my-10">
-				{projects.length ? (
-					projects.map((_, index) => <div key={index}>hey</div>)
-				) : (
-					<NoProjectFound />
-				)}
+			<Container className="my-6">
+				<Heading transform="italic" size="lg" className="flex items-end gap-2">
+					Your next favorite thing
+					<CaretDown className="animate-bounce" />
+				</Heading>
 
-				<div className="hidden lg:block col-span-2">
-					<Card className="mb-2">
-						<aside>
-							<Heading as="h2" transform="italic" className="text-xl mb-4">
-								Popular users
-							</Heading>
+				<div className="grid grid-cols-1 lg:grid-cols-6 grid-rows-2 gap-8 mt-6">
+					<Card className="lg:col-span-4 row-span-2" noPadding>
+						{projects.length ? (
+							projects.map(({ url, title, name, description, source }) => (
+								<div
+									key={url}
+									onClick={() => window.open(url, '_blank')}
+									className="border-b border-zinc-200 last:border-b-0 lg:last:border-b dark:border-zinc-700 p-6 flex justify-between hover:bg-zinc-50 dark:hover:bg-zinc-700 w-full hover:rounded-t-md cursor-pointer relative"
+								>
+									<div className="flex items-center gap-4">
+										{/* <img
+									src={`https://github.com/${username}.png`}
+									className="w-16 h-16 rounded-full"
+								/> */}
 
-							{Array.from({ length: 4 }, (_, index) => (
-								<div key={index} className="flex items-center mb-6 xl:mb-4 last:mb-0">
-									<div className="flex-1 flex items-center gap-2">
-										<img src="https://github.com/brunordgs.png" className="w-8 h-8 rounded-full" />
+										<div className="bg-rose-500 h-16 w-16 rounded-md flex items-center justify-center font-bold text-zinc-100 text-2xl">
+											{title.charAt(0) + title.charAt(1)}
+										</div>
 
-										<div className="leading-3">
+										<div>
+											<div className="flex items-center gap-1">
+												<Text weight="semibold">{title}</Text>
+											</div>
+
 											<Text
-												weight="bold"
 												size="sm"
-												className="truncate w-28 xl:w-full"
-												title="TODO: Bruno Rodrigues"
+												weight="inherit"
+												className="dark:font-light text-zinc-500 dark:text-inherit"
 											>
-												Bruno Rodrigues
+												{description}
 											</Text>
 
-											<Text
-												as="span"
-												size="sm"
-												className="truncate w-28 xl:w-full inline-block"
-												title="TODO: @brunordgs"
-											>
-												@brunordgs
-											</Text>
+											{/* hover:text-zinc-600 dark:hover:text-zinc-300 */}
+											<div className="flex items-start gap-1 mt-2 font-medium text-zinc-500 dark:text-zinc-400 transition-colors duration-300 text-xs"> 
+												<FaGithub className="text-sm" />
+												{/* <Link href={source}>
+													<a target="_blank" rel="noopener noreferrer">
+														{name}
+													</a>
+												</Link> */}
+												{name}
+											</div>
 										</div>
 									</div>
 
-									<LinkButton href="/@brunordgs" fontSize="xs" size="small">
-										Check profile
-									</LinkButton>
+									{/* <div></div> */}
 								</div>
-							))}
-						</aside>
+							))
+						) : (
+							<NoProjectFound />
+						)}
 					</Card>
 
-					<Footer />
+					<PopularUsersCard />
 				</div>
 			</Container>
-
-			<div className="lg:hidden">
-				<Footer />
-			</div>
 		</>
 	);
 }
