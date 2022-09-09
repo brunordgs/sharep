@@ -18,6 +18,8 @@ const sizes = {
 	xl: 'text-3xl',
 	'2xl': 'text-4xl',
 	'3xl': 'text-5xl',
+	'4xl': 'text-6xl',
+	'5xl': 'text-7xl',
 };
 
 export function Heading({
