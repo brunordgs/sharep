@@ -1,10 +1,11 @@
-import { Loading } from '@/components/Loading';
+import { Loading } from '@/components/ui/Loading';
 import { Profile } from '@/components/User/Profile';
 import { ProfileNotFound } from '@/components/User/Profile/ProfileNotFound';
 import { GithubUser } from '@/shared/interfaces/GithubUser';
-import { GetStaticPaths, GetStaticProps } from 'next';
+import { GetStaticPropsContext } from 'next';
 import Head from 'next/head';
 import { useRouter } from 'next/router';
+import { useEffect } from 'react';
 
 interface Props {
 	user: GithubUser;
@@ -15,6 +16,14 @@ export default function ProfilePage({ user }: Props) {
 
 	const username = router.query.profile as string;
 	const userNotFound = !user;
+
+	useEffect(() => {
+		if (!username) return;
+
+		if (username.charAt(0) !== '@') {
+			router.push('404');
+		}
+	}, [username]);
 
 	return (
 		<>
@@ -33,12 +42,12 @@ export default function ProfilePage({ user }: Props) {
 	);
 }
 
-export const getStaticPaths: GetStaticPaths = () => {
-	const team = ['brunordgs'];
+export function getStaticPaths() {
+	const users = ['brunordgs', 'leovargasdev'];
 
-	const paths = team.map((member) => ({
+	const paths = users.map((user) => ({
 		params: {
-			profile: member,
+			profile: '@' + user,
 		},
 	}));
 
@@ -46,19 +55,26 @@ export const getStaticPaths: GetStaticPaths = () => {
 		paths: paths,
 		fallback: true,
 	};
-};
+}
 
-export const getStaticProps: GetStaticProps = async ({ params }) => {
+export async function getStaticProps({ params }: GetStaticPropsContext) {
 	const username = params!.profile!.toString();
+	const users = ['brunordgs', 'leovargasdev']; // Mock users
+
+	// Prevent api request if username doesn't have @ as first character and only request provided users
+	if (username.charAt(0) !== '@' || !users.includes(username.replace('@', ''))) {
+		return {
+			props: {},
+		};
+	}
 
 	const res = await fetch(`https://api.github.com/users/${username.replace('@', '')}`);
 	const data = await res.json();
 
 	if (!data || data?.message?.toLowerCase() === 'not found') {
 		return {
-			redirect: {
-				destination: '/404',
-				permanent: false,
+			props: {
+				user: null,
 			},
 		};
 	}
@@ -69,4 +85,4 @@ export const getStaticProps: GetStaticProps = async ({ params }) => {
 		},
 		revalidate: 60 * 60 * 24, // 24 hours
 	};
-};
+}
