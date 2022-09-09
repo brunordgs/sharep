@@ -1,10 +1,9 @@
-import { Children } from '@/shared/interfaces/Children';
 import { Dialog, Transition } from '@headlessui/react';
 import { CircleWavyCheck } from 'phosphor-react';
 import { Fragment, useState } from 'react';
 import { Text } from '../ui/Typography/Text';
 
-export function VerifiedAccountDialog({ children }: Children) {
+export function VerifiedAccountDialog({ size }: { size?: number }) {
 	const [isOpen, setIsOpen] = useState(false);
 
 	function openModal() {
@@ -18,7 +17,12 @@ export function VerifiedAccountDialog({ children }: Children) {
 	return (
 		<>
 			<button type="button" onClick={openModal}>
-				{children}
+				<CircleWavyCheck
+					weight="fill"
+					size={size}
+					className="text-indigo-500"
+					aria-label="Verified account"
+				/>
 			</button>
 
 			<Transition appear show={isOpen} as={Fragment}>
@@ -60,7 +64,8 @@ export function VerifiedAccountDialog({ children }: Children) {
 									</Dialog.Title>
 
 									<Text size="sm" className="text-zinc-500 dark:text-zinc-400">
-										This account is verified because it's a staff user, notable creator or another designated category.
+										This account is verified because it's a staff user, notable creator or another
+										designated category.
 									</Text>
 								</Dialog.Panel>
 							</Transition.Child>
