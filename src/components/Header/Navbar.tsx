@@ -1,16 +1,12 @@
 import clsx from 'clsx';
-import { signIn, useSession } from 'next-auth/react';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
-import { Article, MagnifyingGlass, PaintBrush, Question } from 'phosphor-react';
-import { Button } from '../ui/Buttons/Button';
+import { Article, PaintBrush, Question } from 'phosphor-react';
 import { Container } from '../ui/Container';
-import { UserDropdown } from '../User/UserDropdown';
 import { MobileNavbar } from './MobileNavbar';
 
 export function Navbar() {
 	const router = useRouter();
-	const { data: session } = useSession();
 
 	const menuItems = [
 		{
@@ -45,6 +41,11 @@ export function Navbar() {
 							</a>
 						</Link>
 
+						{/* NOTE: Should be removed soon, for testing purposes */}
+						<div className="uppercase italic font-bold text-zinc-600 dark:text-zinc-200 text-xs flex items-end ml-2 select-none">
+							<span className="bg-zinc-200 dark:bg-zinc-800 rounded-[4px] px-2">Beta</span>
+						</div>
+
 						<ul className="flex items-center gap-6 border-l-4 border-rose-600 px-8 ml-8 font-bold text-zinc-700 dark:text-zinc-300">
 							{menuItems.map(({ link, text, icon: Icon, isActive }) => (
 								<li key={link}>
@@ -65,7 +66,11 @@ export function Navbar() {
 					</nav>
 				</div>
 
-				<div className="flex items-center gap-4">
+				<div className="uppercase font-bold text-zinc-600 dark:text-zinc-200 text-xs flex items-end ml-2 select-none">
+					<span className="bg-zinc-200 dark:bg-zinc-800 rounded-[4px] p-2">Early preview</span>
+				</div>
+
+				{/* <div className="flex items-center gap-4">
 					<div className="flex items-center h-10 w-56 bg-zinc-200 dark:bg-zinc-700 gap-2 px-4 rounded-md">
 						<MagnifyingGlass weight="bold" size={24} className="text-zinc-600 dark:text-zinc-500" />
 
@@ -83,7 +88,7 @@ export function Navbar() {
 					) : (
 						<UserDropdown avatar={session?.user?.image!} />
 					)}
-				</div>
+				</div> */}
 			</Container>
 
 			<MobileNavbar />
