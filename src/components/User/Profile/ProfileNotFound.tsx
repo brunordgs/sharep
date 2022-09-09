@@ -15,7 +15,7 @@ export function ProfileNotFound({ username }: Props) {
 
 				<div>
 					<Text as="span" className="text-[15px]">
-						@{username}
+						{username}
 					</Text>
 				</div>
 
