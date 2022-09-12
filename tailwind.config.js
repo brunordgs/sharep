@@ -14,7 +14,6 @@ module.exports = {
 		},
 		extend: {
 			fontFamily: {
-				'neuehaas': 'Neue Haas Grotesk Display Pro',
 				'inter': 'Inter',
 			},
 		},
