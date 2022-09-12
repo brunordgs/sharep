@@ -35,7 +35,7 @@ export default function Creators() {
 								key={username}
 								href={`/@${username}`}
 								color="unstyled"
-								className="border-b border-zinc-200 last:border-b-0 lg:last:border-b dark:border-zinc-700 p-6 flex justify-between hover:bg-zinc-50 dark:hover:bg-zinc-700 w-full"
+								className="border-t border-zinc-200 first:border-0 dark:border-zinc-700 p-6 flex justify-between hover:bg-zinc-50 dark:hover:bg-zinc-700 w-full h-28"
 							>
 								<div className="flex items-center gap-4">
 									<Avatar src={`https://github.com/${username}.png`} alt={name} />

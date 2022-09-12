@@ -16,7 +16,7 @@ export function ProjectCard({ url, title, description, name, source }: Props) {
 			href={url}
 			isExternal
 			color="unstyled"
-			className="border-t border-zinc-200 first:border-0 dark:border-zinc-700 p-6 flex justify-between hover:bg-zinc-50 dark:hover:bg-zinc-700 w-full"
+			className="border-t border-zinc-200 first:border-0 dark:border-zinc-700 p-6 flex justify-between hover:bg-zinc-50 dark:hover:bg-zinc-700 w-full h-28"
 		>
 			<div className="flex items-center gap-4">
 				<div className="bg-rose-500 h-16 w-16 rounded-md flex items-center justify-center font-bold text-zinc-100 text-2xl">
