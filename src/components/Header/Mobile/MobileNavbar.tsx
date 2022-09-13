@@ -1,6 +1,8 @@
+import { useColorTheme } from '@/hooks/useColorTheme';
+import clsx from 'clsx';
 import { AnimatePresence } from 'framer-motion';
 import Link from 'next/link';
-import { Article, List, PaintBrush, Question, X } from 'phosphor-react';
+import { Article, List, Moon, PaintBrush, Question, Sun, X } from 'phosphor-react';
 import { useState } from 'react';
 import { Dialog } from '../../Dialogs/Dialog';
 import { Button } from '../../ui/Buttons/Button';
@@ -9,6 +11,7 @@ import { MobileItem } from './MobileItem';
 
 export function MobileNavbar() {
 	const [collapse, setCollapse] = useState(false);
+	const { theme, setTheme, nextTheme } = useColorTheme();
 
 	return (
 		<Container className="flex items-center justify-between lg:hidden">
@@ -30,7 +33,12 @@ export function MobileNavbar() {
 			<div className="uppercase font-bold text-zinc-600 dark:text-zinc-200 text-xs flex items-center ml-2 select-none gap-4">
 				<span className="bg-zinc-200 dark:bg-zinc-800 rounded-[4px] p-2">Early preview</span>
 
-				<Button type="button" color="unstyled" className="hover:text-black dark:hover:text-white" onClick={() => setCollapse(!collapse)}>
+				<Button
+					type="button"
+					color="unstyled"
+					className="hover:text-black dark:hover:text-white"
+					onClick={() => setCollapse(!collapse)}
+				>
 					{!collapse ? <List size={24} /> : <X size={24} />}
 				</Button>
 			</div>
@@ -74,6 +82,30 @@ export function MobileNavbar() {
 									About
 								</MobileItem>
 							</Container>
+
+							<div className="grid grid-cols-2 place-items-center gap-x-4 px-4 mt-4">
+								<button
+									className={clsx(
+										theme === 'light' ? 'text-black border-zinc-500' : 'text-zinc-300/40',
+										'border dark:border-zinc-800 rounded-md w-full p-5 flex items-center justify-center gap-2',
+									)}
+									onClick={() => setTheme('light')}
+									title="Update theme"
+								>
+									<Sun weight="bold" size={18} aria-label="Light mode" /> Light
+								</button>
+
+								<button
+									className={clsx(
+										theme === 'dark' ? 'text-white dark:border-zinc-400' : 'text-zinc-700/40',
+										'border dark:border-zinc-800 rounded-md w-full p-5 flex items-center justify-center gap-2',
+									)}
+									onClick={() => setTheme('dark')}
+									title="Update theme"
+								>
+									<Moon weight="bold" size={18} aria-label="Dark mode" /> Dark
+								</button>
+							</div>
 						</nav>
 					</Dialog>
 				)}
