@@ -86,24 +86,24 @@ export function MobileNavbar() {
 							<div className="grid grid-cols-2 place-items-center gap-x-4 px-4 mt-4">
 								<button
 									className={clsx(
-										theme === 'light' ? 'text-black border-zinc-500' : 'text-zinc-300/40',
-										'border dark:border-zinc-800 rounded-md w-full p-5 flex items-center justify-center gap-2',
+										theme === 'light' ? 'text-black border-zinc-300 bg-zinc-200' : 'text-zinc-300/50',
+										'border-2 dark:border-zinc-800 rounded-md w-full p-5 flex items-center justify-center gap-2 font-bold',
 									)}
 									onClick={() => setTheme('light')}
 									title="Update theme"
 								>
-									<Sun weight="bold" size={18} aria-label="Light mode" /> Light
+									<Sun weight="bold" size={20} aria-label="Light mode" /> Light
 								</button>
 
 								<button
 									className={clsx(
-										theme === 'dark' ? 'text-white dark:border-zinc-400' : 'text-zinc-700/40',
-										'border dark:border-zinc-800 rounded-md w-full p-5 flex items-center justify-center gap-2',
+										theme === 'dark' ? 'text-white dark:border-zinc-700 dark:bg-zinc-800' : 'text-zinc-700/60',
+										'border-2 dark:border-zinc-800 rounded-md w-full p-5 flex items-center justify-center gap-2 font-bold',
 									)}
 									onClick={() => setTheme('dark')}
 									title="Update theme"
 								>
-									<Moon weight="bold" size={18} aria-label="Dark mode" /> Dark
+									<Moon weight="bold" size={20} aria-label="Dark mode" /> Dark
 								</button>
 							</div>
 						</nav>

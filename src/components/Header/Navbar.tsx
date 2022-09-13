@@ -79,9 +79,9 @@ export function Navbar() {
 						title="Update theme"
 					>
 						{theme === 'light' || !theme ? (
-							<Moon weight="bold" size={18} aria-label="Dark mode" />
+							<Moon weight="bold" size={20} aria-label="Dark mode" />
 						) : (
-							<Sun weight="bold" aria-label="Light mode" />
+							<Sun weight="bold" size={20} aria-label="Light mode" />
 						)}
 					</button>
 				</div>
