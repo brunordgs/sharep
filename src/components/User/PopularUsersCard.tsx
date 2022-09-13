@@ -1,5 +1,4 @@
 import { VERIFIED_ACCOUNTS } from '@/shared/constants';
-import Image from 'next/image';
 import { CircleWavyCheck } from 'phosphor-react';
 import { Footer } from '../Footer';
 import { Avatar } from '../ui/Avatar';
@@ -36,11 +35,7 @@ export function PopularUsersCard() {
 							className="flex items-center w-full hover:bg-zinc-50 dark:hover:bg-zinc-700 py-2 px-6"
 						>
 							<div className="flex-1 flex items-center gap-2">
-								<Avatar
-									src={`https://github.com/${username}.png`}
-									size="xs"
-									alt={name}
-								/>
+								<Avatar src={`https://github.com/${username}.png`} size="xs" alt={name} />
 
 								<div className="leading-3">
 									<div className="flex items-center gap-1">

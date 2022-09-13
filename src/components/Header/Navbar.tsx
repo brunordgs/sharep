@@ -2,8 +2,7 @@ import { useColorTheme } from '@/hooks/useColorTheme';
 import clsx from 'clsx';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
-import { Article, PaintBrush, Question } from 'phosphor-react';
-import { HiOutlineMoon, HiOutlineSun } from 'react-icons/hi';
+import { Article, Moon, PaintBrush, Question, Sun } from 'phosphor-react';
 import { Container } from '../ui/Container';
 import { MobileNavbar } from './Mobile/MobileNavbar';
 
@@ -80,9 +79,9 @@ export function Navbar() {
 						title="Update theme"
 					>
 						{theme === 'light' || !theme ? (
-							<HiOutlineMoon className="text-lg" aria-label="Dark mode" />
+							<Moon weight="bold" size={18} aria-label="Dark mode" />
 						) : (
-							<HiOutlineSun className="text-lg" aria-label="Light mode" />
+							<Sun weight="bold" aria-label="Light mode" />
 						)}
 					</button>
 				</div>

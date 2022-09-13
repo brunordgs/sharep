@@ -6,7 +6,7 @@ import { Heading } from '@/components/ui/Typography/Heading';
 import projects from '@/data/projects.json';
 import { CREATORS, VERIFIED_ACCOUNTS } from '@/shared/constants';
 import { GithubUser } from '@/shared/interfaces/GithubUser';
-import { FileSearch, PaintBrush } from 'phosphor-react';
+import { PaintBrush } from 'phosphor-react';
 import { FaGithub, FaTwitter } from 'react-icons/fa';
 import { Avatar } from '../../ui/Avatar';
 import { LinkButton } from '../../ui/Buttons/LinkButton';
