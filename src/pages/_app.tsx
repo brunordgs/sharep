@@ -1,5 +1,6 @@
 import { Footer } from '@/components/Footer';
 import { Navbar } from '@/components/Header/Navbar';
+import { ThemeProvider } from '@/context/ThemeContext';
 import '@/styles/globals.css';
 import ProgressBar from '@badrap/bar-of-progress';
 import clsx from 'clsx';
@@ -24,12 +25,14 @@ export default function App({ Component, pageProps: { session, ...pageProps } }:
 
 	return (
 		<SessionProvider session={session}>
-			<Navbar />
-			<Component {...pageProps} />
+			<ThemeProvider>
+				<Navbar />
+				<Component {...pageProps} />
 
-			<div className={clsx({ 'lg:hidden': excludeRoutes.includes(router.pathname) })}>
-				<Footer />
-			</div>
+				<div className={clsx({ 'lg:hidden': excludeRoutes.includes(router.pathname) })}>
+					<Footer />
+				</div>
+			</ThemeProvider>
 		</SessionProvider>
 	);
 }

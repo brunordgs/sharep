@@ -1,12 +1,15 @@
+import { useColorTheme } from '@/hooks/useColorTheme';
 import clsx from 'clsx';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
 import { Article, PaintBrush, Question } from 'phosphor-react';
+import { HiOutlineMoon, HiOutlineSun } from 'react-icons/hi';
 import { Container } from '../ui/Container';
 import { MobileNavbar } from './Mobile/MobileNavbar';
 
 export function Navbar() {
 	const router = useRouter();
+	const { theme, setTheme, nextTheme } = useColorTheme();
 
 	const menuItems = [
 		{
@@ -68,6 +71,20 @@ export function Navbar() {
 
 				<div className="uppercase font-bold text-zinc-600 dark:text-zinc-200 text-xs flex items-end ml-2 select-none">
 					<span className="bg-zinc-200 dark:bg-zinc-800 rounded-[4px] p-2">Early preview</span>
+				</div>
+
+				<div className="border-l border-l-zinc-300 dark:border-l-zinc-700 pl-4 ml-4">
+					<button
+						className="flex items-center gap-2 flex-row-reverse dark:text-slate-400 dark:hover:text-zinc-200 transition-colors duration-300"
+						onClick={() => setTheme(nextTheme)}
+						title="Update theme"
+					>
+						{theme === 'light' || !theme ? (
+							<HiOutlineMoon className="text-lg" aria-label="Dark mode" />
+						) : (
+							<HiOutlineSun className="text-lg" aria-label="Light mode" />
+						)}
+					</button>
 				</div>
 
 				{/* <div className="flex items-center gap-4">
