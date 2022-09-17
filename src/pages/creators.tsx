@@ -1,13 +1,9 @@
-import { Avatar } from '@/components/ui/Avatar';
-import { LinkButton } from '@/components/ui/Buttons/LinkButton';
 import { Card } from '@/components/ui/Card';
 import { Container } from '@/components/ui/Container';
 import { Heading } from '@/components/ui/Typography/Heading';
-import { Text } from '@/components/ui/Typography/Text';
-import { PopularUsersCard } from '@/components/User/PopularUsersCard';
-import { VERIFIED_ACCOUNTS } from '@/shared/constants';
+import { PopularUsersCard } from '@/components/Cards/Users/PopularUsersCard';
+import { CreatorCard } from '@/components/Cards/Creators/CreatorCard';
 import Head from 'next/head';
-import { CircleWavyCheck } from 'phosphor-react';
 
 export default function Creators() {
 	const creators = [
@@ -31,33 +27,7 @@ export default function Creators() {
 				<div className="grid grid-cols-1 lg:grid-cols-6 grid-rows-2 gap-8 mt-6">
 					<Card className="lg:col-span-4 row-span-2" noPadding>
 						{creators.map(({ name, username }) => (
-							<LinkButton
-								key={username}
-								href={`/@${username}`}
-								color="unstyled"
-								className="border-t border-zinc-200 first:border-0 dark:border-zinc-700 p-6 flex justify-between hover:bg-zinc-50 dark:hover:bg-zinc-700 w-full h-28"
-							>
-								<div className="flex items-center gap-4">
-									<Avatar src={`https://github.com/${username}.png`} alt={name} />
-
-									<div>
-										<div className="flex items-center gap-1">
-											<Text weight="bold">{name}</Text>
-											{VERIFIED_ACCOUNTS.includes(username) && (
-												<CircleWavyCheck
-													weight="fill"
-													className="text-indigo-500"
-													aria-label="Verified account"
-												/>
-											)}
-										</div>
-
-										<Text size="sm">@{username}</Text>
-									</div>
-								</div>
-
-								{/* <div>additional stuff</div> */}
-							</LinkButton>
+							<CreatorCard key={username} name={name} username={username} />
 						))}
 					</Card>
 

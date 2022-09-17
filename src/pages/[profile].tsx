@@ -1,6 +1,6 @@
+import { ProfileContent } from '@/components/Profile/ProfileContent';
+import { ProfileNotFound } from '@/components/Profile/ProfileNotFound';
 import { Loading } from '@/components/ui/Loading';
-import { Profile } from '@/components/User/Profile';
-import { ProfileNotFound } from '@/components/User/Profile/ProfileNotFound';
 import { GithubUser } from '@/shared/interfaces/GithubUser';
 import { GetStaticPropsContext } from 'next';
 import Head from 'next/head';
@@ -11,7 +11,7 @@ interface Props {
 	user: GithubUser;
 }
 
-export default function ProfilePage({ user }: Props) {
+export default function Profile({ user }: Props) {
 	const router = useRouter();
 
 	const username = router.query.profile as string;
@@ -35,7 +35,7 @@ export default function ProfilePage({ user }: Props) {
 
 			<main className="max-w-5xl w-full mx-auto mb-10">
 				<Loading loading={router.isFallback} className="my-32">
-					{!userNotFound ? <Profile user={user} /> : <ProfileNotFound username={username} />}
+					{!userNotFound ? <ProfileContent user={user} /> : <ProfileNotFound username={username} />}
 				</Loading>
 			</main>
 		</>

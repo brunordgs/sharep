@@ -1,17 +1,41 @@
+import {
+	Arrow,
+	Content,
+	Portal,
+	Provider,
+	Root,
+	TooltipContentProps,
+	Trigger,
+} from '@radix-ui/react-tooltip';
 import { ComponentPropsWithoutRef } from 'react';
-import ReactTooltip from 'react-tooltip';
 
-export function Tooltip({ children, ...props }: ComponentPropsWithoutRef<'div'>) {
+function TooltipContent({ children, ...props }: TooltipContentProps) {
+	return (
+		<Portal>
+			<Content
+				className="bg-zinc-50 text-zinc-800 dark:bg-zinc-800 dark:text-zinc-200 rounded py-1 px-2 shadow-xl text-xs font-medium"
+				{...props}
+			>
+				{children}
+				<Arrow className="fill-zinc-50 dark:fill-zinc-800" />
+			</Content>
+		</Portal>
+	);
+}
+
+export function Tooltip({
+	children,
+	...props
+}: ComponentPropsWithoutRef<'div'> & { 'data-tip': string }) {
 	return (
 		<>
-			<div {...props}>{children}</div>
-			<ReactTooltip
-				className="!opacity-100 !py-1 !px-2 !text-xs !font-medium !shadow-lg"
-				backgroundColor="#27272a"
-				textColor="#d4d4d8"
-				arrowColor="#27272a"
-				effect="solid"
-			/>
+			<Provider>
+				<Root>
+					<Trigger asChild>{children}</Trigger>
+
+					<TooltipContent sideOffset={5}>{props['data-tip']}</TooltipContent>
+				</Root>
+			</Provider>
 		</>
 	);
 }

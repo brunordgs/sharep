@@ -3,7 +3,7 @@ import clsx from 'clsx';
 import { signOut } from 'next-auth/react';
 import { SignOut } from 'phosphor-react';
 import { Fragment } from 'react';
-import { Avatar } from '../ui/Avatar';
+import { Avatar } from './ui/Avatar';
 
 interface Props {
 	avatar: string;

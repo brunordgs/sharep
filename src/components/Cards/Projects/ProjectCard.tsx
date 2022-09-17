@@ -1,6 +1,6 @@
 import { FaGithub } from 'react-icons/fa';
-import { LinkButton } from '../ui/Buttons/LinkButton';
-import { Text } from '../ui/Typography/Text';
+import { LinkButton } from '../../ui/Buttons/LinkButton';
+import { Text } from '../../ui/Typography/Text';
 
 interface Props {
 	url: string;
@@ -31,7 +31,7 @@ export function ProjectCard({ url, title, description, name, source }: Props) {
 					<Text
 						size="sm"
 						weight="inherit"
-						className="dark:font-light text-zinc-500 dark:text-inherit"
+						className="dark:font-light text-zinc-500 dark:text-inherit truncate max-w-[192px] sm:max-w-full"
 					>
 						{description}
 					</Text>
@@ -41,7 +41,11 @@ export function ProjectCard({ url, title, description, name, source }: Props) {
 						title="Check more on Github"
 					>
 						<FaGithub className="text-sm" />
-						<button type="button" onClick={() => window.open(source, '_blank')}>
+						<button
+							type="button"
+							className="truncate max-w-[192px] sm:max-w-full"
+							onClick={() => window.open(source, '_blank')}
+						>
 							{name}
 						</button>
 					</div>

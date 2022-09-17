@@ -1,5 +1,5 @@
 import { VerifiedAccountDialog } from '@/components/Modals/VerifiedAccountDialog';
-import { ProjectCard } from '@/components/Projects/ProjectCard';
+import { ProjectCard } from '@/components/Cards/Projects/ProjectCard';
 import { Card } from '@/components/ui/Card';
 import { Tooltip } from '@/components/ui/Tooltip';
 import { Heading } from '@/components/ui/Typography/Heading';
@@ -8,15 +8,15 @@ import { CREATORS, VERIFIED_ACCOUNTS } from '@/shared/constants';
 import { GithubUser } from '@/shared/interfaces/GithubUser';
 import { PaintBrush } from 'phosphor-react';
 import { FaGithub, FaTwitter } from 'react-icons/fa';
-import { Avatar } from '../../ui/Avatar';
-import { LinkButton } from '../../ui/Buttons/LinkButton';
-import { Text } from '../../ui/Typography/Text';
+import { Avatar } from '../ui/Avatar';
+import { LinkButton } from '../ui/Buttons/LinkButton';
+import { Text } from '../ui/Typography/Text';
 
 interface Props {
 	user: GithubUser;
 }
 
-export function Profile({ user }: Props) {
+export function ProfileContent({ user }: Props) {
 	const isCreator = CREATORS.includes(user.login);
 
 	return (
@@ -25,14 +25,10 @@ export function Profile({ user }: Props) {
 				{isCreator && (
 					<div className="absolute bottom-2 right-4 flex gap-2 z-30">
 						<Tooltip data-tip="Creator since Sep 08, 2022">
-							<LinkButton
-								href="/creators"
-								color="unstyled"
-								className="bg-gradient-to-r from-pink-700 to-pink-800 shadow-md text-zinc-100 rounded-md py-1 px-2 text-sm italic font-semibold inline-flex items-center gap-2"
-							>
+							<div className="bg-gradient-to-r from-pink-700 to-pink-800 shadow-md text-zinc-100 rounded-md py-1 px-2 text-sm italic font-semibold inline-flex items-center gap-2 select-none">
 								Creator
 								<PaintBrush size={16} />
-							</LinkButton>
+							</div>
 						</Tooltip>
 					</div>
 				)}
@@ -48,11 +44,13 @@ export function Profile({ user }: Props) {
 								href={`https://twitter.com/${user.twitter_username}`}
 								isExternal
 								color="unstyled"
-								fontSize="base"
+								fontSize="sm"
 								className="flex items-center gap-2 hover:text-black dark:hover:text-white"
 							>
-								<FaTwitter />
-								Twitter
+								<FaTwitter className="text-base" />
+								<Text as="span" className="hidden sm:block">
+									Twitter
+								</Text>
 							</LinkButton>
 						)}
 
@@ -64,7 +62,9 @@ export function Profile({ user }: Props) {
 							className="hover:text-black dark:hover:text-white"
 						>
 							<FaGithub className="text-base" />
-							Github
+							<Text as="span" className="hidden sm:block">
+								Github
+							</Text>
 						</LinkButton>
 					</div>
 				</div>

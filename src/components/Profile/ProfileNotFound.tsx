@@ -1,4 +1,4 @@
-import { Text } from '../../ui/Typography/Text';
+import { Text } from '../ui/Typography/Text';
 
 interface Props {
 	username: string;

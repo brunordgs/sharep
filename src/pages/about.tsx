@@ -18,9 +18,13 @@ export default function About() {
 						About Sharep
 					</Heading>
 
-					<Heading as="h2" size="base" weight="normal" className="md:text-xl mt-4">
+					<Heading as="h2" size="base" weight="normal" className="md:text-xl mt-2">
 						Every day, great things are being made!
 					</Heading>
+
+					<Text className="mt-6">
+						Sharep was created to share great and useful projects to our community.
+					</Text>
 				</section>
 
 				<div className="border-b border-zinc-200 dark:border-zinc-800 my-12" />
