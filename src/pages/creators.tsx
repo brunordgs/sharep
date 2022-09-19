@@ -4,15 +4,9 @@ import { Heading } from '@/components/ui/Typography/Heading';
 import { PopularUsersCard } from '@/components/Cards/Users/PopularUsersCard';
 import { CreatorCard } from '@/components/Cards/Creators/CreatorCard';
 import Head from 'next/head';
+import creators from '@/data/creators.json';
 
 export default function Creators() {
-	const creators = [
-		{
-			name: 'Leonardo Vargas',
-			username: 'leovargasdev',
-		},
-	];
-
 	return (
 		<>
 			<Head>
