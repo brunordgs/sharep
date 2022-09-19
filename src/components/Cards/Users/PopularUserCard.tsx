@@ -18,7 +18,7 @@ export function PopularUserCard({ name, username }: UserProfile) {
 
 				<div className="leading-3">
 					<div className="flex items-center gap-1">
-						<Text weight="bold" size="sm" className="truncate w-28 xl:w-full" title={name}>
+						<Text weight="bold" size="sm" className="truncate max-w-[310px]" title={name}>
 							{name}
 						</Text>
 
@@ -35,7 +35,7 @@ export function PopularUserCard({ name, username }: UserProfile) {
 					<Text
 						as="span"
 						size="sm"
-						className="truncate w-28 xl:w-full inline-block"
+						className="truncate max-w-[350px] inline-block"
 						title={`@${username}`}
 					>
 						@{username}
