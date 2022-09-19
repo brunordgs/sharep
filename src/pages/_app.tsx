@@ -4,6 +4,7 @@ import { ThemeProvider } from '@/context/ThemeContext';
 import '@/styles/globals.css';
 import ProgressBar from '@badrap/bar-of-progress';
 import clsx from 'clsx';
+import { Session } from 'next-auth';
 import { SessionProvider } from 'next-auth/react';
 import type { AppProps } from 'next/app';
 import { Router, useRouter } from 'next/router';
@@ -19,7 +20,10 @@ Router.events.on('routeChangeStart', progress.start);
 Router.events.on('routeChangeComplete', progress.finish);
 Router.events.on('routeChangeError', progress.finish);
 
-export default function App({ Component, pageProps: { session, ...pageProps } }: AppProps) {
+export default function App({
+	Component,
+	pageProps: { session, ...pageProps },
+}: AppProps<{ session: Session }>) {
 	const router = useRouter();
 	const excludeRoutes = ['/', '/creators'];
 
