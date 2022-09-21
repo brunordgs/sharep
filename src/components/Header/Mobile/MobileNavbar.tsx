@@ -1,6 +1,6 @@
+import { useTheme } from '@/hooks/useTheme';
 import clsx from 'clsx';
 import { AnimatePresence } from 'framer-motion';
-import { useTheme } from 'next-themes';
 import Link from 'next/link';
 import { Article, List, Moon, PaintBrush, Question, Sun, X } from 'phosphor-react';
 import { useState } from 'react';

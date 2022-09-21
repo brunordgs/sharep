@@ -1,5 +1,5 @@
+import { useTheme } from '@/hooks/useTheme';
 import clsx from 'clsx';
-import { useTheme } from 'next-themes';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
 import { Article, Moon, PaintBrush, Question, Sun } from 'phosphor-react';
@@ -8,7 +8,7 @@ import { MobileNavbar } from './Mobile/MobileNavbar';
 
 export function Navbar() {
 	const router = useRouter();
-	const { theme, setTheme } = useTheme();
+	const { theme, nextTheme, setTheme } = useTheme();
 
 	const menuItems = [
 		{
@@ -75,7 +75,7 @@ export function Navbar() {
 				<div className="border-l border-l-zinc-300 dark:border-l-zinc-700 pl-4 ml-4">
 					<button
 						className="flex items-center gap-2 flex-row-reverse dark:text-slate-400 hover:text-black dark:hover:text-white transition-colors duration-300"
-						onClick={() => setTheme(theme === 'light' ? 'dark' : 'light')}
+						onClick={() => setTheme(nextTheme)}
 						title="Update theme"
 					>
 						{theme === 'light' || !theme ? (

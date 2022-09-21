@@ -1,11 +1,11 @@
 import { Footer } from '@/components/Footer';
 import { Navbar } from '@/components/Header/Navbar';
+import { ThemeProvider } from '@/contexts/ThemeContext';
 import '@/styles/globals.css';
 import ProgressBar from '@badrap/bar-of-progress';
 import clsx from 'clsx';
 import { Session } from 'next-auth';
 import { SessionProvider } from 'next-auth/react';
-import { ThemeProvider } from 'next-themes';
 import type { AppProps } from 'next/app';
 import { Router, useRouter } from 'next/router';
 
@@ -29,7 +29,7 @@ export default function App({
 
 	return (
 		<SessionProvider session={session}>
-			<ThemeProvider attribute="class">
+			<ThemeProvider>
 				<Navbar />
 				<Component {...pageProps} />
 
