@@ -2,6 +2,8 @@ import { ProfileContent } from '@/components/Profile/ProfileContent';
 import { ProfileNotFound } from '@/components/Profile/ProfileNotFound';
 import { Loading } from '@/components/ui/Loading';
 import { GithubUser } from '@/shared/interfaces/GithubUser';
+import { UserProfile } from '@/shared/interfaces/UserProfile';
+import { supabase } from '@/utils/supabaseClient';
 import { GetStaticPropsContext } from 'next';
 import Head from 'next/head';
 import { useRouter } from 'next/router';
@@ -42,10 +44,12 @@ export default function Profile({ user }: Props) {
 	);
 }
 
-export function getStaticPaths() {
-	const users = ['brunordgs', 'leovargasdev'];
+export async function getStaticPaths() {
+	const usersResponse = await supabase.from('users').select('*');
+	const users = usersResponse.data as UserProfile[];
+	const usernames = users.map((user) => user.username);
 
-	const paths = users.map((user) => ({
+	const paths = usernames.map((user) => ({
 		params: {
 			profile: '@' + user,
 		},
@@ -59,10 +63,12 @@ export function getStaticPaths() {
 
 export async function getStaticProps({ params }: GetStaticPropsContext) {
 	const username = params!.profile!.toString();
-	const users = ['brunordgs', 'leovargasdev']; // Mock users
+	const usersResponse = await supabase.from('users').select('*');
+	const users = usersResponse.data as UserProfile[];
+	const usernames = users.map((user) => user.username);
 
 	// Prevent api request if username doesn't have @ as first character and only request provided users
-	if (username.charAt(0) !== '@' || !users.includes(username.replace('@', ''))) {
+	if (username.charAt(0) !== '@' || !usernames.includes(username.replace('@', ''))) {
 		return {
 			props: {},
 		};

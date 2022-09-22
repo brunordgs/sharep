@@ -74,7 +74,7 @@ export function Navbar() {
 
 				<div className="border-l border-l-zinc-300 dark:border-l-zinc-700 pl-4 ml-4">
 					<button
-						className="flex items-center gap-2 flex-row-reverse dark:text-slate-400 hover:text-black dark:hover:text-white transition-colors duration-300"
+						className="flex items-center gap-2 flex-row-reverse dark:text-zinc-400 hover:text-black dark:hover:text-white transition-colors duration-300"
 						onClick={() => setTheme(nextTheme)}
 						title="Update theme"
 					>

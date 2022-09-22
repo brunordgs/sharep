@@ -2,10 +2,10 @@ import { Avatar } from '@/components/ui/Avatar';
 import { LinkButton } from '@/components/ui/Buttons/LinkButton';
 import { Text } from '@/components/ui/Typography/Text';
 import { VERIFIED_ACCOUNTS } from '@/shared/constants';
-import { UserProfile } from '@/shared/interfaces/UserProfile';
+import { ShortUser } from '@/shared/interfaces/ShortUser';
 import { CircleWavyCheck } from 'phosphor-react';
 
-export function CreatorCard({ name, username }: UserProfile) {
+export function CreatorCard({ name, username }: ShortUser) {
 	return (
 		<LinkButton
 			key={username}
