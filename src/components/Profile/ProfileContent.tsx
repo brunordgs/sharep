@@ -7,7 +7,8 @@ import projects from '@/data/projects.json';
 import { Creator } from '@/shared/interfaces/Creator';
 import { UserProfile } from '@/shared/interfaces/UserProfile';
 import { formatDate } from '@/utils/formats';
-import { PaintBrush } from 'phosphor-react';
+import { useSession } from 'next-auth/react';
+import { PaintBrush, Pencil } from 'phosphor-react';
 import { FaGithub, FaTwitter } from 'react-icons/fa';
 import { Avatar } from '../ui/Avatar';
 import { LinkButton } from '../ui/Buttons/LinkButton';
@@ -19,6 +20,7 @@ interface Props extends UserProfile {
 
 export function ProfileContent({
 	name,
+	email,
 	username,
 	avatar_url: avatarUrl,
 	twitter,
@@ -26,7 +28,7 @@ export function ProfileContent({
 	is_verified: isVerified,
 	creator,
 }: Props) {
-	console.log(creator);
+	const { data: session } = useSession();
 
 	return (
 		<>
@@ -47,34 +49,48 @@ export function ProfileContent({
 				<div className="flex items-end">
 					<Avatar src={avatarUrl} size="md" hasBorder />
 
-					<div className="m-6 flex items-center gap-6">
-						{twitter && (
+					<div className="flex flex-1 items-center justify-between">
+						<div className="m-6 flex items-center gap-6">
+							{twitter && (
+								<LinkButton
+									href={`https://twitter.com/${twitter}`}
+									isExternal
+									color="unstyled"
+									fontSize="sm"
+									className="flex items-center gap-2 hover:text-black dark:hover:text-white"
+								>
+									<FaTwitter className="text-base" />
+									<Text as="span" className="hidden sm:block">
+										Twitter
+									</Text>
+								</LinkButton>
+							)}
+
 							<LinkButton
-								href={`https://twitter.com/${twitter}`}
+								href={`https://github.com/${username}`}
 								isExternal
 								color="unstyled"
 								fontSize="sm"
-								className="flex items-center gap-2 hover:text-black dark:hover:text-white"
+								className="hover:text-black dark:hover:text-white"
 							>
-								<FaTwitter className="text-base" />
+								<FaGithub className="text-base" />
 								<Text as="span" className="hidden sm:block">
-									Twitter
+									Github
 								</Text>
 							</LinkButton>
-						)}
+						</div>
 
-						<LinkButton
-							href={`https://github.com/${username}`}
-							isExternal
-							color="unstyled"
-							fontSize="sm"
-							className="hover:text-black dark:hover:text-white"
-						>
-							<FaGithub className="text-base" />
-							<Text as="span" className="hidden sm:block">
-								Github
-							</Text>
-						</LinkButton>
+						{session?.user?.email === email && (
+							<LinkButton
+								href="/settings/account"
+								color="unstyled"
+								className="bg-zinc-200/60 hover:bg-zinc-200 hover:text-black hover:dark:text-white dark:bg-zinc-800 dark:hover:bg-zinc-700 p-2 rounded-full"
+								aria-label="Edit profile"
+								title="Edit profile"
+							>
+								<Pencil size={16} />
+							</LinkButton>
+						)}
 					</div>
 				</div>
 
