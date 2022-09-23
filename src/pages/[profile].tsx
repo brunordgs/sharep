@@ -97,6 +97,6 @@ export async function getStaticProps({ params }: GetStaticPropsContext) {
 			user: userData[0],
 			creator: creatorData?.[0] ?? null,
 		},
-		revalidate: 60 * 5, // 5 min
+		revalidate: 10,
 	};
 }
