@@ -1,12 +1,16 @@
 import { useTheme } from '@/hooks/useTheme';
 import clsx from 'clsx';
+import { signIn, useSession } from 'next-auth/react';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
-import { Article, Moon, PaintBrush, Question, Sun } from 'phosphor-react';
+import { Article, MagnifyingGlass, Moon, PaintBrush, Question, Sun } from 'phosphor-react';
+import { Button } from '../ui/Buttons/Button';
 import { Container } from '../ui/Container';
+import { UserDropdown } from '../UserDropdown';
 import { MobileNavbar } from './Mobile/MobileNavbar';
 
 export function Navbar() {
+	const { data: session } = useSession();
 	const router = useRouter();
 	const { theme, nextTheme, setTheme } = useTheme();
 
@@ -68,31 +72,13 @@ export function Navbar() {
 					</nav>
 				</div>
 
-				<div className="uppercase font-bold text-zinc-600 dark:text-zinc-200 text-xs flex items-end ml-2 select-none">
-					<span className="bg-zinc-200 dark:bg-zinc-800 rounded-[4px] p-2">Early preview</span>
-				</div>
-
-				<div className="border-l border-l-zinc-300 dark:border-l-zinc-700 pl-4 ml-4">
-					<button
-						className="flex items-center gap-2 flex-row-reverse dark:text-zinc-400 hover:text-black dark:hover:text-white transition-colors duration-300"
-						onClick={() => setTheme(nextTheme)}
-						title="Update theme"
-					>
-						{theme === 'light' || !theme ? (
-							<Moon weight="bold" size={20} aria-label="Dark mode" />
-						) : (
-							<Sun weight="bold" size={20} aria-label="Light mode" />
-						)}
-					</button>
-				</div>
-
-				{/* <div className="flex items-center gap-4">
-					<div className="flex items-center h-10 w-56 bg-zinc-200 dark:bg-zinc-700 gap-2 px-4 rounded-md">
-						<MagnifyingGlass weight="bold" size={24} className="text-zinc-600 dark:text-zinc-500" />
+				<div className="flex items-center gap-4">
+					<div className="flex items-center h-10 w-56 bg-zinc-200 dark:bg-zinc-700 gap-2 px-3 rounded-md">
+						<MagnifyingGlass weight="bold" size={20} className="text-zinc-600 dark:text-zinc-500" />
 
 						<input
 							type="text"
-							className="bg-zinc-200 dark:bg-zinc-700 px-2 w-full h-full focus:outline-none placeholder:text-zinc-400 dark:placeholder:text-zinc-500"
+							className="bg-zinc-200 dark:bg-zinc-700 w-full h-full focus:outline-none placeholder:text-zinc-400 dark:placeholder:text-zinc-500 text-sm"
 							placeholder="Search..."
 						/>
 					</div>
@@ -104,7 +90,7 @@ export function Navbar() {
 					) : (
 						<UserDropdown avatar={session?.user?.image!} />
 					)}
-				</div> */}
+				</div>
 			</Container>
 
 			<MobileNavbar />

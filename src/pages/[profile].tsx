@@ -1,7 +1,7 @@
 import { ProfileContent } from '@/components/Profile/ProfileContent';
 import { ProfileNotFound } from '@/components/Profile/ProfileNotFound';
 import { Loading } from '@/components/ui/Loading';
-import { GithubUser } from '@/shared/interfaces/GithubUser';
+import { Creator } from '@/shared/interfaces/Creator';
 import { UserProfile } from '@/shared/interfaces/UserProfile';
 import { supabase } from '@/utils/supabaseClient';
 import { GetStaticPropsContext } from 'next';
@@ -10,10 +10,11 @@ import { useRouter } from 'next/router';
 import { useEffect } from 'react';
 
 interface Props {
-	user: GithubUser;
+	user: UserProfile;
+	creator: Creator;
 }
 
-export default function Profile({ user }: Props) {
+export default function Profile({ user, creator }: Props) {
 	const router = useRouter();
 
 	const username = router.query.profile as string;
@@ -31,13 +32,17 @@ export default function Profile({ user }: Props) {
 		<>
 			<Head>
 				<title>
-					{!userNotFound ? `${user.name ?? ''} (@${user.login}) | sharep` : 'Profile | sharep'}
+					{!userNotFound ? `${user.name ?? ''} (@${user.username}) | sharep` : 'Profile | sharep'}
 				</title>
 			</Head>
 
 			<main className="max-w-5xl w-full mx-auto mb-10">
 				<Loading loading={router.isFallback} className="my-32">
-					{!userNotFound ? <ProfileContent user={user} /> : <ProfileNotFound username={username} />}
+					{!userNotFound ? (
+						<ProfileContent creator={creator} {...user} />
+					) : (
+						<ProfileNotFound username={username} />
+					)}
 				</Loading>
 			</main>
 		</>
@@ -47,7 +52,7 @@ export default function Profile({ user }: Props) {
 export async function getStaticPaths() {
 	const usersResponse = await supabase.from('users').select('*');
 	const users = usersResponse.data as UserProfile[];
-	const usernames = users.map((user) => user.username);
+	const usernames = users.map(({ username }) => username);
 
 	const paths = usernames.map((user) => ({
 		params: {
@@ -63,21 +68,23 @@ export async function getStaticPaths() {
 
 export async function getStaticProps({ params }: GetStaticPropsContext) {
 	const username = params!.profile!.toString();
-	const usersResponse = await supabase.from('users').select('*');
-	const users = usersResponse.data as UserProfile[];
-	const usernames = users.map((user) => user.username);
 
-	// Prevent api request if username doesn't have @ as first character and only request provided users
-	if (username.charAt(0) !== '@' || !usernames.includes(username.replace('@', ''))) {
+	// Prevent api request if username doesn't have @ as first character
+	if (username.charAt(0) !== '@') {
 		return {
 			props: {},
 		};
 	}
 
-	const res = await fetch(`https://api.github.com/users/${username.replace('@', '')}`);
-	const data = await res.json();
+	const users = supabase.from('users').select('*').eq('username', username.replace('@', ''));
+	const creators = supabase.from('creators').select('*').eq('username', username.replace('@', ''));
 
-	if (!data || data?.message?.toLowerCase() === 'not found') {
+	const [{ data: userData, error: userError }, { data: creatorData }] = await Promise.all([
+		users,
+		creators,
+	]);
+
+	if (userError || !userData?.length) {
 		return {
 			props: {
 				user: null,
@@ -87,8 +94,9 @@ export async function getStaticProps({ params }: GetStaticPropsContext) {
 
 	return {
 		props: {
-			user: data,
+			user: userData[0],
+			creator: creatorData?.[0] ?? null,
 		},
-		revalidate: 60 * 60 * 24, // 24 hours
+		revalidate: 60 * 60, // 1 hour
 	};
 }

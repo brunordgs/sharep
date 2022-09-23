@@ -20,10 +20,11 @@ export default function Creators() {
 			if (res.data) {
 				setCreators(res.data);
 			}
+
+			setLoading(false);
 		}
 
 		initializeAsync();
-		setLoading(false);
 	}, []);
 
 	return (
@@ -38,10 +39,15 @@ export default function Creators() {
 				</Heading>
 
 				<div className="grid grid-cols-1 lg:grid-cols-6 grid-rows-2 gap-8 mt-6">
-					<Card className="lg:col-span-4 row-span-2" noPadding>
-						<Loading loading={loading} className="flex justify-center items-center h-full">
-							{creators.map(({ name, username }) => (
-								<CreatorCard key={username} name={name} username={username} />
+					<Card className="lg:col-span-4 row-span-2 min-h-[112px] lg:min-h-[496px]" noPadding>
+						<Loading loading={loading}>
+							{creators.map(({ name, username, is_verified: isVerified }) => (
+								<CreatorCard
+									key={username}
+									name={name}
+									username={username}
+									isVerified={isVerified}
+								/>
 							))}
 						</Loading>
 					</Card>

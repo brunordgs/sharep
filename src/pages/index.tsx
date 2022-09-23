@@ -22,7 +22,7 @@ export default function Home() {
 				</Heading>
 
 				<div className="grid grid-cols-1 lg:grid-cols-6 grid-rows-2 gap-8 mt-6">
-					<Card className="lg:col-span-4 row-span-2" noPadding>
+					<Card className="lg:col-span-4 row-span-2 min-h-[112px] lg:min-h-[496px]" noPadding>
 						{projects.length ? (
 							projects.map(({ url, ...rest }) => <ProjectCard key={url} url={url} {...rest} />)
 						) : (

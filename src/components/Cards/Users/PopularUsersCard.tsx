@@ -18,26 +18,32 @@ export function PopularUsersCard() {
 			if (res.data) {
 				setUsers(res.data);
 			}
+
+			setLoading(false);
 		}
 
 		initializeAsync();
-		setLoading(false);
 	}, []);
 
 	return (
 		<div className="hidden lg:block col-span-2">
 			<Card className="mb-2 py-6" noPadding>
-				<aside>
-					<Loading loading={loading}>
-					<Heading as="h2" transform="italic" className="text-xl mb-4 px-6">
-						Popular users
-					</Heading>
+				<Loading loading={loading}>
+					<aside>
+						<Heading as="h2" transform="italic" className="text-xl mb-4 px-6">
+							Popular users
+						</Heading>
 
-					{users.map(({ name, username }) => (
-						<PopularUserCard key={username} name={name} username={username} />
-					))}
-					</Loading>
-				</aside>
+						{users.map(({ name, username, is_verified: isVerified }) => (
+							<PopularUserCard
+								key={username}
+								name={name}
+								username={username}
+								isVerified={isVerified}
+							/>
+						))}
+					</aside>
+				</Loading>
 			</Card>
 
 			<Footer />

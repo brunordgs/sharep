@@ -16,7 +16,7 @@ export const BUTTON_COLORS = {
 	primary: {
 		base: 'bg-rose-600 dark:bg-rose-500 text-zinc-100 hover:text-white border border-rose-500 dark:border-rose-600 hover:border-rose-400 dark:hover:border-rose-400 leading-5 font-medium focus:outline-none rounded-md shadow-md',
 		outlined:
-			'bg-transparent text-rose-600 dark:text-rose-600 hover:text-rose-700 dark:hover:text-rose-500 border border-rose-400 dark:border-rose-600 hover:border-rose-400 dark:hover:border-rose-500 leading-5 font-medium focus:outline-none rounded-md shadow-md',
+			'bg-transparent text-rose-600 dark:text-rose-500 hover:text-rose-700 dark:hover:text-rose-400 border border-rose-400 dark:border-rose-500 hover:border-rose-400 dark:hover:border-rose-400 leading-5 font-medium focus:outline-none rounded-md shadow-md',
 	},
 	unstyled: {
 		base: '',

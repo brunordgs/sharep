@@ -1,11 +1,15 @@
 import { Avatar } from '@/components/ui/Avatar';
 import { LinkButton } from '@/components/ui/Buttons/LinkButton';
 import { Text } from '@/components/ui/Typography/Text';
-import { VERIFIED_ACCOUNTS } from '@/shared/constants';
-import { ShortUser } from '@/shared/interfaces/ShortUser';
 import { CircleWavyCheck } from 'phosphor-react';
 
-export function PopularUserCard({ name, username }: ShortUser) {
+interface Props {
+	name: string;
+	username: string;
+	isVerified: boolean;
+}
+
+export function PopularUserCard({ name, username, isVerified }: Props) {
 	return (
 		<LinkButton
 			key={username}
@@ -22,7 +26,7 @@ export function PopularUserCard({ name, username }: ShortUser) {
 							{name}
 						</Text>
 
-						{VERIFIED_ACCOUNTS.includes(username) && (
+						{isVerified && (
 							<CircleWavyCheck
 								weight="fill"
 								size={16}
