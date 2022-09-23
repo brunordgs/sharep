@@ -1,8 +1,8 @@
-import { useTheme } from '@/hooks/useTheme';
-import clsx from 'clsx';
+import { UserDropdown } from '@/components/UserDropdown';
 import { AnimatePresence } from 'framer-motion';
+import { signIn, useSession } from 'next-auth/react';
 import Link from 'next/link';
-import { Article, List, Moon, PaintBrush, Question, Sun, X } from 'phosphor-react';
+import { Article, List, MagnifyingGlass, PaintBrush, Question, X } from 'phosphor-react';
 import { useState } from 'react';
 import { Dialog } from '../../Dialogs/Dialog';
 import { Button } from '../../ui/Buttons/Button';
@@ -10,8 +10,8 @@ import { Container } from '../../ui/Container';
 import { MobileItem } from './MobileItem';
 
 export function MobileNavbar() {
+	const { data: session } = useSession();
 	const [collapse, setCollapse] = useState(false);
-	const { theme, setTheme } = useTheme();
 
 	return (
 		<Container className="flex items-center justify-between lg:hidden">
@@ -30,9 +30,7 @@ export function MobileNavbar() {
 				</nav>
 			</div>
 
-			<div className="uppercase font-bold text-zinc-600 dark:text-zinc-200 text-xs flex items-center ml-2 select-none gap-4">
-				<span className="bg-zinc-200 dark:bg-zinc-800 rounded-[4px] p-2">Early preview</span>
-
+			<div className="flex items-center gap-4">
 				<Button
 					type="button"
 					color="unstyled"
@@ -41,9 +39,7 @@ export function MobileNavbar() {
 				>
 					{!collapse ? <List size={24} /> : <X size={24} />}
 				</Button>
-			</div>
 
-			{/* <div className="flex items-center gap-4">
 				{!session ? (
 					<Button variant="outlined" onClick={() => signIn('github')}>
 						Sign in
@@ -51,11 +47,7 @@ export function MobileNavbar() {
 				) : (
 					<UserDropdown avatar={session?.user?.image!} />
 				)}
-
-				<Button type="button" color="unstyled">
-					<List size={24} />
-				</Button>
-			</div> */}
+			</div>
 
 			{/* Mobile navbar content */}
 			<AnimatePresence>
@@ -65,6 +57,22 @@ export function MobileNavbar() {
 						onCollapse={setCollapse}
 						className="fixed top-[73px] right-0 bottom-0 left-0 bg-zinc-100 dark:bg-zinc-900 lg:hidden z-50"
 					>
+						<Container className="flex justify-center mt-6 mb-2">
+							<div className="flex items-center h-10 w-full bg-zinc-200 dark:bg-zinc-700 gap-2 px-3 rounded-md">
+								<MagnifyingGlass
+									weight="bold"
+									size={20}
+									className="text-zinc-600 dark:text-zinc-500"
+								/>
+
+								<input
+									type="text"
+									className="bg-zinc-200 dark:bg-zinc-700 w-full h-full focus:outline-none placeholder:text-zinc-400 dark:placeholder:text-zinc-500 text-sm"
+									placeholder="Search..."
+								/>
+							</div>
+						</Container>
+
 						<nav>
 							<Container>
 								<MobileItem href="/" onClick={() => setCollapse(false)}>
@@ -82,34 +90,6 @@ export function MobileNavbar() {
 									About
 								</MobileItem>
 							</Container>
-
-							<div className="grid grid-cols-2 place-items-center gap-x-4 px-4 mt-4">
-								<button
-									className={clsx(
-										theme === 'light'
-											? 'text-black border-zinc-300 bg-zinc-200'
-											: 'text-zinc-300/50',
-										'border-2 dark:border-zinc-800 rounded-md w-full p-5 flex items-center justify-center gap-2 font-bold',
-									)}
-									onClick={() => setTheme('light')}
-									title="Update theme"
-								>
-									<Sun weight="bold" size={20} aria-label="Light mode" /> Light
-								</button>
-
-								<button
-									className={clsx(
-										theme === 'dark'
-											? 'text-white dark:border-zinc-700 dark:bg-zinc-800'
-											: 'text-zinc-700/60',
-										'border-2 dark:border-zinc-800 rounded-md w-full p-5 flex items-center justify-center gap-2 font-bold',
-									)}
-									onClick={() => setTheme('dark')}
-									title="Update theme"
-								>
-									<Moon weight="bold" size={20} aria-label="Dark mode" /> Dark
-								</button>
-							</div>
 						</nav>
 					</Dialog>
 				)}

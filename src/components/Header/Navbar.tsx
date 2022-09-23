@@ -1,9 +1,8 @@
-import { useTheme } from '@/hooks/useTheme';
 import clsx from 'clsx';
 import { signIn, useSession } from 'next-auth/react';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
-import { Article, MagnifyingGlass, Moon, PaintBrush, Question, Sun } from 'phosphor-react';
+import { Article, MagnifyingGlass, PaintBrush, Question } from 'phosphor-react';
 import { Button } from '../ui/Buttons/Button';
 import { Container } from '../ui/Container';
 import { UserDropdown } from '../UserDropdown';
@@ -12,7 +11,6 @@ import { MobileNavbar } from './Mobile/MobileNavbar';
 export function Navbar() {
 	const { data: session } = useSession();
 	const router = useRouter();
-	const { theme, nextTheme, setTheme } = useTheme();
 
 	const menuItems = [
 		{
