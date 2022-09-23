@@ -3,7 +3,7 @@ import { ProjectCard } from '@/components/Cards/Projects/ProjectCard';
 import { Card } from '@/components/ui/Card';
 import { Container } from '@/components/ui/Container';
 import { Heading } from '@/components/ui/Typography/Heading';
-import { PopularUsersCard } from '@/components/Cards/Users/PopularUsersCard';
+import { FeaturedUsersCard } from '@/components/Cards/Users/FeaturedUsersCard';
 import projects from '@/data/projects.json';
 import Head from 'next/head';
 import { CaretDown } from 'phosphor-react';
@@ -30,7 +30,7 @@ export default function Home() {
 						)}
 					</Card>
 
-					<PopularUsersCard />
+					<FeaturedUsersCard />
 				</div>
 			</Container>
 		</>

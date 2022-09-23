@@ -9,7 +9,7 @@ interface Props {
 	isVerified: boolean;
 }
 
-export function PopularUserCard({ name, username, isVerified }: Props) {
+export function FeaturedUserCard({ name, username, isVerified }: Props) {
 	return (
 		<LinkButton
 			key={username}

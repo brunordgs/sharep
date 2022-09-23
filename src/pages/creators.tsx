@@ -1,7 +1,7 @@
 import { Card } from '@/components/ui/Card';
 import { Container } from '@/components/ui/Container';
 import { Heading } from '@/components/ui/Typography/Heading';
-import { PopularUsersCard } from '@/components/Cards/Users/PopularUsersCard';
+import { FeaturedUsersCard } from '@/components/Cards/Users/FeaturedUsersCard';
 import { CreatorCard } from '@/components/Cards/Creators/CreatorCard';
 import Head from 'next/head';
 import { useEffect, useState } from 'react';
@@ -52,7 +52,7 @@ export default function Creators() {
 						</Loading>
 					</Card>
 
-					<PopularUsersCard />
+					<FeaturedUsersCard />
 				</div>
 			</Container>
 		</>
