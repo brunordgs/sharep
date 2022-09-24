@@ -1,9 +1,9 @@
 import { NoProjectFound } from '@/components/Cards/Projects/NoProjectFound';
 import { ProjectCard } from '@/components/Cards/Projects/ProjectCard';
+import { FeaturedUsersCard } from '@/components/Cards/Users/FeaturedUsersCard';
 import { Card } from '@/components/ui/Card';
 import { Container } from '@/components/ui/Container';
 import { Heading } from '@/components/ui/Typography/Heading';
-import { FeaturedUsersCard } from '@/components/Cards/Users/FeaturedUsersCard';
 import projects from '@/data/projects.json';
 import Head from 'next/head';
 import { CaretDown } from 'phosphor-react';

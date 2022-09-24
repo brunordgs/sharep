@@ -12,13 +12,16 @@ export default function About() {
 				<title>About | sharep</title>
 			</Head>
 
-			<Container className="my-10 text-center">
+			<Container className="my-6 text-center">
 				<section className="flex flex-col items-center">
 					<Heading size="lg" transform="italic" className="md:text-4xl">
-						About Sharep
+						About{' '}
+						<Text as="span" size="inherit" className="text-rose-600 dark:text-rose-500 select-none">
+							sharep
+						</Text>
 					</Heading>
 
-					<Heading as="h2" size="base" weight="normal" className="md:text-xl mt-2">
+					<Heading as="h2" size="base" weight="bold" className="md:text-xl mt-2">
 						Every day, great things are being made!
 					</Heading>
 

@@ -55,7 +55,7 @@ export function Button({
 					'px-2 py-1': size === 'small',
 					'': size === 'custom',
 				},
-				`flex items-center justify-center transition-all duration-150`,
+				`flex items-center justify-center transition-all duration-150 ease-out`,
 				className,
 			)}
 			aria-label={props.title}

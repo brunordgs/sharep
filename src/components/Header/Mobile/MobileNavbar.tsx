@@ -18,7 +18,7 @@ export function MobileNavbar() {
 			<div className="flex-1">
 				<nav className="flex">
 					<Link href="/">
-						<a className="text-2xl italic font-bold text-rose-600 dark:text-rose-500 hover:text-rose-500 dark:hover:text-rose-600 transition-colors duration-150">
+						<a className="text-2xl italic font-bold text-rose-600 dark:text-rose-500 hover:text-rose-500 dark:hover:text-rose-600 transition-colors duration-150 ease-out">
 							sharep
 						</a>
 					</Link>
@@ -55,7 +55,7 @@ export function MobileNavbar() {
 					<Dialog
 						collapse={collapse}
 						onCollapse={setCollapse}
-						className="fixed top-[73px] right-0 bottom-0 left-0 bg-zinc-100 dark:bg-zinc-900 lg:hidden z-50"
+						className="fixed top-[81px] right-0 bottom-0 left-0 bg-zinc-100 dark:bg-zinc-900 lg:hidden z-50"
 					>
 						<Container className="flex justify-center mt-6 mb-2">
 							<div className="flex items-center h-10 w-full bg-zinc-200 dark:bg-zinc-700 gap-2 px-3 rounded-md">
