@@ -31,7 +31,9 @@ export default function SettingsAccount() {
 							<Heading as="h2" transform="italic" size="sm">
 								Profile settings
 							</Heading>
-							<Text size="sm" className="text-zinc-400">Change identifying details for you account</Text>
+							<Text size="sm" className="text-zinc-400">
+								Change identifying details for you account
+							</Text>
 						</header>
 
 						<div className="mt-8 space-y-6">
@@ -41,7 +43,7 @@ export default function SettingsAccount() {
 								</label>
 
 								<div className="flex items-center bg-zinc-100 dark:bg-zinc-700 rounded-md">
-									<div className="text-zinc-400 dark:text-zinc-300 text-sm bg-zinc-200 dark:bg-zinc-700 h-10 flex items-center px-2 rounded-tl-md rounded-bl-md select-none">
+									<div className="text-zinc-500 dark:text-zinc-300 text-sm bg-zinc-200 dark:bg-zinc-700 h-10 flex items-center px-2 rounded-tl-md rounded-bl-md select-none">
 										sharep.com/@
 									</div>
 									<input

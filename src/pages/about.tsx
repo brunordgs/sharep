@@ -1,6 +1,6 @@
 import { Avatar } from '@/components/ui/Avatar';
-import { Container } from '@/components/ui/Container';
 import { LinkButton } from '@/components/ui/Buttons/LinkButton';
+import { Container } from '@/components/ui/Container';
 import { Heading } from '@/components/ui/Typography/Heading';
 import { Text } from '@/components/ui/Typography/Text';
 import Head from 'next/head';
@@ -15,10 +15,7 @@ export default function About() {
 			<Container className="my-6 text-center">
 				<section className="flex flex-col items-center">
 					<Heading size="lg" transform="italic" className="md:text-4xl">
-						About{' '}
-						<Text as="span" size="inherit" className="text-rose-600 dark:text-rose-500 select-none">
-							sharep
-						</Text>
+						About Sharep
 					</Heading>
 
 					<Heading as="h2" size="base" weight="bold" className="md:text-xl mt-2">
