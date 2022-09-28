@@ -20,7 +20,6 @@ interface Props extends UserProfile {
 
 export function ProfileContent({
 	name,
-	email,
 	username,
 	avatar_url: avatarUrl,
 	twitter,
@@ -80,7 +79,7 @@ export function ProfileContent({
 							</LinkButton>
 						</div>
 
-						{auth?.user?.email === email && (
+						{auth?.user?.username === username && (
 							<LinkButton
 								href="/settings/account"
 								color="unstyled"
