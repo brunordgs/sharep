@@ -8,6 +8,7 @@ import { useEffect, useState } from 'react';
 import { supabase } from '@/services/supabaseClient';
 import { Loading } from '@/components/ui/Loading';
 import { ShortUser } from '@/shared/interfaces/ShortUser';
+import { NoCreatorFound } from '@/components/Cards/Creators/NoCreatorFound';
 
 export default function Creators() {
 	const [creators, setCreators] = useState<ShortUser[]>([]);
@@ -41,14 +42,18 @@ export default function Creators() {
 				<div className="grid grid-cols-1 lg:grid-cols-6 grid-rows-2 gap-8 mt-6">
 					<Card className="lg:col-span-4 row-span-2 min-h-[112px] lg:min-h-[496px]" noPadding>
 						<Loading loading={loading}>
-							{creators.map(({ name, username, is_verified: isVerified }) => (
-								<CreatorCard
-									key={username}
-									name={name}
-									username={username}
-									isVerified={isVerified}
-								/>
-							))}
+							{creators.length ? (
+								creators.map(({ name, username, is_verified: isVerified }) => (
+									<CreatorCard
+										key={username}
+										name={name}
+										username={username}
+										isVerified={isVerified}
+									/>
+								))
+							) : (
+								<NoCreatorFound />
+							)}
 						</Loading>
 					</Card>
 

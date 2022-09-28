@@ -6,6 +6,7 @@ import { Footer } from '../../Footer';
 import { Card } from '../../ui/Card';
 import { Heading } from '../../ui/Typography/Heading';
 import { RecentUserCard } from './RecentUserCard';
+import { Text } from '@/components/ui/Typography/Text';
 
 export function RecentUsersCard() {
 	const [users, setUsers] = useState<ShortUser[]>([]);
@@ -34,14 +35,20 @@ export function RecentUsersCard() {
 							Recent users
 						</Heading>
 
-						{users.map(({ name, username, is_verified: isVerified }) => (
-							<RecentUserCard
-								key={username}
-								name={name}
-								username={username}
-								isVerified={isVerified}
-							/>
-						))}
+						{users.length ? (
+							users.map(({ name, username, is_verified: isVerified }) => (
+								<RecentUserCard
+									key={username}
+									name={name}
+									username={username}
+									isVerified={isVerified}
+								/>
+							))
+						) : (
+							<Text size="sm" className="px-6 text-zinc-400">
+								There is no recent users yet.
+							</Text>
+						)}
 					</aside>
 				</Loading>
 			</Card>
