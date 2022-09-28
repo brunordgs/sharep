@@ -17,7 +17,13 @@ export function RecentUsersCard() {
 			const res = await supabase.from('users').select();
 
 			if (res.data) {
-				setUsers([...res.data].slice(0, 4));
+				const shuffledUsers = res.data
+					.map((value) => ({ value, sort: Math.random() }))
+					.sort((a, b) => a.sort - b.sort)
+					.slice(0, 4)
+					.map(({ value }) => value);
+
+				setUsers(shuffledUsers);
 			}
 
 			setLoading(false);
