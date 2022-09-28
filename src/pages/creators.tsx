@@ -1,14 +1,14 @@
+import { CreatorCard } from '@/components/Cards/Creators/CreatorCard';
+import { NoCreatorFound } from '@/components/Cards/Creators/NoCreatorFound';
+import { RecentUsersCard } from '@/components/Cards/Users/RecentUsersCard';
 import { Card } from '@/components/ui/Card';
 import { Container } from '@/components/ui/Container';
+import { Loading } from '@/components/ui/Loading';
 import { Heading } from '@/components/ui/Typography/Heading';
-import { RecentUsersCard } from '@/components/Cards/Users/RecentUsersCard';
-import { CreatorCard } from '@/components/Cards/Creators/CreatorCard';
+import { supabase } from '@/services/supabaseClient';
+import { ShortUser } from '@/shared/interfaces/ShortUser';
 import Head from 'next/head';
 import { useEffect, useState } from 'react';
-import { supabase } from '@/services/supabaseClient';
-import { Loading } from '@/components/ui/Loading';
-import { ShortUser } from '@/shared/interfaces/ShortUser';
-import { NoCreatorFound } from '@/components/Cards/Creators/NoCreatorFound';
 
 export default function Creators() {
 	const [creators, setCreators] = useState<ShortUser[]>([]);
