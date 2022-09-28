@@ -34,7 +34,7 @@ export default function About() {
 						Our team
 					</Text>
 
-					<div className="flex justify-center mt-10">
+					<div className="flex justify-center mt-10 gap-32">
 						<div className="flex items-center gap-4">
 							<LinkButton color="unstyled" href="@brunordgs">
 								<Avatar src="https://github.com/brunordgs.png" />
@@ -51,6 +51,26 @@ export default function About() {
 									className="hover:underline"
 								>
 									@brunordgs
+								</LinkButton>
+							</div>
+						</div>
+
+						<div className="flex items-center gap-4">
+							<LinkButton color="unstyled" href="@costayasmin">
+								<Avatar src="https://github.com/costayasmin.png" />
+							</LinkButton>
+
+							<div className="text-left">
+								<Text weight="bold">Yasmin Costa</Text>
+								<Text size="xs">Product Designer</Text>
+
+								<LinkButton
+									color="unstyled"
+									fontSize="xs"
+									href="@costayasmin"
+									className="hover:underline"
+								>
+									@costayasmin
 								</LinkButton>
 							</div>
 						</div>

@@ -39,8 +39,8 @@ export default function Creators() {
 					Awesome creators
 				</Heading>
 
-				<div className="grid grid-cols-1 lg:grid-cols-6 grid-rows-2 gap-8 mt-6">
-					<Card className="lg:col-span-4 row-span-2 min-h-[112px] lg:min-h-[496px]" noPadding>
+				<div className="grid grid-cols-1 lg:grid-cols-6 grid-rows-2 gap-8 mt-6 h-[112px] lg:h-[496px]">
+					<Card className="lg:col-span-4 row-span-2" noPadding>
 						<Loading loading={loading}>
 							{creators.length ? (
 								creators.map(({ name, username, is_verified: isVerified }) => (

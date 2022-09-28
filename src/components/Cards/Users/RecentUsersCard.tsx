@@ -17,7 +17,7 @@ export function RecentUsersCard() {
 			const res = await supabase.from('users').select();
 
 			if (res.data) {
-				setUsers(res.data);
+				setUsers([...res.data].slice(0, 4));
 			}
 
 			setLoading(false);
