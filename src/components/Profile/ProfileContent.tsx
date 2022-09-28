@@ -4,10 +4,10 @@ import { Card } from '@/components/ui/Card';
 import { Tooltip } from '@/components/ui/Tooltip';
 import { Heading } from '@/components/ui/Typography/Heading';
 import projects from '@/data/projects.json';
+import { useAuth } from '@/hooks/useAuth';
 import { Creator } from '@/shared/interfaces/Creator';
 import { UserProfile } from '@/shared/interfaces/UserProfile';
 import { formatDate } from '@/utils/formats';
-import { useSession } from 'next-auth/react';
 import { PaintBrush, Pencil } from 'phosphor-react';
 import { FaGithub, FaTwitter } from 'react-icons/fa';
 import { Avatar } from '../ui/Avatar';
@@ -28,7 +28,7 @@ export function ProfileContent({
 	is_verified: isVerified,
 	creator,
 }: Props) {
-	const { data: session } = useSession();
+	const auth = useAuth();
 
 	return (
 		<>
@@ -80,7 +80,7 @@ export function ProfileContent({
 							</LinkButton>
 						</div>
 
-						{session?.user?.email === email && (
+						{auth?.user?.email === email && (
 							<LinkButton
 								href="/settings/account"
 								color="unstyled"

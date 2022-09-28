@@ -1,5 +1,6 @@
+import { useAuth } from '@/hooks/useAuth';
+import { signIn } from '@/utils/supabase';
 import clsx from 'clsx';
-import { signIn, useSession } from 'next-auth/react';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
 import { Article, MagnifyingGlass, PaintBrush, Question } from 'phosphor-react';
@@ -9,8 +10,8 @@ import { UserDropdown } from '../UserDropdown';
 import { MobileNavbar } from './Mobile/MobileNavbar';
 
 export function Navbar() {
-	const { data: session } = useSession();
 	const router = useRouter();
+	const auth = useAuth();
 
 	const menuItems = [
 		{
@@ -81,12 +82,12 @@ export function Navbar() {
 						/>
 					</div>
 
-					{!session ? (
-						<Button variant="outlined" onClick={() => signIn('github')}>
+					{!auth?.session ? (
+						<Button variant="outlined" onClick={signIn}>
 							Sign in
 						</Button>
 					) : (
-						<UserDropdown avatar={session?.user?.image!} />
+						<UserDropdown avatar={auth?.user?.image} />
 					)}
 				</div>
 			</Container>

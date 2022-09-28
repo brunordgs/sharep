@@ -1,7 +1,8 @@
+import { useAuth } from '@/hooks/useAuth';
 import { useTheme } from '@/hooks/useTheme';
+import { signOut } from '@/utils/supabase';
 import { Menu, Transition } from '@headlessui/react';
 import clsx from 'clsx';
-import { signOut } from 'next-auth/react';
 import { useRouter } from 'next/router';
 import { Gear, Moon, SignOut, User } from 'phosphor-react';
 import { Fragment } from 'react';
@@ -15,6 +16,7 @@ interface Props {
 export function UserDropdown({ avatar }: Props) {
 	const router = useRouter();
 	const { theme, nextTheme, setTheme } = useTheme();
+	const auth = useAuth();
 
 	return (
 		<Menu as="div" className="relative flex text-left">
@@ -36,7 +38,7 @@ export function UserDropdown({ avatar }: Props) {
 						<Menu.Item>
 							{({ active }) => (
 								<button
-									onClick={() => router.push(`/@brunordgs`)}
+									onClick={() => router.push(`/@${auth?.user.username}`)}
 									className={clsx(
 										{ 'bg-zinc-100 dark:bg-zinc-700': active },
 										'flex gap-2 w-full items-center rounded-md p-2 text-sm text-zinc-800 dark:text-zinc-200 transition-colors duration-150 ease-out',
@@ -85,14 +87,20 @@ export function UserDropdown({ avatar }: Props) {
 						<Menu.Item>
 							{({ active }) => (
 								<button
-									onClick={() => signOut()}
+									onClick={async () => {
+										const { error } = await signOut();
+
+										if (!error) {
+											router.reload();
+										}
+									}}
 									className={clsx(
 										{ 'bg-zinc-100 dark:bg-zinc-700': active },
 										'flex gap-2 w-full items-center rounded-md p-2 text-sm text-zinc-800 hover:bg-zinc-100 dark:text-zinc-200 dark:hover:bg-zinc-700 transition-colors duration-150 ease-out',
 									)}
 								>
 									<SignOut weight="bold" />
-									Sign out
+									Sign Out
 								</button>
 							)}
 						</Menu.Item>

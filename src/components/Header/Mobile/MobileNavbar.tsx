@@ -1,6 +1,7 @@
 import { UserDropdown } from '@/components/UserDropdown';
+import { useAuth } from '@/hooks/useAuth';
+import { signIn } from '@/utils/supabase';
 import { AnimatePresence } from 'framer-motion';
-import { signIn, useSession } from 'next-auth/react';
 import Link from 'next/link';
 import { Article, List, MagnifyingGlass, PaintBrush, Question, X } from 'phosphor-react';
 import { useState } from 'react';
@@ -10,7 +11,7 @@ import { Container } from '../../ui/Container';
 import { MobileItem } from './MobileItem';
 
 export function MobileNavbar() {
-	const { data: session } = useSession();
+	const auth = useAuth();
 	const [collapse, setCollapse] = useState(false);
 
 	return (
@@ -40,12 +41,12 @@ export function MobileNavbar() {
 					{!collapse ? <List size={24} /> : <X size={24} />}
 				</Button>
 
-				{!session ? (
-					<Button variant="outlined" onClick={() => signIn('github')}>
+				{!auth?.session ? (
+					<Button variant="outlined" onClick={signIn}>
 						Sign in
 					</Button>
 				) : (
-					<UserDropdown avatar={session?.user?.image!} />
+					<UserDropdown avatar={auth?.user?.image} />
 				)}
 			</div>
 

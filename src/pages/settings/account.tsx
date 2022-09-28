@@ -4,9 +4,26 @@ import { Card } from '@/components/ui/Card';
 import { Container } from '@/components/ui/Container';
 import { Heading } from '@/components/ui/Typography/Heading';
 import { Text } from '@/components/ui/Typography/Text';
+import { useAuth } from '@/hooks/useAuth';
 import Head from 'next/head';
+import { useRouter } from 'next/router';
+import { useEffect } from 'react';
+import { FaGithub, FaTwitter } from 'react-icons/fa';
 
 export default function SettingsAccount() {
+	const auth = useAuth();
+	const router = useRouter();
+
+	useEffect(() => {
+		// TODO: Improve no auth validation
+		if (!auth?.session) {
+			router.push('/');
+			return;
+		}
+	}, [auth, router]);
+
+	if (!auth) return;
+
 	return (
 		<>
 			<Head>
@@ -17,11 +34,11 @@ export default function SettingsAccount() {
 				<main className="grid grid-cols-1 lg:grid-cols-4">
 					<div>
 						<div className="flex items-center gap-4 mb-4 lg:mb-0">
-							<Avatar src="https://github.com/brunordgs.png" size="sm" />
+							<Avatar src={auth.user.image} size="sm" />
 
 							<div>
-								<Text weight="bold">Bruno Rodrigues</Text>
-								<Text size="xs">@brunordgs</Text>
+								<Text weight="bold">{auth.user.name}</Text>
+								<Text size="xs">@{auth.user.username}</Text>
 							</div>
 						</div>
 					</div>
@@ -49,6 +66,7 @@ export default function SettingsAccount() {
 									<input
 										type="text"
 										id="username"
+										value={auth.user.username}
 										className="bg-zinc-100 dark:bg-zinc-900 rounded-r-md border border-zinc-200 dark:border-zinc-700 px-2 h-10 text-sm w-full placeholder:text-zinc-300 dark:placeholder:text-zinc-600"
 										placeholder="Your username..."
 									/>
@@ -63,7 +81,8 @@ export default function SettingsAccount() {
 								<input
 									type="text"
 									id="displayName"
-									className="bg-zinc-100 dark:bg-zinc-900 rounded-md border border-zinc-200 dark:border-zinc-700 px-2 h-10 text-sm w-full placeholder:text-zinc-300 dark:placeholder:text-zinc-600"
+									value={auth.user.name}
+									className="bg-zinc-100 dark:bg-zinc-900 rounded-md outline-zinc-200 dark:outline-zinc-700 px-2 h-10 text-sm w-full placeholder:text-zinc-300 dark:placeholder:text-zinc-600 outline focus:outline-red-200"
 									placeholder="Your display name..."
 								/>
 							</div>
@@ -83,6 +102,49 @@ export default function SettingsAccount() {
 									<Text size="xs" className="text-zinc-400">
 										Write a few sentences about yourself.
 									</Text>
+								</div>
+							</div>
+
+							<div>
+								<div className="grid sm:grid-cols-2 gap-4 mt-4">
+									<div>
+										<label htmlFor="github" className="block font-bold text-sm mb-1 capitalize">
+											Github
+										</label>
+
+										<div className="flex items-center bg-zinc-100 dark:bg-zinc-700 rounded-md">
+											<div className="text-zinc-500 dark:text-zinc-300 text-sm bg-zinc-200 dark:bg-zinc-700 h-10 flex items-center px-3 rounded-tl-md rounded-bl-md select-none">
+												<FaGithub />
+											</div>
+
+											<input
+												type="text"
+												id="github"
+												value={auth.user.username}
+												className="bg-zinc-100 dark:bg-zinc-900 rounded-r-md border border-zinc-200 dark:border-zinc-700 px-2 h-10 text-sm w-full placeholder:text-zinc-300 dark:placeholder:text-zinc-600"
+												placeholder="Your Github..."
+											/>
+										</div>
+									</div>
+
+									<div>
+										<label htmlFor="twitter" className="block font-bold text-sm mb-1 capitalize">
+											Twitter
+										</label>
+
+										<div className="flex items-center bg-zinc-100 dark:bg-zinc-700 rounded-md">
+											<div className="text-zinc-500 dark:text-zinc-300 text-sm bg-zinc-200 dark:bg-zinc-700 h-10 flex items-center px-3 rounded-tl-md rounded-bl-md select-none">
+												<FaTwitter />
+											</div>
+
+											<input
+												type="text"
+												id="twitter"
+												className="bg-zinc-100 dark:bg-zinc-900 rounded-r-md border border-zinc-200 dark:border-zinc-700 px-2 h-10 text-sm w-full placeholder:text-zinc-300 dark:placeholder:text-zinc-600"
+												placeholder="Your Twitter..."
+											/>
+										</div>
+									</div>
 								</div>
 							</div>
 						</div>

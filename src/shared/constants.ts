@@ -6,4 +6,5 @@ export const FONT_WEIGHTS = {
 	semibold: 'font-semibold',
 	bold: 'font-bold',
 	extrabold: 'font-extrabold',
+	black: 'font-black',
 };

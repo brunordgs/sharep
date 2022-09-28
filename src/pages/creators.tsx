@@ -5,7 +5,7 @@ import { FeaturedUsersCard } from '@/components/Cards/Users/FeaturedUsersCard';
 import { CreatorCard } from '@/components/Cards/Creators/CreatorCard';
 import Head from 'next/head';
 import { useEffect, useState } from 'react';
-import { supabase } from '@/utils/supabaseClient';
+import { supabase } from '@/services/supabaseClient';
 import { Loading } from '@/components/ui/Loading';
 import { ShortUser } from '@/shared/interfaces/ShortUser';
 
@@ -15,7 +15,7 @@ export default function Creators() {
 
 	useEffect(() => {
 		async function initializeAsync() {
-			const res = await supabase.from('users').select('*').eq('is_creator', true);
+			const res = await supabase.from('users').select().eq('is_creator', true);
 
 			if (res.data) {
 				setCreators(res.data);

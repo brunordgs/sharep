@@ -1,6 +1,6 @@
 import { Loading } from '@/components/ui/Loading';
 import { ShortUser } from '@/shared/interfaces/ShortUser';
-import { supabase } from '@/utils/supabaseClient';
+import { supabase } from '@/services/supabaseClient';
 import { useEffect, useState } from 'react';
 import { Footer } from '../../Footer';
 import { Card } from '../../ui/Card';
@@ -13,7 +13,7 @@ export function FeaturedUsersCard() {
 
 	useEffect(() => {
 		async function initializeAsync() {
-			const res = await supabase.from('users').select('*');
+			const res = await supabase.from('users').select();
 
 			if (res.data) {
 				setUsers(res.data);

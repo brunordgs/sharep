@@ -3,7 +3,7 @@ import { ProfileNotFound } from '@/components/Profile/ProfileNotFound';
 import { Loading } from '@/components/ui/Loading';
 import { Creator } from '@/shared/interfaces/Creator';
 import { UserProfile } from '@/shared/interfaces/UserProfile';
-import { supabase } from '@/utils/supabaseClient';
+import { supabase } from '@/services/supabaseClient';
 import { GetStaticPropsContext } from 'next';
 import Head from 'next/head';
 import { useRouter } from 'next/router';
@@ -50,7 +50,7 @@ export default function Profile({ user, creator }: Props) {
 }
 
 export async function getStaticPaths() {
-	const usersResponse = await supabase.from('users').select('*');
+	const usersResponse = await supabase.from('users').select();
 	const users = usersResponse.data as UserProfile[];
 	const usernames = users.map(({ username }) => username);
 
@@ -76,8 +76,8 @@ export async function getStaticProps({ params }: GetStaticPropsContext) {
 		};
 	}
 
-	const users = supabase.from('users').select('*').eq('username', username.replace('@', ''));
-	const creators = supabase.from('creators').select('*').eq('username', username.replace('@', ''));
+	const users = supabase.from('users').select().eq('username', username.replace('@', ''));
+	const creators = supabase.from('creators').select().eq('username', username.replace('@', ''));
 
 	const [{ data: userData, error: userError }, { data: creatorData }] = await Promise.all([
 		users,

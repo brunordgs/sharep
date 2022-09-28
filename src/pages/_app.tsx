@@ -1,11 +1,10 @@
 import { Footer } from '@/components/Footer';
 import { Navbar } from '@/components/Header/Navbar';
+import { AuthProvider } from '@/contexts/AuthContext';
 import { ThemeProvider } from '@/contexts/ThemeContext';
 import '@/styles/globals.css';
 import ProgressBar from '@badrap/bar-of-progress';
 import clsx from 'clsx';
-import { Session } from 'next-auth';
-import { SessionProvider } from 'next-auth/react';
 import type { AppProps } from 'next/app';
 import { Router, useRouter } from 'next/router';
 
@@ -20,15 +19,12 @@ Router.events.on('routeChangeStart', progress.start);
 Router.events.on('routeChangeComplete', progress.finish);
 Router.events.on('routeChangeError', progress.finish);
 
-export default function App({
-	Component,
-	pageProps: { session, ...pageProps },
-}: AppProps<{ session: Session }>) {
+export default function App({ Component, pageProps }: AppProps) {
 	const router = useRouter();
 	const excludeRoutes = ['/', '/creators'];
 
 	return (
-		<SessionProvider session={session}>
+		<AuthProvider>
 			<ThemeProvider>
 				<Navbar />
 				<Component {...pageProps} />
@@ -37,6 +33,6 @@ export default function App({
 					<Footer />
 				</div>
 			</ThemeProvider>
-		</SessionProvider>
+		</AuthProvider>
 	);
 }
