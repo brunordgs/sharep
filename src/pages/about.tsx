@@ -34,47 +34,57 @@ export default function About() {
 						Our team
 					</Text>
 
-					<div className="flex justify-center mt-10 gap-32">
-						<div className="flex items-center gap-4">
+					<ol className="flex flex-col md:flex-row items-center justify-center mt-10 gap-y-8 gap-x-32">
+						<li className="flex items-center gap-4 w-56 md:w-auto">
 							<LinkButton color="unstyled" href="@brunordgs">
-								<Avatar src="https://github.com/brunordgs.png" />
+								<Avatar
+									src="https://github.com/brunordgs.png"
+									size="base"
+									className="md:w-16 md:h-16"
+									alt="Bruno Rodrigues"
+								/>
 							</LinkButton>
 
-							<div className="text-left">
-								<Text weight="bold">Bruno Rodrigues</Text>
+							<div className="text-left flex-1">
+								<Text size="sm" weight="bold" className="sm:text-base">Bruno Rodrigues</Text>
 								<Text size="xs">I created this site.</Text>
 
 								<LinkButton
 									color="unstyled"
 									fontSize="xs"
 									href="@brunordgs"
-									className="hover:underline"
+									className="hover:underline hidden sm:block mt-1"
 								>
 									@brunordgs
 								</LinkButton>
 							</div>
-						</div>
+						</li>
 
-						<div className="flex items-center gap-4">
+						<li className="flex items-center gap-4 w-56 md:w-auto">
 							<LinkButton color="unstyled" href="@costayasmin">
-								<Avatar src="https://github.com/costayasmin.png" />
+								<Avatar
+									src="https://github.com/costayasmin.png"
+									size="base"
+									className="md:w-16 md:h-16"
+									alt="Yasmin Costa"
+								/>
 							</LinkButton>
 
-							<div className="text-left">
-								<Text weight="bold">Yasmin Costa</Text>
+							<div className="text-left flex-1">
+								<Text size="sm" weight="bold" className="sm:text-base">Yasmin Costa</Text>
 								<Text size="xs">Product Designer</Text>
 
 								<LinkButton
 									color="unstyled"
 									fontSize="xs"
 									href="@costayasmin"
-									className="hover:underline"
+									className="hover:underline hidden sm:block mt-1"
 								>
 									@costayasmin
 								</LinkButton>
 							</div>
-						</div>
-					</div>
+						</li>
+					</ol>
 				</section>
 			</Container>
 		</>

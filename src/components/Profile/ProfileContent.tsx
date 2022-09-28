@@ -47,7 +47,7 @@ export function ProfileContent({
 
 			<div className="-mt-20 mx-4 relative z-10">
 				<div className="flex items-end">
-					<Avatar src={avatarUrl} size="md" hasBorder />
+					<Avatar src={avatarUrl} size="lg" hasBorder />
 
 					<div className="flex flex-1 items-center justify-between">
 						<div className="m-6 flex items-center gap-6">
