@@ -1,6 +1,6 @@
 import { NoProjectFound } from '@/components/Cards/Projects/NoProjectFound';
 import { ProjectCard } from '@/components/Cards/Projects/ProjectCard';
-import { FeaturedUsersCard } from '@/components/Cards/Users/FeaturedUsersCard';
+import { RecentUsersCard } from '@/components/Cards/Users/RecentUsersCard';
 import { Card } from '@/components/ui/Card';
 import { Container } from '@/components/ui/Container';
 import { Heading } from '@/components/ui/Typography/Heading';
@@ -30,7 +30,7 @@ export default function Home() {
 						)}
 					</Card>
 
-					<FeaturedUsersCard />
+					<RecentUsersCard />
 				</div>
 			</Container>
 		</>

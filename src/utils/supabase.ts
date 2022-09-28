@@ -4,7 +4,7 @@ export async function signIn() {
 	await supabase.auth.signInWithOAuth({
 		provider: 'github',
 		options: {
-			redirectTo: '/',
+			redirectTo: 'https://sharep.vercel.app',
 		},
 	});
 }

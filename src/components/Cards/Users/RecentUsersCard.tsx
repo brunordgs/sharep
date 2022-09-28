@@ -5,9 +5,9 @@ import { useEffect, useState } from 'react';
 import { Footer } from '../../Footer';
 import { Card } from '../../ui/Card';
 import { Heading } from '../../ui/Typography/Heading';
-import { FeaturedUserCard } from './FeaturedUserCard';
+import { RecentUserCard } from './RecentUserCard';
 
-export function FeaturedUsersCard() {
+export function RecentUsersCard() {
 	const [users, setUsers] = useState<ShortUser[]>([]);
 	const [loading, setLoading] = useState(true);
 
@@ -31,11 +31,11 @@ export function FeaturedUsersCard() {
 				<Loading loading={loading}>
 					<aside>
 						<Heading as="h2" transform="italic" className="text-xl mb-4 px-6">
-							Featured users
+							Recent users
 						</Heading>
 
 						{users.map(({ name, username, is_verified: isVerified }) => (
-							<FeaturedUserCard
+							<RecentUserCard
 								key={username}
 								name={name}
 								username={username}

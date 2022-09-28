@@ -54,8 +54,6 @@ export function AuthProvider({ children }: Children) {
 		email,
 	} = session?.user?.user_metadata ?? {};
 
-	console.log(session);
-
 	return (
 		<AuthContext.Provider
 			value={{
