@@ -1,6 +1,6 @@
 import { CreatorCard } from '@/components/Cards/Creators/CreatorCard';
 import { NoCreatorFound } from '@/components/Cards/Creators/NoCreatorFound';
-import { RecentUsersCard } from '@/components/Cards/Users/RecentUsersCard';
+import { FeaturedUsersCard } from '@/components/Cards/Users/FeaturedUsersCard';
 import { Card } from '@/components/ui/Card';
 import { Container } from '@/components/ui/Container';
 import { Loading } from '@/components/ui/Loading';
@@ -57,7 +57,7 @@ export default function Creators() {
 						</Loading>
 					</Card>
 
-					<RecentUsersCard />
+					<FeaturedUsersCard />
 				</div>
 			</Container>
 		</>
