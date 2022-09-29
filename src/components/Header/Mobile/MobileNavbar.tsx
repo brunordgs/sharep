@@ -1,6 +1,7 @@
 import { UserDropdown } from '@/components/UserDropdown';
 import { useAuth } from '@/hooks/useAuth';
 import { signIn } from '@/utils/supabase';
+import clsx from 'clsx';
 import { AnimatePresence } from 'framer-motion';
 import Link from 'next/link';
 import { Article, List, MagnifyingGlass, PaintBrush, Question, X } from 'phosphor-react';
@@ -16,39 +17,37 @@ export function MobileNavbar() {
 
 	return (
 		<Container className="flex items-center justify-between lg:hidden">
-			<div className="flex-1">
-				<nav className="flex">
-					<Link href="/">
-						<a className="text-2xl italic font-bold text-rose-600 dark:text-rose-500 hover:text-rose-500 dark:hover:text-rose-600 transition-colors duration-150 ease-out">
-							sharep
-						</a>
-					</Link>
-
-					{/* NOTE: Should be removed soon, for testing purposes */}
-					<div className="uppercase italic font-bold text-zinc-600 dark:text-zinc-200 text-[10px] flex items-end ml-2 select-none">
-						<span className="bg-zinc-200 dark:bg-zinc-800 rounded-[4px] px-2">Beta</span>
-					</div>
-				</nav>
+			<div className={clsx(!auth?.session ? "w-[79px]" : "w-[40px]")}>
+			<Button
+				type="button"
+				color="unstyled"
+				className="hover:text-black dark:hover:text-white"
+				onClick={() => setCollapse(!collapse)}
+			>
+				{!collapse ? <List size={24} /> : <X size={24} />}
+			</Button>
 			</div>
 
-			<div className="flex items-center gap-4">
-				<Button
-					type="button"
-					color="unstyled"
-					className="hover:text-black dark:hover:text-white"
-					onClick={() => setCollapse(!collapse)}
-				>
-					{!collapse ? <List size={24} /> : <X size={24} />}
+			<nav className="flex">
+				<Link href="/">
+					<a className="text-2xl italic font-bold text-rose-600 dark:text-rose-500 hover:text-rose-500 dark:hover:text-rose-600 transition-colors duration-150 ease-out">
+						sharep
+					</a>
+				</Link>
+
+				{/* NOTE: Should be removed soon, for testing purposes */}
+				<div className="uppercase italic font-bold text-zinc-600 dark:text-zinc-200 text-[10px] flex items-end ml-2 select-none">
+					<span className="bg-zinc-200 dark:bg-zinc-800 rounded-[4px] px-2">Beta</span>
+				</div>
+			</nav>
+
+			{!auth?.session ? (
+				<Button variant="outlined" onClick={signIn}>
+					Sign in
 				</Button>
-
-				{!auth?.session ? (
-					<Button variant="outlined" onClick={signIn}>
-						Sign in
-					</Button>
-				) : (
-					<UserDropdown avatar={auth?.user?.image} />
-				)}
-			</div>
+			) : (
+				<UserDropdown avatar={auth?.user?.image} />
+			)}
 
 			{/* Mobile navbar content */}
 			<AnimatePresence>
