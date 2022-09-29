@@ -3,7 +3,7 @@ import { HTMLAttributes } from 'react';
 import { FONT_WEIGHTS } from '@/shared/constants';
 import { Typography } from '@/shared/interfaces/Typography';
 
-type Props = {
+export type Props = {
 	as?: 'p' | 'span' | 'small';
 	size?: keyof typeof sizes;
 } & HTMLAttributes<HTMLParagraphElement> &
