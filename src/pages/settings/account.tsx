@@ -60,14 +60,14 @@ export default function SettingsAccount() {
 								</label>
 
 								<div className="flex items-center bg-zinc-100 dark:bg-zinc-700 rounded-md">
-									<div className="text-zinc-500 dark:text-zinc-300 text-sm bg-zinc-200 dark:bg-zinc-700 h-10 flex items-center px-2 rounded-tl-md rounded-bl-md select-none">
+									<div className="text-zinc-600 dark:text-zinc-300 text-sm bg-zinc-200 dark:bg-zinc-700 h-10 flex items-center px-2 rounded-tl-md rounded-bl-md select-none">
 										sharep.com/@
 									</div>
 									<input
 										type="text"
 										id="username"
 										value={auth.user.username}
-										className="bg-zinc-100 dark:bg-zinc-900 rounded-r-md border border-zinc-200 dark:border-zinc-700 px-2 h-10 text-sm w-full placeholder:text-zinc-300 dark:placeholder:text-zinc-600"
+										className="bg-zinc-100 dark:bg-zinc-900 rounded-r-md border-2 border-zinc-200 dark:border-zinc-700 px-2 h-10 text-sm w-full placeholder:text-zinc-300 dark:placeholder:text-zinc-600 outline-none focus:border-2 focus:border-rose-500 dark:focus:border-rose-900"
 										placeholder="Your username..."
 									/>
 								</div>
@@ -82,7 +82,7 @@ export default function SettingsAccount() {
 									type="text"
 									id="displayName"
 									value={auth.user.name}
-									className="bg-zinc-100 dark:bg-zinc-900 rounded-md outline-zinc-200 dark:outline-zinc-700 px-2 h-10 text-sm w-full placeholder:text-zinc-300 dark:placeholder:text-zinc-600 outline focus:outline-red-200"
+									className="bg-zinc-100 dark:bg-zinc-900 rounded-md border-2 border-zinc-200 dark:border-zinc-700 px-2 h-10 text-sm w-full placeholder:text-zinc-300 dark:placeholder:text-zinc-600 outline-none focus:border-2 focus:border-rose-500 dark:focus:border-rose-900"
 									placeholder="Your display name..."
 								/>
 							</div>
@@ -96,7 +96,7 @@ export default function SettingsAccount() {
 									<textarea
 										id="bio"
 										rows={4}
-										className="bg-zinc-100 dark:bg-zinc-900 rounded-md border border-zinc-200 dark:border-zinc-700 p-2 text-sm w-full placeholder:text-zinc-300 dark:placeholder:text-zinc-600 resize-none"
+										className="bg-zinc-100 dark:bg-zinc-900 rounded-md border-2 border-zinc-200 dark:border-zinc-700 p-2 text-sm w-full placeholder:text-zinc-300 dark:placeholder:text-zinc-600 resize-none outline-none focus:border-rose-500 dark:focus:border-rose-900"
 									/>
 
 									<Text size="xs" className="text-zinc-400">
@@ -113,7 +113,7 @@ export default function SettingsAccount() {
 										</label>
 
 										<div className="flex items-center bg-zinc-100 dark:bg-zinc-700 rounded-md">
-											<div className="text-zinc-500 dark:text-zinc-300 text-sm bg-zinc-200 dark:bg-zinc-700 h-10 flex items-center px-3 rounded-tl-md rounded-bl-md select-none">
+											<div className="text-zinc-600 dark:text-zinc-300 text-sm bg-zinc-200 dark:bg-zinc-700 h-10 flex items-center px-3 rounded-tl-md rounded-bl-md select-none">
 												<FaGithub />
 											</div>
 
@@ -121,7 +121,7 @@ export default function SettingsAccount() {
 												type="text"
 												id="github"
 												value={auth.user.username}
-												className="bg-zinc-100 dark:bg-zinc-900 rounded-r-md border border-zinc-200 dark:border-zinc-700 px-2 h-10 text-sm w-full placeholder:text-zinc-300 dark:placeholder:text-zinc-600"
+												className="bg-zinc-100 dark:bg-zinc-900 rounded-r-md border-2 border-zinc-200 dark:border-zinc-700 px-2 h-10 text-sm w-full placeholder:text-zinc-300 dark:placeholder:text-zinc-600 outline-none focus:border-2 focus:border-rose-500 dark:focus:border-rose-900"
 												placeholder="Your Github..."
 											/>
 										</div>
@@ -140,7 +140,7 @@ export default function SettingsAccount() {
 											<input
 												type="text"
 												id="twitter"
-												className="bg-zinc-100 dark:bg-zinc-900 rounded-r-md border border-zinc-200 dark:border-zinc-700 px-2 h-10 text-sm w-full placeholder:text-zinc-300 dark:placeholder:text-zinc-600"
+												className="bg-zinc-100 dark:bg-zinc-900 rounded-r-md border-2 border-zinc-200 dark:border-zinc-700 px-2 h-10 text-sm w-full placeholder:text-zinc-300 dark:placeholder:text-zinc-600 outline-none focus:border-2 focus:border-rose-500 dark:focus:border-rose-900"
 												placeholder="Your Twitter..."
 											/>
 										</div>
