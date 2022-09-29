@@ -29,7 +29,7 @@ export function Tooltip({
 }: ComponentPropsWithoutRef<'div'> & { 'data-tip': string }) {
 	return (
 		<>
-			<Provider>
+			<Provider delayDuration={0}>
 				<Root>
 					<Trigger asChild>{children}</Trigger>
 
