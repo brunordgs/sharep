@@ -15,15 +15,18 @@ import { useForm } from 'react-hook-form';
 import { FaGithub, FaTwitter } from 'react-icons/fa';
 import * as z from 'zod';
 
-// TODO: Should update where fields data come from before finish schema
 const schema = z.object({
 	username: z
 		.string()
 		.min(1, 'Username is required')
 		.max(15, 'Username should be less than 15 characters'),
-	displayName: z.string().min(1, 'Display Name is required'),
+	displayName: z
+		.string()
+		.min(1, 'Display Name is required')
+		.max(50, 'Display Name should be less than 50 characters'),
 	bio: z.string().max(160, 'Bio should be less than 160 characters'),
 	github: z.string().max(15, 'Github should be less than 15 characters'),
+	twitter: z.string().max(15, 'Twitter should be less than 15 characters'),
 });
 
 export default function SettingsAccount() {
@@ -38,7 +41,8 @@ export default function SettingsAccount() {
 			username: auth?.user.username,
 			displayName: auth?.user.name,
 			bio: auth?.user.bio,
-			github: auth?.user.username,
+			github: auth?.user.github,
+			twitter: auth?.user.twitter,
 		},
 		resolver: zodResolver(schema),
 	});
@@ -90,6 +94,8 @@ export default function SettingsAccount() {
 										name: data.displayName as string,
 										username: data.username as string,
 										bio: data.bio,
+										github: data.github,
+										twitter: data.twitter,
 									}),
 							)}
 						>
@@ -137,7 +143,7 @@ export default function SettingsAccount() {
 										inputAddon={<FaTwitter />}
 										placeholder="Your Twitter..."
 										register={register}
-										error={''}
+										error={errors.twitter?.message}
 									/>
 								</div>
 							</div>

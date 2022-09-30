@@ -46,7 +46,9 @@ export default function About() {
 							</LinkButton>
 
 							<div className="text-left flex-1">
-								<Text size="sm" weight="bold" className="sm:text-base">Bruno Rodrigues</Text>
+								<Text size="sm" weight="bold" className="sm:text-base">
+									Bruno Rodrigues
+								</Text>
 								<Text size="xs">I created this site.</Text>
 
 								<LinkButton
@@ -71,7 +73,9 @@ export default function About() {
 							</LinkButton>
 
 							<div className="text-left flex-1">
-								<Text size="sm" weight="bold" className="sm:text-base">Yasmin Costa</Text>
+								<Text size="sm" weight="bold" className="sm:text-base">
+									Yasmin Costa
+								</Text>
 								<Text size="xs">Product Designer</Text>
 
 								<LinkButton

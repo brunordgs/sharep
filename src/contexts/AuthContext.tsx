@@ -12,6 +12,7 @@ interface AuthContextProps {
 		bio: string;
 		image: string;
 		twitter: string;
+		github: string;
 		isCreator: boolean;
 		isVerified: boolean;
 	};
@@ -66,6 +67,7 @@ export function AuthProvider({ children }: Children) {
 					bio: session?.user.bio,
 					image: session?.user.avatar_url,
 					twitter: session?.user.twitter,
+					github: session?.user.github,
 					isCreator: session?.user.is_creator,
 					isVerified: session?.user.is_verified,
 				},
