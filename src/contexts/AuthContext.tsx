@@ -55,7 +55,7 @@ export function AuthProvider({ children }: Children) {
 		initializeAsync();
 	}, []);
 
-	if (!session) return null;
+	if (!session) return <>{children}</>;
 
 	return (
 		<AuthContext.Provider
