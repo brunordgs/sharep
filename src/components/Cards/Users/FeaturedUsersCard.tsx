@@ -1,12 +1,12 @@
 import { Loading } from '@/components/ui/Loading';
 import { ShortUser } from '@/shared/interfaces/ShortUser';
-import { supabase } from '@/services/supabaseClient';
 import { useEffect, useState } from 'react';
 import { Footer } from '../../Footer';
 import { Card } from '../../ui/Card';
 import { Heading } from '../../ui/Typography/Heading';
 import { FeaturedUserCard } from './FeaturedUserCard';
 import { Text } from '@/components/ui/Typography/Text';
+import { selectUsers } from '@/utils/supabase';
 
 export function FeaturedUsersCard() {
 	const [users, setUsers] = useState<ShortUser[]>([]);
@@ -14,7 +14,7 @@ export function FeaturedUsersCard() {
 
 	useEffect(() => {
 		async function initializeAsync() {
-			const res = await supabase.from('users').select();
+			const res = await selectUsers();
 
 			if (res.data) {
 				const shuffledUsers = res.data

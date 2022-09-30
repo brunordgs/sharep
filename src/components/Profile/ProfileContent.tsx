@@ -21,6 +21,7 @@ interface Props extends UserProfile {
 export function ProfileContent({
 	name,
 	username,
+	bio,
 	avatar_url: avatarUrl,
 	twitter,
 	is_creator: isCreator,
@@ -106,10 +107,12 @@ export function ProfileContent({
 					</Text>
 				</div>
 
-				<div className="mt-8">
+				<div className="mt-2">
+					{bio && <Text className="text-zinc-600 dark:text-zinc-300">{bio}</Text>}
+
 					{projects.length && isCreator && (
 						<>
-							<Heading transform="italic" className="mb-4">
+							<Heading as="h2" transform="italic" className="mt-8 mb-2">
 								Contributions
 							</Heading>
 

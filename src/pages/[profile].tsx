@@ -8,6 +8,7 @@ import { GetStaticPropsContext } from 'next';
 import Head from 'next/head';
 import { useRouter } from 'next/router';
 import { useEffect } from 'react';
+import { selectUsers } from '@/utils/supabase';
 
 interface Props {
 	user: UserProfile;
@@ -50,7 +51,7 @@ export default function Profile({ user, creator }: Props) {
 }
 
 export async function getStaticPaths() {
-	const usersResponse = await supabase.from('users').select();
+	const usersResponse = await selectUsers();
 	const users = usersResponse.data as UserProfile[];
 	const usernames = users.map(({ username }) => username);
 

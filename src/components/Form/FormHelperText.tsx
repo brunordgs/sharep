@@ -1,14 +1,10 @@
 import clsx from 'clsx';
 import { Text, Props as TextProps } from '../ui/Typography/Text';
 
-interface Props extends TextProps {
-	helperText?: string;
-}
-
-export function FormHelperText({ helperText, className }: Props) {
+export function FormHelperText({ children, className }: TextProps) {
 	return (
 		<Text size="xs" className={clsx('text-zinc-400', className)}>
-			{helperText}
+			{children}
 		</Text>
 	);
 }

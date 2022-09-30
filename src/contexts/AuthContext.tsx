@@ -1,22 +1,26 @@
 import { supabase } from '@/services/supabaseClient';
 import { Children } from '@/shared/interfaces/Children';
-import { Session } from '@supabase/supabase-js';
+import { UserProfile } from '@/shared/interfaces/UserProfile';
+import { getUserInformation, selectUsers } from '@/utils/supabase';
 import { createContext, useEffect, useState } from 'react';
 
 interface AuthContextProps {
-	session: boolean;
+	session?: boolean;
 	user: {
 		name: string;
 		username: string;
+		bio: string;
 		image: string;
-		email: string;
+		twitter: string;
+		isCreator: boolean;
+		isVerified: boolean;
 	};
 }
 
 export const AuthContext = createContext<AuthContextProps | null>(null);
 
 export function AuthProvider({ children }: Children) {
-	const [session, setSession] = useState<Session | null>(null);
+	const [session, setSession] = useState<{ isLoggedIn?: boolean; user: UserProfile } | null>(null);
 
 	useEffect(() => {
 		async function initializeAsync() {
@@ -26,7 +30,11 @@ export function AuthProvider({ children }: Children) {
 
 			if (!session) return;
 
-			const users = await supabase.from('users').select();
+			const [users, user] = await Promise.all([
+				selectUsers(),
+				getUserInformation(session?.user?.user_metadata?.user_name),
+			]);
+
 			const usernames = users.data?.map(({ username }) => username);
 
 			if (!usernames?.includes(session?.user?.user_metadata.user_name)) {
@@ -40,29 +48,26 @@ export function AuthProvider({ children }: Children) {
 				]);
 			}
 
-			setSession(session);
+			setSession({ isLoggedIn: !!session.access_token, user: user.data?.[0] });
 		}
 
 		initializeAsync();
 	}, []);
 
-	const {
-		avatar_url: image,
-		full_name: name,
-		user_name: username,
-		preferred_username: preferredUsername,
-		email,
-	} = session?.user?.user_metadata ?? {};
+	if (!session) return;
 
 	return (
 		<AuthContext.Provider
 			value={{
-				session: !!session?.access_token,
+				session: session?.isLoggedIn,
 				user: {
-					name,
-					username: username ?? preferredUsername,
-					image,
-					email,
+					name: session?.user.name,
+					username: session?.user.username,
+					bio: session?.user.bio,
+					image: session?.user.avatar_url,
+					twitter: session?.user.twitter,
+					isCreator: session?.user.is_creator,
+					isVerified: session?.user.is_verified,
 				},
 			}}
 		>
