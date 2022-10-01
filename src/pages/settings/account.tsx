@@ -1,6 +1,7 @@
 import { FormField } from '@/components/Form/FormField';
 import { Avatar } from '@/components/ui/Avatar';
 import { Button } from '@/components/ui/Buttons/Button';
+import { LoadingButton } from '@/components/ui/Buttons/LoadingButton';
 import { Card } from '@/components/ui/Card';
 import { Container } from '@/components/ui/Container';
 import { Heading } from '@/components/ui/Typography/Heading';
@@ -13,6 +14,7 @@ import { useRouter } from 'next/router';
 import { useEffect } from 'react';
 import { useForm } from 'react-hook-form';
 import { FaGithub, FaTwitter } from 'react-icons/fa';
+import { toast } from 'react-toastify';
 import * as z from 'zod';
 
 const schema = z.object({
@@ -35,7 +37,7 @@ export default function SettingsAccount() {
 	const {
 		handleSubmit,
 		register,
-		formState: { errors },
+		formState: { errors, isSubmitting, isDirty: isFormEditted, isValid },
 	} = useForm({
 		defaultValues: {
 			username: auth?.user.username,
@@ -46,8 +48,6 @@ export default function SettingsAccount() {
 		},
 		resolver: zodResolver(schema),
 	});
-
-	const hasError = Object.entries(errors).length;
 
 	useEffect(() => {
 		// TODO: Improve no auth validation
@@ -88,16 +88,20 @@ export default function SettingsAccount() {
 						</header>
 
 						<form
-							onSubmit={handleSubmit(
-								async (data) =>
-									await updateUser({
-										name: data.displayName as string,
-										username: data.username as string,
-										bio: data.bio,
-										github: data.github,
-										twitter: data.twitter,
-									}),
-							)}
+							onSubmit={handleSubmit(async (data) => {
+								await updateUser({
+									name: data.displayName as string,
+									username: data.username as string,
+									bio: data.bio,
+									github: data.github,
+									twitter: data.twitter,
+								});
+
+								toast('Your user was updated successfully', {
+									className: '!bg-zinc-50 dark:!bg-zinc-900 !text-zinc-900 dark:!text-zinc-200',
+									progressClassName: '!bg-rose-700 dark:!bg-rose-900',
+								});
+							})}
 						>
 							<div className="mt-8 space-y-6">
 								<FormField
@@ -149,9 +153,13 @@ export default function SettingsAccount() {
 							</div>
 
 							<div className="flex justify-end mt-6">
-								<Button type="submit">
-									{!hasError ? 'Update' : 'Failed to save profile. Try again.'}
-								</Button>
+								{isSubmitting ? (
+									<LoadingButton />
+								) : (
+									<Button type="submit" disabled={!isFormEditted}>
+										{isValid ? 'Update' : 'Failed to save profile. Try again.'}
+									</Button>
+								)}
 							</div>
 						</form>
 					</Card>
