@@ -6,7 +6,7 @@ import { AnimatePresence } from 'framer-motion';
 import Link from 'next/link';
 import { Article, List, MagnifyingGlass, PaintBrush, Question, X } from 'phosphor-react';
 import { useState } from 'react';
-import { Dialog } from '../../Dialogs/Dialog';
+import { Dialog } from '../../ui/Dialogs/Dialog';
 import { Button } from '../../ui/Buttons/Button';
 import { Container } from '../../ui/Container';
 import { MobileItem } from './MobileItem';
