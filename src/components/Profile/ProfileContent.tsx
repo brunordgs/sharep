@@ -24,6 +24,7 @@ export function ProfileContent({
 	bio,
 	avatar_url: avatarUrl,
 	twitter,
+	github,
 	is_creator: isCreator,
 	is_verified: isVerified,
 	creator,
@@ -67,7 +68,7 @@ export function ProfileContent({
 							)}
 
 							<LinkButton
-								href={`https://github.com/${username}`}
+								href={`https://github.com/${github}`}
 								isExternal
 								color="unstyled"
 								fontSize="sm"
@@ -80,7 +81,7 @@ export function ProfileContent({
 							</LinkButton>
 						</div>
 
-						{auth?.user?.username === username && (
+						{auth?.user.username === username && (
 							<LinkButton
 								href="/settings/account"
 								color="unstyled"
