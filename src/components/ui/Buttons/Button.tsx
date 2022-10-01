@@ -14,11 +14,11 @@ type ButtonProps = Props & ComponentPropsWithoutRef<'button'>;
 
 export const BUTTON_COLORS = {
 	primary: {
-		base: 'bg-rose-600 dark:bg-rose-500 text-zinc-200 hover:text-white border border-rose-500 dark:border-rose-600',
+		base: 'bg-rose-600 dark:bg-rose-500 text-zinc-200 hover:text-white border border-rose-500 dark:border-rose-600 rounded-md shadow-md',
 		outlined:
-			'bg-transparent text-rose-600 dark:text-rose-500 hover:text-rose-700 dark:hover:text-rose-400 border border-rose-400 dark:border-rose-500',
+			'bg-transparent text-rose-600 dark:text-rose-500 hover:text-rose-700 dark:hover:text-rose-400 border border-rose-400 dark:border-rose-500 rounded-md shadow-md',
 		disabled: {
-			base: 'bg-zinc-400/40 dark:bg-zinc-700 text-zinc-400 dark:text-opacity-40 dark:text-zinc-200 border border-transparent cursor-not-allowed',
+			base: 'bg-zinc-400/40 dark:bg-zinc-700 text-zinc-400 dark:text-opacity-40 dark:text-zinc-200 border border-transparent cursor-not-allowed rounded-md shadow-md',
 			outlined: '',
 		},
 	},
@@ -67,7 +67,7 @@ export function Button({
 					'px-2 py-1': size === 'small',
 					'': size === 'custom',
 				},
-				`flex items-center justify-center transition-all duration-150 ease-out leading-5 font-medium focus:outline-none rounded-md shadow-md`,
+				`flex items-center justify-center transition-all duration-150 ease-out leading-5 font-medium focus:outline-none`,
 				className,
 			)}
 			aria-label={props.title}

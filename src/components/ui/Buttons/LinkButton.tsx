@@ -11,7 +11,7 @@ type Props = {
 
 export function LinkButton({
 	color = 'primary',
-	variant = 'default',
+	variant = 'base',
 	size = 'default',
 	fontSize = 'sm',
 	// leftIcon: LeftIcon,
@@ -27,7 +27,7 @@ export function LinkButton({
 		<Link href={props.href}>
 			<a
 				className={clsx(
-					variant === 'outlined' ? `${colorStyles.outlined}` : `${colorStyles.base}`,
+					variant === 'outlined' ? colorStyles.outlined : colorStyles.base,
 					BUTTON_FONT_SIZES[fontSize],
 					{
 						'px-6 py-4': size === 'large',
@@ -35,7 +35,7 @@ export function LinkButton({
 						'px-2 py-1': size === 'small',
 						'': size === 'custom',
 					},
-					'inline-flex items-center justify-center transition-all duration-150 ease-out dark:font-medium gap-2',
+					'inline-flex items-center justify-center transition-all duration-150 ease-out gap-2',
 					className,
 				)}
 				target={isExternal ? '_blank' : '_self'}
