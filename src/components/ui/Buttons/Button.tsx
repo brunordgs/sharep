@@ -3,7 +3,7 @@ import { ComponentPropsWithoutRef } from 'react';
 
 export interface Props {
 	color?: keyof typeof BUTTON_COLORS;
-	variant?: 'default' | 'outlined';
+	variant?: 'base' | 'outlined';
 	size?: 'small' | 'default' | 'large' | 'custom';
 	fontSize?: 'xs' | 'sm' | 'base' | 'lg';
 	// leftIcon?: IconType | string;
@@ -14,13 +14,21 @@ type ButtonProps = Props & ComponentPropsWithoutRef<'button'>;
 
 export const BUTTON_COLORS = {
 	primary: {
-		base: 'bg-rose-600 dark:bg-rose-500 text-zinc-100 hover:text-white border border-rose-500 dark:border-rose-600 hover:border-rose-400 dark:hover:border-rose-400 leading-5 font-medium focus:outline-none rounded-md shadow-md',
+		base: 'bg-rose-600 dark:bg-rose-500 text-zinc-200 hover:text-white border border-rose-500 dark:border-rose-600',
 		outlined:
-			'bg-transparent text-rose-600 dark:text-rose-500 hover:text-rose-700 dark:hover:text-rose-400 border border-rose-400 dark:border-rose-500 hover:border-rose-400 dark:hover:border-rose-400 leading-5 font-medium focus:outline-none rounded-md shadow-md',
+			'bg-transparent text-rose-600 dark:text-rose-500 hover:text-rose-700 dark:hover:text-rose-400 border border-rose-400 dark:border-rose-500',
+		disabled: {
+			base: 'bg-zinc-400/40 dark:bg-zinc-700 text-zinc-400 dark:text-opacity-40 dark:text-zinc-200 border border-transparent cursor-not-allowed',
+			outlined: '',
+		},
 	},
 	unstyled: {
 		base: '',
 		outlined: '',
+		disabled: {
+			base: '',
+			outlined: '',
+		},
 	},
 };
 
@@ -33,7 +41,7 @@ export const BUTTON_FONT_SIZES = {
 
 export function Button({
 	color = 'primary',
-	variant = 'default',
+	variant = 'base',
 	size = 'default',
 	// leftIcon: LeftIcon,
 	// rightIcon: RightIcon,
@@ -47,7 +55,11 @@ export function Button({
 	return (
 		<button
 			className={clsx(
-				variant === 'outlined' ? colorStyles.outlined : colorStyles.base,
+				props.disabled
+					? colorStyles.disabled[variant]
+					: variant === 'outlined'
+					? colorStyles.outlined
+					: colorStyles.base,
 				BUTTON_FONT_SIZES[fontSize],
 				{
 					'px-6 py-4': size === 'large',
@@ -55,7 +67,7 @@ export function Button({
 					'px-2 py-1': size === 'small',
 					'': size === 'custom',
 				},
-				`flex items-center justify-center transition-all duration-150 ease-out`,
+				`flex items-center justify-center transition-all duration-150 ease-out leading-5 font-medium focus:outline-none rounded-md shadow-md`,
 				className,
 			)}
 			aria-label={props.title}
