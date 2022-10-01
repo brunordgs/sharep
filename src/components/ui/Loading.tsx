@@ -13,7 +13,7 @@ export function Loading({ loading, className, children }: Props) {
 				<>{children} </>
 			) : (
 				<div className={clsx('flex justify-center items-center h-full', className)}>
-					<Spinner />
+					<Spinner className="w-8 h-8 text-gray-200 dark:text-black/20 fill-rose-600" />
 				</div>
 			)}
 		</>
