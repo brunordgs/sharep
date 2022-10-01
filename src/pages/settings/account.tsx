@@ -107,7 +107,7 @@ export default function SettingsAccount() {
 								<FormField
 									name="username"
 									label="Username"
-									inputAddon="sharep.com/@"
+									inputAddon="sharep.vercel.app/@"
 									placeholder="Your username..."
 									register={register}
 									error={errors.username?.message}
