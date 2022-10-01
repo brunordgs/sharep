@@ -7,6 +7,8 @@ import ProgressBar from '@badrap/bar-of-progress';
 import clsx from 'clsx';
 import type { AppProps } from 'next/app';
 import { Router, useRouter } from 'next/router';
+import { ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 const progress = new ProgressBar({
 	size: 4,
@@ -33,6 +35,8 @@ export default function App({ Component, pageProps }: AppProps) {
 					<Footer />
 				</div>
 			</ThemeProvider>
+
+			<ToastContainer theme="dark" />
 		</AuthProvider>
 	);
 }
