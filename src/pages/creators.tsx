@@ -37,26 +37,30 @@ export default function Creators() {
 			</Head>
 
 			<Container className="my-6">
-				<Heading transform="italic" size="lg" className="flex items-end gap-2">
-					Awesome creators
-				</Heading>
-
 				<div className="grid grid-cols-1 lg:grid-cols-6 gap-8 mt-6">
 					<div className="lg:col-span-4 space-y-4">
+					<div className="flex item-start lg:items-center justify-between flex-col lg:flex-row gap-4">
+							<Heading transform="italic" size="lg" className="flex items-end gap-2">
+								Awesome creators
+							</Heading>
+
+							<input
+								type="text"
+								className="bg-zinc-200 dark:bg-zinc-700 h-10 focus:outline-none placeholder:text-zinc-400 dark:placeholder:text-zinc-500 text-sm rounded-md px-4"
+								placeholder="Search..."
+							/>
+						</div>
+
+						<div className="border-b border-zinc-200 dark:border-zinc-800" />
+
 						{isAlertOpen && (
 							<Alert
 								title="Become a creator"
 								subtitle="Start sharing projects on Sharep by applying to become a creator, and start posting!"
-								actionButton={
-									<button
-										className="bg-rose-100 hover:bg-rose-200 dark:bg-rose-200/95 dark:hover:bg-rose-100/90 border-2 border-rose-200 dark:border-rose-300 text-rose-900 hover:text-rose-800 font-medium px-4 py-2 text-sm rounded-md shadow-md transition-colors disabled:bg-rose-600 dark:disabled:bg-rose-400 disabled:border-transparent dark:disabled:border-transparent disabled:text-rose-300"
-										disabled
-									>
-										Coming soon {/* Become now */}
-									</button>
-								}
 								onHandleClose={setIsAlertOpen}
-							/>
+							>
+								Coming soon {/* Become now */}
+							</Alert>
 						)}
 
 						<Card className="lg:h-full" noPadding>
