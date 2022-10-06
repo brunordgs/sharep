@@ -11,7 +11,8 @@ import { updateUser } from '@/utils/supabase';
 import { zodResolver } from '@hookform/resolvers/zod';
 import Head from 'next/head';
 import { useRouter } from 'next/router';
-import { useEffect } from 'react';
+import { Check } from 'phosphor-react';
+import { useEffect, useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { FaGithub, FaTwitter } from 'react-icons/fa';
 import { toast } from 'react-toastify';
@@ -31,14 +32,18 @@ const schema = z.object({
 	twitter: z.string().max(15, 'Twitter should be less than 15 characters'),
 });
 
+type ProfileForm = z.infer<typeof schema>;
+
 export default function SettingsAccount() {
 	const auth = useAuth();
 	const router = useRouter();
 	const {
 		handleSubmit,
 		register,
-		formState: { errors, isSubmitting, isDirty: isFormEditted, isValid },
-	} = useForm({
+		getValues,
+		reset,
+		formState: { errors, isSubmitting, isDirty: isFormEditted, isValid, isSubmitSuccessful },
+	} = useForm<ProfileForm>({
 		defaultValues: {
 			username: auth?.user.username,
 			displayName: auth?.user.name,
@@ -49,6 +54,8 @@ export default function SettingsAccount() {
 		resolver: zodResolver(schema),
 	});
 
+	const [isFormSubmmited, setIsFormSubmitted] = useState(false);
+
 	useEffect(() => {
 		// TODO: Improve no auth validation
 		if (!auth?.session) {
@@ -57,7 +64,21 @@ export default function SettingsAccount() {
 		}
 	}, [auth]);
 
-	if (!auth) return;
+	// Reset "isFormSubmitted" value after field changes, I'm not using "isSubmitted" or "isSubmitSuccessfull"
+	// provided by react-hook-form because these values doesn't reset (false in this case) after form submit
+	useEffect(() => {
+		if (isFormEditted) {
+			setIsFormSubmitted(false);
+		}
+	}, [isFormEditted]);
+
+	// Reset all field values after form submit to prevent wrong state values
+	useEffect(() => {
+		if (isSubmitSuccessful) {
+			const values = getValues();
+			reset(values);
+		}
+	}, [isSubmitSuccessful, getValues, reset]);
 
 	return (
 		<>
@@ -68,11 +89,11 @@ export default function SettingsAccount() {
 			<Container className="my-6">
 				<main className="grid grid-cols-1 lg:grid-cols-4">
 					<div className="flex items-start gap-4 mb-4 lg:mb-0">
-						<Avatar src={auth.user.image} size="sm" />
+						<Avatar src={auth?.user.image as string} size="sm" />
 
 						<div>
-							<Text weight="bold">{auth.user.name}</Text>
-							<Text size="xs">@{auth.user.username}</Text>
+							<Text weight="bold">{auth?.user.name}</Text>
+							<Text size="xs">@{auth?.user.username}</Text>
 						</div>
 					</div>
 
@@ -88,19 +109,23 @@ export default function SettingsAccount() {
 						</header>
 
 						<form
-							onSubmit={handleSubmit(async (data) => {
-								await updateUser({
-									name: data.displayName as string,
-									username: data.username as string,
-									bio: data.bio,
-									github: data.github,
-									twitter: data.twitter,
-								});
+							onSubmit={handleSubmit(async (values) => {
+								try {
+									await updateUser({
+										name: values.displayName as string,
+										username: values.username as string,
+										bio: values.bio,
+										github: values.github,
+										twitter: values.twitter,
+									});
 
-								toast('Your user was updated successfully', {
-									className: '!bg-zinc-50 dark:!bg-zinc-900 !text-zinc-900 dark:!text-zinc-200',
-									progressClassName: '!bg-rose-700 dark:!bg-rose-900',
-								});
+									setIsFormSubmitted(true);
+								} catch (e) {
+									toast('Something went wrong while trying to update user', {
+										className: '!bg-zinc-50 dark:!bg-zinc-900 !text-zinc-900 dark:!text-zinc-200',
+										progressClassName: '!bg-rose-700 dark:!bg-rose-900',
+									});
+								}
 							})}
 						>
 							<div className="mt-8 space-y-6">
@@ -155,9 +180,13 @@ export default function SettingsAccount() {
 							<div className="flex justify-end mt-6">
 								{isSubmitting ? (
 									<LoadingButton />
+								) : isFormSubmmited ? (
+									<Button type="button" color="success" className="cursor-not-allowed">
+										<Check size={20} weight="bold" />
+									</Button>
 								) : (
 									<Button type="submit" disabled={!isFormEditted}>
-										{isValid ? 'Update' : 'Failed to save profile. Try again.'}
+										{isValid ? 'Update profile' : 'Failed to save profile. Try again.'}
 									</Button>
 								)}
 							</div>
