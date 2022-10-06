@@ -1,14 +1,14 @@
+import { LinkButton } from '@/components/ui/Buttons/LinkButton';
 import { UserDropdown } from '@/components/UserDropdown';
 import { useAuth } from '@/hooks/useAuth';
 import { signIn } from '@/utils/supabase';
 import clsx from 'clsx';
 import { AnimatePresence } from 'framer-motion';
-import Link from 'next/link';
 import { Article, List, MagnifyingGlass, PaintBrush, Question, X } from 'phosphor-react';
 import { useState } from 'react';
-import { Dialog } from '../../ui/Dialogs/Dialog';
 import { Button } from '../../ui/Buttons/Button';
 import { Container } from '../../ui/Container';
+import { Dialog } from '../../ui/Dialogs/Dialog';
 import { MobileItem } from './MobileItem';
 
 export function MobileNavbar() {
@@ -17,23 +17,25 @@ export function MobileNavbar() {
 
 	return (
 		<Container className="flex items-center justify-between lg:hidden">
-			<div className={clsx(!auth?.session ? "w-[79px]" : "w-[40px]")}>
-			<Button
-				type="button"
-				color="unstyled"
-				className="hover:text-black dark:hover:text-white"
-				onClick={() => setCollapse(!collapse)}
-			>
-				{!collapse ? <List size={24} /> : <X size={24} />}
-			</Button>
+			<div className={clsx(!auth?.session ? 'w-[79px]' : 'w-[40px]')}>
+				<Button
+					type="button"
+					color="unstyled"
+					className="hover:text-black dark:hover:text-white"
+					onClick={() => setCollapse(!collapse)}
+				>
+					{!collapse ? <List size={24} /> : <X size={24} />}
+				</Button>
 			</div>
 
 			<nav className="flex">
-				<Link href="/">
-					<a className="text-2xl italic font-bold text-rose-600 dark:text-rose-500 hover:text-rose-500 dark:hover:text-rose-600 transition-colors ease-out">
-						sharep
-					</a>
-				</Link>
+				<LinkButton
+					href="/"
+					color="unstyled"
+					className="text-2xl italic font-bold text-rose-600 dark:text-rose-500 hover:text-rose-500 dark:hover:text-rose-600"
+				>
+					sharep
+				</LinkButton>
 
 				{/* NOTE: Should be removed soon, for testing purposes */}
 				<div className="uppercase italic font-bold text-zinc-600 dark:text-zinc-200 text-[10px] flex items-end ml-2 select-none">

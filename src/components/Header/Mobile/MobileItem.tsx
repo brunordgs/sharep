@@ -1,21 +1,19 @@
+import { LinkButton, Props as LinkButtonProps } from '@/components/ui/Buttons/LinkButton';
 import clsx from 'clsx';
-import Link from 'next/link';
-import { ComponentPropsWithoutRef } from 'react';
 
-type Props = ComponentPropsWithoutRef<'a'>;
-
-export function MobileItem({ href, children, className, ...props }: Props) {
+export function MobileItem({ href, children, className, ...props }: LinkButtonProps) {
 	return (
-		<Link href={href as string}>
-			<a
-				className={clsx(
-					'w-full p-5 border-b dark:border-zinc-800 last:border-0 flex items-center justify-center gap-2 text-center cursor-pointer hover:text-black dark:hover:text-white font-bold transition-colors ease-out',
-					className,
-				)}
-				{...props}
-			>
-				{children}
-			</a>
-		</Link>
+		<LinkButton
+			href={href as string}
+			color="unstyled"
+			fontSize="base"
+			className={clsx(
+				'w-full p-5 border-b dark:border-zinc-800 last:border-0 text-center cursor-pointer hover:text-black dark:hover:text-white font-bold',
+				className,
+			)}
+			{...props}
+		>
+			{children}
+		</LinkButton>
 	);
 }

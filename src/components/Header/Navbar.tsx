@@ -5,6 +5,7 @@ import Link from 'next/link';
 import { useRouter } from 'next/router';
 import { Article, MagnifyingGlass, PaintBrush, Question } from 'phosphor-react';
 import { Button } from '../ui/Buttons/Button';
+import { LinkButton } from '../ui/Buttons/LinkButton';
 import { Container } from '../ui/Container';
 import { UserDropdown } from '../UserDropdown';
 import { MobileNavbar } from './Mobile/MobileNavbar';
@@ -40,11 +41,13 @@ export function Navbar() {
 			<Container className="hidden lg:flex items-center">
 				<div className="flex-1">
 					<nav className="flex">
-						<Link href="/">
-							<a className="text-2xl italic font-extrabold text-rose-600 dark:text-rose-500 hover:text-rose-500 dark:hover:text-rose-600 transition-colors ease-out">
-								sharep
-							</a>
-						</Link>
+						<LinkButton
+							href="/"
+							color="unstyled"
+							className="text-2xl italic font-extrabold text-rose-600 dark:text-rose-500 hover:text-rose-500 dark:hover:text-rose-600"
+						>
+							sharep
+						</LinkButton>
 
 						{/* NOTE: Should be removed soon, for testing purposes */}
 						<div className="uppercase italic font-bold text-zinc-600 dark:text-zinc-200 text-xs flex items-end ml-2 select-none">
@@ -54,17 +57,18 @@ export function Navbar() {
 						<ul className="flex items-center gap-6 border-l-4 border-rose-600 px-8 ml-8 font-bold text-zinc-700 dark:text-zinc-300">
 							{menuItems.map(({ link, text, icon: Icon, isActive }) => (
 								<li key={link}>
-									<Link href={link}>
-										<a
-											className={clsx(
-												isActive && 'text-black dark:text-white',
-												'flex items-center gap-2 hover:text-black dark:hover:text-white transition-colors ease-out',
-											)}
-										>
-											<Icon size={20} weight="bold" />
-											{text}
-										</a>
-									</Link>
+									<LinkButton
+										href={link}
+										color="unstyled"
+										fontSize="base"
+										className={clsx(
+											isActive && 'text-black dark:text-white',
+											'hover:text-black dark:hover:text-white',
+										)}
+									>
+										<Icon size={20} weight="bold" />
+										{text}
+									</LinkButton>
 								</li>
 							))}
 						</ul>
