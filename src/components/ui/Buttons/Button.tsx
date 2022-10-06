@@ -22,6 +22,14 @@ export const BUTTON_COLORS = {
 			outlined: '',
 		},
 	},
+	success: {
+		base: 'bg-teal-600 dark:bg-teal-500 text-zinc-200 hover:text-white border border-teal-500 dark:border-teal-600 rounded-md shadow-md',
+		outlined: '',
+		disabled: {
+			base: '',
+			outlined: ''
+		}
+	},
 	unstyled: {
 		base: '',
 		outlined: '',
