@@ -4,7 +4,7 @@ import { signOut } from '@/utils/supabase';
 import { Menu, Transition } from '@headlessui/react';
 import clsx from 'clsx';
 import { useRouter } from 'next/router';
-import { Gear, Moon, SignOut, User } from 'phosphor-react';
+import { Gear, Moon, PaintBrush, SignOut, User } from 'phosphor-react';
 import { Fragment } from 'react';
 import { Avatar } from './ui/Avatar';
 import { SwitchToggle } from './ui/SwitchToggle';
@@ -49,6 +49,24 @@ export function UserDropdown({ avatar }: Props) {
 								</button>
 							)}
 						</Menu.Item>
+
+						{/* TODO: Remove hardcoded username */}
+						{(auth?.user.isCreator || auth?.user.username === 'brunordgs') && (
+							<Menu.Item>
+								{({ active }) => (
+									<button
+										onClick={() => router.push(`/creator/${auth?.user.username}/dashboard`)}
+										className={clsx(
+											{ 'bg-zinc-100 dark:bg-zinc-700': active },
+											'flex gap-2 w-full items-center rounded-md p-2 text-sm text-zinc-800 dark:text-zinc-200 transition-colors ease-out',
+										)}
+									>
+										<PaintBrush weight="bold" />
+										Creator Dashboard
+									</button>
+								)}
+							</Menu.Item>
+						)}
 					</div>
 
 					<div className="py-1">
