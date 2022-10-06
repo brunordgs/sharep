@@ -29,10 +29,7 @@ export function Text({
 	...props
 }: Props) {
 	return (
-		<Tag
-			className={clsx(sizes[size], FONT_WEIGHTS[weight], transform, className)}
-			{...props}
-		>
+		<Tag className={clsx(sizes[size], FONT_WEIGHTS[weight], transform, className)} {...props}>
 			{children}
 		</Tag>
 	);

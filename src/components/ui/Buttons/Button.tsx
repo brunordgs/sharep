@@ -27,8 +27,8 @@ export const BUTTON_COLORS = {
 		outlined: '',
 		disabled: {
 			base: '',
-			outlined: ''
-		}
+			outlined: '',
+		},
 	},
 	unstyled: {
 		base: '',

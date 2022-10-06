@@ -1,4 +1,4 @@
-import { FONT_WEIGHTS } from "../constants";
+import { FONT_WEIGHTS } from '../constants';
 
 export interface Typography {
 	weight?: keyof typeof FONT_WEIGHTS;

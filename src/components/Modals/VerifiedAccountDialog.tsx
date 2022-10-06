@@ -64,8 +64,8 @@ export function VerifiedAccountDialog({ size }: { size?: number }) {
 									</Dialog.Title>
 
 									<Text size="sm" className="text-zinc-500 dark:text-zinc-400">
-										This account is verified because it&apos;s a staff user, notable creator or another
-										designated category.
+										This account is verified because it&apos;s a staff user, notable creator or
+										another designated category.
 									</Text>
 								</Dialog.Panel>
 							</Transition.Child>

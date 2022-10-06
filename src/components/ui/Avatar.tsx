@@ -26,7 +26,7 @@ export function Avatar({ size = 'md', hasBorder = false, className, ...props }: 
 				layout="fill"
 				objectFit="contain"
 				className="rounded-full"
-				alt={props.alt ?? ""}
+				alt={props.alt ?? ''}
 				{...props}
 			/>
 		</div>

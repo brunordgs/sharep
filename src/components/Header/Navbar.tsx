@@ -1,7 +1,6 @@
 import { useAuth } from '@/hooks/useAuth';
 import { signIn } from '@/utils/supabase';
 import clsx from 'clsx';
-import Link from 'next/link';
 import { useRouter } from 'next/router';
 import { Article, MagnifyingGlass, PaintBrush, Question } from 'phosphor-react';
 import { Button } from '../ui/Buttons/Button';
@@ -76,7 +75,7 @@ export function Navbar() {
 				</div>
 
 				<div className="flex items-center gap-4">
-					<div className="flex items-center h-10 w-56 bg-zinc-200 dark:bg-zinc-700 gap-2 px-3 rounded-md">
+					<div className="flex items-center h-10 w-56 bg-zinc-200 dark:bg-zinc-700 gap-2 px-3 rounded-md shadow-sm">
 						<MagnifyingGlass weight="bold" size={20} className="text-zinc-600 dark:text-zinc-500" />
 
 						<input
