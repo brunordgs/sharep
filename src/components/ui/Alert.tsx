@@ -1,16 +1,14 @@
 // import { X } from 'phosphor-react';
-import { ReactNode } from 'react';
-// import { Button } from './Buttons/Button';
+import { Children } from '@/shared/interfaces/Children';
 import { Text } from './Typography/Text';
 
-interface Props {
+interface Props extends Children {
 	title: string;
 	subtitle?: string;
-	actionButton: ReactNode;
 	onHandleClose(isOpen: boolean): void;
 }
 
-export function Alert({ title, subtitle, actionButton }: Props) {
+export function Alert({ title, subtitle, children }: Props) {
 	return (
 		<div className="bg-gradient-to-r from-rose-500 to-pink-600 rounded-lg p-4 text-zinc-100 dark:text-zinc-200">
 			<div className="flex items-center justify-between">
@@ -32,7 +30,12 @@ export function Alert({ title, subtitle, actionButton }: Props) {
 				{subtitle}
 			</Text>
 
-			{actionButton}
+			<button
+				className="bg-rose-100 hover:bg-rose-200 dark:bg-rose-200/95 dark:hover:bg-rose-100/90 border-2 border-rose-200 dark:border-rose-300 text-rose-900 hover:text-rose-800 font-medium px-4 py-2 text-sm rounded-md shadow-md transition-colors disabled:bg-rose-600 dark:disabled:bg-rose-400 disabled:border-transparent dark:disabled:border-transparent disabled:text-rose-300"
+				disabled
+			>
+				{children}
+			</button>
 		</div>
 	);
 }
