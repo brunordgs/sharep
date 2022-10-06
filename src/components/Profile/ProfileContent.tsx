@@ -86,10 +86,9 @@ export function ProfileContent({
 								href="/settings/account"
 								color="unstyled"
 								className="bg-zinc-200/60 hover:bg-zinc-200 hover:text-black hover:dark:text-white dark:bg-zinc-800 dark:hover:bg-zinc-700 p-2 rounded-full"
-								aria-label="Edit profile"
 								title="Edit profile"
 							>
-								<Pencil size={16} />
+								<Pencil size={16} aria-label="Edit profile" />
 							</LinkButton>
 						)}
 					</div>

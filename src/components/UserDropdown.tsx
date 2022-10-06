@@ -41,7 +41,7 @@ export function UserDropdown({ avatar }: Props) {
 									onClick={() => router.push(`/@${auth?.user.username}`)}
 									className={clsx(
 										{ 'bg-zinc-100 dark:bg-zinc-700': active },
-										'flex gap-2 w-full items-center rounded-md p-2 text-sm text-zinc-800 dark:text-zinc-200 transition-colors duration-150 ease-out',
+										'flex gap-2 w-full items-center rounded-md p-2 text-sm text-zinc-800 dark:text-zinc-200 transition-colors ease-out',
 									)}
 								>
 									<User weight="bold" />
@@ -58,7 +58,7 @@ export function UserDropdown({ avatar }: Props) {
 									onClick={() => router.push('/settings/account')}
 									className={clsx(
 										{ 'bg-zinc-100 dark:bg-zinc-700': active },
-										'flex gap-2 w-full items-center rounded-md p-2 text-sm text-zinc-800 dark:text-zinc-200  transition-colors duration-150 ease-out',
+										'flex gap-2 w-full items-center rounded-md p-2 text-sm text-zinc-800 dark:text-zinc-200  transition-colors ease-out',
 									)}
 								>
 									<Gear weight="bold" />
@@ -96,7 +96,7 @@ export function UserDropdown({ avatar }: Props) {
 									}}
 									className={clsx(
 										{ 'bg-zinc-100 dark:bg-zinc-700': active },
-										'flex gap-2 w-full items-center rounded-md p-2 text-sm text-zinc-800 hover:bg-zinc-100 dark:text-zinc-200 dark:hover:bg-zinc-700 transition-colors duration-150 ease-out',
+										'flex gap-2 w-full items-center rounded-md p-2 text-sm text-zinc-800 hover:bg-zinc-100 dark:text-zinc-200 dark:hover:bg-zinc-700 transition-colors ease-out',
 									)}
 								>
 									<SignOut weight="bold" />

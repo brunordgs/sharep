@@ -41,7 +41,7 @@ export function Navbar() {
 				<div className="flex-1">
 					<nav className="flex">
 						<Link href="/">
-							<a className="text-2xl italic font-extrabold text-rose-600 dark:text-rose-500 hover:text-rose-500 dark:hover:text-rose-600 transition-colors duration-150 ease-out">
+							<a className="text-2xl italic font-extrabold text-rose-600 dark:text-rose-500 hover:text-rose-500 dark:hover:text-rose-600 transition-colors ease-out">
 								sharep
 							</a>
 						</Link>
@@ -58,7 +58,7 @@ export function Navbar() {
 										<a
 											className={clsx(
 												isActive && 'text-black dark:text-white',
-												'flex items-center gap-2 hover:text-black dark:hover:text-white transition-colors duration-150 ease-out',
+												'flex items-center gap-2 hover:text-black dark:hover:text-white transition-colors ease-out',
 											)}
 										>
 											<Icon size={20} weight="bold" />

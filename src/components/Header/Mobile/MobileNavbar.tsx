@@ -30,7 +30,7 @@ export function MobileNavbar() {
 
 			<nav className="flex">
 				<Link href="/">
-					<a className="text-2xl italic font-bold text-rose-600 dark:text-rose-500 hover:text-rose-500 dark:hover:text-rose-600 transition-colors duration-150 ease-out">
+					<a className="text-2xl italic font-bold text-rose-600 dark:text-rose-500 hover:text-rose-500 dark:hover:text-rose-600 transition-colors ease-out">
 						sharep
 					</a>
 				</Link>
