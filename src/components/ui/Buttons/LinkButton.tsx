@@ -3,7 +3,7 @@ import Link, { LinkProps as NextLinkProps } from 'next/link';
 import { ComponentPropsWithoutRef } from 'react';
 import { BUTTON_COLORS, BUTTON_FONT_SIZES, Props as ButtonProps } from './Button';
 
-type Props = {
+export type Props = {
 	isExternal?: boolean;
 } & ComponentPropsWithoutRef<'a'> &
 	ButtonProps &
@@ -35,7 +35,7 @@ export function LinkButton({
 						'px-2 py-1': size === 'small',
 						'': size === 'custom',
 					},
-					'inline-flex items-center justify-center transition-all ease-out gap-2',
+					'flex items-center justify-center transition-all ease-out gap-2',
 					className,
 				)}
 				target={isExternal ? '_blank' : '_self'}
