@@ -90,7 +90,7 @@ export default function SettingsAccount() {
 				<title>Your account | sharep</title>
 			</Head>
 
-			<Container className="my-6">
+			<Container>
 				<main className="grid grid-cols-1 lg:grid-cols-4">
 					<div className="flex items-start gap-4 mb-4 lg:mb-0">
 						<Avatar src={auth?.user.image as string} size="sm" />

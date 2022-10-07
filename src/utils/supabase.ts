@@ -1,5 +1,5 @@
 import { supabase } from '@/services/supabaseClient';
-import { UserProfile } from '@/shared/interfaces/UserProfile';
+import { type UserProfile } from '@/shared/interfaces/UserProfile';
 
 export async function signIn() {
 	const isProd = process.env.NODE_ENV === 'production';

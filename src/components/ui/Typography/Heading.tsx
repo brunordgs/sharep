@@ -1,7 +1,7 @@
 import clsx from 'clsx';
 import { HTMLAttributes } from 'react';
 import { FONT_WEIGHTS } from '@/shared/constants';
-import { Typography } from '@/shared/interfaces/Typography';
+import { type Typography } from '@/shared/interfaces/Typography';
 
 type Props = {
 	as?: 'h1' | 'h2' | 'h3' | 'h4' | 'h5' | 'h6';

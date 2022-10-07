@@ -1,4 +1,4 @@
-import { LinkButton, Props as LinkButtonProps } from '@/components/ui/Buttons/LinkButton';
+import { LinkButton, type Props as LinkButtonProps } from '@/components/ui/Buttons/LinkButton';
 import clsx from 'clsx';
 
 export function MobileItem({ href, children, className, ...props }: LinkButtonProps) {

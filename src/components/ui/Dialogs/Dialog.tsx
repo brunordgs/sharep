@@ -1,4 +1,4 @@
-import { Children } from '@/shared/interfaces/Children';
+import { type Children } from '@/shared/interfaces/Children';
 import { Dialog as HeadlessDialog } from '@headlessui/react';
 import { motion } from 'framer-motion';
 

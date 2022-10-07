@@ -1,7 +1,7 @@
 import clsx from 'clsx';
 import { HTMLAttributes } from 'react';
 import { FONT_WEIGHTS } from '@/shared/constants';
-import { Typography } from '@/shared/interfaces/Typography';
+import { type Typography } from '@/shared/interfaces/Typography';
 
 export type Props = {
 	as?: 'p' | 'span' | 'small';

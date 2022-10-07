@@ -7,7 +7,7 @@ import { Card } from '@/components/ui/Card';
 import { Container } from '@/components/ui/Container';
 import { Loading } from '@/components/ui/Loading';
 import { supabase } from '@/services/supabaseClient';
-import { ShortUser } from '@/shared/interfaces/ShortUser';
+import { type ShortUser } from '@/shared/interfaces/ShortUser';
 import Head from 'next/head';
 import { useEffect, useState } from 'react';
 
@@ -36,7 +36,7 @@ export default function Creators() {
 				<title>Creators | sharep</title>
 			</Head>
 
-			<Container className="my-6">
+			<Container>
 				<div className="grid grid-cols-1 lg:grid-cols-6 gap-8 mt-6">
 					<div className="lg:col-span-4 space-y-4">
 						<DefaultHeader>Awesome creators</DefaultHeader>

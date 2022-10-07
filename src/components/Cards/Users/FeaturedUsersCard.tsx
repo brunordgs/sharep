@@ -1,5 +1,5 @@
 import { Loading } from '@/components/ui/Loading';
-import { ShortUser } from '@/shared/interfaces/ShortUser';
+import { type ShortUser } from '@/shared/interfaces/ShortUser';
 import { useEffect, useState } from 'react';
 import { Footer } from '../../Footer';
 import { Card } from '../../ui/Card';

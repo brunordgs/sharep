@@ -3,11 +3,11 @@ import { signIn } from '@/utils/supabase';
 import clsx from 'clsx';
 import { useRouter } from 'next/router';
 import { Article, MagnifyingGlass, PaintBrush, Question } from 'phosphor-react';
-import { BetaDialog } from '../Modals/BetaDialog';
 import { Button } from '../ui/Buttons/Button';
 import { LinkButton } from '../ui/Buttons/LinkButton';
 import { Container } from '../ui/Container';
 import { UserDropdown } from '../UserDropdown';
+import { Logo } from './Logo';
 import { MobileNavbar } from './Mobile/MobileNavbar';
 
 export function Navbar() {
@@ -38,19 +38,10 @@ export function Navbar() {
 	return (
 		<header className="border-b border-zinc-200 dark:border-zinc-800 shadow-sm dark:shadow-lg py-5 bg-zinc-100 dark:bg-zinc-900 sticky top-0 z-20">
 			{/* Desktop navbar */}
-			<Container className="hidden lg:flex items-center">
+			<Container noMargin className="hidden lg:flex items-center">
 				<div className="flex-1">
 					<nav className="flex">
-						<LinkButton
-							href="/"
-							color="unstyled"
-							className="text-2xl italic font-extrabold text-rose-600 dark:text-rose-500 hover:text-rose-500 dark:hover:text-rose-600"
-						>
-							sharep
-						</LinkButton>
-
-						{/* NOTE: Should be removed soon, for testing purposes */}
-						<BetaDialog />
+						<Logo />
 
 						<ul className="flex items-center gap-6 border-l-4 border-rose-600 px-8 ml-8 font-bold text-zinc-700 dark:text-zinc-300">
 							{menuItems.map(({ link, text, icon: Icon, isActive }) => (

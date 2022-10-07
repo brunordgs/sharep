@@ -14,7 +14,7 @@ export default function Home() {
 				<title>Home | sharep</title>
 			</Head>
 
-			<Container className="my-6">
+			<Container>
 				<div className="lg:grid grid-cols-6 gap-8 mt-6">
 					<div className="lg:col-span-4 space-y-4">
 						<DefaultHeader>Your next favorite thing</DefaultHeader>

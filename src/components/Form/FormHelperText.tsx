@@ -1,5 +1,5 @@
 import clsx from 'clsx';
-import { Text, Props as TextProps } from '../ui/Typography/Text';
+import { Text, type Props as TextProps } from '../ui/Typography/Text';
 
 export function FormHelperText({ children, className }: TextProps) {
 	return (

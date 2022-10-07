@@ -1,5 +1,5 @@
 // import { X } from 'phosphor-react';
-import { Children } from '@/shared/interfaces/Children';
+import { type Children } from '@/shared/interfaces/Children';
 import { Text } from './Typography/Text';
 
 interface Props extends Children {

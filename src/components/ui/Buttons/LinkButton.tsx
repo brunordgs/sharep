@@ -1,7 +1,7 @@
 import clsx from 'clsx';
-import Link, { LinkProps as NextLinkProps } from 'next/link';
+import Link, { type LinkProps as NextLinkProps } from 'next/link';
 import { ComponentPropsWithoutRef } from 'react';
-import { BUTTON_COLORS, BUTTON_FONT_SIZES, Props as ButtonProps } from './Button';
+import { BUTTON_COLORS, BUTTON_FONT_SIZES, type Props as ButtonProps } from './Button';
 
 export type Props = {
 	isExternal?: boolean;

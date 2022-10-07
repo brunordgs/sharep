@@ -1,6 +1,6 @@
 import { supabase } from '@/services/supabaseClient';
-import { Children } from '@/shared/interfaces/Children';
-import { UserProfile } from '@/shared/interfaces/UserProfile';
+import { type Children } from '@/shared/interfaces/Children';
+import { type UserProfile } from '@/shared/interfaces/UserProfile';
 import { getUserInformation, selectUsers } from '@/utils/supabase';
 import { createContext, useEffect, useState } from 'react';
 

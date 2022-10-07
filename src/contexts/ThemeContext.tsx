@@ -1,7 +1,7 @@
 import { useLocalStorage } from '@/hooks/useLocalStorage';
-import { Children } from '@/shared/interfaces/Children';
-import { ThemeContext as ThemeContextProps } from '@/shared/interfaces/ThemeContext';
-import { Theme } from '@/shared/types/Theme';
+import { type Children } from '@/shared/interfaces/Children';
+import { type ThemeContext as ThemeContextProps } from '@/shared/interfaces/ThemeContext';
+import { type Theme } from '@/shared/types/Theme';
 import { createContext, useEffect } from 'react';
 
 const initialValue: ThemeContextProps = {

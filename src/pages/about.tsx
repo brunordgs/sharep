@@ -12,7 +12,7 @@ export default function About() {
 				<title>About | sharep</title>
 			</Head>
 
-			<Container className="my-6 text-center">
+			<Container className="text-center">
 				<section className="flex flex-col items-center">
 					<Heading size="lg" transform="italic" className="md:text-4xl">
 						About Sharep
