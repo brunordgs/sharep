@@ -31,7 +31,7 @@ export default function App({ Component, pageProps }: AppProps) {
 				<Navbar />
 				<Component {...pageProps} />
 
-				<div className={clsx({ 'lg:hidden': excludeRoutes.includes(router.pathname) })}>
+				<div className={clsx({ 'lg:hidden': excludeRoutes.includes(router.pathname) }, 'mb-6')}>
 					<Footer />
 				</div>
 			</ThemeProvider>

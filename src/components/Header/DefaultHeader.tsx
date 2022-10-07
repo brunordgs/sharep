@@ -8,14 +8,14 @@ export function DefaultHeader({ children }: Children) {
 
 	return (
 		<>
-			<div className="flex item-start lg:items-center justify-between flex-col lg:flex-row gap-4">
+			<div className="flex item-start lg:items-center justify-between flex-col md:flex-row gap-4">
 				<Heading transform="italic" size="lg" className="flex items-end gap-2">
 					{children}
 					{/* Include arrow icon at home page */}
 					{router.pathname === '/' && <CaretDown className="animate-bounce" />}
 				</Heading>
 
-				<div className="relative bg-zinc-200 dark:bg-zinc-800 h-10 rounded-md w-56 shadow-sm">
+				<div className="relative bg-zinc-200 dark:bg-zinc-800 h-10 rounded-md w-full md:w-56 shadow-sm">
 					<select
 						className="bg-zinc-200 dark:bg-zinc-800 w-full h-10 focus:outline-none placeholder:text-zinc-400 dark:placeholder:text-zinc-500 text-sm rounded-md pl-4 font-medium"
 						placeholder="Search..."
