@@ -8,7 +8,6 @@ import { selectUsers } from '@/utils/supabase';
 import { GetStaticPropsContext } from 'next';
 import Head from 'next/head';
 import { useRouter } from 'next/router';
-import { useEffect } from 'react';
 
 interface Props {
 	user: UserProfile;
@@ -20,14 +19,6 @@ export default function Profile({ user, creator }: Props) {
 
 	const username = router.query.profile as string;
 	const userNotFound = !user;
-
-	useEffect(() => {
-		if (!username) return;
-
-		if (username.charAt(0) !== '@') {
-			router.push('404');
-		}
-	}, [username, router]);
 
 	return (
 		<>
@@ -70,10 +61,14 @@ export async function getStaticPaths() {
 export async function getStaticProps({ params }: GetStaticPropsContext) {
 	const username = params!.profile!.toString();
 
-	// Prevent api request if username doesn't have @ as first character
+	// Prevent api request if username doesn't have @ as first character and redirect to 404 page
 	if (username.charAt(0) !== '@') {
 		return {
 			props: {},
+			redirect: {
+				destination: '404',
+				permanent: false,
+			},
 		};
 	}
 
