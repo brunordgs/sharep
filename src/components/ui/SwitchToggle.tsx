@@ -13,7 +13,7 @@ export function SwitchToggle({ title, enabled, setEnabled }: Props) {
 			checked={enabled}
 			onChange={setEnabled}
 			className={clsx(
-				enabled ? 'bg-rose-600 dark:bg-rose-900' : 'bg-rose-500 dark:bg-rose-700',
+				enabled ? 'bg-rose-600' : 'bg-rose-400',
 				'relative inline-flex h-4 w-8 shrink-0 cursor-pointer rounded-full border-2 border-transparent transition-colors duration-200 ease-in-out focus:outline-none focus-visible:ring-2  focus-visible:ring-white focus-visible:ring-opacity-75',
 			)}
 		>

@@ -14,7 +14,7 @@ type ButtonProps = Props & ComponentPropsWithoutRef<'button'>;
 
 export const BUTTON_COLORS = {
 	primary: {
-		base: 'bg-rose-600 dark:bg-rose-500 text-zinc-200 hover:text-white border border-rose-500 dark:border-rose-600 rounded-md shadow-md',
+		base: 'bg-rose-600 dark:bg-rose-500 text-rose-100 hover:text-white border border-rose-600 dark:border-rose-500 rounded-md shadow-md',
 		outlined:
 			'bg-transparent text-rose-600 dark:text-rose-500 hover:text-rose-700 dark:hover:text-rose-400 border border-rose-400 dark:border-rose-500 rounded-md shadow-md',
 		disabled: {
@@ -23,7 +23,15 @@ export const BUTTON_COLORS = {
 		},
 	},
 	success: {
-		base: 'bg-teal-600 dark:bg-teal-500 text-zinc-200 hover:text-white border border-teal-500 dark:border-teal-600 rounded-md shadow-md',
+		base: 'bg-teal-600 dark:bg-teal-500 text-zinc-100 hover:text-white border border-teal-600 dark:border-teal-500 rounded-md shadow-md',
+		outlined: '',
+		disabled: {
+			base: '',
+			outlined: '',
+		},
+	},
+	link: {
+		base: 'text-sky-700 hover:text-sky-800 dark:text-sky-500 dark:hover:text-sky-400',
 		outlined: '',
 		disabled: {
 			base: '',
