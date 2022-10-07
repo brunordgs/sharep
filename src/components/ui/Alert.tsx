@@ -31,7 +31,7 @@ export function Alert({ title, subtitle, children }: Props) {
 			</Text>
 
 			<button
-				className="bg-rose-100 hover:bg-rose-200 dark:bg-rose-200/95 dark:hover:bg-rose-100/90 border-2 border-rose-200 dark:border-rose-300 text-rose-900 hover:text-rose-800 font-medium px-4 py-2 text-sm rounded-md shadow-md transition-colors disabled:bg-rose-600 dark:disabled:bg-rose-400 disabled:border-transparent dark:disabled:border-transparent disabled:text-rose-300"
+				className="bg-rose-400 border border-rose-400 text-rose-100 hover:text-white font-medium px-4 py-2 text-sm rounded-md shadow-md transition-colors disabled:bg-rose-400 disabled:border-transparent disabled:text-rose-300 disabled:cursor-not-allowed"
 				disabled
 			>
 				{children}
