@@ -50,9 +50,6 @@ export function Navbar() {
 						</LinkButton>
 
 						{/* NOTE: Should be removed soon, for testing purposes */}
-						{/* <div className="uppercase italic font-bold text-zinc-600 dark:text-zinc-200 text-xs flex items-end ml-2 select-none">
-							<span className="bg-zinc-200 dark:bg-zinc-800 rounded-[4px] px-2">Beta</span>
-						</div> */}
 						<BetaDialog />
 
 						<ul className="flex items-center gap-6 border-l-4 border-rose-600 px-8 ml-8 font-bold text-zinc-700 dark:text-zinc-300">

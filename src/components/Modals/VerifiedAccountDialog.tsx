@@ -48,7 +48,7 @@ export function VerifiedAccountDialog({ size }: { size?: number }) {
 								leaveFrom="opacity-100 scale-100"
 								leaveTo="opacity-0 scale-95"
 							>
-								<Dialog.Panel className="w-full max-w-sm transform overflow-hidden rounded-2xl bg-white dark:bg-zinc-800 p-6 text-center align-middle shadow-md transition-all">
+								<Dialog.Panel className="w-full max-w-sm transform overflow-hidden rounded-2xl bg-white dark:bg-zinc-900 p-6 text-center align-middle shadow-md transition-all">
 									<div className="flex justify-center">
 										<CircleWavyCheck
 											weight="fill"
