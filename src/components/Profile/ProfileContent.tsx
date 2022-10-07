@@ -7,12 +7,32 @@ import projects from '@/data/projects.json';
 import { useAuth } from '@/hooks/useAuth';
 import { Creator } from '@/shared/interfaces/Creator';
 import { UserProfile } from '@/shared/interfaces/UserProfile';
-import { formatDate } from '@/utils/formats';
-import { PaintBrush, Pencil } from 'phosphor-react';
-import { FaGithub, FaTwitter } from 'react-icons/fa';
+import { formatDate } from '@/utils/helpers/formats';
+import { Link, PaintBrush, Pencil } from 'phosphor-react';
+import { FaGithub, FaInstagram, FaTwitter } from 'react-icons/fa';
 import { Avatar } from '../ui/Avatar';
 import { LinkButton } from '../ui/Buttons/LinkButton';
 import { Text } from '../ui/Typography/Text';
+
+function BioContent({ bio }: { bio: string | undefined }) {
+	const words = bio?.split(' ');
+	const matchUrl = /(?:www|https?)[^\s]+/g;
+	const webProtocol = /(?:www|https:\/\/)+/g;
+
+	return (
+		<Text className="text-zinc-600 dark:text-zinc-300">
+			{words?.map((word) =>
+				word.match(matchUrl) ? (
+					<LinkButton href={word} color="link" className="inline-flex" isExternal>
+						{word.replace(webProtocol, '')}
+					</LinkButton>
+				) : (
+					word + ' '
+				),
+			)}
+		</Text>
+	);
+}
 
 interface Props extends UserProfile {
 	creator: Creator;
@@ -23,6 +43,8 @@ export function ProfileContent({
 	username,
 	bio,
 	avatar_url: avatarUrl,
+	website,
+	instagram,
 	twitter,
 	github,
 	is_creator: isCreator,
@@ -52,17 +74,17 @@ export function ProfileContent({
 
 					<div className="flex flex-1 items-center justify-between">
 						<div className="m-6 flex items-center gap-6">
-							{twitter && (
+							{website && (
 								<LinkButton
-									href={`https://twitter.com/${twitter}`}
+									href={website}
 									isExternal
 									color="unstyled"
 									fontSize="sm"
-									className="flex items-center gap-2 hover:text-black dark:hover:text-white"
+									className="hover:text-black dark:hover:text-white"
 								>
-									<FaTwitter className="text-base" />
+									<Link />
 									<Text as="span" className="hidden sm:block">
-										Twitter
+										Website
 									</Text>
 								</LinkButton>
 							)}
@@ -79,6 +101,36 @@ export function ProfileContent({
 									Github
 								</Text>
 							</LinkButton>
+
+							{twitter && (
+								<LinkButton
+									href={`https://twitter.com/${twitter}`}
+									isExternal
+									color="unstyled"
+									fontSize="sm"
+									className="flex items-center gap-2 hover:text-black dark:hover:text-white"
+								>
+									<FaTwitter className="text-base" />
+									<Text as="span" className="hidden sm:block">
+										Twitter
+									</Text>
+								</LinkButton>
+							)}
+
+							{instagram && (
+								<LinkButton
+									href={`https://instagram.com/${instagram}`}
+									isExternal
+									color="unstyled"
+									fontSize="sm"
+									className="flex items-center gap-2 hover:text-black dark:hover:text-white"
+								>
+									<FaInstagram className="text-base" />
+									<Text as="span" className="hidden sm:block">
+										Instagram
+									</Text>
+								</LinkButton>
+							)}
 						</div>
 
 						{auth?.user.username === username && (
@@ -108,7 +160,7 @@ export function ProfileContent({
 				</div>
 
 				<div className="mt-2">
-					{bio && <Text className="text-zinc-600 dark:text-zinc-300">{bio}</Text>}
+					{bio && <BioContent bio={bio} />}
 
 					{projects.length && isCreator && (
 						<>

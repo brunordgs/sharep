@@ -1,14 +1,14 @@
 import { ProfileContent } from '@/components/Profile/ProfileContent';
 import { ProfileNotFound } from '@/components/Profile/ProfileNotFound';
 import { Loading } from '@/components/ui/Loading';
+import { supabase } from '@/services/supabaseClient';
 import { Creator } from '@/shared/interfaces/Creator';
 import { UserProfile } from '@/shared/interfaces/UserProfile';
-import { supabase } from '@/services/supabaseClient';
+import { selectUsers } from '@/utils/supabase';
 import { GetStaticPropsContext } from 'next';
 import Head from 'next/head';
 import { useRouter } from 'next/router';
 import { useEffect } from 'react';
-import { selectUsers } from '@/utils/supabase';
 
 interface Props {
 	user: UserProfile;

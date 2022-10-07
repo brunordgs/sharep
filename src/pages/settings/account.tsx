@@ -11,10 +11,10 @@ import { updateUser } from '@/utils/supabase';
 import { zodResolver } from '@hookform/resolvers/zod';
 import Head from 'next/head';
 import { useRouter } from 'next/router';
-import { Check } from 'phosphor-react';
+import { Check, Link } from 'phosphor-react';
 import { useEffect, useState } from 'react';
 import { useForm } from 'react-hook-form';
-import { FaGithub, FaTwitter } from 'react-icons/fa';
+import { FaGithub, FaInstagram, FaTwitter } from 'react-icons/fa';
 import { toast } from 'react-toastify';
 import * as z from 'zod';
 
@@ -28,8 +28,10 @@ const schema = z.object({
 		.min(1, 'Display Name is required')
 		.max(50, 'Display Name should be less than 50 characters'),
 	bio: z.string().max(160, 'Bio should be less than 160 characters'),
-	github: z.string().max(15, 'Github should be less than 15 characters'),
-	twitter: z.string().max(15, 'Twitter should be less than 15 characters'),
+	github: z.string().max(15, 'Github should be less or equal than 15 characters'),
+	twitter: z.string().max(15, 'Twitter should be less or equal than 15 characters'),
+	instagram: z.string().max(30, 'Instagram should be less or equal than 30 characters'),
+	website: z.string().max(200, 'Website should be less or equal than 200 characters'),
 });
 
 type ProfileForm = z.infer<typeof schema>;
@@ -50,6 +52,8 @@ export default function SettingsAccount() {
 			bio: auth?.user.bio,
 			github: auth?.user.github,
 			twitter: auth?.user.twitter,
+			instagram: auth?.user.instagram,
+			website: auth?.user.website,
 		},
 		resolver: zodResolver(schema),
 	});
@@ -79,6 +83,8 @@ export default function SettingsAccount() {
 			reset(values);
 		}
 	}, [isSubmitSuccessful, getValues, reset]);
+
+	console.log('auth', auth)
 
 	return (
 		<>
@@ -112,11 +118,13 @@ export default function SettingsAccount() {
 							onSubmit={handleSubmit(async (values) => {
 								try {
 									await updateUser({
-										name: values.displayName as string,
-										username: values.username as string,
+										name: values.displayName,
+										username: values.username,
 										bio: values.bio,
 										github: values.github,
 										twitter: values.twitter,
+										instagram: values.instagram,
+										website: values.website,
 									});
 
 									setIsFormSubmitted(true);
@@ -156,7 +164,16 @@ export default function SettingsAccount() {
 									error={errors.bio?.message}
 								/>
 
-								<div className="grid sm:grid-cols-2 gap-4 mt-4">
+								<div className="grid sm:grid-cols-2 gap-4">
+									<FormField
+										name="website"
+										label="Website"
+										inputAddon={<Link weight="bold" />}
+										placeholder="Your website..."
+										register={register}
+										error={errors.website?.message}
+									/>
+
 									<FormField
 										name="github"
 										label="Github"
@@ -164,6 +181,15 @@ export default function SettingsAccount() {
 										placeholder="Your Github..."
 										register={register}
 										error={errors.github?.message}
+									/>
+
+									<FormField
+										name="instagram"
+										label="Instagram"
+										inputAddon={<FaInstagram />}
+										placeholder="Your instagram..."
+										register={register}
+										error={errors.instagram?.message}
 									/>
 
 									<FormField
