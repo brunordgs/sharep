@@ -2,7 +2,7 @@ import { CreatorCard } from '@/components/Cards/Creators/CreatorCard';
 import { NoCreatorFound } from '@/components/Cards/Creators/NoCreatorFound';
 import { FeaturedUsersCard } from '@/components/Cards/Users/FeaturedUsersCard';
 import { DefaultHeader } from '@/components/Header/DefaultHeader';
-import { Alert } from '@/components/ui/Alert';
+import { Banner } from '@/components/ui/Banner';
 import { Card } from '@/components/ui/Card';
 import { Container } from '@/components/ui/Container';
 import { Loading } from '@/components/ui/Loading';
@@ -14,7 +14,7 @@ import { useEffect, useState } from 'react';
 export default function Creators() {
 	const [creators, setCreators] = useState<ShortUser[]>([]);
 	const [loading, setLoading] = useState(true);
-	const [isAlertOpen, setIsAlertOpen] = useState(true);
+	const [isBannerOpen, setIsBannerOpen] = useState(true);
 
 	useEffect(() => {
 		async function initializeAsync() {
@@ -41,14 +41,14 @@ export default function Creators() {
 					<div className="lg:col-span-4 space-y-4">
 						<DefaultHeader>Awesome creators</DefaultHeader>
 
-						{isAlertOpen && (
-							<Alert
+						{isBannerOpen && (
+							<Banner
 								title="Become a creator"
-								subtitle="Start sharing projects on Sharep by applying to become a creator, and start posting!"
-								onHandleClose={setIsAlertOpen}
+								description="Start sharing projects on Sharep by applying to become a creator, and start posting!"
+								onHandleClose={setIsBannerOpen}
 							>
 								Coming soon {/* Become now */}
-							</Alert>
+							</Banner>
 						)}
 
 						<Card className="lg:h-full" noPadding>
