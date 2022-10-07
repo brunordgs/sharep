@@ -1,41 +1,43 @@
-// import { X } from 'phosphor-react';
-import { type Children } from '@/shared/interfaces/Children';
+import clsx from 'clsx';
+import { Warning, WarningCircle } from 'phosphor-react';
 import { Text } from './Typography/Text';
 
-interface Props extends Children {
+interface Props {
+	color?: keyof typeof ALERT_COLORS;
 	title: string;
-	subtitle?: string;
-	onHandleClose(isOpen: boolean): void;
+	description: string;
 }
 
-export function Alert({ title, subtitle, children }: Props) {
+const ALERT_COLORS = {
+	primary: {
+		bg: 'bg-red-50 border-red-500 dark:bg-red-100',
+		title: 'text-red-800',
+		text: 'text-red-700',
+		icon: 'text-red-400',
+	},
+	warning: {
+		bg: 'bg-amber-50 border-amber-500 dark:bg-amber-100',
+		title: 'text-amber-800',
+		text: 'text-amber-700',
+		icon: 'text-amber-400',
+	},
+};
+
+export function Alert({ color = 'primary', title, description }: Props) {
+	const colorStyles = ALERT_COLORS[color] ?? ALERT_COLORS.primary;
+	const Icon = color === 'primary' ? WarningCircle : Warning;
+
 	return (
-		<div className="bg-gradient-to-r from-rose-500 to-pink-600 rounded-lg p-4 text-zinc-100 dark:text-zinc-200">
-			<div className="flex items-center justify-between">
-				<Text size="xl" weight="bold" className="text-white">
-					{title}
-				</Text>
+		<div className={clsx(colorStyles.bg, 'rounded-md border-2 p-4')}>
+			<header className="flex items-center gap-4 mb-2">
+				<Icon weight="fill" size={20} className={colorStyles.icon} />
 
-				{/* <Button
-					color="unstyled"
-					className="bg-zinc-100/40 hover:bg-zinc-100/20 dark:bg-zinc-800/60 dark:hover:bg-zinc-800/40 hover:text-white p-2 rounded-full"
-					onClick={() => onHandleClose(false)}
-					title="Close alert"
-				>
-					<X size={16} aria-label="Close alert" />
-				</Button> */}
-			</div>
+				<Text className={clsx(colorStyles.title, 'font-semibold')}>{title}</Text>
+			</header>
 
-			<Text size="sm" className="mt-2 mb-4 xl:text-base">
-				{subtitle}
+			<Text size="sm" className={clsx(colorStyles.text, 'ml-9')}>
+				{description}
 			</Text>
-
-			<button
-				className="bg-rose-400 border border-rose-400 text-rose-100 hover:text-white font-medium px-4 py-2 text-sm rounded-md shadow-md transition-colors disabled:bg-rose-400 disabled:border-transparent disabled:text-rose-300 disabled:cursor-not-allowed"
-				disabled
-			>
-				{children}
-			</button>
 		</div>
 	);
 }
