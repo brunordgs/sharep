@@ -70,6 +70,7 @@ export function Button({
 
 	return (
 		<button
+			type={props.type ?? 'button'}
 			className={clsx(
 				props.disabled
 					? colorStyles.disabled[variant]

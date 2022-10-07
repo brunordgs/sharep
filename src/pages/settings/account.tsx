@@ -84,8 +84,6 @@ export default function SettingsAccount() {
 		}
 	}, [isSubmitSuccessful, getValues, reset]);
 
-	console.log('auth', auth)
-
 	return (
 		<>
 			<Head>
@@ -207,7 +205,7 @@ export default function SettingsAccount() {
 								{isSubmitting ? (
 									<LoadingButton />
 								) : isFormSubmmited ? (
-									<Button type="button" color="success" className="cursor-not-allowed">
+									<Button color="success" className="cursor-not-allowed">
 										<Check size={20} weight="bold" />
 									</Button>
 								) : (

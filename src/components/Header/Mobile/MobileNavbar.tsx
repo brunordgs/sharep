@@ -1,3 +1,4 @@
+import { BetaDialog } from '@/components/Modals/BetaDialog';
 import { LinkButton } from '@/components/ui/Buttons/LinkButton';
 import { UserDropdown } from '@/components/UserDropdown';
 import { useAuth } from '@/hooks/useAuth';
@@ -19,7 +20,6 @@ export function MobileNavbar() {
 		<Container className="flex items-center justify-between lg:hidden">
 			<div className={clsx(!auth?.session ? 'w-[79px]' : 'w-[40px]')}>
 				<Button
-					type="button"
 					color="unstyled"
 					className="hover:text-black dark:hover:text-white"
 					onClick={() => setCollapse(!collapse)}
@@ -38,9 +38,7 @@ export function MobileNavbar() {
 				</LinkButton>
 
 				{/* NOTE: Should be removed soon, for testing purposes */}
-				<div className="uppercase italic font-bold text-zinc-600 dark:text-zinc-200 text-[10px] flex items-end ml-2 select-none">
-					<span className="bg-zinc-200 dark:bg-zinc-800 rounded-[4px] px-2">Beta</span>
-				</div>
+				<BetaDialog />
 			</nav>
 
 			{!auth?.session ? (

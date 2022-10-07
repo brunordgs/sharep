@@ -1,8 +1,8 @@
 import { Dialog, Transition } from '@headlessui/react';
-import { CircleWavyCheck } from 'phosphor-react';
 import { Fragment, useState } from 'react';
+import { Button } from '../ui/Buttons/Button';
 
-export function VerifiedAccountDialog({ size }: { size?: number }) {
+export function BetaDialog() {
 	const [isOpen, setIsOpen] = useState(false);
 
 	function openModal() {
@@ -15,14 +15,12 @@ export function VerifiedAccountDialog({ size }: { size?: number }) {
 
 	return (
 		<>
-			<button type="button" onClick={openModal}>
-				<CircleWavyCheck
-					weight="fill"
-					size={size}
-					className="text-indigo-500"
-					aria-label="Verified account"
-				/>
-			</button>
+			<div
+				className="uppercase italic font-bold text-zinc-600 dark:text-zinc-200 text-[10px] lg:text-xs flex items-end ml-2 select-none cursor-pointer"
+				onClick={openModal}
+			>
+				<span className="bg-zinc-200 dark:bg-zinc-800 rounded-[4px] px-2">Beta</span>
+			</div>
 
 			<Transition appear show={isOpen} as={Fragment}>
 				<Dialog as="div" className="relative z-30" onClose={closeModal}>
@@ -48,24 +46,25 @@ export function VerifiedAccountDialog({ size }: { size?: number }) {
 								leaveFrom="opacity-100 scale-100"
 								leaveTo="opacity-0 scale-95"
 							>
-								<Dialog.Panel className="w-full max-w-sm transform overflow-hidden rounded-2xl bg-white dark:bg-zinc-800 p-6 text-center align-middle shadow-md transition-all">
-									<div className="flex justify-center">
-										<CircleWavyCheck
-											weight="fill"
-											className="text-indigo-500"
-											size={48}
-											aria-label="Verified account"
-										/>
-									</div>
-
-									<Dialog.Title as="h3" className="text-2xl font-bold my-2">
-										Account information
+								<Dialog.Panel className="w-full max-w-md transform overflow-hidden rounded-2xl bg-white dark:bg-zinc-800 p-6 text-left shadow-md transition-all">
+									<Dialog.Title as="h3" className="text-2xl font-bold my-2 italic max-w-xs">
+										Welcome to Sharep Supporter Preview
 									</Dialog.Title>
 
-									<Dialog.Description className="text-zinc-500 dark:text-zinc-400 text-sm">
-										This account is verified because it&apos;s a staff user, notable creator or
-										another designated category.
-									</Dialog.Description>
+									<div className="text-zinc-500 dark:text-zinc-400 text-sm space-y-2 mb-4">
+										<Dialog.Description>
+											This is an early version of the Sharep site which is available for
+											demonstration purposes.
+										</Dialog.Description>
+
+										<Dialog.Description>
+											Please feel free to use the site and provide feedback.
+										</Dialog.Description>
+									</div>
+
+									<div className="flex justify-end">
+										<Button onClick={closeModal}>Got it</Button>
+									</div>
 								</Dialog.Panel>
 							</Transition.Child>
 						</div>

@@ -3,6 +3,7 @@ import { signIn } from '@/utils/supabase';
 import clsx from 'clsx';
 import { useRouter } from 'next/router';
 import { Article, MagnifyingGlass, PaintBrush, Question } from 'phosphor-react';
+import { BetaDialog } from '../Modals/BetaDialog';
 import { Button } from '../ui/Buttons/Button';
 import { LinkButton } from '../ui/Buttons/LinkButton';
 import { Container } from '../ui/Container';
@@ -49,9 +50,10 @@ export function Navbar() {
 						</LinkButton>
 
 						{/* NOTE: Should be removed soon, for testing purposes */}
-						<div className="uppercase italic font-bold text-zinc-600 dark:text-zinc-200 text-xs flex items-end ml-2 select-none">
+						{/* <div className="uppercase italic font-bold text-zinc-600 dark:text-zinc-200 text-xs flex items-end ml-2 select-none">
 							<span className="bg-zinc-200 dark:bg-zinc-800 rounded-[4px] px-2">Beta</span>
-						</div>
+						</div> */}
+						<BetaDialog />
 
 						<ul className="flex items-center gap-6 border-l-4 border-rose-600 px-8 ml-8 font-bold text-zinc-700 dark:text-zinc-300">
 							{menuItems.map(({ link, text, icon: Icon, isActive }) => (
