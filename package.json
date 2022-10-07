@@ -8,7 +8,7 @@
     "start": "next start",
     "build": "next build",
     "lint": "next lint",
-		"prettier": "prettier -w \"./src/**/*.{ts,tsx,json}\""
+    "prettier": "prettier -w \"./src/**/*.{ts,tsx,json}\""
   },
   "keywords": [],
   "author": "",

@@ -1,29 +1,18 @@
 import clsx from 'clsx';
-import { createElement, ReactNode } from 'react';
 import { UseFormRegister } from 'react-hook-form';
+import { Input, type Props as InputProps } from '../ui/Input';
 import { ErrorMessage } from './ErrorMessage';
 import { FormHelperText } from './FormHelperText';
 
-interface FieldProps {
-	field: 'input' | 'select' | 'textarea';
-}
-
-type GenericFieldHTMLAttributes =
-	| JSX.IntrinsicElements['input']
-	| JSX.IntrinsicElements['select']
-	| JSX.IntrinsicElements['textarea'];
-
-type Props = GenericFieldHTMLAttributes & {
-	as?: FieldProps['field'];
+type Props = {
 	label: string;
 	helperText?: string;
-	inputAddon?: ReactNode;
 	register: UseFormRegister<any>;
-	error: string | undefined;
-};
+} & InputProps;
 
 export function FormField({
 	as,
+	color,
 	label,
 	helperText,
 	inputAddon,
@@ -32,8 +21,6 @@ export function FormField({
 	name,
 	...props
 }: Props) {
-	const asElement = as ?? 'input';
-
 	return (
 		<div>
 			<label
@@ -55,20 +42,14 @@ export function FormField({
 					</div>
 				)}
 
-				{createElement(asElement, {
-					id: name,
-					className: clsx(
-						{
-							'h-10': asElement !== 'textarea',
-							'border-rose-400 active:border-rose-400 focus:border-rose-400 dark:active:border-rose-400 dark:border-rose-400 dark:focus:border-rose-400':
-								error,
-						},
-						inputAddon ? 'rounded-r-md' : 'rounded-md',
-						'bg-zinc-100 dark:bg-zinc-900 border-2 border-zinc-200 dark:border-zinc-700 p-2 text-sm w-full placeholder:text-zinc-300 dark:placeholder:text-zinc-600 outline-none focus:border-rose-700 dark:focus:border-rose-900',
-					),
-					...props,
-					...register(name as string),
-				})}
+				<Input
+					as={as}
+					color={color}
+					inputAddon={inputAddon}
+					error={error}
+					{...register(name as string)}
+					{...props}
+				/>
 			</div>
 
 			<div className="mt-1">
