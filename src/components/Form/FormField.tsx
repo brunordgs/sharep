@@ -1,4 +1,5 @@
 import clsx from 'clsx';
+import { createElement } from 'react';
 import { UseFormRegister } from 'react-hook-form';
 import { Input, type Props as InputProps } from '../ui/Input';
 import { ErrorMessage } from './ErrorMessage';
@@ -47,8 +48,8 @@ export function FormField({
 					color={color}
 					inputAddon={inputAddon}
 					error={error}
-					{...register(name as string)}
 					{...props}
+					{...register(name as string)}
 				/>
 			</div>
 

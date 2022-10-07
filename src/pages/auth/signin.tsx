@@ -1,21 +1,24 @@
 import { FormField } from '@/components/Form/FormField';
+import { Alert } from '@/components/ui/Alert';
 import { Button } from '@/components/ui/Buttons/Button';
 import { LinkButton } from '@/components/ui/Buttons/LinkButton';
 import { Container } from '@/components/ui/Container';
 import { Heading } from '@/components/ui/Typography/Heading';
+import { zodResolver } from '@hookform/resolvers/zod';
 import Head from 'next/head';
 import { useForm } from 'react-hook-form';
 import * as z from 'zod';
 
 const schema = z.object({
-	email: z.string().email(''),
-	password: z.string(),
+	email: z.string().email('Please enter a valid email address'),
+	password: z.string().min(6, 'Password should contain at least 6 characters'),
 });
 
 type SigninForm = z.infer<typeof schema>;
 
 export default function Signin() {
 	const {
+		handleSubmit,
 		register,
 		formState: { errors },
 	} = useForm<SigninForm>({
@@ -23,6 +26,7 @@ export default function Signin() {
 			email: '',
 			password: '',
 		},
+		resolver: zodResolver(schema),
 	});
 
 	return (
@@ -31,11 +35,20 @@ export default function Signin() {
 				<title>Sign in | sharep</title>
 			</Head>
 
-			<Container className="flex justify-center md:mt-20">
-				<div className="w-full max-w-md space-y-8">
+			<Container className="flex justify-center md:my-20">
+				<form
+					onSubmit={handleSubmit((values) => console.log(values))}
+					className="w-full max-w-md space-y-8"
+				>
 					<Heading size="3xl" transform="italic">
 						Sign in.
 					</Heading>
+
+					<Alert
+						color="warning"
+						title="Beta Preview Warning"
+						description="This site is only for demonstration purposes. All data created or uploaded will be lost."
+					/>
 
 					<div className="space-y-4">
 						<FormField
@@ -48,6 +61,7 @@ export default function Signin() {
 						/>
 
 						<FormField
+							type="password"
 							color="secondary"
 							name="password"
 							label="Password"
@@ -65,9 +79,9 @@ export default function Signin() {
 						>
 							Need an account? Sign up
 						</LinkButton>
-						<Button>Sign In</Button>
+						<Button type="submit">Sign In</Button>
 					</div>
-				</div>
+				</form>
 			</Container>
 		</>
 	);

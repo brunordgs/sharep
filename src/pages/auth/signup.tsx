@@ -1,23 +1,26 @@
 import { FormField } from '@/components/Form/FormField';
+import { Alert } from '@/components/ui/Alert';
 import { Button } from '@/components/ui/Buttons/Button';
 import { LinkButton } from '@/components/ui/Buttons/LinkButton';
 import { Container } from '@/components/ui/Container';
 import { Heading } from '@/components/ui/Typography/Heading';
+import { zodResolver } from '@hookform/resolvers/zod';
 import Head from 'next/head';
 import { useForm } from 'react-hook-form';
 import * as z from 'zod';
 
 const schema = z.object({
-	name: z.string(),
-	username: z.string(),
-	email: z.string(),
-	password: z.string(),
+	name: z.string().min(3, 'Name should contain at least 3 characters'),
+	username: z.string().min(1, 'This field is required'),
+	email: z.string().email('Please enter a valid email address'),
+	password: z.string().min(6, 'Password should contain at least 6 characters'),
 });
 
 type SignupForm = z.infer<typeof schema>;
 
 export default function Signup() {
 	const {
+		handleSubmit,
 		register,
 		formState: { errors },
 	} = useForm<SignupForm>({
@@ -27,6 +30,7 @@ export default function Signup() {
 			email: '',
 			password: '',
 		},
+		resolver: zodResolver(schema),
 	});
 
 	return (
@@ -35,11 +39,20 @@ export default function Signup() {
 				<title>Sign up | sharep</title>
 			</Head>
 
-			<Container className="flex justify-center md:mt-20">
-				<div className="w-full max-w-md space-y-8">
+			<Container className="flex justify-center md:my-20">
+				<form
+					onSubmit={handleSubmit((values) => console.log(values))}
+					className="w-full max-w-md space-y-8"
+				>
 					<Heading size="3xl" transform="italic">
 						Sign up.
 					</Heading>
+
+					<Alert
+						color="warning"
+						title="Beta Preview Warning"
+						description="This site is only for demonstration purposes. All data created or uploaded will be lost."
+					/>
 
 					<div className="space-y-4">
 						<FormField
@@ -87,9 +100,9 @@ export default function Signup() {
 						>
 							Have an account? Sign in
 						</LinkButton>
-						<Button>Sign Up</Button>
+						<Button type="submit">Sign Up</Button>
 					</div>
-				</div>
+				</form>
 			</Container>
 		</>
 	);
