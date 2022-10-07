@@ -36,7 +36,7 @@ export function Navbar() {
 	];
 
 	return (
-		<header className="border-b border-zinc-200 dark:border-zinc-800 shadow-sm py-5">
+		<header className="border-b border-zinc-200 dark:border-zinc-800 shadow-sm dark:shadow-lg py-5 bg-zinc-100 dark:bg-zinc-900 sticky top-0 z-20">
 			{/* Desktop navbar */}
 			<Container className="hidden lg:flex items-center">
 				<div className="flex-1">
