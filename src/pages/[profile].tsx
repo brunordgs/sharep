@@ -2,9 +2,9 @@ import { ProfileContent } from '@/components/Profile/ProfileContent';
 import { ProfileNotFound } from '@/components/Profile/ProfileNotFound';
 import { Loading } from '@/components/ui/Loading';
 import { supabase } from '@/services/supabaseClient';
+import { POPULAR_USERS } from '@/shared/constants';
 import { type Creator } from '@/shared/interfaces/Creator';
 import { type UserProfile } from '@/shared/interfaces/UserProfile';
-import { selectUsers } from '@/utils/supabase';
 import { GetStaticPropsContext } from 'next';
 import Head from 'next/head';
 import { useRouter } from 'next/router';
@@ -24,7 +24,7 @@ export default function Profile({ user, creator }: Props) {
 		<>
 			<Head>
 				<title>
-					{!userNotFound ? `${user.name ?? ''} (@${user.username}) | sharep` : 'Profile | sharep'}
+					{!userNotFound ? `${user.name ?? ''} (@${user.username}) | Sharep` : 'Profile | Sharep'}
 				</title>
 			</Head>
 
@@ -42,11 +42,7 @@ export default function Profile({ user, creator }: Props) {
 }
 
 export async function getStaticPaths() {
-	const usersResponse = await selectUsers();
-	const users = usersResponse.data as UserProfile[];
-	const usernames = users.map(({ username }) => username);
-
-	const paths = usernames.map((user) => ({
+	const paths = POPULAR_USERS.map((user) => ({
 		params: {
 			profile: '@' + user,
 		},

@@ -9,7 +9,7 @@ export default function About() {
 	return (
 		<>
 			<Head>
-				<title>About | sharep</title>
+				<title>About | Sharep</title>
 			</Head>
 
 			<Container className="text-center">
@@ -23,7 +23,7 @@ export default function About() {
 					</Heading>
 
 					<Text className="mt-6">
-						Sharep was created to share great and useful projects to our community.
+						Sharep was created to share great and useful products to our community.
 					</Text>
 				</section>
 

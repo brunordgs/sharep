@@ -8,3 +8,5 @@ export const FONT_WEIGHTS = {
 	extrabold: 'font-extrabold',
 	black: 'font-black',
 };
+
+export const POPULAR_USERS = ['brunordgs'];

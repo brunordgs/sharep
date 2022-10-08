@@ -1,6 +1,6 @@
 import { CreatorCard } from '@/components/Cards/Creators/CreatorCard';
 import { NoCreatorFound } from '@/components/Cards/Creators/NoCreatorFound';
-import { FeaturedUsersCard } from '@/components/Cards/Users/FeaturedUsersCard';
+import { ExploreMenu } from '@/components/ExploreMenu';
 import { DefaultHeader } from '@/components/Header/DefaultHeader';
 import { Banner } from '@/components/ui/Banner';
 import { Card } from '@/components/ui/Card';
@@ -33,7 +33,7 @@ export default function Creators() {
 	return (
 		<>
 			<Head>
-				<title>Creators | sharep</title>
+				<title>Creators | Sharep</title>
 			</Head>
 
 			<Container>
@@ -69,7 +69,9 @@ export default function Creators() {
 						</Card>
 					</div>
 
-					<FeaturedUsersCard />
+					<div className="hidden lg:block lg:col-span-2">
+						<ExploreMenu />
+					</div>
 				</div>
 			</Container>
 		</>

@@ -58,7 +58,7 @@ export function VerifiedAccountDialog({ size }: { size?: number }) {
 										/>
 									</div>
 
-									<Dialog.Title as="h3" className="text-2xl font-bold my-2">
+									<Dialog.Title as="h3" className="text-2xl font-bold my-2 italic">
 										Account information
 									</Dialog.Title>
 

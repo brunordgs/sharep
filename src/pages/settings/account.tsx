@@ -87,7 +87,7 @@ export default function SettingsAccount() {
 	return (
 		<>
 			<Head>
-				<title>Your account | sharep</title>
+				<title>Your account | Sharep</title>
 			</Head>
 
 			<Container>

@@ -15,15 +15,30 @@ export function DefaultHeader({ children }: Children) {
 					{router.pathname === '/' && <CaretDown className="animate-bounce" />}
 				</Heading>
 
-				<div className="relative bg-zinc-200 dark:bg-zinc-800 h-10 rounded-md w-full md:w-56 shadow-sm">
-					<select
-						className="bg-zinc-200 dark:bg-zinc-800 w-full h-10 focus:outline-none placeholder:text-zinc-400 dark:placeholder:text-zinc-500 text-sm rounded-md pl-4 font-medium"
-						placeholder="Search..."
-					>
-						<option value="">Latest</option>
-					</select>
+				<div className="flex items-center gap-2">
+					{router.pathname === '/' && (
+						<div className="relative bg-zinc-200 dark:bg-zinc-800 h-10 rounded-md w-full md:w-28 2xl:w-32 shadow-sm">
+							<select
+								className="bg-zinc-200 dark:bg-zinc-800 w-full h-10 focus:outline-none placeholder:text-zinc-400 dark:placeholder:text-zinc-500 text-sm rounded-md pl-4 font-medium"
+								placeholder="Search..."
+							>
+								<option value="">Projects</option>
+								<option value="">Courses</option>
+							</select>
 
-					<CaretDown weight="bold" className="absolute right-4 top-3 pointer-events-none" />
+							<CaretDown weight="bold" className="absolute right-4 top-3 pointer-events-none" />
+						</div>
+					)}
+					<div className="relative bg-zinc-200 dark:bg-zinc-800 h-10 rounded-md w-full md:w-48 2xl:w-56 shadow-sm">
+						<select
+							className="bg-zinc-200 dark:bg-zinc-800 w-full h-10 focus:outline-none placeholder:text-zinc-400 dark:placeholder:text-zinc-500 text-sm rounded-md pl-4 font-medium"
+							placeholder="Search..."
+						>
+							<option value="">Latest</option>
+						</select>
+
+						<CaretDown weight="bold" className="absolute right-4 top-3 pointer-events-none" />
+					</div>
 				</div>
 			</div>
 

@@ -51,7 +51,7 @@ export function BetaDialog() {
 										Welcome to Sharep Beta Preview
 									</Dialog.Title>
 
-									<div className="text-zinc-500 dark:text-zinc-400 text-sm space-y-2 mb-4">
+									<div className="text-zinc-500 dark:text-zinc-400 text-sm space-y-2 mb-6">
 										<Dialog.Description>
 											This is an early version of the Sharep site which is available for
 											demonstration purposes.

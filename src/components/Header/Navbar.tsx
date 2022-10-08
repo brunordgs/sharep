@@ -1,9 +1,8 @@
 import { useAuth } from '@/hooks/useAuth';
-import { signIn } from '@/utils/supabase';
 import clsx from 'clsx';
 import { useRouter } from 'next/router';
 import { Article, MagnifyingGlass, PaintBrush, Question } from 'phosphor-react';
-import { Button } from '../ui/Buttons/Button';
+import { SigninDialog } from '../Modals/SigninDialog';
 import { LinkButton } from '../ui/Buttons/LinkButton';
 import { Container } from '../ui/Container';
 import { UserDropdown } from '../UserDropdown';
@@ -17,7 +16,7 @@ export function Navbar() {
 	const menuItems = [
 		{
 			link: '/',
-			text: 'Projects',
+			text: 'Products',
 			icon: Article,
 			isActive: router.pathname === '/',
 		},
@@ -65,7 +64,7 @@ export function Navbar() {
 				</div>
 
 				<div className="flex items-center gap-4">
-					<div className="flex items-center h-10 w-56 bg-zinc-200 dark:bg-zinc-700 gap-2 px-3 rounded-md shadow-sm">
+					<div className="flex items-center h-10 bg-zinc-200 dark:bg-zinc-700 gap-2 px-3 rounded-md shadow-sm">
 						<MagnifyingGlass weight="bold" size={20} className="text-zinc-600 dark:text-zinc-500" />
 
 						<input
@@ -75,13 +74,7 @@ export function Navbar() {
 						/>
 					</div>
 
-					{!auth?.session ? (
-						<Button variant="outlined" onClick={signIn}>
-							Sign in
-						</Button>
-					) : (
-						<UserDropdown avatar={auth?.user?.image} />
-					)}
+					{!auth?.session ? <SigninDialog /> : <UserDropdown avatar={auth?.user?.image} />}
 				</div>
 			</Container>
 

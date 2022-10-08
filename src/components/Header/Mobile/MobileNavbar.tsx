@@ -45,7 +45,7 @@ export function MobileNavbar() {
 						onCollapse={setCollapse}
 						className="fixed top-[81px] right-0 bottom-0 left-0 bg-zinc-100 dark:bg-zinc-900 lg:hidden z-50"
 					>
-						<Container className="flex justify-center mt-6 mb-2">
+						<Container className="flex justify-center mt-4 mb-2" noMargin>
 							<div className="flex items-center h-10 w-full bg-zinc-200 dark:bg-zinc-700 gap-2 px-3 rounded-md">
 								<MagnifyingGlass
 									weight="bold"
@@ -62,10 +62,10 @@ export function MobileNavbar() {
 						</Container>
 
 						<nav>
-							<Container>
+							<Container noMargin>
 								<MobileItem href="/" onClick={() => setCollapse(false)}>
 									<Article size={20} weight="bold" />
-									Projects
+									Products
 								</MobileItem>
 
 								<MobileItem href="/creators" onClick={() => setCollapse(false)}>

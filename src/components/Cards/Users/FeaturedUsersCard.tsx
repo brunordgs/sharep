@@ -1,7 +1,6 @@
 import { Loading } from '@/components/ui/Loading';
 import { type ShortUser } from '@/shared/interfaces/ShortUser';
 import { useEffect, useState } from 'react';
-import { Footer } from '../../Footer';
 import { Card } from '../../ui/Card';
 import { Heading } from '../../ui/Typography/Heading';
 import { FeaturedUserCard } from './FeaturedUserCard';
@@ -33,33 +32,29 @@ export function FeaturedUsersCard() {
 	}, []);
 
 	return (
-		<div className="hidden lg:block col-span-2">
-			<Card className="mb-2 py-6" noPadding>
-				<Loading loading={loading}>
-					<aside>
-						<Heading as="h2" transform="italic" className="text-xl mb-4 px-6">
-							Featured users
-						</Heading>
+		<Card className="py-6" noPadding>
+			<Loading loading={loading}>
+				<aside>
+					<Heading as="h2" transform="italic" className="text-xl mb-4 px-6">
+						Featured users
+					</Heading>
 
-						{users.length ? (
-							users.map(({ name, username, is_verified: isVerified }) => (
-								<FeaturedUserCard
-									key={username}
-									name={name}
-									username={username}
-									isVerified={isVerified}
-								/>
-							))
-						) : (
-							<Text size="sm" className="px-6 text-zinc-400">
-								There is no recent users yet.
-							</Text>
-						)}
-					</aside>
-				</Loading>
-			</Card>
-
-			<Footer />
-		</div>
+					{users.length ? (
+						users.map(({ name, username, is_verified: isVerified }) => (
+							<FeaturedUserCard
+								key={username}
+								name={name}
+								username={username}
+								isVerified={isVerified}
+							/>
+						))
+					) : (
+						<Text size="sm" className="px-6 text-zinc-400">
+							There is no recent users yet.
+						</Text>
+					)}
+				</aside>
+			</Loading>
+		</Card>
 	);
 }
