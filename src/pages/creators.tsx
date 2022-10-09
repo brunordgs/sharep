@@ -2,7 +2,7 @@ import { CreatorCard } from '@/components/Cards/Creators/CreatorCard';
 import { NoCreatorFound } from '@/components/Cards/Creators/NoCreatorFound';
 import { ExploreMenu } from '@/components/ExploreMenu';
 import { DefaultHeader } from '@/components/Header/DefaultHeader';
-import { Banner } from '@/components/ui/Banner';
+import { CreatorBanner } from '@/components/Cards/Creators/CreatorBanner';
 import { Card } from '@/components/ui/Card';
 import { Container } from '@/components/ui/Container';
 import { Loading } from '@/components/ui/Loading';
@@ -42,13 +42,11 @@ export default function Creators() {
 						<DefaultHeader>Awesome creators</DefaultHeader>
 
 						{isBannerOpen && (
-							<Banner
+							<CreatorBanner
 								title="Become a creator"
-								description="Start sharing projects on Sharep by applying to become a creator, and start posting!"
+								description="Start sharing products on Sharep by applying to become a creator, and start posting!"
 								onHandleClose={setIsBannerOpen}
-							>
-								Coming soon {/* Become now */}
-							</Banner>
+							/>
 						)}
 
 						<Card className="lg:h-full" noPadding>

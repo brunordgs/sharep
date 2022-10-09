@@ -7,6 +7,7 @@ import { createContext, useEffect, useState } from 'react';
 interface AuthContextProps {
 	session?: boolean;
 	user: {
+		email: string;
 		name: string;
 		username: string;
 		bio: string;
@@ -64,6 +65,7 @@ export function AuthProvider({ children }: Children) {
 			value={{
 				session: session?.isLoggedIn,
 				user: {
+					email: session?.user.email,
 					name: session?.user.name,
 					username: session?.user.username,
 					bio: session?.user.bio,

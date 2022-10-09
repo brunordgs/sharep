@@ -1,6 +1,7 @@
 import clsx from 'clsx';
 import { UseFormRegister } from 'react-hook-form';
 import { Input, type Props as InputProps } from '../ui/Input';
+import { Text } from '../ui/Typography/Text';
 import { ErrorMessage } from './ErrorMessage';
 import { FormHelperText } from './FormHelperText';
 
@@ -8,6 +9,7 @@ type Props = {
 	label: string;
 	helperText?: string;
 	register: UseFormRegister<any>;
+	isRequired?: boolean;
 } & InputProps;
 
 export function FormField({
@@ -19,6 +21,7 @@ export function FormField({
 	register,
 	error,
 	name,
+	isRequired = false,
 	...props
 }: Props) {
 	return (
@@ -33,6 +36,12 @@ export function FormField({
 				)}
 			>
 				{label}
+				{isRequired && (
+					<Text as="span" className="text-red-500 dark:text-red-400">
+						{' '}
+						*
+					</Text>
+				)}
 			</label>
 
 			<div className="flex items-center bg-zinc-100 dark:bg-zinc-900 rounded-md">

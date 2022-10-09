@@ -75,7 +75,7 @@ export function SigninDialog() {
 										</button>
 									</div>
 
-									<div className="border-t border-zinc-200 dark:border-zinc-800 h-12 flex items-center justify-center gap-2">
+									<div className="border-t border-zinc-200 dark:border-zinc-800 h-12 flex items-center justify-center gap-1">
 										<Text size="sm">Don't have an account?</Text>
 										<LinkButton
 											href="/auth/signup"

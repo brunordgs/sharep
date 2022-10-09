@@ -1,15 +1,15 @@
 import { X } from 'phosphor-react';
-import { type Children } from '@/shared/interfaces/Children';
-import { Text } from './Typography/Text';
-import { Button } from './Buttons/Button';
+import { Text } from '../../ui/Typography/Text';
+import { Button } from '../../ui/Buttons/Button';
+import { BecomeCreatorDialog } from '@/components/Modals/BecomeCreatorDialog';
 
-interface Props extends Children {
+interface Props {
 	title: string;
 	description?: string;
 	onHandleClose(isOpen: boolean): void;
 }
 
-export function Banner({ title, description, onHandleClose, children }: Props) {
+export function CreatorBanner({ title, description, onHandleClose }: Props) {
 	return (
 		<div className="bg-gradient-to-r from-rose-500 to-pink-600 rounded-lg p-4 text-zinc-100 dark:text-zinc-200">
 			<header className="flex items-center justify-between">
@@ -31,12 +31,7 @@ export function Banner({ title, description, onHandleClose, children }: Props) {
 				{description}
 			</Text>
 
-			<button
-				className="bg-rose-400 border border-rose-400 text-rose-100 hover:text-white font-medium px-4 py-2 text-sm rounded-md shadow-md transition-colors disabled:bg-rose-400 disabled:border-transparent disabled:text-rose-300 disabled:cursor-not-allowed"
-				disabled
-			>
-				{children}
-			</button>
+			<BecomeCreatorDialog />
 		</div>
 	);
 }

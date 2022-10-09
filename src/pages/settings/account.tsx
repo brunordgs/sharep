@@ -44,7 +44,7 @@ export default function SettingsAccount() {
 		register,
 		getValues,
 		reset,
-		formState: { errors, isSubmitting, isDirty: isFormEditted, isValid, isSubmitSuccessful },
+		formState: { errors, isSubmitting, isDirty: isFormEditted, isSubmitSuccessful },
 	} = useForm<ProfileForm>({
 		defaultValues: {
 			username: auth?.user.username,
@@ -59,6 +59,8 @@ export default function SettingsAccount() {
 	});
 
 	const [isFormSubmmited, setIsFormSubmitted] = useState(false);
+
+	const isFormValid = !Object.entries(errors).length;
 
 	useEffect(() => {
 		// TODO: Improve no auth validation
@@ -210,7 +212,7 @@ export default function SettingsAccount() {
 									</Button>
 								) : (
 									<Button type="submit" disabled={!isFormEditted}>
-										{isValid ? 'Update profile' : 'Failed to save profile. Try again.'}
+										{isFormValid ? 'Update profile' : 'Failed to save profile. Try again.'}
 									</Button>
 								)}
 							</div>
