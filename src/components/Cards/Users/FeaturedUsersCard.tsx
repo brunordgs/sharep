@@ -40,12 +40,13 @@ export function FeaturedUsersCard() {
 					</Heading>
 
 					{users.length ? (
-						users.map(({ name, username, is_verified: isVerified }) => (
+						users.map(({ name, username, is_verified: isVerified, avatar_url: avatarUrl }) => (
 							<FeaturedUserCard
 								key={username}
 								name={name}
 								username={username}
 								isVerified={isVerified}
+								avatarUrl={avatarUrl}
 							/>
 						))
 					) : (

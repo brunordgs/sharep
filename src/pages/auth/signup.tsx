@@ -4,6 +4,7 @@ import { Button } from '@/components/ui/Buttons/Button';
 import { LinkButton } from '@/components/ui/Buttons/LinkButton';
 import { Container } from '@/components/ui/Container';
 import { Heading } from '@/components/ui/Typography/Heading';
+import { signUp } from '@/utils/supabase';
 import { zodResolver } from '@hookform/resolvers/zod';
 import Head from 'next/head';
 import { useForm } from 'react-hook-form';
@@ -41,7 +42,7 @@ export default function Signup() {
 
 			<Container className="flex justify-center md:my-20">
 				<form
-					onSubmit={handleSubmit((values) => console.log(values))}
+					onSubmit={handleSubmit(async (values) => signUp(values))}
 					className="w-full max-w-md space-y-8"
 				>
 					<Heading size="3xl" transform="italic">
@@ -85,6 +86,7 @@ export default function Signup() {
 						<FormField
 							color="secondary"
 							name="password"
+							type="password"
 							label="Password"
 							placeholder="Password..."
 							register={register}

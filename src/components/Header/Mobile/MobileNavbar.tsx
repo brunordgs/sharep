@@ -1,6 +1,6 @@
+import { SigninDialog } from '@/components/Modals/SigninDialog';
 import { UserDropdown } from '@/components/UserDropdown';
 import { useAuth } from '@/hooks/useAuth';
-import { signIn } from '@/utils/supabase';
 import clsx from 'clsx';
 import { AnimatePresence } from 'framer-motion';
 import { Article, List, MagnifyingGlass, PaintBrush, Question, X } from 'phosphor-react';
@@ -29,13 +29,7 @@ export function MobileNavbar() {
 
 			<Logo />
 
-			{!auth?.session ? (
-				<Button variant="outlined" onClick={signIn}>
-					Sign in
-				</Button>
-			) : (
-				<UserDropdown avatar={auth?.user?.image} />
-			)}
+			{!auth?.session ? <SigninDialog /> : <UserDropdown avatar={auth?.user?.image} />}
 
 			{/* Mobile navbar content */}
 			<AnimatePresence>

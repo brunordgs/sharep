@@ -1,4 +1,4 @@
-import { signIn } from '@/utils/supabase';
+import { signInWithGithub } from '@/utils/supabase';
 import { Dialog, Transition } from '@headlessui/react';
 import { User } from 'phosphor-react';
 import { Fragment, useState } from 'react';
@@ -67,7 +67,7 @@ export function SigninDialog() {
 
 										<button
 											className="bg-zinc-100 hover:bg-zinc-200 dark:bg-zinc-800 rounded-md p-2 w-full flex items-center justify-center font-semibold text-[15px] relative transition-colors"
-											onClick={signIn}
+											onClick={signInWithGithub}
 										>
 											<FaGithub size={18} className="absolute left-3" />
 

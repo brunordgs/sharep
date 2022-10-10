@@ -4,6 +4,7 @@ import { Button } from '@/components/ui/Buttons/Button';
 import { LinkButton } from '@/components/ui/Buttons/LinkButton';
 import { Container } from '@/components/ui/Container';
 import { Heading } from '@/components/ui/Typography/Heading';
+import { signIn } from '@/utils/supabase';
 import { zodResolver } from '@hookform/resolvers/zod';
 import Head from 'next/head';
 import { useForm } from 'react-hook-form';
@@ -37,7 +38,7 @@ export default function Signin() {
 
 			<Container className="flex justify-center md:my-20">
 				<form
-					onSubmit={handleSubmit((values) => console.log(values))}
+					onSubmit={handleSubmit(async (values) => signIn(values))}
 					className="w-full max-w-md space-y-8"
 				>
 					<Heading size="3xl" transform="italic">

@@ -7,7 +7,7 @@ import ProgressBar from '@badrap/bar-of-progress';
 import clsx from 'clsx';
 import type { AppProps } from 'next/app';
 import { Router, useRouter } from 'next/router';
-import { ToastContainer } from 'react-toastify';
+import { ToastContainer, Flip } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
 const progress = new ProgressBar({
@@ -20,6 +20,15 @@ const progress = new ProgressBar({
 Router.events.on('routeChangeStart', progress.start);
 Router.events.on('routeChangeComplete', progress.finish);
 Router.events.on('routeChangeError', progress.finish);
+
+const TOAST_COLORS_BG = {
+	success: 'bg-teal-500',
+	error: 'bg-rose-500',
+	info: 'bg-sky-500',
+	warning: 'bg-amber-400',
+	// default: 'bg-indigo-600',
+	// dark: 'bg-white-600',
+};
 
 export default function App({ Component, pageProps }: AppProps) {
 	const router = useRouter();
@@ -36,7 +45,17 @@ export default function App({ Component, pageProps }: AppProps) {
 				</div>
 			</ThemeProvider>
 
-			<ToastContainer theme="dark" />
+			<ToastContainer
+				theme="dark"
+				transition={Flip}
+				position="bottom-center"
+				toastClassName={({ type }: any) =>
+					TOAST_COLORS_BG[(type as keyof typeof TOAST_COLORS_BG) ?? 'default'] +
+					' relative flex p-2 rounded-md justify-between overflow-hidden cursor-pointer mt-4'
+				}
+				progressClassName="!bg-transparent"
+				bodyClassName="text-sm text-white"
+			/>
 		</AuthProvider>
 	);
 }

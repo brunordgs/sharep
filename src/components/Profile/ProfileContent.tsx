@@ -89,18 +89,20 @@ export function ProfileContent({
 								</LinkButton>
 							)}
 
-							<LinkButton
-								href={`https://github.com/${github}`}
-								isExternal
-								color="unstyled"
-								fontSize="sm"
-								className="hover:text-black dark:hover:text-white"
-							>
-								<FaGithub className="text-base" />
-								<Text as="span" className="hidden sm:block">
-									Github
-								</Text>
-							</LinkButton>
+							{github && (
+								<LinkButton
+									href={`https://github.com/${github}`}
+									isExternal
+									color="unstyled"
+									fontSize="sm"
+									className="hover:text-black dark:hover:text-white"
+								>
+									<FaGithub className="text-base" />
+									<Text as="span" className="hidden sm:block">
+										Github
+									</Text>
+								</LinkButton>
+							)}
 
 							{twitter && (
 								<LinkButton

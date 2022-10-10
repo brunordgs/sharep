@@ -13,3 +13,13 @@
 		@apply appearance-none;
 	}
 }
+
+:root {
+	/* Override toast icon color */
+	--toastify-color-light: #fff !important;
+	--toastify-color-dark: #121212 !important;
+	--toastify-color-info: #7dd3fc !important;
+	--toastify-color-success: #5eead4 !important;
+	--toastify-color-warning: #fcd34d !important;
+	--toastify-color-error: #fda4af !important;
+}

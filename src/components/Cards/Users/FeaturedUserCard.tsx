@@ -7,9 +7,10 @@ interface Props {
 	name: string;
 	username: string;
 	isVerified: boolean;
+	avatarUrl: string;
 }
 
-export function FeaturedUserCard({ name, username, isVerified }: Props) {
+export function FeaturedUserCard({ name, username, isVerified, avatarUrl }: Props) {
 	return (
 		<LinkButton
 			key={username}
@@ -18,7 +19,7 @@ export function FeaturedUserCard({ name, username, isVerified }: Props) {
 			className="flex items-center w-full hover:bg-zinc-50 dark:hover:bg-zinc-700 py-2 px-6"
 		>
 			<div className="flex-1 flex items-center gap-2">
-				<Avatar src={`https://github.com/${username}.png`} size="xs" alt={name} />
+				<Avatar src={avatarUrl} size="xs" alt={name} />
 
 				<div className="leading-3">
 					<div className="flex items-center gap-1">
