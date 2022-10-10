@@ -2,11 +2,13 @@ import { FormField } from '@/components/Form/FormField';
 import { Alert } from '@/components/ui/Alert';
 import { Button } from '@/components/ui/Buttons/Button';
 import { LinkButton } from '@/components/ui/Buttons/LinkButton';
+import { LoadingButton } from '@/components/ui/Buttons/LoadingButton';
 import { Container } from '@/components/ui/Container';
 import { Heading } from '@/components/ui/Typography/Heading';
 import { signUp } from '@/utils/supabase';
 import { zodResolver } from '@hookform/resolvers/zod';
 import Head from 'next/head';
+import { useRouter } from 'next/router';
 import { useForm } from 'react-hook-form';
 import * as z from 'zod';
 
@@ -20,10 +22,11 @@ const schema = z.object({
 type SignupForm = z.infer<typeof schema>;
 
 export default function Signup() {
+	const router = useRouter();
 	const {
 		handleSubmit,
 		register,
-		formState: { errors },
+		formState: { errors, isSubmitting },
 	} = useForm<SignupForm>({
 		defaultValues: {
 			name: '',
@@ -42,7 +45,10 @@ export default function Signup() {
 
 			<Container className="flex justify-center md:my-20">
 				<form
-					onSubmit={handleSubmit(async (values) => signUp(values))}
+					onSubmit={handleSubmit(async (values) => {
+						await signUp(values);
+						router.push('/');
+					})}
 					className="w-full max-w-md space-y-8"
 				>
 					<Heading size="3xl" transform="italic">
@@ -102,7 +108,8 @@ export default function Signup() {
 						>
 							Have an account? Sign in
 						</LinkButton>
-						<Button type="submit">Sign Up</Button>
+
+						{isSubmitting ? <LoadingButton /> : <Button type="submit">Sign Up</Button>}
 					</div>
 				</form>
 			</Container>

@@ -14,7 +14,7 @@ import { useRouter } from 'next/router';
 import { Check, Link } from 'phosphor-react';
 import { useEffect, useState } from 'react';
 import { useForm } from 'react-hook-form';
-import { FaGithub, FaInstagram, FaTwitter } from 'react-icons/fa';
+import { FaGithub, FaTwitter, FaYoutube } from 'react-icons/fa';
 import { toast } from 'react-toastify';
 import * as z from 'zod';
 
@@ -30,7 +30,7 @@ const schema = z.object({
 	bio: z.string().max(160, 'Bio should be less than 160 characters'),
 	github: z.string().max(15, 'Github should be less or equal than 15 characters'),
 	twitter: z.string().max(15, 'Twitter should be less or equal than 15 characters'),
-	instagram: z.string().max(30, 'Instagram should be less or equal than 30 characters'),
+	youtube: z.string().max(200, 'Youtube should be less or equal than 200 characters'),
 	website: z.string().max(200, 'Website should be less or equal than 200 characters'),
 });
 
@@ -52,7 +52,7 @@ export default function SettingsAccount() {
 			bio: auth?.user.bio,
 			github: auth?.user.github,
 			twitter: auth?.user.twitter,
-			instagram: auth?.user.instagram,
+			youtube: auth?.user.youtube,
 			website: auth?.user.website,
 		},
 		resolver: zodResolver(schema),
@@ -123,7 +123,7 @@ export default function SettingsAccount() {
 										bio: values.bio,
 										github: values.github,
 										twitter: values.twitter,
-										instagram: values.instagram,
+										youtube: values.youtube,
 										website: values.website,
 									});
 
@@ -184,21 +184,21 @@ export default function SettingsAccount() {
 									/>
 
 									<FormField
-										name="instagram"
-										label="Instagram"
-										inputAddon={<FaInstagram />}
-										placeholder="Your instagram..."
-										register={register}
-										error={errors.instagram?.message}
-									/>
-
-									<FormField
 										name="twitter"
 										label="Twitter"
 										inputAddon={<FaTwitter />}
 										placeholder="Your Twitter..."
 										register={register}
 										error={errors.twitter?.message}
+									/>
+
+									<FormField
+										name="youtube"
+										label="Youtube"
+										inputAddon={<FaYoutube />}
+										placeholder="Your youtube..."
+										register={register}
+										error={errors.youtube?.message}
 									/>
 								</div>
 							</div>

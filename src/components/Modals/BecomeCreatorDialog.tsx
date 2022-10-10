@@ -127,7 +127,7 @@ export function BecomeCreatorDialog() {
 											name="message"
 											label="Message"
 											register={register}
-											helperText="Tell us more about you and what you do."
+											helperText="Tell more about you and what you do."
 											error={errors.message?.message}
 										/>
 

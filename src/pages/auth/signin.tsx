@@ -2,6 +2,7 @@ import { FormField } from '@/components/Form/FormField';
 import { Alert } from '@/components/ui/Alert';
 import { Button } from '@/components/ui/Buttons/Button';
 import { LinkButton } from '@/components/ui/Buttons/LinkButton';
+import { LoadingButton } from '@/components/ui/Buttons/LoadingButton';
 import { Container } from '@/components/ui/Container';
 import { Heading } from '@/components/ui/Typography/Heading';
 import { signIn } from '@/utils/supabase';
@@ -21,7 +22,7 @@ export default function Signin() {
 	const {
 		handleSubmit,
 		register,
-		formState: { errors },
+		formState: { errors, isSubmitting },
 	} = useForm<SigninForm>({
 		defaultValues: {
 			email: '',
@@ -80,7 +81,8 @@ export default function Signin() {
 						>
 							Need an account? Sign up
 						</LinkButton>
-						<Button type="submit">Sign In</Button>
+
+						{isSubmitting ? <LoadingButton /> : <Button type="submit">Sign In</Button>}
 					</div>
 				</form>
 			</Container>

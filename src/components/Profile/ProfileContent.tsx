@@ -9,7 +9,7 @@ import { type Creator } from '@/shared/interfaces/Creator';
 import { type UserProfile } from '@/shared/interfaces/UserProfile';
 import { formatDate } from '@/utils/helpers/formats';
 import { Link, PaintBrush, Pencil } from 'phosphor-react';
-import { FaGithub, FaInstagram, FaTwitter } from 'react-icons/fa';
+import { FaGithub, FaYoutube, FaTwitter } from 'react-icons/fa';
 import { Avatar } from '../ui/Avatar';
 import { LinkButton } from '../ui/Buttons/LinkButton';
 import { Text } from '../ui/Typography/Text';
@@ -44,7 +44,7 @@ export function ProfileContent({
 	bio,
 	avatar_url: avatarUrl,
 	website,
-	instagram,
+	youtube,
 	twitter,
 	github,
 	is_creator: isCreator,
@@ -119,17 +119,17 @@ export function ProfileContent({
 								</LinkButton>
 							)}
 
-							{instagram && (
+							{youtube && (
 								<LinkButton
-									href={`https://instagram.com/${instagram}`}
+									href={`https://www.youtube.com/c/${youtube}`}
 									isExternal
 									color="unstyled"
 									fontSize="sm"
 									className="flex items-center gap-2 hover:text-black dark:hover:text-white"
 								>
-									<FaInstagram className="text-base" />
+									<FaYoutube className="text-base" />
 									<Text as="span" className="hidden sm:block">
-										Instagram
+										Youtube
 									</Text>
 								</LinkButton>
 							)}

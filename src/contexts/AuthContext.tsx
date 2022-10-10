@@ -14,7 +14,7 @@ interface AuthContextProps {
 		image: string;
 		twitter: string;
 		github: string;
-		instagram: string;
+		youtube: string;
 		website: string;
 		isCreator: boolean;
 		isVerified: boolean;
@@ -72,7 +72,7 @@ export function AuthProvider({ children }: Children) {
 					image: session?.user.avatar_url,
 					twitter: session?.user.twitter,
 					github: session?.user.github,
-					instagram: session?.user.instagram,
+					youtube: session?.user.youtube,
 					website: session?.user.website,
 					isCreator: session?.user.is_creator,
 					isVerified: session?.user.is_verified,

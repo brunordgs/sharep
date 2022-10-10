@@ -6,7 +6,7 @@ export interface UserProfile {
 	avatar_url: string;
 	twitter: string;
 	github: string;
-	instagram: string;
+	youtube: string;
 	website: string;
 	is_creator: boolean;
 	is_verified: boolean;
