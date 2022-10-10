@@ -18,7 +18,7 @@ export function Avatar({ size = 'md', hasBorder = false, className, ...props }: 
 					'w-36 h-36': size === 'lg',
 					'border-4 border-zinc-100 dark:border-zinc-900': hasBorder,
 				},
-				'relative rounded-full',
+				'relative rounded-full overflow-hidden',
 				className,
 			)}
 		>
@@ -26,6 +26,9 @@ export function Avatar({ size = 'md', hasBorder = false, className, ...props }: 
 				layout="fill"
 				objectFit="contain"
 				className="rounded-full"
+				placeholder="blur"
+				blurDataURL={props.src as string}
+				draggable={false}
 				alt={props.alt ?? ''}
 				{...props}
 			/>

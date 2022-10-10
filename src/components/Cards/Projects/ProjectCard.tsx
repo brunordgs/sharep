@@ -1,4 +1,4 @@
-import Image from 'next/image';
+import { Image } from '@/components/ui/Image';
 import { FaGithub } from 'react-icons/fa';
 import { LinkButton } from '../../ui/Buttons/LinkButton';
 import { Text } from '../../ui/Typography/Text';
@@ -20,8 +20,8 @@ export function ProjectCard({ url, title, description, name, source }: Props) {
 			className="border-t border-zinc-200 first:border-0 dark:border-zinc-700 p-6 flex justify-between hover:bg-zinc-50 dark:hover:bg-zinc-700 w-full h-28"
 		>
 			<div className="flex items-center gap-4">
-				<div className="bg-rose-500 h-16 w-16 rounded-md flex items-center justify-center font-bold text-zinc-100 text-2xl italic">
-					<Image src="/sharep-logo-icon.svg" width={150} height={150} alt="Sharep logo" />
+				<div className="bg-rose-500 h-16 w-16 rounded-md flex items-center justify-center font-bold text-zinc-100 text-2xl italic overflow-hidden">
+					<Image src="/sharep-logo-icon.svg" className="w-[150px] h-[150px]" alt="Sharep logo" />
 				</div>
 
 				<div>
