@@ -1,11 +1,11 @@
 import { Loading } from '@/components/ui/Loading';
+import { Text } from '@/components/ui/Typography/Text';
 import { type ShortUser } from '@/shared/interfaces/ShortUser';
+import { selectUsers } from '@/utils/supabase';
 import { useEffect, useState } from 'react';
 import { Card } from '../../ui/Card';
 import { Heading } from '../../ui/Typography/Heading';
 import { FeaturedUserCard } from './FeaturedUserCard';
-import { Text } from '@/components/ui/Typography/Text';
-import { selectUsers } from '@/utils/supabase';
 
 export function FeaturedUsersCard() {
 	const [users, setUsers] = useState<ShortUser[]>([]);

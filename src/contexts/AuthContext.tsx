@@ -1,18 +1,18 @@
 import { supabase } from '@/services/supabaseClient';
 import { type Children } from '@/shared/interfaces/Children';
 import { type UserProfile } from '@/shared/interfaces/UserProfile';
-import { getUserInformation, selectUsers } from '@/utils/supabase';
+import { getSession, getUserInformation, selectUsers } from '@/utils/supabase';
+import { Session } from '@supabase/supabase-js';
 import { createContext, useEffect, useState } from 'react';
 
 interface AuthContextProps {
-	session?: boolean;
+	session?: Session;
 	user: {
-		email: string;
 		name: string;
 		username: string;
 		bio: string;
 		image: string;
-		twitter: string;
+		twitch: string;
 		github: string;
 		youtube: string;
 		website: string;
@@ -24,13 +24,13 @@ interface AuthContextProps {
 export const AuthContext = createContext<AuthContextProps | null>(null);
 
 export function AuthProvider({ children }: Children) {
-	const [session, setSession] = useState<{ isLoggedIn?: boolean; user: UserProfile } | null>(null);
+	const [session, setSession] = useState<{ session: Session; user: UserProfile } | null>(null);
 
 	useEffect(() => {
 		async function initializeAsync() {
 			const {
 				data: { session },
-			} = await supabase.auth.getSession();
+			} = await getSession();
 
 			if (!session) return;
 
@@ -52,7 +52,7 @@ export function AuthProvider({ children }: Children) {
 				]);
 			}
 
-			setSession({ isLoggedIn: !!session.access_token, user: user.data?.[0] });
+			setSession({ session, user: user.data![0] });
 		}
 
 		initializeAsync();
@@ -63,14 +63,13 @@ export function AuthProvider({ children }: Children) {
 	return (
 		<AuthContext.Provider
 			value={{
-				session: session?.isLoggedIn,
+				session: session?.session,
 				user: {
-					email: session?.user.email,
 					name: session?.user.name,
 					username: session?.user.username,
 					bio: session?.user.bio,
 					image: session?.user.avatar_url,
-					twitter: session?.user.twitter,
+					twitch: session?.user.twitch,
 					github: session?.user.github,
 					youtube: session?.user.youtube,
 					website: session?.user.website,

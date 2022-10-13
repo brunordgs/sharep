@@ -28,7 +28,6 @@ export function Avatar({ size = 'md', hasBorder = false, className, ...props }: 
 				className="rounded-full"
 				placeholder="blur"
 				blurDataURL={props.src as string}
-				draggable={false}
 				alt={props.alt ?? ''}
 				{...props}
 			/>

@@ -33,7 +33,7 @@ export function UserDropdown({ avatar }: Props) {
 				leaveFrom="transform opacity-100 scale-100"
 				leaveTo="transform opacity-0 scale-95"
 			>
-				<Menu.Items className="absolute right-0 top-10 mt-2 w-56 origin-top-right divide-y divide-zinc-100 dark:divide-zinc-700 px-1 rounded-md bg-white dark:bg-zinc-800 shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none z-20">
+				<Menu.Items className="absolute right-0 top-10 mt-2 w-56 origin-top-right divide-y divide-zinc-100 dark:divide-zinc-700 px-1 rounded-md bg-white dark:bg-zinc-800 shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none z-30">
 					<div className="py-1">
 						<Menu.Item>
 							{({ active }) => (

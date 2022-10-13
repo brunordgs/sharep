@@ -43,7 +43,7 @@ export const Input = forwardRef<Props, Props>(
 						error,
 				},
 				inputAddon ? 'rounded-r-md' : 'rounded-md',
-				'border-2 p-2 text-sm w-full outline-none focus:border-rose-700 dark:focus:border-rose-900',
+				'border-2 p-2 text-sm w-full outline-none focus:border-zinc-400 dark:focus:border-zinc-500',
 			),
 			...props,
 		});

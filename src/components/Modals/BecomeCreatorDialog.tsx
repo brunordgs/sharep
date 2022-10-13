@@ -27,7 +27,7 @@ export function BecomeCreatorDialog() {
 		formState: { errors, isDirty: isFormEditted, isSubmitting, isSubmitSuccessful },
 	} = useForm<CreatorForm>({
 		defaultValues: {
-			email: auth?.user.email ?? '',
+			email: auth?.session?.user.email ?? '',
 			message: '',
 		},
 		resolver: zodResolver(schema),
@@ -103,7 +103,6 @@ export function BecomeCreatorDialog() {
 									<form
 										onSubmit={handleSubmit((values) => {
 											console.log(values);
-
 											setIsFormSubmitted(true);
 
 											setTimeout(() => {

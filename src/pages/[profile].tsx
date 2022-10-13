@@ -1,10 +1,10 @@
 import { ProfileContent } from '@/components/Profile/ProfileContent';
 import { ProfileNotFound } from '@/components/Profile/ProfileNotFound';
 import { Loading } from '@/components/ui/Loading';
-import { supabase } from '@/services/supabaseClient';
 import { POPULAR_USERS } from '@/shared/constants';
 import { type Creator } from '@/shared/interfaces/Creator';
 import { type UserProfile } from '@/shared/interfaces/UserProfile';
+import { getCreatorInformation, getUserInformation } from '@/utils/supabase';
 import { GetStaticPropsContext } from 'next';
 import Head from 'next/head';
 import { useRouter } from 'next/router';
@@ -68,11 +68,11 @@ export async function getStaticProps({ params }: GetStaticPropsContext) {
 		};
 	}
 
-	const users = supabase.from('users').select().eq('username', username.replace('@', ''));
-	const creators = supabase.from('creators').select().eq('username', username.replace('@', ''));
+	const user = getUserInformation(username.replace('@', ''));
+	const creators = getCreatorInformation(username.replace('@', ''));
 
 	const [{ data: userData, error: userError }, { data: creatorData }] = await Promise.all([
-		users,
+		user,
 		creators,
 	]);
 

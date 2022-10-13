@@ -74,7 +74,7 @@ export function Navbar() {
 						/>
 					</div>
 
-					{!auth?.session ? <SigninDialog /> : <UserDropdown avatar={auth?.user?.image} />}
+					{!auth?.session ? <SigninDialog /> : <UserDropdown avatar={auth?.user.image} />}
 				</div>
 			</Container>
 

@@ -1,10 +1,9 @@
 import { supabase } from '@/services/supabaseClient';
+import { isProd } from '@/shared/constants';
 import { type UserProfile } from '@/shared/interfaces/UserProfile';
 import { toast } from 'react-toastify';
 
 export async function signInWithGithub() {
-	const isProd = process.env.NODE_ENV === 'production';
-
 	supabase.auth.signInWithOAuth({
 		provider: 'github',
 		options: {
@@ -77,13 +76,26 @@ export async function signOut() {
 }
 
 export async function getUserInformation(username: string) {
-	return supabase.from('users').select().eq('username', username);
+	return supabase
+		.from('users')
+		.select(
+			'name, username, avatar_url, bio, is_creator, is_verified, github, twitch, youtube, website',
+		)
+		.eq('username', username);
+}
+
+export async function getCreatorInformation(username: string) {
+	return supabase.from('creators').select('created_at').eq('username', username);
 }
 
 export async function selectUsers() {
-	return supabase.from('users').select();
+	return supabase.from('users').select('name, avatar_url, username, is_verified');
 }
 
 export async function updateUser(data: Partial<UserProfile>) {
 	return supabase.from('users').update(data).match({ username: data.username });
+}
+
+export async function getSession() {
+	return supabase.auth.getSession();
 }

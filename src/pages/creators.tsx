@@ -10,8 +10,11 @@ import { supabase } from '@/services/supabaseClient';
 import { type ShortUser } from '@/shared/interfaces/ShortUser';
 import Head from 'next/head';
 import { useEffect, useState } from 'react';
+import { useAuth } from '@/hooks/useAuth';
 
 export default function Creators() {
+	const auth = useAuth();
+
 	const [creators, setCreators] = useState<ShortUser[]>([]);
 	const [loading, setLoading] = useState(true);
 	const [isBannerOpen, setIsBannerOpen] = useState(true);
@@ -41,7 +44,7 @@ export default function Creators() {
 					<div className="lg:col-span-4 space-y-4">
 						<DefaultHeader>Awesome creators</DefaultHeader>
 
-						{isBannerOpen && (
+						{auth?.session && isBannerOpen && (
 							<CreatorBanner
 								title="Become a creator"
 								description="Start sharing products on Sharep by applying to become a creator, and start posting!"

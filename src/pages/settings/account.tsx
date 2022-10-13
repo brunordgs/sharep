@@ -14,7 +14,7 @@ import { useRouter } from 'next/router';
 import { Check, Link } from 'phosphor-react';
 import { useEffect, useState } from 'react';
 import { useForm } from 'react-hook-form';
-import { FaGithub, FaTwitter, FaYoutube } from 'react-icons/fa';
+import { FaGithub, FaTwitch, FaYoutube } from 'react-icons/fa';
 import { toast } from 'react-toastify';
 import * as z from 'zod';
 
@@ -29,7 +29,7 @@ const schema = z.object({
 		.max(50, 'Display Name should be less than 50 characters'),
 	bio: z.string().max(160, 'Bio should be less than 160 characters'),
 	github: z.string().max(15, 'Github should be less or equal than 15 characters'),
-	twitter: z.string().max(15, 'Twitter should be less or equal than 15 characters'),
+	twitch: z.string().max(15, 'Twitch should be less or equal than 15 characters'),
 	youtube: z.string().max(200, 'Youtube should be less or equal than 200 characters'),
 	website: z.string().max(200, 'Website should be less or equal than 200 characters'),
 });
@@ -51,7 +51,7 @@ export default function SettingsAccount() {
 			displayName: auth?.user.name,
 			bio: auth?.user.bio,
 			github: auth?.user.github,
-			twitter: auth?.user.twitter,
+			twitch: auth?.user.twitch,
 			youtube: auth?.user.youtube,
 			website: auth?.user.website,
 		},
@@ -122,7 +122,7 @@ export default function SettingsAccount() {
 										username: values.username,
 										bio: values.bio,
 										github: values.github,
-										twitter: values.twitter,
+										twitch: values.twitch,
 										youtube: values.youtube,
 										website: values.website,
 									});
@@ -169,7 +169,7 @@ export default function SettingsAccount() {
 										name="website"
 										label="Website"
 										inputAddon={<Link weight="bold" />}
-										placeholder="Your website..."
+										placeholder="example.com"
 										register={register}
 										error={errors.website?.message}
 									/>
@@ -178,25 +178,25 @@ export default function SettingsAccount() {
 										name="github"
 										label="Github"
 										inputAddon={<FaGithub />}
-										placeholder="Your Github..."
+										placeholder="brunordgs"
 										register={register}
 										error={errors.github?.message}
 									/>
 
 									<FormField
-										name="twitter"
-										label="Twitter"
-										inputAddon={<FaTwitter />}
-										placeholder="Your Twitter..."
+										name="twitch"
+										label="Twitch"
+										inputAddon={<FaTwitch />}
+										placeholder="brunordgs"
 										register={register}
-										error={errors.twitter?.message}
+										error={errors.twitch?.message}
 									/>
 
 									<FormField
 										name="youtube"
 										label="Youtube"
 										inputAddon={<FaYoutube />}
-										placeholder="Your youtube..."
+										placeholder="brunordgs"
 										register={register}
 										error={errors.youtube?.message}
 									/>

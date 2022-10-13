@@ -1,10 +1,9 @@
 export interface UserProfile {
 	name: string;
-	email: string;
 	bio: string;
 	username: string;
 	avatar_url: string;
-	twitter: string;
+	twitch: string;
 	github: string;
 	youtube: string;
 	website: string;

@@ -9,7 +9,7 @@ import { type Creator } from '@/shared/interfaces/Creator';
 import { type UserProfile } from '@/shared/interfaces/UserProfile';
 import { formatDate } from '@/utils/helpers/formats';
 import { Link, PaintBrush, Pencil } from 'phosphor-react';
-import { FaGithub, FaYoutube, FaTwitter } from 'react-icons/fa';
+import { FaGithub, FaYoutube, FaTwitch } from 'react-icons/fa';
 import { Avatar } from '../ui/Avatar';
 import { LinkButton } from '../ui/Buttons/LinkButton';
 import { Text } from '../ui/Typography/Text';
@@ -45,7 +45,7 @@ export function ProfileContent({
 	avatar_url: avatarUrl,
 	website,
 	youtube,
-	twitter,
+	twitch,
 	github,
 	is_creator: isCreator,
 	is_verified: isVerified,
@@ -57,7 +57,7 @@ export function ProfileContent({
 		<>
 			<div className="bg-gradient-to-b from-rose-500 to-pink-600 h-48 rounded-b-2xl relative">
 				{isCreator && (
-					<div className="absolute bottom-2 right-4 flex gap-2 z-20">
+					<div className="absolute bottom-2 right-4 flex gap-2 z-[11]">
 						<Tooltip data-tip={`Creator since ${formatDate(creator.created_at)}`}>
 							<div className="bg-gradient-to-r from-pink-700 to-pink-800 shadow-md text-zinc-100 rounded-md py-1 px-2 text-sm italic font-semibold inline-flex items-center gap-2 select-none">
 								Creator
@@ -76,7 +76,7 @@ export function ProfileContent({
 						<div className="m-6 flex items-center gap-6">
 							{website && (
 								<LinkButton
-									href={website}
+									href={`https://${website}`}
 									isExternal
 									color="unstyled"
 									fontSize="sm"
@@ -104,17 +104,17 @@ export function ProfileContent({
 								</LinkButton>
 							)}
 
-							{twitter && (
+							{twitch && (
 								<LinkButton
-									href={`https://twitter.com/${twitter}`}
+									href={`https://twitch.tv/${twitch}`}
 									isExternal
 									color="unstyled"
 									fontSize="sm"
 									className="flex items-center gap-2 hover:text-black dark:hover:text-white"
 								>
-									<FaTwitter className="text-base" />
+									<FaTwitch className="text-base" />
 									<Text as="span" className="hidden sm:block">
-										Twitter
+										Twitch
 									</Text>
 								</LinkButton>
 							)}
