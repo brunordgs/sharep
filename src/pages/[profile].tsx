@@ -69,11 +69,11 @@ export async function getStaticProps({ params }: GetStaticPropsContext) {
 	}
 
 	const user = getUserInformation(username.replace('@', ''));
-	const creators = getCreatorInformation(username.replace('@', ''));
+	const creator = getCreatorInformation(username.replace('@', ''));
 
 	const [{ data: userData, error: userError }, { data: creatorData }] = await Promise.all([
 		user,
-		creators,
+		creator,
 	]);
 
 	if (userError || !userData?.length) {
@@ -89,6 +89,5 @@ export async function getStaticProps({ params }: GetStaticPropsContext) {
 			user: userData[0],
 			creator: creatorData?.[0] ?? null,
 		},
-		revalidate: 10,
 	};
 }
