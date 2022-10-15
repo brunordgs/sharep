@@ -1,5 +1,7 @@
+create extension if not exists "uuid-ossp" schema extensions;
+
 create table public.creators (
-	"id" uuid default uuid_generate_v4() not null,
+	"id" uuid default extensions.uuid_generate_v4() not null,
 	"created_at" timestamp with time zone default now(),
   "updated_at" timestamp with time zone default now(),
 
