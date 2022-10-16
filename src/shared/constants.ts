@@ -11,3 +11,5 @@ export const FONT_WEIGHTS = {
 
 export const POPULAR_USERS = ['brunordgs'];
 export const isProd = process.env.NODE_ENV === 'production';
+
+export const HTTP_PROTOCOL_REGEX = /(?:www.|https:\/\/)+/g;

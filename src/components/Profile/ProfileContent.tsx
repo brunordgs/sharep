@@ -5,6 +5,7 @@ import { Tooltip } from '@/components/ui/Tooltip';
 import { Heading } from '@/components/ui/Typography/Heading';
 import projects from '@/data/projects.json';
 import { useAuth } from '@/hooks/useAuth';
+import { HTTP_PROTOCOL_REGEX } from '@/shared/constants';
 import { type Creator } from '@/shared/interfaces/Creator';
 import { type UserProfile } from '@/shared/interfaces/UserProfile';
 import { formatDate } from '@/utils/helpers/formats';
@@ -17,14 +18,13 @@ import { Text } from '../ui/Typography/Text';
 function BioContent({ bio }: { bio: string | undefined }) {
 	const words = bio?.split(' ');
 	const matchUrl = /(?:www|https?)[^\s]+/g;
-	const webProtocol = /(?:www|https:\/\/)+/g;
 
 	return (
 		<Text className="text-zinc-600 dark:text-zinc-300">
 			{words?.map((word) =>
 				word.match(matchUrl) ? (
 					<LinkButton href={word} color="link" className="inline-flex" isExternal>
-						{word.replace(webProtocol, '')}
+						{word.replace(HTTP_PROTOCOL_REGEX, '')}
 					</LinkButton>
 				) : (
 					word + ' '
@@ -76,7 +76,7 @@ export function ProfileContent({
 						<div className="m-6 flex items-center gap-6">
 							{website && (
 								<LinkButton
-									href={`https://${website}`}
+									href={`https://${website.replace(HTTP_PROTOCOL_REGEX, '')}`}
 									isExternal
 									color="unstyled"
 									fontSize="sm"

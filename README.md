@@ -39,7 +39,7 @@ Finally, run application
 $ pnpm dev
 ```
 
-Open `http://localhost:3000` with your browser to see the web result and `http://localhost:54321` to check the database.
+Open `http://localhost:3000` with your browser to see the web result and `http://localhost:54323` to check Supabase dashboard.
 
 \_Obs: don't forget to create the `.env.local` (please duplicate `.env.example`). **Application won't work correctly without it**.
 
