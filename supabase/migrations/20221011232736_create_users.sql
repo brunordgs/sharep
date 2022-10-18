@@ -15,6 +15,7 @@ create table public.users (
 	"youtube" varchar,
 	"created_at" timestamp with time zone default now(),
   "updated_at" timestamp with time zone default now(),
+	"password" text,
 
 	primary key (id)
 )

@@ -34,10 +34,11 @@ export function AuthProvider({ children }: Children) {
 
 			if (!session) return;
 
-			const [users, user] = await Promise.all([
-				selectUsers(),
-				getUserInformation(session?.user?.user_metadata?.user_name),
-			]);
+			// Only use this variable to check username provided by normal sign in/sign up methods
+			const username =
+				session?.user?.user_metadata?.user_name ?? session?.user?.user_metadata?.username;
+
+			const [users, user] = await Promise.all([selectUsers(), getUserInformation(username)]);
 
 			const usernames = users.data?.map(({ username }) => username);
 

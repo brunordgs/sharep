@@ -2,6 +2,7 @@ import { supabase } from '@/services/supabaseClient';
 import { isProd } from '@/shared/constants';
 import { type UserProfile } from '@/shared/interfaces/UserProfile';
 import { toast } from 'react-toastify';
+import HmacSHA256 from 'crypto-js/hmac-sha256';
 
 export async function signInWithGithub() {
 	supabase.auth.signInWithOAuth({
@@ -18,10 +19,12 @@ interface SignInProps {
 }
 
 export async function signIn({ email, password }: SignInProps) {
+	const hashPassword = HmacSHA256(password, String(process.env.SUPABASE_JWT_SECRET)).toString();
+
 	try {
 		const { error } = await supabase.auth.signInWithPassword({
 			email,
-			password,
+			password: hashPassword,
 		});
 
 		if (error) {
@@ -40,10 +43,12 @@ interface SignUpProps extends SignInProps {
 }
 
 export async function signUp({ email, password, name, username }: SignUpProps) {
+	const hashPassword = HmacSHA256(password, String(process.env.SUPABASE_JWT_SECRET)).toString();
+
 	try {
-		const { data, error } = await supabase.auth.signUp({
+		const { error } = await supabase.auth.signUp({
 			email,
-			password,
+			password: hashPassword,
 			options: {
 				data: {
 					name,
@@ -56,14 +61,22 @@ export async function signUp({ email, password, name, username }: SignUpProps) {
 			throw error;
 		}
 
-		await supabase.from('users').insert([
+		const { error: err } = await supabase.from('users').insert([
 			{
-				name: data.user?.user_metadata.name,
-				username: data.user?.user_metadata.username,
+				name,
+				password: hashPassword,
+				username,
 				avatar_url: 'https://ik.imagekit.io/sharep/icon_3uHBhmu8u.svg', // Default user profile icon
-				email: data.user?.email,
+				email,
 			},
 		]);
+
+		if (err) {
+			console.error(err.message);
+			return;
+		}
+
+		await signIn({ email, password: hashPassword });
 	} catch (e) {
 		if (e instanceof Error) {
 			toast.error(e.message);
