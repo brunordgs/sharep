@@ -17,7 +17,7 @@ export type Props = GenericFieldHTMLAttributes & {
 	error: string | undefined;
 };
 
-const INPUT_COLORS = {
+export const INPUT_COLORS = {
 	primary: {
 		base: 'bg-zinc-100 dark:bg-zinc-900 border-zinc-200 dark:border-zinc-700 placeholder:text-zinc-300 dark:placeholder:text-zinc-600',
 	},

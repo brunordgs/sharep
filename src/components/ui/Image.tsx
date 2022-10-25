@@ -1,5 +1,6 @@
 import clsx from 'clsx';
 import NextImage, { ImageProps } from 'next/image';
+import { useState } from 'react';
 
 export function Image({
 	src,
@@ -9,6 +10,8 @@ export function Image({
 	className,
 	...props
 }: ImageProps) {
+	const [loading, setLoading] = useState(true);
+
 	return (
 		<div className={clsx('relative', className)}>
 			<NextImage
@@ -16,10 +19,11 @@ export function Image({
 				alt={alt}
 				layout={layout}
 				objectFit={objectFit}
-				className="select-none"
-				placeholder="blur"
-				blurDataURL={src as string}
-				draggable={false}
+				className={clsx(
+					loading ? 'grayscale blur-2xl scale-110' : 'grayscale-0 blur-0 scale-100',
+					'select-none duration-700 ease-in-out',
+				)}
+				onLoadingComplete={() => setLoading(false)}
 				{...props}
 			/>
 		</div>

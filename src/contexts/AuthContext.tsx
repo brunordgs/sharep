@@ -6,7 +6,7 @@ import { Session } from '@supabase/supabase-js';
 import { createContext, useEffect, useState } from 'react';
 
 interface AuthContextProps {
-	session?: Session;
+	session?: Session | null;
 	user: {
 		name: string;
 		username: string;
@@ -24,7 +24,9 @@ interface AuthContextProps {
 export const AuthContext = createContext<AuthContextProps | null>(null);
 
 export function AuthProvider({ children }: Children) {
-	const [session, setSession] = useState<{ session: Session; user: UserProfile } | null>(null);
+	const [session, setSession] = useState<{ session: Session | null; user: UserProfile } | null>(
+		null,
+	);
 
 	useEffect(() => {
 		async function initializeAsync() {
@@ -34,7 +36,6 @@ export function AuthProvider({ children }: Children) {
 
 			if (!session) return;
 
-			// Only use this variable to check username provided by normal sign in/sign up methods
 			const username =
 				session?.user?.user_metadata?.user_name ?? session?.user?.user_metadata?.username;
 
@@ -42,11 +43,11 @@ export function AuthProvider({ children }: Children) {
 
 			const usernames = users.data?.map(({ username }) => username);
 
-			if (!usernames?.includes(session?.user?.user_metadata.user_name)) {
+			if (!usernames?.includes(username)) {
 				await supabase.from('users').insert([
 					{
 						name: session?.user?.user_metadata?.full_name,
-						username: session?.user?.user_metadata?.user_name,
+						username: username,
 						avatar_url: session?.user?.user_metadata?.avatar_url,
 						email: session?.user?.user_metadata?.email,
 					},
@@ -58,6 +59,13 @@ export function AuthProvider({ children }: Children) {
 
 		initializeAsync();
 	}, []);
+
+	supabase.auth.onAuthStateChange(async (_, currentSession) => {
+		const username = currentSession?.user?.user_metadata?.username;
+		const user = await getUserInformation(username);
+
+		setSession({ session: currentSession, user: user.data![0] });
+	});
 
 	if (!session) return <>{children}</>;
 

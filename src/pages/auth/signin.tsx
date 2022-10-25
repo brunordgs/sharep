@@ -68,13 +68,13 @@ export default function Signin() {
 						/>
 
 						<FormField
-							type="password"
 							color="secondary"
 							name="password"
 							label="Password"
 							placeholder="Password..."
 							register={register}
 							error={errors.password?.message}
+							isPassword
 						/>
 					</div>
 

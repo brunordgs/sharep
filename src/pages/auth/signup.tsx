@@ -92,11 +92,11 @@ export default function Signup() {
 						<FormField
 							color="secondary"
 							name="password"
-							type="password"
 							label="Password"
 							placeholder="Password..."
 							register={register}
 							error={errors.password?.message}
+							isPassword
 						/>
 					</div>
 
