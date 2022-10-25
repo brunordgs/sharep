@@ -142,7 +142,7 @@ export function ProfileContent({
 								className="bg-zinc-200/60 hover:bg-zinc-200 hover:text-black hover:dark:text-white dark:bg-zinc-800 dark:hover:bg-zinc-700 p-2 rounded-full"
 								title="Edit profile"
 							>
-								<Pencil size={16} aria-label="Edit profile" />
+								<Pencil size={16} weight="duotone" aria-label="Edit profile" />
 							</LinkButton>
 						)}
 					</div>

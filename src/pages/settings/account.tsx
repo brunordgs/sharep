@@ -1,6 +1,7 @@
 import { FormField } from '@/components/Form/FormField';
 import { Avatar } from '@/components/ui/Avatar';
 import { Button } from '@/components/ui/Buttons/Button';
+import { LinkButton } from '@/components/ui/Buttons/LinkButton';
 import { LoadingButton } from '@/components/ui/Buttons/LoadingButton';
 import { Card } from '@/components/ui/Card';
 import { Container } from '@/components/ui/Container';
@@ -11,7 +12,7 @@ import { updateUser } from '@/utils/supabase';
 import { zodResolver } from '@hookform/resolvers/zod';
 import Head from 'next/head';
 import { useRouter } from 'next/router';
-import { Check, Link } from 'phosphor-react';
+import { Check, Link, User } from 'phosphor-react';
 import { useEffect, useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { FaGithub, FaTwitch, FaYoutube } from 'react-icons/fa';
@@ -94,13 +95,24 @@ export default function SettingsAccount() {
 
 			<Container>
 				<main className="grid grid-cols-1 lg:grid-cols-4">
-					<div className="flex items-start gap-4 mb-4 lg:mb-0">
+					<div className="flex items-start gap-4 mb-4 lg:mb-0 mr-4">
 						<Avatar src={auth?.user.image as string} size="sm" />
 
-						<div>
-							<Text weight="bold">{auth?.user.name}</Text>
+						<div className="flex-1">
+							<Text weight="bold" className="truncate w-52" title={auth?.user.name}>
+								{auth?.user.name}
+							</Text>
 							<Text size="xs">@{auth?.user.username}</Text>
 						</div>
+
+						<LinkButton
+							href={`/@${auth?.user.username}`}
+							color="unstyled"
+							className="bg-zinc-200/60 hover:bg-zinc-200 hover:text-black hover:dark:text-white dark:bg-zinc-800 dark:hover:bg-zinc-700 p-2 rounded-full"
+							title="Check profile"
+						>
+							<User size={16} weight="bold" aria-label="Check profile" />
+						</LinkButton>
 					</div>
 
 					<Card className="col-span-3">

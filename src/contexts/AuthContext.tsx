@@ -47,7 +47,7 @@ export function AuthProvider({ children }: Children) {
 				await supabase.from('users').insert([
 					{
 						name: session?.user?.user_metadata?.full_name,
-						username: username,
+						username,
 						avatar_url: session?.user?.user_metadata?.avatar_url,
 						email: session?.user?.user_metadata?.email,
 					},
