@@ -1,3 +1,4 @@
+import { Form } from '@/components/Form';
 import { FormField } from '@/components/Form/FormField';
 import { Avatar } from '@/components/ui/Avatar';
 import { Button } from '@/components/ui/Buttons/Button';
@@ -40,13 +41,7 @@ type ProfileForm = z.infer<typeof schema>;
 export default function SettingsAccount() {
 	const auth = useAuth();
 	const router = useRouter();
-	const {
-		handleSubmit,
-		register,
-		getValues,
-		reset,
-		formState: { errors, isSubmitting, isDirty: isFormEditted, isSubmitSuccessful },
-	} = useForm<ProfileForm>({
+	const methods = useForm<ProfileForm>({
 		defaultValues: {
 			username: auth?.user.username,
 			displayName: auth?.user.name,
@@ -58,6 +53,13 @@ export default function SettingsAccount() {
 		},
 		resolver: zodResolver(schema),
 	});
+
+	const {
+		handleSubmit,
+		getValues,
+		reset,
+		formState: { errors, isSubmitting, isDirty: isFormEditted, isSubmitSuccessful },
+	} = methods;
 
 	const [isFormSubmmited, setIsFormSubmitted] = useState(false);
 
@@ -126,7 +128,7 @@ export default function SettingsAccount() {
 							</Text>
 						</header>
 
-						<form
+						<Form
 							onSubmit={handleSubmit(async (values) => {
 								try {
 									await updateUser({
@@ -147,14 +149,14 @@ export default function SettingsAccount() {
 									});
 								}
 							})}
+							methods={methods}
 						>
 							<div className="mt-8 space-y-6">
 								<FormField
 									name="username"
 									label="Username"
 									inputAddon="sharep.vercel.app/@"
-									placeholder="Your username..."
-									register={register}
+									placeholder="Your username..." 
 									error={errors.username?.message}
 								/>
 
@@ -162,7 +164,6 @@ export default function SettingsAccount() {
 									name="displayName"
 									label="Display Name"
 									placeholder="Your display name..."
-									register={register}
 									error={errors.displayName?.message}
 								/>
 
@@ -172,7 +173,6 @@ export default function SettingsAccount() {
 									label="Bio"
 									rows={4}
 									helperText="Write a few sentences about yourself."
-									register={register}
 									error={errors.bio?.message}
 								/>
 
@@ -182,7 +182,6 @@ export default function SettingsAccount() {
 										label="Website"
 										inputAddon={<Link weight="bold" />}
 										placeholder="example.com"
-										register={register}
 										error={errors.website?.message}
 									/>
 
@@ -191,7 +190,6 @@ export default function SettingsAccount() {
 										label="Github"
 										inputAddon={<FaGithub />}
 										placeholder="brunordgs"
-										register={register}
 										error={errors.github?.message}
 									/>
 
@@ -200,7 +198,6 @@ export default function SettingsAccount() {
 										label="Twitch"
 										inputAddon={<FaTwitch />}
 										placeholder="brunordgs"
-										register={register}
 										error={errors.twitch?.message}
 									/>
 
@@ -209,7 +206,6 @@ export default function SettingsAccount() {
 										label="Youtube"
 										inputAddon={<FaYoutube />}
 										placeholder="brunordgs"
-										register={register}
 										error={errors.youtube?.message}
 									/>
 								</div>
@@ -228,7 +224,7 @@ export default function SettingsAccount() {
 									</Button>
 								)}
 							</div>
-						</form>
+						</Form>
 					</Card>
 				</main>
 			</Container>

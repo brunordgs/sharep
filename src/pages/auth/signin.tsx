@@ -1,3 +1,4 @@
+import { Form } from '@/components/Form';
 import { FormField } from '@/components/Form/FormField';
 import { Alert } from '@/components/ui/Alert';
 import { Button } from '@/components/ui/Buttons/Button';
@@ -14,24 +15,25 @@ import * as z from 'zod';
 
 const schema = z.object({
 	email: z.string().email('Please enter a valid email address'),
-	password: z.string().min(6, 'Password should contain at least 6 characters'),
+	password: z.string().min(6, 'Password must be at least 6 characters long'),
 });
 
 type SigninForm = z.infer<typeof schema>;
 
 export default function Signin() {
 	const router = useRouter();
-	const {
-		handleSubmit,
-		register,
-		formState: { errors, isSubmitting },
-	} = useForm<SigninForm>({
+	const methods = useForm<SigninForm>({
 		defaultValues: {
 			email: '',
 			password: '',
 		},
 		resolver: zodResolver(schema),
 	});
+
+	const {
+		handleSubmit,
+		formState: { errors, isSubmitting },
+	} = methods;
 
 	return (
 		<>
@@ -40,12 +42,13 @@ export default function Signin() {
 			</Head>
 
 			<Container className="flex justify-center md:my-20">
-				<form
+				<Form
 					onSubmit={handleSubmit(async (values) => {
 						signIn(values);
 						router.push('/');
 					})}
 					className="w-full max-w-md space-y-8"
+					methods={methods}
 				>
 					<Heading size="3xl" transform="italic">
 						Sign in.
@@ -63,7 +66,6 @@ export default function Signin() {
 							name="email"
 							label="Email"
 							placeholder="Email address..."
-							register={register}
 							error={errors.email?.message}
 						/>
 
@@ -72,7 +74,6 @@ export default function Signin() {
 							name="password"
 							label="Password"
 							placeholder="Password..."
-							register={register}
 							error={errors.password?.message}
 							isPassword
 						/>
@@ -89,7 +90,7 @@ export default function Signin() {
 
 						{isSubmitting ? <LoadingButton /> : <Button type="submit">Sign In</Button>}
 					</div>
-				</form>
+				</Form>
 			</Container>
 		</>
 	);

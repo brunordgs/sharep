@@ -1,5 +1,5 @@
 import clsx from 'clsx';
-import { UseFormRegister } from 'react-hook-form';
+import { useFormContext } from 'react-hook-form';
 import { Input, type Props as InputProps } from '../ui/Inputs/Input';
 import { PasswordInput } from '../ui/Inputs/PasswordInput';
 import { Text } from '../ui/Typography/Text';
@@ -9,7 +9,6 @@ import { FormHelperText } from './FormHelperText';
 type Props = {
 	label: string;
 	helperText?: string;
-	register: UseFormRegister<any>;
 	isRequired?: boolean;
 	isPassword?: boolean;
 } & InputProps;
@@ -20,13 +19,14 @@ export function FormField({
 	label,
 	helperText,
 	inputAddon,
-	register,
 	error,
 	name,
 	isRequired = false,
 	isPassword = false,
 	...props
 }: Props) {
+	const { register } = useFormContext();
+
 	return (
 		<div>
 			<label

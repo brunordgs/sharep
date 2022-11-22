@@ -3,6 +3,7 @@ import { isProd } from '@/shared/constants';
 import { type UserProfile } from '@/shared/interfaces/UserProfile';
 import { toast } from 'react-toastify';
 import HmacSHA256 from 'crypto-js/hmac-sha256';
+import { v4 as uuidv4 } from 'uuid';
 
 export async function signInWithGithub() {
 	supabase.auth.signInWithOAuth({
@@ -63,6 +64,7 @@ export async function signUp({ email, password, name, username }: SignUpProps) {
 
 		const { error: err } = await supabase.from('users').insert([
 			{
+				id: uuidv4(),
 				name,
 				password: hashPassword,
 				username,
@@ -70,6 +72,7 @@ export async function signUp({ email, password, name, username }: SignUpProps) {
 				email,
 			},
 		]);
+
 
 		if (err) {
 			console.error(err.message);

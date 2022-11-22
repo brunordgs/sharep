@@ -1,3 +1,4 @@
+import { Form } from '@/components/Form';
 import { FormField } from '@/components/Form/FormField';
 import { Alert } from '@/components/ui/Alert';
 import { Button } from '@/components/ui/Buttons/Button';
@@ -13,21 +14,17 @@ import { useForm } from 'react-hook-form';
 import * as z from 'zod';
 
 const schema = z.object({
-	name: z.string().min(3, 'Name should contain at least 3 characters'),
+	name: z.string().min(3, 'Name must be at least 3 characters long'),
 	username: z.string().min(1, 'This field is required'),
 	email: z.string().email('Please enter a valid email address'),
-	password: z.string().min(6, 'Password should contain at least 6 characters'),
+	password: z.string().min(6, 'Password must be at least 6 characters long'),
 });
 
 type SignupForm = z.infer<typeof schema>;
 
 export default function Signup() {
 	const router = useRouter();
-	const {
-		handleSubmit,
-		register,
-		formState: { errors, isSubmitting },
-	} = useForm<SignupForm>({
+	const methods = useForm<SignupForm>({
 		defaultValues: {
 			name: '',
 			username: '',
@@ -37,6 +34,11 @@ export default function Signup() {
 		resolver: zodResolver(schema),
 	});
 
+	const {
+		handleSubmit,
+		formState: { errors, isSubmitting },
+	} = methods;
+
 	return (
 		<>
 			<Head>
@@ -44,12 +46,13 @@ export default function Signup() {
 			</Head>
 
 			<Container className="flex justify-center md:my-20">
-				<form
+				<Form
 					onSubmit={handleSubmit(async (values) => {
 						await signUp(values);
 						router.push('/');
 					})}
 					className="w-full max-w-md space-y-8"
+					methods={methods}
 				>
 					<Heading size="3xl" transform="italic">
 						Sign up.
@@ -67,7 +70,6 @@ export default function Signup() {
 							name="name"
 							label="Name"
 							placeholder="Name..."
-							register={register}
 							error={errors.name?.message}
 						/>
 
@@ -76,7 +78,6 @@ export default function Signup() {
 							name="username"
 							label="Username"
 							placeholder="Username..."
-							register={register}
 							error={errors.username?.message}
 						/>
 
@@ -85,7 +86,6 @@ export default function Signup() {
 							name="email"
 							label="Email"
 							placeholder="Email address..."
-							register={register}
 							error={errors.email?.message}
 						/>
 
@@ -94,7 +94,6 @@ export default function Signup() {
 							name="password"
 							label="Password"
 							placeholder="Password..."
-							register={register}
 							error={errors.password?.message}
 							isPassword
 						/>
@@ -111,7 +110,7 @@ export default function Signup() {
 
 						{isSubmitting ? <LoadingButton /> : <Button type="submit">Sign Up</Button>}
 					</div>
-				</form>
+				</Form>
 			</Container>
 		</>
 	);

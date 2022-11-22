@@ -5,6 +5,7 @@ import { Check } from 'phosphor-react';
 import { Fragment, useEffect, useState } from 'react';
 import { useForm } from 'react-hook-form';
 import * as z from 'zod';
+import { Form } from '../Form';
 import { FormField } from '../Form/FormField';
 import { Button } from '../ui/Buttons/Button';
 import { LoadingButton } from '../ui/Buttons/LoadingButton';
@@ -19,19 +20,20 @@ type CreatorForm = z.infer<typeof schema>;
 export function BecomeCreatorDialog() {
 	const auth = useAuth();
 
-	const {
-		handleSubmit,
-		register,
-		reset,
-		getValues,
-		formState: { errors, isDirty: isFormEditted, isSubmitting, isSubmitSuccessful },
-	} = useForm<CreatorForm>({
+	const methods = useForm<CreatorForm>({
 		defaultValues: {
 			email: auth?.session?.user.email ?? '',
 			message: '',
 		},
 		resolver: zodResolver(schema),
 	});
+
+	const {
+		handleSubmit,
+		reset,
+		getValues,
+		formState: { errors, isDirty: isFormEditted, isSubmitting, isSubmitSuccessful },
+	} = methods;
 
 	const [isFormSubmmited, setIsFormSubmitted] = useState(false);
 	const [isOpen, setIsOpen] = useState(false);
@@ -100,7 +102,7 @@ export function BecomeCreatorDialog() {
 										Become a creator
 									</Dialog.Title>
 
-									<form
+									<Form
 										onSubmit={handleSubmit((values) => {
 											console.log(values);
 											setIsFormSubmitted(true);
@@ -111,11 +113,11 @@ export function BecomeCreatorDialog() {
 											}, 1000);
 										})}
 										className="space-y-4"
+										methods={methods}
 									>
 										<FormField
 											name="email"
 											label="Email"
-											register={register}
 											error={errors.email?.message}
 											placeholder="Email..."
 											isRequired
@@ -125,7 +127,6 @@ export function BecomeCreatorDialog() {
 											as="textarea"
 											name="message"
 											label="Message"
-											register={register}
 											helperText="Tell more about you and what you do."
 											error={errors.message?.message}
 										/>
@@ -145,7 +146,7 @@ export function BecomeCreatorDialog() {
 												</Button>
 											)}
 										</div>
-									</form>
+									</Form>
 								</Dialog.Panel>
 							</Transition.Child>
 						</div>
