@@ -1,5 +1,6 @@
-import { SigninDialog } from '@/components/Modals/SigninDialog';
-import { UserDropdown } from '@/components/UserDropdown';
+import { SignedInDropdown } from '@/components/Dropdowns/SignedInDropdown';
+import { UserDropdown } from '@/components/Dropdowns/UserDropdown';
+import { LinkButton } from '@/components/ui/Buttons/LinkButton';
 import { useAuth } from '@/hooks/useAuth';
 import clsx from 'clsx';
 import { AnimatePresence } from 'framer-motion';
@@ -17,7 +18,7 @@ export function MobileNavbar() {
 
 	return (
 		<Container noMargin className="flex items-center justify-between lg:hidden">
-			<div className={clsx(!auth?.session ? 'w-[79px]' : 'w-[40px]')}>
+			<div className={clsx(!auth?.session ? 'w-[125px]' : 'w-[40px]')}>
 				<Button
 					color="unstyled"
 					className="hover:text-black dark:hover:text-white"
@@ -29,7 +30,14 @@ export function MobileNavbar() {
 
 			<Logo />
 
-			{!auth?.session ? <SigninDialog /> : <UserDropdown avatar={auth?.user?.image} />}
+			{!auth?.session ? (
+				<div className="flex gap-1">
+					<LinkButton href="/auth/signup">Sign up</LinkButton>
+					<UserDropdown />
+				</div>
+			) : (
+				<SignedInDropdown avatar={auth?.user?.image} />
+			)}
 
 			{/* Mobile navbar content */}
 			<AnimatePresence>

@@ -1,13 +1,13 @@
 import { signInWithGithub } from '@/utils/supabase';
 import { Dialog, Transition } from '@headlessui/react';
-import { User } from 'phosphor-react';
+import clsx from 'clsx';
+import { SignIn, User } from 'phosphor-react';
 import { Fragment, useState } from 'react';
 import { FaGithub } from 'react-icons/fa';
-import { Button } from '../ui/Buttons/Button';
 import { LinkButton } from '../ui/Buttons/LinkButton';
 import { Text } from '../ui/Typography/Text';
 
-export function SigninDialog() {
+export function SigninDialog({ active }: { active: boolean }) {
 	const [isOpen, setIsOpen] = useState(false);
 
 	function openModal() {
@@ -20,9 +20,17 @@ export function SigninDialog() {
 
 	return (
 		<>
-			<Button variant="outlined" onClick={openModal}>
-				Sign in
-			</Button>
+			<button
+				type="button"
+				onClick={openModal}
+				className={clsx(
+					{ 'bg-zinc-100 dark:bg-zinc-700': active },
+					'flex gap-2 w-full items-center rounded-md p-2 text-sm text-zinc-800 hover:bg-zinc-100 dark:text-zinc-200 dark:hover:bg-zinc-700 transition-colors ease-out',
+				)}
+			>
+				<SignIn weight="bold" />
+				Sign In
+			</button>
 
 			<Transition appear show={isOpen} as={Fragment}>
 				<Dialog as="div" className="relative z-30" onClose={closeModal}>

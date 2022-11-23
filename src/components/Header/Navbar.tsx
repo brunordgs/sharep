@@ -2,10 +2,10 @@ import { useAuth } from '@/hooks/useAuth';
 import clsx from 'clsx';
 import { useRouter } from 'next/router';
 import { Article, MagnifyingGlass, PaintBrush, Question } from 'phosphor-react';
-import { SigninDialog } from '../Modals/SigninDialog';
+import { SignedInDropdown } from '../Dropdowns/SignedInDropdown';
+import { UserDropdown } from '../Dropdowns/UserDropdown';
 import { LinkButton } from '../ui/Buttons/LinkButton';
 import { Container } from '../ui/Container';
-import { UserDropdown } from '../UserDropdown';
 import { Logo } from './Logo';
 import { MobileNavbar } from './Mobile/MobileNavbar';
 
@@ -74,7 +74,14 @@ export function Navbar() {
 						/>
 					</div>
 
-					{!auth?.session ? <SigninDialog /> : <UserDropdown avatar={auth?.user.image} />}
+					{!auth?.session ? (
+						<div className="flex gap-1">
+							<LinkButton href="/auth/signup">Sign up</LinkButton>
+							<UserDropdown />
+						</div>
+					) : (
+						<SignedInDropdown avatar={auth?.user.image} />
+					)}
 				</div>
 			</Container>
 

@@ -6,14 +6,14 @@ import clsx from 'clsx';
 import { useRouter } from 'next/router';
 import { Gear, Moon, PaintBrush, SignOut, User } from 'phosphor-react';
 import { Fragment } from 'react';
-import { Avatar } from './ui/Avatar';
-import { SwitchToggle } from './ui/SwitchToggle';
+import { Avatar } from '../ui/Avatar';
+import { SwitchToggle } from '../ui/SwitchToggle';
 
 interface Props {
 	avatar: string;
 }
 
-export function UserDropdown({ avatar }: Props) {
+export function SignedInDropdown({ avatar }: Props) {
 	const router = useRouter();
 	const { theme, nextTheme, setTheme } = useTheme();
 	const auth = useAuth();
