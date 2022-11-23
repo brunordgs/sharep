@@ -40,8 +40,8 @@ export default function Creators() {
 			</Head>
 
 			<Container>
-				<div className="grid grid-cols-1 lg:grid-cols-6 gap-8 mt-6">
-					<div className="lg:col-span-4 space-y-4">
+				<div className="lg:grid grid-cols-7 gap-8 mt-6">
+					<div className="md:col-span-4 lg:col-span-5 space-y-4">
 						<DefaultHeader>Awesome creators</DefaultHeader>
 
 						{auth?.session && isBannerOpen && (

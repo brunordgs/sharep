@@ -23,7 +23,12 @@ export function FeaturedUserCard({ name, username, isVerified, avatarUrl }: Prop
 
 				<div className="leading-3">
 					<div className="flex items-center gap-1">
-						<Text weight="bold" size="sm" className="truncate md:w-40 xl:w-48 2xl:w-64" title={name}>
+						<Text
+							weight="bold"
+							size="sm"
+							className="truncate md:max-w-[10rem] xl:max-w-[12rem] 2xl:max-w-[16rem]"
+							title={name}
+						>
 							{name}
 						</Text>
 
