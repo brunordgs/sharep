@@ -44,8 +44,11 @@ export default function Signin() {
 			<Container className="flex justify-center md:my-20">
 				<Form
 					onSubmit={handleSubmit(async (values) => {
-						signIn(values);
-						router.push('/');
+						const err = await signIn(values);
+
+						if (!err) {
+							router.push('/');
+						}
 					})}
 					className="w-full max-w-md space-y-8"
 					methods={methods}

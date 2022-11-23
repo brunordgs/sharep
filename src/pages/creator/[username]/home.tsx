@@ -15,18 +15,29 @@ export default function CreatorHome() {
 
 			<Container className="grid lg:grid-cols-5 gap-8">
 				<Card className="col-span-3">
-					<Text size="4xl" weight="bold" className="text-center">Welcome back, {auth?.user.username}!</Text>
+					<Text size="4xl" weight="bold" className="text-center mb-10">
+						Welcome back, {auth?.user.username}!
+					</Text>
 
-					<div>
-						<Text>Let's grow up our community!</Text>
-						<Text></Text>
+					<div className="space-y-2">
+						<Text size="lg" weight="semibold">
+							Let's grow up our community!
+						</Text>
+						<Text size="sm">
+							Post and interact with people, and build a community that helps each other.
+						</Text>
 					</div>
 				</Card>
 
 				<Card className="col-span-2">
-					Lorem ipsum dolor sit amet, consectetur adipisicing elit. Quos laudantium maxime nesciunt,
-					dolorum, blanditiis, velit eligendi facilis porro itaque laboriosam quod adipisci
-					praesentium assumenda officiis totam dignissimos consequatur iste recusandae?
+					<Text size="2xl" weight="bold">
+						Your actions
+					</Text>
+					<Text size="sm">Your journey begins here.</Text>
+
+					<div className="border-b border-zinc-200 dark:border-zinc-700 my-4" />
+
+					<Text size="lg">Help people get to know you when they visit your profile.</Text>
 				</Card>
 			</Container>
 		</>

@@ -2,7 +2,7 @@ import { Form } from '@/components/Form';
 import { FormField } from '@/components/Form/FormField';
 import { Avatar } from '@/components/ui/Avatar';
 import { Button } from '@/components/ui/Buttons/Button';
-import { LinkButton } from '@/components/ui/Buttons/LinkButton';
+import { IconButton } from '@/components/ui/Buttons/IconButton';
 import { LoadingButton } from '@/components/ui/Buttons/LoadingButton';
 import { Card } from '@/components/ui/Card';
 import { Container } from '@/components/ui/Container';
@@ -107,14 +107,12 @@ export default function SettingsAccount() {
 							<Text size="xs">@{auth?.user.username}</Text>
 						</div>
 
-						<LinkButton
+						<IconButton
 							href={`/@${auth?.user.username}`}
-							color="unstyled"
-							className="bg-zinc-200/60 hover:bg-zinc-200 hover:text-black hover:dark:text-white dark:bg-zinc-800 dark:hover:bg-zinc-700 p-2 rounded-full"
+							isAnchor
+							icon={<User size={16} weight="bold" aria-label="Check profile" />}
 							title="Check profile"
-						>
-							<User size={16} weight="bold" aria-label="Check profile" />
-						</LinkButton>
+						/>
 					</div>
 
 					<Card className="col-span-3">
@@ -156,7 +154,7 @@ export default function SettingsAccount() {
 									name="username"
 									label="Username"
 									inputAddon="sharep.vercel.app/@"
-									placeholder="Your username..." 
+									placeholder="Your username..."
 									error={errors.username?.message}
 								/>
 

@@ -34,6 +34,7 @@ export async function signIn({ email, password }: SignInProps) {
 	} catch (e) {
 		if (e instanceof Error) {
 			toast.error(e.message);
+			return e;
 		}
 	}
 }
@@ -83,6 +84,7 @@ export async function signUp({ email, password, name, username }: SignUpProps) {
 	} catch (e) {
 		if (e instanceof Error) {
 			toast.error(e.message);
+			return e;
 		}
 	}
 }

@@ -10,7 +10,7 @@ export function UserDropdown() {
 
 	return (
 		<Menu as="div" className="relative flex text-left">
-			<Menu.Button className="hover:bg-white/10 w-[38px] h-[38px] rounded-md flex items-center justify-center transition-colors ease-out">
+			<Menu.Button className="hover:bg-zinc-200/60 dark:hover:bg-zinc-700 w-[38px] h-[38px] rounded-md flex items-center justify-center transition-colors ease-out">
 				<User weight="bold" size={20} />
 			</Menu.Button>
 

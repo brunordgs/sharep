@@ -1,13 +1,14 @@
 import { useAuth } from '@/hooks/useAuth';
 import { Dialog, Transition } from '@headlessui/react';
 import { zodResolver } from '@hookform/resolvers/zod';
-import { Check } from 'phosphor-react';
+import { Check, X } from 'phosphor-react';
 import { Fragment, useEffect, useState } from 'react';
 import { useForm } from 'react-hook-form';
 import * as z from 'zod';
 import { Form } from '../Form';
 import { FormField } from '../Form/FormField';
 import { Button } from '../ui/Buttons/Button';
+import { IconButton } from '../ui/Buttons/IconButton';
 import { LoadingButton } from '../ui/Buttons/LoadingButton';
 
 const schema = z.object({
@@ -98,13 +99,23 @@ export function BecomeCreatorDialog() {
 								leaveTo="opacity-0 scale-95"
 							>
 								<Dialog.Panel className="w-full max-w-lg transform overflow-hidden rounded-2xl bg-white dark:bg-zinc-900 shadow-md transition-all p-6">
-									<Dialog.Title as="h3" className="text-2xl font-bold mt-2 mb-8 italic text-center">
-										Become a creator
-									</Dialog.Title>
+									<div className="flex items-center justify-between mt-2 mb-8">
+										<Dialog.Title
+											as="h3"
+											className="text-2xl font-bold italic text-center"
+										>
+											Become a creator
+										</Dialog.Title>
+
+										<IconButton
+											icon={<X size={16} aria-label="Close dialog" />}
+											onClick={closeModal}
+											title="Close dialog"
+										/>
+									</div>
 
 									<Form
 										onSubmit={handleSubmit((values) => {
-											console.log(values);
 											setIsFormSubmitted(true);
 
 											setTimeout(() => {
@@ -120,7 +131,6 @@ export function BecomeCreatorDialog() {
 											label="Email"
 											error={errors.email?.message}
 											placeholder="Email..."
-											isRequired
 										/>
 
 										<FormField

@@ -1,7 +1,7 @@
+import { BecomeCreatorDialog } from '@/components/Modals/BecomeCreatorDialog';
+import { IconButton } from '@/components/ui/Buttons/IconButton';
 import { X } from 'phosphor-react';
 import { Text } from '../../ui/Typography/Text';
-import { Button } from '../../ui/Buttons/Button';
-import { BecomeCreatorDialog } from '@/components/Modals/BecomeCreatorDialog';
 
 interface Props {
 	title: string;
@@ -17,14 +17,12 @@ export function CreatorBanner({ title, description, onHandleClose }: Props) {
 					{title}
 				</Text>
 
-				<Button
-					color="unstyled"
-					className="bg-zinc-100/40 hover:bg-zinc-100/20 dark:bg-zinc-800/60 dark:hover:bg-zinc-800/40 hover:text-white p-2 rounded-full"
+				<IconButton
+					variant="secondary"
+					icon={<X size={16} aria-label="Close banner" />}
 					onClick={() => onHandleClose(false)}
 					title="Close banner"
-				>
-					<X size={16} aria-label="Close banner" />
-				</Button>
+				/>
 			</header>
 
 			<Text size="sm" className="mt-2 mb-4 xl:text-base">

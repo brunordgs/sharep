@@ -1,5 +1,5 @@
 import clsx from 'clsx';
-import Link, { type LinkProps as NextLinkProps } from 'next/link';
+import Link, { type LinkProps } from 'next/link';
 import { ComponentPropsWithoutRef } from 'react';
 import { BUTTON_COLORS, BUTTON_FONT_SIZES, type Props as ButtonProps } from './Button';
 
@@ -7,7 +7,7 @@ export type Props = {
 	isExternal?: boolean;
 } & ComponentPropsWithoutRef<'a'> &
 	ButtonProps &
-	NextLinkProps;
+	LinkProps;
 
 export function LinkButton({
 	color = 'primary',

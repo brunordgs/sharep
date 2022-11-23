@@ -58,14 +58,20 @@ export function AuthProvider({ children }: Children) {
 		}
 
 		initializeAsync();
+
+		const {
+			data: { subscription },
+		} = supabase.auth.onAuthStateChange(async (_, currentSession) => {
+			const username = currentSession?.user?.user_metadata?.username;
+			const user = await getUserInformation(username);
+
+			setSession({ session: currentSession, user: user.data![0] });
+		});
+
+		return () => {
+			subscription.unsubscribe();
+		};
 	}, []);
-
-	supabase.auth.onAuthStateChange(async (_, currentSession) => {
-		const username = currentSession?.user?.user_metadata?.username;
-		const user = await getUserInformation(username);
-
-		setSession({ session: currentSession, user: user.data![0] });
-	});
 
 	if (!session) return <>{children}</>;
 

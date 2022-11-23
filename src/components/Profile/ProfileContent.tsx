@@ -10,8 +10,9 @@ import { type Creator } from '@/shared/interfaces/Creator';
 import { type UserProfile } from '@/shared/interfaces/UserProfile';
 import { formatDate } from '@/utils/helpers/formats';
 import { Link, PaintBrush, Pencil } from 'phosphor-react';
-import { FaGithub, FaYoutube, FaTwitch } from 'react-icons/fa';
+import { FaGithub, FaTwitch, FaYoutube } from 'react-icons/fa';
 import { Avatar } from '../ui/Avatar';
+import { IconButton } from '../ui/Buttons/IconButton';
 import { LinkButton } from '../ui/Buttons/LinkButton';
 import { Text } from '../ui/Typography/Text';
 
@@ -136,14 +137,12 @@ export function ProfileContent({
 						</div>
 
 						{auth?.user.username === username && (
-							<LinkButton
+							<IconButton
 								href="/settings/account"
-								color="unstyled"
-								className="bg-zinc-200/60 hover:bg-zinc-200 hover:text-black hover:dark:text-white dark:bg-zinc-800 dark:hover:bg-zinc-700 p-2 rounded-full"
+								isAnchor
+								icon={<Pencil size={16} weight="duotone" aria-label="Edit profile" />}
 								title="Edit profile"
-							>
-								<Pencil size={16} weight="duotone" aria-label="Edit profile" />
-							</LinkButton>
+							/>
 						)}
 					</div>
 				</div>
