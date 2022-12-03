@@ -6,11 +6,13 @@ import { LinkButton } from '@/components/ui/Buttons/LinkButton';
 import { LoadingButton } from '@/components/ui/Buttons/LoadingButton';
 import { Container } from '@/components/ui/Container';
 import { Heading } from '@/components/ui/Typography/Heading';
-import { signIn } from '@/utils/supabase';
+import { Text } from '@/components/ui/Typography/Text';
+import { signIn, signInWithGithub } from '@/utils/supabase';
 import { zodResolver } from '@hookform/resolvers/zod';
 import Head from 'next/head';
 import { useRouter } from 'next/router';
 import { useForm } from 'react-hook-form';
+import { FaGithub } from 'react-icons/fa';
 import * as z from 'zod';
 
 const schema = z.object({
@@ -62,6 +64,25 @@ export default function Signin() {
 						title="Beta Preview Warning"
 						description="This site is only for demonstration purposes. All data created or uploaded will be lost."
 					/>
+
+					<button
+						className="flex items-center justify-center gap-2 w-full bg-zinc-200 hover:bg-zinc-200/90 dark:bg-zinc-800 dark:hover:bg-zinc-800/90 p-2 rounded-md font-medium hover:text-black dark:hover:text-white text-sm transition-colors ease-out"
+						onClick={signInWithGithub}
+					>
+						<FaGithub size={18} /> Continue with Github
+					</button>
+
+					<div className="relative">
+						<div className="absolute inset-0 flex items-center">
+							<div className="w-full border-t dark:border-zinc-800" />
+						</div>
+
+						<div className="relative flex justify-center text-sm">
+							<Text as="span" size="sm" className="px-2 bg-zinc-100 dark:bg-zinc-900">
+								or
+							</Text>
+						</div>
+					</div>
 
 					<div className="space-y-4">
 						<FormField
