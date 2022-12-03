@@ -66,6 +66,7 @@ export default function Signin() {
 					/>
 
 					<button
+						type="button"
 						className="flex items-center justify-center gap-2 w-full bg-zinc-200 hover:bg-zinc-200/90 dark:bg-zinc-800 dark:hover:bg-zinc-800/90 p-2 rounded-md font-medium hover:text-black dark:hover:text-white text-sm transition-colors ease-out"
 						onClick={signInWithGithub}
 					>
