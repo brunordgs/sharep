@@ -8,6 +8,7 @@ const variants = {
 		'bg-zinc-200/60 hover:bg-zinc-200 hover:text-black hover:dark:text-white dark:bg-zinc-800 dark:hover:bg-zinc-700',
 	secondary:
 		'bg-zinc-100/40 hover:bg-zinc-100/20 dark:bg-zinc-800/20 dark:hover:bg-zinc-800/40 hover:text-white',
+	unstyled: '',
 };
 
 type Props = {
@@ -15,7 +16,8 @@ type Props = {
 	isAnchor?: boolean;
 	icon: JSX.Element;
 	href?: string | UrlObject;
-} & ComponentPropsWithoutRef<'button'>;
+} & ComponentPropsWithoutRef<'button'> &
+	ComponentPropsWithoutRef<'a'>;
 
 export function IconButton({
 	variant = 'primary',
@@ -31,11 +33,13 @@ export function IconButton({
 		<Link href={href}>
 			<a
 				className={clsx(
-					'flex items-center justify-center transition-colors ease-out p-2 rounded-full',
+					{ 'p-2': variant !== 'unstyled' },
+					'inline-flex items-center justify-center transition-all ease-out rounded-full',
 					variantStyles,
 					className,
 				)}
 				title={props.title}
+				{...props}
 			>
 				{icon}
 			</a>
@@ -44,7 +48,8 @@ export function IconButton({
 		<button
 			type="button"
 			className={clsx(
-				'flex items-center justify-center transition-colors ease-out p-2 rounded-full',
+				{ 'p-2': variant !== 'unstyled' },
+				'inline-flex items-center justify-center transition-all ease-out rounded-full',
 				variantStyles,
 				className,
 			)}

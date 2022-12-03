@@ -102,7 +102,7 @@ export function BecomeCreatorDialog() {
 									<div className="flex items-center justify-between mt-2 mb-8">
 										<Dialog.Title
 											as="h3"
-											className="text-2xl font-bold italic text-center"
+											className="text-2xl font-bold text-center"
 										>
 											Become a creator
 										</Dialog.Title>

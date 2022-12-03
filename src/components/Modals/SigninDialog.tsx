@@ -57,7 +57,7 @@ export function SigninDialog({ active }: { active: boolean }) {
 								leaveTo="opacity-0 scale-95"
 							>
 								<Dialog.Panel className="w-full max-w-sm transform overflow-hidden rounded-2xl bg-white dark:bg-zinc-900 text-center align-middle shadow-md transition-all">
-									<Dialog.Title as="h3" className="text-2xl font-bold mt-2 mb-8 italic px-6 pt-6">
+									<Dialog.Title as="h3" className="text-2xl font-bold mt-2 mb-8 px-6 pt-6">
 										Sign in to Sharep
 									</Dialog.Title>
 

@@ -47,7 +47,7 @@ export function BetaDialog() {
 								leaveTo="opacity-0 scale-95"
 							>
 								<Dialog.Panel className="w-full max-w-md transform overflow-hidden rounded-2xl bg-white dark:bg-zinc-900 p-6 text-left shadow-md transition-all">
-									<Dialog.Title as="h3" className="text-2xl font-bold my-2 italic max-w-[250px]">
+									<Dialog.Title as="h3" className="text-2xl font-bold my-2 max-w-[250px]">
 										Welcome to Sharep Beta Preview
 									</Dialog.Title>
 

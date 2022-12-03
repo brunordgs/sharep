@@ -7,14 +7,17 @@ module.exports = {
 		container: {
 			center: true,
 			padding: {
-        DEFAULT: '1rem',
-        xl: '5rem',
-        '2xl': '6rem',
-      },
+				DEFAULT: '1rem',
+				xl: '5rem',
+				'2xl': '6rem',
+			},
 		},
 		extend: {
 			fontFamily: {
-				'inter': 'Inter',
+				inter: 'Inter',
+			},
+			screens: {
+				mobile: { raw: '(max-width: 1024px)' },
 			},
 		},
 	},
