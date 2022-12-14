@@ -1,15 +1,18 @@
+import { useLocalStorage } from '@/hooks/useLocalStorage';
 import { Dialog, Transition } from '@headlessui/react';
 import { Fragment, useState } from 'react';
 import { Button } from '../ui/Buttons/Button';
 
 export function BetaDialog() {
-	const [isOpen, setIsOpen] = useState(false);
+	const [betaPreview, setBetaPreview] = useLocalStorage('beta-preview', false);
+	const [isOpen, setIsOpen] = useState(!JSON.parse(betaPreview));
 
 	function openModal() {
 		setIsOpen(true);
 	}
 
 	function closeModal() {
+		setBetaPreview(true);
 		setIsOpen(false);
 	}
 

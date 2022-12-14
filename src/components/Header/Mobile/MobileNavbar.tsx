@@ -2,6 +2,7 @@ import { SignedInDropdown } from '@/components/Dropdowns/SignedInDropdown';
 import { UserDropdown } from '@/components/Dropdowns/UserDropdown';
 import { LinkButton } from '@/components/ui/Buttons/LinkButton';
 import { useAuth } from '@/hooks/useAuth';
+import { useBreakpoint } from '@/hooks/useBreakpoint';
 import clsx from 'clsx';
 import { AnimatePresence } from 'framer-motion';
 import { Article, List, MagnifyingGlass, PaintBrush, Question, X } from 'phosphor-react';
@@ -15,6 +16,7 @@ import { MobileItem } from './MobileItem';
 export function MobileNavbar() {
 	const auth = useAuth();
 	const [collapse, setCollapse] = useState(false);
+	const breakpoint = useBreakpoint();
 
 	return (
 		<Container noMargin className="flex items-center justify-between lg:hidden">
@@ -28,7 +30,7 @@ export function MobileNavbar() {
 				</Button>
 			</div>
 
-			<Logo />
+			{breakpoint && breakpoint < 1024 && <Logo />}
 
 			{!auth?.session ? (
 				<div className="flex gap-1">
