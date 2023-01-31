@@ -30,7 +30,7 @@ export function MobileNavbar() {
 				</Button>
 			</div>
 
-			{breakpoint && breakpoint < 1024 && <Logo />}
+			{breakpoint && breakpoint < 1024 ? <Logo /> : null}
 
 			{!auth?.session ? (
 				<div className="flex gap-1">

@@ -49,3 +49,5 @@ export const Input = forwardRef<Props, Props>(
 		});
 	},
 );
+
+Input.displayName = 'Input';
