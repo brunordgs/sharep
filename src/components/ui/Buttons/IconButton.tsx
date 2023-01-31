@@ -30,19 +30,18 @@ export function IconButton({
 	const variantStyles = variants[variant];
 
 	return isAnchor ? (
-		<Link href={href}>
-			<a
-				className={clsx(
-					{ 'p-2': variant !== 'unstyled' },
-					'inline-flex items-center justify-center transition-all ease-out rounded-full',
-					variantStyles,
-					className,
-				)}
-				title={props.title}
-				{...props}
-			>
-				{icon}
-			</a>
+		<Link
+			href={href}
+			className={clsx(
+				{ 'p-2': variant !== 'unstyled' },
+				'inline-flex items-center justify-center transition-all ease-out rounded-full',
+				variantStyles,
+				className,
+			)}
+			title={props.title}
+			{...props}
+		>
+			{icon}
 		</Link>
 	) : (
 		<button

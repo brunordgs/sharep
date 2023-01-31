@@ -100,10 +100,7 @@ export function BecomeCreatorDialog() {
 							>
 								<Dialog.Panel className="w-full max-w-lg transform overflow-hidden rounded-2xl bg-white dark:bg-zinc-900 shadow-md transition-all p-6">
 									<div className="flex items-center justify-between mt-2 mb-8">
-										<Dialog.Title
-											as="h3"
-											className="text-2xl font-bold text-center"
-										>
+										<Dialog.Title as="h3" className="text-2xl font-bold text-center">
 											Become a creator
 										</Dialog.Title>
 

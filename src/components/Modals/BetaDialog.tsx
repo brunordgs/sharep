@@ -1,11 +1,14 @@
 import { useLocalStorage } from '@/hooks/useLocalStorage';
 import { Dialog, Transition } from '@headlessui/react';
-import { Fragment, useState } from 'react';
+import { Fragment, useEffect, useState } from 'react';
 import { Button } from '../ui/Buttons/Button';
 
 export function BetaDialog() {
 	const [betaPreview, setBetaPreview] = useLocalStorage('beta-preview', false);
 	const [isOpen, setIsOpen] = useState(!JSON.parse(betaPreview));
+	const [isComponentMounted, setIsComponentMounted] = useState(false);
+
+	useEffect(() => setIsComponentMounted(true), []);
 
 	function openModal() {
 		setIsOpen(true);
@@ -14,6 +17,11 @@ export function BetaDialog() {
 	function closeModal() {
 		setBetaPreview(true);
 		setIsOpen(false);
+	}
+
+	// Wait for component mount to prevent hydration error
+	if (!isComponentMounted) {
+		return null;
 	}
 
 	return (

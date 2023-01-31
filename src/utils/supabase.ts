@@ -74,7 +74,6 @@ export async function signUp({ email, password, name, username }: SignUpProps) {
 			},
 		]);
 
-
 		if (err) {
 			console.error(err.message);
 			return;

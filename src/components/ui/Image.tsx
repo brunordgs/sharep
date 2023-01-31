@@ -1,5 +1,5 @@
 import clsx from 'clsx';
-import NextImage, { ImageProps } from 'next/image';
+import NextImage, { ImageProps } from 'next/legacy/image';
 import { useState } from 'react';
 
 export function Image({

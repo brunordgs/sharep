@@ -1,12 +1,14 @@
 import clsx from 'clsx';
-import Image, { ImageProps } from 'next/image';
+import Image from 'next/image';
 
-interface Props extends ImageProps {
+interface Props {
+	src: string;
 	size?: 'xs' | 'sm' | 'base' | 'md' | 'lg';
 	hasBorder?: boolean;
+	alt?: string;
 }
 
-export function Avatar({ size = 'md', hasBorder = false, className, ...props }: Props) {
+export function Avatar({ src, size = 'md', hasBorder = false, alt }: Props) {
 	return (
 		<div
 			className={clsx(
@@ -19,17 +21,14 @@ export function Avatar({ size = 'md', hasBorder = false, className, ...props }: 
 					'border-4 border-zinc-100 dark:border-zinc-900': hasBorder,
 				},
 				'relative rounded-full overflow-hidden',
-				className,
 			)}
 		>
 			<Image
-				layout="fill"
-				objectFit="contain"
+				src={src}
 				className="rounded-full"
 				placeholder="blur"
-				blurDataURL={props.src as string}
-				alt={props.alt ?? ''}
-				{...props}
+				blurDataURL={src as string}
+				alt={alt ?? ''}
 			/>
 		</div>
 	);
