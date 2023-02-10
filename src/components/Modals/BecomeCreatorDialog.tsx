@@ -1,6 +1,7 @@
 import { useAuth } from '@/hooks/useAuth';
 import { Dialog, Transition } from '@headlessui/react';
 import { zodResolver } from '@hookform/resolvers/zod';
+import { useRouter } from 'next/router';
 import { Check, X } from 'phosphor-react';
 import { Fragment, useEffect, useState } from 'react';
 import { useForm } from 'react-hook-form';
@@ -20,6 +21,7 @@ type CreatorForm = z.infer<typeof schema>;
 
 export function BecomeCreatorDialog() {
 	const auth = useAuth();
+	const router = useRouter();
 
 	const methods = useForm<CreatorForm>({
 		defaultValues: {
@@ -33,6 +35,7 @@ export function BecomeCreatorDialog() {
 		handleSubmit,
 		reset,
 		getValues,
+		setError,
 		formState: { errors, isDirty: isFormEditted, isSubmitting, isSubmitSuccessful },
 	} = methods;
 
@@ -42,6 +45,10 @@ export function BecomeCreatorDialog() {
 	const isFormValid = !Object.entries(errors).length;
 
 	function openModal() {
+		if (!auth?.session) {
+			return router.push('/auth/signup');
+		}
+
 		setIsOpen(true);
 	}
 
@@ -113,6 +120,13 @@ export function BecomeCreatorDialog() {
 
 									<Form
 										onSubmit={handleSubmit((values) => {
+											if (auth?.session?.user.email !== values.email) {
+												setError('email', {
+													message: 'Make sure the email is the same as your account.',
+												});
+												return;
+											}
+
 											setIsFormSubmitted(true);
 
 											setTimeout(() => {

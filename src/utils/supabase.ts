@@ -60,7 +60,7 @@ export async function signUp({ email, password, name, username }: SignUpProps) {
 		});
 
 		if (error) {
-			throw error;
+			throw new Error(error.message);
 		}
 
 		const { error: err } = await supabase.from('users').insert([
@@ -75,11 +75,10 @@ export async function signUp({ email, password, name, username }: SignUpProps) {
 		]);
 
 		if (err) {
-			console.error(err.message);
-			return;
+			throw new Error(err.message);
 		}
 
-		await signIn({ email, password: hashPassword });
+		await signIn({ email, password });
 	} catch (e) {
 		if (e instanceof Error) {
 			toast.error(e.message);

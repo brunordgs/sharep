@@ -3,7 +3,7 @@ import { LinkButton } from '../ui/Buttons/LinkButton';
 
 export function Logo() {
 	return (
-		<>
+		<div className="flex">
 			<LinkButton
 				href="/"
 				color="unstyled"
@@ -14,6 +14,6 @@ export function Logo() {
 
 			{/* NOTE: Should be removed soon, only available for demonstration purposes */}
 			<BetaDialog />
-		</>
+		</div>
 	);
 }

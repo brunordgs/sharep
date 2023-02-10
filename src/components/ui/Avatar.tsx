@@ -1,5 +1,5 @@
 import clsx from 'clsx';
-import Image from 'next/image';
+import Image from 'next/legacy/image';
 
 interface Props {
 	src: string;
@@ -25,6 +25,8 @@ export function Avatar({ src, size = 'md', hasBorder = false, alt }: Props) {
 		>
 			<Image
 				src={src}
+				layout="fill"
+				objectFit="contain"
 				className="rounded-full"
 				placeholder="blur"
 				blurDataURL={src as string}

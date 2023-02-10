@@ -1,23 +1,23 @@
+import { CreatorBanner } from '@/components/Cards/Creators/CreatorBanner';
 import { CreatorCard } from '@/components/Cards/Creators/CreatorCard';
 import { NoCreatorFound } from '@/components/Cards/Creators/NoCreatorFound';
 import { ExploreMenu } from '@/components/ExploreMenu';
 import { DefaultHeader } from '@/components/Header/DefaultHeader';
-import { CreatorBanner } from '@/components/Cards/Creators/CreatorBanner';
 import { Card } from '@/components/ui/Card';
 import { Container } from '@/components/ui/Container';
 import { Loading } from '@/components/ui/Loading';
+import { useAuth } from '@/hooks/useAuth';
+import { useBecomeCreator } from '@/hooks/useBecomeCreator';
 import { supabase } from '@/services/supabaseClient';
 import { type ShortUser } from '@/shared/interfaces/ShortUser';
 import Head from 'next/head';
 import { useEffect, useState } from 'react';
-import { useAuth } from '@/hooks/useAuth';
 
 export default function Creators() {
 	const auth = useAuth();
-
 	const [creators, setCreators] = useState<ShortUser[]>([]);
 	const [loading, setLoading] = useState(true);
-	const [isBannerOpen, setIsBannerOpen] = useState(true);
+	const { isBannerOpen, onBannerOpen } = useBecomeCreator();
 
 	useEffect(() => {
 		async function initializeAsync() {
@@ -44,23 +44,24 @@ export default function Creators() {
 					<div className="md:col-span-4 lg:col-span-5 space-y-4">
 						<DefaultHeader>Awesome creators</DefaultHeader>
 
-						{auth?.session && isBannerOpen && (
+						{!auth?.user.isCreator && isBannerOpen && (
 							<CreatorBanner
 								title="Become a creator"
 								description="Start sharing products on Sharep by applying to become a creator, and start posting!"
-								onHandleClose={setIsBannerOpen}
+								onHandleClose={onBannerOpen}
 							/>
 						)}
 
 						<Card className="lg:h-full" noPadding>
 							<Loading loading={loading}>
 								{creators.length ? (
-									creators.map(({ name, username, is_verified: isVerified }) => (
+									creators.map(({ name, username, is_verified, avatar_url }) => (
 										<CreatorCard
 											key={username}
 											name={name}
 											username={username}
-											isVerified={isVerified}
+											isVerified={is_verified}
+											avatar={avatar_url}
 										/>
 									))
 								) : (

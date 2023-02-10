@@ -1,9 +1,7 @@
 import { SignedInDropdown } from '@/components/Dropdowns/SignedInDropdown';
 import { UserDropdown } from '@/components/Dropdowns/UserDropdown';
-import { LinkButton } from '@/components/ui/Buttons/LinkButton';
 import { useAuth } from '@/hooks/useAuth';
 import { useBreakpoint } from '@/hooks/useBreakpoint';
-import clsx from 'clsx';
 import { AnimatePresence } from 'framer-motion';
 import { Article, List, MagnifyingGlass, PaintBrush, Question, X } from 'phosphor-react';
 import { useState } from 'react';
@@ -20,26 +18,17 @@ export function MobileNavbar() {
 
 	return (
 		<Container noMargin className="flex items-center justify-between lg:hidden">
-			<div className={clsx(!auth?.session ? 'w-[125px]' : 'w-[40px]')}>
-				<Button
-					color="unstyled"
-					className="hover:text-black dark:hover:text-white"
-					onClick={() => setCollapse(!collapse)}
-				>
-					{!collapse ? <List size={24} /> : <X size={24} />}
-				</Button>
-			</div>
+			<Button
+				color="unstyled"
+				className="hover:bg-zinc-200/60 dark:hover:bg-zinc-700 w-[38px] h-[38px] rounded-md transition-colors ease-out"
+				onClick={() => setCollapse(!collapse)}
+			>
+				{!collapse ? <List size={24} /> : <X size={24} />}
+			</Button>
 
 			{breakpoint && breakpoint < 1024 ? <Logo /> : null}
 
-			{!auth?.session ? (
-				<div className="flex gap-1">
-					<LinkButton href="/auth/signup">Sign up</LinkButton>
-					<UserDropdown />
-				</div>
-			) : (
-				<SignedInDropdown avatar={auth?.user?.image} />
-			)}
+			{!auth?.session ? <UserDropdown /> : <SignedInDropdown avatar={auth?.user?.image} />}
 
 			{/* Mobile navbar content */}
 			<AnimatePresence>

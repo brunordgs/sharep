@@ -1,6 +1,7 @@
 import { Footer } from '@/components/Footer';
 import { Navbar } from '@/components/Header/Navbar';
 import { AuthProvider } from '@/contexts/AuthContext';
+import { BecomeCreatorProvider } from '@/contexts/BecomeCreatorContext';
 import { ThemeProvider } from '@/contexts/ThemeContext';
 import '@/styles/globals.css';
 import ProgressBar from '@badrap/bar-of-progress';
@@ -44,12 +45,14 @@ export default function App({ Component, pageProps, router }: AppProps) {
 	return (
 		<AuthProvider>
 			<ThemeProvider>
-				<Navbar />
-				<Component {...pageProps} />
+				<BecomeCreatorProvider>
+					<Navbar />
+					<Component {...pageProps} />
 
-				<div className={clsx({ 'lg:hidden': excludeRoutes.includes(router.pathname) }, 'mb-6')}>
-					<Footer />
-				</div>
+					<div className={clsx({ 'lg:hidden': excludeRoutes.includes(router.pathname) }, 'mb-6')}>
+						<Footer />
+					</div>
+				</BecomeCreatorProvider>
 			</ThemeProvider>
 
 			<ToastContainer

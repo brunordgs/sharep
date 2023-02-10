@@ -7,9 +7,10 @@ interface Props {
 	name: string;
 	username: string;
 	isVerified: boolean;
+	avatar: string;
 }
 
-export function CreatorCard({ name, username, isVerified }: Props) {
+export function CreatorCard({ name, username, isVerified, avatar }: Props) {
 	return (
 		<LinkButton
 			key={username}
@@ -18,7 +19,7 @@ export function CreatorCard({ name, username, isVerified }: Props) {
 			className="border-t border-zinc-200 first:border-0 dark:border-zinc-700 p-6 flex justify-between hover:bg-zinc-50 dark:hover:bg-zinc-700 w-full h-28"
 		>
 			<div className="flex items-center gap-4">
-				<Avatar src={`https://github.com/${username}.png`} alt={name} />
+				<Avatar src={avatar} alt={name} />
 
 				<div>
 					<div className="flex items-center gap-1">
@@ -35,8 +36,6 @@ export function CreatorCard({ name, username, isVerified }: Props) {
 					<Text size="sm">@{username}</Text>
 				</div>
 			</div>
-
-			{/* <div>additional stuff</div> */}
 		</LinkButton>
 	);
 }
