@@ -1,6 +1,6 @@
-import { signInWithGithub } from '@/utils/supabase';
 import { Dialog, Transition } from '@headlessui/react';
 import clsx from 'clsx';
+import { signIn } from 'next-auth/react';
 import { SignIn, User } from 'phosphor-react';
 import { Fragment, useState } from 'react';
 import { FaGithub } from 'react-icons/fa';
@@ -75,7 +75,7 @@ export function SigninDialog({ active }: { active: boolean }) {
 
 										<button
 											className="bg-zinc-100 hover:bg-zinc-200 dark:bg-zinc-800 rounded-md p-2 w-full flex items-center justify-center font-semibold text-[15px] relative transition-colors"
-											onClick={signInWithGithub}
+											onClick={() => signIn('github')}
 										>
 											<FaGithub size={18} className="absolute left-3" />
 

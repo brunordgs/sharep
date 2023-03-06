@@ -1,6 +1,5 @@
 import { Footer } from '@/components/Footer';
 import { Navbar } from '@/components/Header/Navbar';
-import { AuthProvider } from '@/contexts/AuthContext';
 import { BecomeCreatorProvider } from '@/contexts/BecomeCreatorContext';
 import { ThemeProvider } from '@/contexts/ThemeContext';
 import '@/styles/globals.css';
@@ -10,6 +9,7 @@ import type { AppProps } from 'next/app';
 import { useEffect } from 'react';
 import { Flip, ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import { SessionProvider } from 'next-auth/react';
 
 const progress = new ProgressBar({
 	size: 4,
@@ -27,7 +27,7 @@ const TOAST_COLORS_BG = {
 	// dark: 'bg-white-600',
 };
 
-export default function App({ Component, pageProps, router }: AppProps) {
+export default function App({ Component, pageProps: { session, ...pageProps }, router }: AppProps) {
 	const excludeRoutes = ['/', '/creators'];
 
 	useEffect(() => {
@@ -43,7 +43,7 @@ export default function App({ Component, pageProps, router }: AppProps) {
 	}, [router]);
 
 	return (
-		<AuthProvider>
+		<SessionProvider session={session}>
 			<ThemeProvider>
 				<BecomeCreatorProvider>
 					<Navbar />
@@ -66,6 +66,6 @@ export default function App({ Component, pageProps, router }: AppProps) {
 				progressClassName="!bg-transparent"
 				bodyClassName="text-sm text-white"
 			/>
-		</AuthProvider>
+		</SessionProvider>
 	);
 }

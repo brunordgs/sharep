@@ -8,16 +8,15 @@ import { Card } from '@/components/ui/Card';
 import { Container } from '@/components/ui/Container';
 import { Heading } from '@/components/ui/Typography/Heading';
 import { Text } from '@/components/ui/Typography/Text';
-import { useAuth } from '@/hooks/useAuth';
-import { updateUser } from '@/utils/supabase';
+import { prisma } from '@/lib/prisma';
 import { zodResolver } from '@hookform/resolvers/zod';
+import { GetServerSideProps } from 'next';
+import { getSession } from 'next-auth/react';
 import Head from 'next/head';
-import { useRouter } from 'next/router';
 import { Check, Link, User } from 'phosphor-react';
 import { useEffect, useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { FaGithub, FaTwitch, FaYoutube } from 'react-icons/fa';
-import { toast } from 'react-toastify';
 import * as z from 'zod';
 
 const schema = z.object({
@@ -38,18 +37,31 @@ const schema = z.object({
 
 type ProfileForm = z.infer<typeof schema>;
 
-export default function SettingsAccount() {
-	const auth = useAuth();
-	const router = useRouter();
+interface Props {
+	user: {
+		name: string;
+		username: string;
+		bio: string;
+		image: string;
+		social: {
+			website: string;
+			github: string;
+			twitch: string;
+			youtube: string;
+		};
+	};
+}
+
+export default function SettingsAccount({ user }: Props) {
 	const methods = useForm<ProfileForm>({
 		defaultValues: {
-			username: auth?.user.username,
-			displayName: auth?.user.name,
-			bio: auth?.user.bio,
-			github: auth?.user.github,
-			twitch: auth?.user.twitch,
-			youtube: auth?.user.youtube,
-			website: auth?.user.website,
+			username: user.username,
+			displayName: user.name,
+			bio: user.bio,
+			github: user.social.github,
+			twitch: user.social.twitch,
+			youtube: user.social.youtube,
+			website: user.social.website,
 		},
 		resolver: zodResolver(schema),
 	});
@@ -65,13 +77,31 @@ export default function SettingsAccount() {
 
 	const isFormValid = !Object.entries(errors).length;
 
-	useEffect(() => {
-		// TODO: Improve no auth validation
-		if (!auth?.session) {
-			router.push('/');
-			return;
-		}
-	}, [auth]);
+	// async function updateUserProfile(values: ProfileForm) {
+	// 	try {
+	// 		await prisma.user.update({
+	// 			where: {
+	// 				email: session.data?.user.email,
+	// 			},
+	// 			data: values,
+	// 		});
+
+	// 		setIsFormSubmitted(true);
+	// 	} catch (e) {
+	// 		toast('Something went wrong while trying to update user', {
+	// 			className: '!bg-zinc-50 dark:!bg-zinc-900 !text-zinc-900 dark:!text-zinc-200',
+	// 			progressClassName: '!bg-rose-700 dark:!bg-rose-900',
+	// 		});
+	// 	}
+	// }
+
+	// useEffect(() => {
+	// 	// TODO: Improve no auth validation
+	// 	if (!auth?.session) {
+	// 		router.push('/');
+	// 		return;
+	// 	}
+	// }, [auth]);
 
 	// Reset "isFormSubmitted" value after field changes, I'm not using "isSubmitted" or "isSubmitSuccessfull"
 	// provided by react-hook-form because these values doesn't reset (false in this case) after form submit
@@ -98,17 +128,17 @@ export default function SettingsAccount() {
 			<Container>
 				<main className="grid grid-cols-1 lg:grid-cols-4">
 					<div className="flex items-start gap-4 mb-4 lg:mb-0 mr-4">
-						<Avatar src={auth?.user.image as string} size="sm" />
+						<Avatar src={user.image} size="sm" />
 
 						<div className="flex-1">
-							<Text weight="bold" className="truncate w-52" title={auth?.user.name}>
-								{auth?.user.name}
+							<Text weight="bold" className="truncate w-52" title={user.name}>
+								{user.name}
 							</Text>
-							<Text size="xs">@{auth?.user.username}</Text>
+							<Text size="xs">@{user.username}</Text>
 						</div>
 
 						<IconButton
-							href={`/@${auth?.user.username}`}
+							href={`/@${user.username}`}
 							isAnchor
 							icon={<User size={16} weight="bold" aria-label="Check profile" />}
 							title="Check profile"
@@ -126,29 +156,7 @@ export default function SettingsAccount() {
 							</Text>
 						</header>
 
-						<Form
-							onSubmit={handleSubmit(async (values) => {
-								try {
-									await updateUser({
-										name: values.displayName,
-										username: values.username,
-										bio: values.bio,
-										github: values.github,
-										twitch: values.twitch,
-										youtube: values.youtube,
-										website: values.website,
-									});
-
-									setIsFormSubmitted(true);
-								} catch (e) {
-									toast('Something went wrong while trying to update user', {
-										className: '!bg-zinc-50 dark:!bg-zinc-900 !text-zinc-900 dark:!text-zinc-200',
-										progressClassName: '!bg-rose-700 dark:!bg-rose-900',
-									});
-								}
-							})}
-							methods={methods}
-						>
+						<Form onSubmit={handleSubmit((values) => console.log(values))} methods={methods}>
 							<div className="mt-8 space-y-6">
 								<FormField
 									name="username"
@@ -229,3 +237,40 @@ export default function SettingsAccount() {
 		</>
 	);
 }
+
+export const getServerSideProps: GetServerSideProps = async (ctx) => {
+	try {
+		const session = await getSession(ctx);
+		const username = session?.user.username;
+
+		const user = await prisma.user.findUnique({
+			where: {
+				username,
+			},
+			select: {
+				name: true,
+				bio: true,
+				username: true,
+				image: true,
+				social: {
+					select: {
+						website: true,
+						github: true,
+						twitch: true,
+						youtube: true,
+					},
+				},
+			},
+		});
+
+		return {
+			props: {
+				user: user,
+			},
+		};
+	} catch {
+		return {
+			notFound: true,
+		};
+	}
+};

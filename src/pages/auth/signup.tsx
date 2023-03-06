@@ -7,13 +7,13 @@ import { LoadingButton } from '@/components/ui/Buttons/LoadingButton';
 import { Container } from '@/components/ui/Container';
 import { Heading } from '@/components/ui/Typography/Heading';
 import { Text } from '@/components/ui/Typography/Text';
-import { signInWithGithub, signUp } from '@/utils/supabase';
 import { zodResolver } from '@hookform/resolvers/zod';
 import Head from 'next/head';
 import { useRouter } from 'next/router';
 import { useForm } from 'react-hook-form';
 import { FaGithub } from 'react-icons/fa';
 import * as z from 'zod';
+import { signIn } from 'next-auth/react';
 
 const schema = z.object({
 	name: z.string().min(3, 'Name must be at least 3 characters long'),
@@ -72,7 +72,7 @@ export default function Signup() {
 					<button
 						type="button"
 						className="flex items-center justify-center gap-2 w-full bg-zinc-200 hover:bg-zinc-200/90 dark:bg-zinc-800 dark:hover:bg-zinc-800/90 p-2 rounded-md font-medium hover:text-black dark:hover:text-white text-sm transition-colors ease-out"
-						onClick={signInWithGithub}
+						onClick={() => signIn('github')}
 					>
 						<FaGithub size={18} /> Continue with Github
 					</button>

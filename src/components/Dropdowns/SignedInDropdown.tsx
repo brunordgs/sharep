@@ -1,8 +1,7 @@
-import { useAuth } from '@/hooks/useAuth';
 import { useTheme } from '@/hooks/useTheme';
-import { signOut } from '@/utils/supabase';
 import { Menu, Transition } from '@headlessui/react';
 import clsx from 'clsx';
+import { signOut, useSession } from 'next-auth/react';
 import { useRouter } from 'next/router';
 import { Gear, Moon, PaintBrush, SignOut, User } from 'phosphor-react';
 import { Fragment } from 'react';
@@ -16,7 +15,7 @@ interface Props {
 export function SignedInDropdown({ avatar }: Props) {
 	const router = useRouter();
 	const { theme, nextTheme, setTheme } = useTheme();
-	const auth = useAuth();
+	const session = useSession();
 
 	return (
 		<Menu as="div" className="relative flex text-left">
@@ -38,7 +37,7 @@ export function SignedInDropdown({ avatar }: Props) {
 						<Menu.Item>
 							{({ active }) => (
 								<button
-									onClick={() => router.push(`/@${auth?.user.username}`)}
+									onClick={() => router.push(`/@${session.data?.user.username}`)}
 									className={clsx(
 										{ 'bg-zinc-100 dark:bg-zinc-700': active },
 										'flex gap-2 w-full items-center rounded-md p-2 text-sm text-zinc-800 dark:text-zinc-200 transition-colors ease-out',
@@ -51,11 +50,11 @@ export function SignedInDropdown({ avatar }: Props) {
 						</Menu.Item>
 
 						{/* TODO: Remove hardcoded username */}
-						{(auth?.user.isCreator || auth?.user.username === 'brunordgs') && (
+						{(session.data?.user.isCreator || session.data?.user.username === 'brunordgs') && (
 							<Menu.Item>
 								{({ active }) => (
 									<button
-										onClick={() => router.push(`/creator/${auth?.user.username}/home`)}
+										onClick={() => router.push(`/creator/${session.data?.user.username}/home`)}
 										className={clsx(
 											{ 'bg-zinc-100 dark:bg-zinc-700': active },
 											'flex gap-2 w-full items-center rounded-md p-2 text-sm text-zinc-800 dark:text-zinc-200 transition-colors ease-out',
@@ -106,11 +105,12 @@ export function SignedInDropdown({ avatar }: Props) {
 							{({ active }) => (
 								<button
 									onClick={async () => {
-										const { error } = await signOut();
+										const data = await signOut({
+											redirect: false,
+											callbackUrl: '/',
+										});
 
-										if (!error) {
-											router.reload();
-										}
+										router.push(data.url);
 									}}
 									className={clsx(
 										{ 'bg-zinc-100 dark:bg-zinc-700': active },

@@ -7,7 +7,6 @@ import { LoadingButton } from '@/components/ui/Buttons/LoadingButton';
 import { Container } from '@/components/ui/Container';
 import { Heading } from '@/components/ui/Typography/Heading';
 import { Text } from '@/components/ui/Typography/Text';
-import { signIn, signInWithGithub } from '@/utils/supabase';
 import { zodResolver } from '@hookform/resolvers/zod';
 import Head from 'next/head';
 import { useRouter } from 'next/router';

@@ -1,0 +1,11 @@
+version: '3.8'
+services:
+  sharep:
+    image: postgres
+    ports:
+      - 5432:5432
+    container_name: sharep-postgres
+    environment:
+      POSTGRES_DB: abc
+      POSTGRES_USER: abc
+      POSTGRES_PASSWORD: abc
