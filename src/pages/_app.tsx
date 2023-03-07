@@ -10,6 +10,8 @@ import { useEffect } from 'react';
 import { Flip, ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import { SessionProvider } from 'next-auth/react';
+import { QueryClientProvider } from 'react-query';
+import { queryClient } from '@/lib/react-query';
 
 const progress = new ProgressBar({
 	size: 4,
@@ -43,29 +45,31 @@ export default function App({ Component, pageProps: { session, ...pageProps }, r
 	}, [router]);
 
 	return (
-		<SessionProvider session={session}>
-			<ThemeProvider>
-				<BecomeCreatorProvider>
-					<Navbar />
-					<Component {...pageProps} />
+		<QueryClientProvider client={queryClient}>
+			<SessionProvider session={session}>
+				<ThemeProvider>
+					<BecomeCreatorProvider>
+						<Navbar />
+						<Component {...pageProps} />
 
-					<div className={clsx({ 'lg:hidden': excludeRoutes.includes(router.pathname) }, 'mb-6')}>
-						<Footer />
-					</div>
-				</BecomeCreatorProvider>
-			</ThemeProvider>
+						<div className={clsx({ 'lg:hidden': excludeRoutes.includes(router.pathname) }, 'mb-6')}>
+							<Footer />
+						</div>
+					</BecomeCreatorProvider>
+				</ThemeProvider>
 
-			<ToastContainer
-				theme="dark"
-				transition={Flip}
-				position="bottom-center"
-				toastClassName={({ type }: any) =>
-					TOAST_COLORS_BG[(type as keyof typeof TOAST_COLORS_BG) ?? 'default'] +
-					' relative flex p-2 rounded-md justify-between overflow-hidden cursor-pointer mt-4'
-				}
-				progressClassName="!bg-transparent"
-				bodyClassName="text-sm text-white"
-			/>
-		</SessionProvider>
+				<ToastContainer
+					theme="dark"
+					transition={Flip}
+					position="bottom-center"
+					toastClassName={({ type }: any) =>
+						TOAST_COLORS_BG[(type as keyof typeof TOAST_COLORS_BG) ?? 'default'] +
+						' relative flex p-2 rounded-md justify-between overflow-hidden cursor-pointer mt-4'
+					}
+					progressClassName="!bg-transparent"
+					bodyClassName="text-sm text-white"
+				/>
+			</SessionProvider>
+		</QueryClientProvider>
 	);
 }

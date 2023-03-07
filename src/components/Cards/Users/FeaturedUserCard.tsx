@@ -5,12 +5,12 @@ import { CircleWavyCheck } from 'phosphor-react';
 
 interface Props {
 	name: string;
+	image: string;
 	username: string;
 	isVerified: boolean;
-	avatarUrl: string;
 }
 
-export function FeaturedUserCard({ name, username, isVerified, avatarUrl }: Props) {
+export function FeaturedUserCard({ name, username, isVerified, image }: Props) {
 	return (
 		<LinkButton
 			key={username}
@@ -19,7 +19,7 @@ export function FeaturedUserCard({ name, username, isVerified, avatarUrl }: Prop
 			className="flex items-center w-full hover:bg-zinc-50 dark:hover:bg-zinc-700 py-2 px-6"
 		>
 			<div className="flex-1 flex items-center gap-2">
-				<Avatar src={avatarUrl} size="xs" alt={name} />
+				<Avatar src={image} size="xs" alt={name} />
 
 				<div className="leading-3">
 					<div className="flex items-center gap-1">

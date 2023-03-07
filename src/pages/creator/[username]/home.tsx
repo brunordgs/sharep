@@ -1,11 +1,11 @@
 import { Card } from '@/components/ui/Card';
 import { Container } from '@/components/ui/Container';
 import { Text } from '@/components/ui/Typography/Text';
-import { useAuth } from '@/hooks/useAuth';
+import { useSession } from 'next-auth/react';
 import Head from 'next/head';
 
 export default function CreatorHome() {
-	const auth = useAuth();
+	const session = useSession()
 
 	return (
 		<>
@@ -16,7 +16,7 @@ export default function CreatorHome() {
 			<Container className="grid lg:grid-cols-5 gap-8">
 				<Card className="col-span-3">
 					<Text size="4xl" weight="bold" className="text-center mb-10">
-						Welcome back, {auth?.user.username}!
+						Welcome back, {session.data?.user.username}!
 					</Text>
 
 					<div className="space-y-2">

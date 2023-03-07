@@ -6,32 +6,22 @@ import { DefaultHeader } from '@/components/Header/DefaultHeader';
 import { Card } from '@/components/ui/Card';
 import { Container } from '@/components/ui/Container';
 import { Loading } from '@/components/ui/Loading';
-import { useAuth } from '@/hooks/useAuth';
 import { useBecomeCreator } from '@/hooks/useBecomeCreator';
-import { supabase } from '@/services/supabaseClient';
+import { axios } from '@/services/axios';
 import { type ShortUser } from '@/shared/interfaces/ShortUser';
+import { useSession } from 'next-auth/react';
 import Head from 'next/head';
-import { useEffect, useState } from 'react';
+import { useQuery } from 'react-query';
 
 export default function Creators() {
-	const auth = useAuth();
-	const [creators, setCreators] = useState<ShortUser[]>([]);
-	const [loading, setLoading] = useState(true);
+	const session = useSession();
 	const { isBannerOpen, onBannerOpen } = useBecomeCreator();
 
-	useEffect(() => {
-		async function initializeAsync() {
-			const res = await supabase.from('users').select().eq('is_creator', true);
+	const { data: creators, isLoading } = useQuery<ShortUser[]>('creators', async () => {
+		const { data } = await axios.get('/creators');
 
-			if (res.data) {
-				setCreators(res.data);
-			}
-
-			setLoading(false);
-		}
-
-		initializeAsync();
-	}, []);
+		return data;
+	});
 
 	return (
 		<>
@@ -44,7 +34,7 @@ export default function Creators() {
 					<div className="md:col-span-4 lg:col-span-5 space-y-4">
 						<DefaultHeader>Awesome creators</DefaultHeader>
 
-						{!auth?.user.isCreator && isBannerOpen && (
+						{!session.data?.user.isCreator && isBannerOpen && (
 							<CreatorBanner
 								title="Become a creator"
 								description="Start sharing products on Sharep by applying to become a creator, and start posting!"
@@ -53,15 +43,15 @@ export default function Creators() {
 						)}
 
 						<Card className="lg:h-full" noPadding>
-							<Loading loading={loading}>
-								{creators.length ? (
-									creators.map(({ name, username, is_verified, avatar_url }) => (
+							<Loading loading={isLoading}>
+								{creators ? (
+									creators.map(({ name, username, isVerified, image }) => (
 										<CreatorCard
 											key={username}
-											name={name}
+											name={name as string}
+											avatar={image as string}
 											username={username}
-											isVerified={is_verified}
-											avatar={avatar_url}
+											isVerified={isVerified}
 										/>
 									))
 								) : (

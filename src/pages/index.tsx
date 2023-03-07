@@ -6,12 +6,12 @@ import { DefaultHeader } from '@/components/Header/DefaultHeader';
 import { Card } from '@/components/ui/Card';
 import { Container } from '@/components/ui/Container';
 import projects from '@/data/projects.json';
-import { useAuth } from '@/hooks/useAuth';
 import { useBecomeCreator } from '@/hooks/useBecomeCreator';
+import { useSession } from 'next-auth/react';
 import Head from 'next/head';
 
 export default function Home() {
-	const auth = useAuth();
+	const session = useSession()
 	const { isBannerOpen, onBannerOpen } = useBecomeCreator();
 
 	return (
@@ -25,7 +25,7 @@ export default function Home() {
 					<div className="md:col-span-4 lg:col-span-5 space-y-4">
 						<DefaultHeader>Your next favorite thing</DefaultHeader>
 
-						{!auth?.user.isCreator && isBannerOpen && (
+						{!session.data?.user.isCreator && isBannerOpen && (
 							<CreatorBanner
 								title="Become a creator"
 								description="Start sharing products on Sharep by applying to become a creator, and start posting!"
