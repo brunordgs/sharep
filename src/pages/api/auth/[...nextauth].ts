@@ -1,11 +1,32 @@
-import NextAuth from 'next-auth';
-import GithubProvider, { GithubProfile } from 'next-auth/providers/github';
 import { prisma } from '@/lib/prisma';
 import { PrismaAdapter } from '@next-auth/prisma-adapter';
+import NextAuth from 'next-auth';
+import CredentialsProvider from 'next-auth/providers/credentials';
+import GithubProvider, { GithubProfile } from 'next-auth/providers/github';
 
 export default NextAuth({
 	adapter: PrismaAdapter(prisma),
 	providers: [
+		CredentialsProvider({
+			name: 'Email and Password',
+			credentials: {
+				email: { label: 'Email', type: 'email' },
+				password: { label: 'Password', type: 'password' },
+			},
+			async authorize(credentials) {
+				const user = await prisma.user.findUnique({
+					where: {
+						email: credentials?.email,
+					},
+				});
+
+				if (!user) {
+					return null;
+				}
+
+				return user;
+			},
+		}),
 		GithubProvider<GithubProfile>({
 			clientId: process.env.GITHUB_CLIENT_ID!,
 			clientSecret: process.env.GITHUB_CLIENT_SECRET!,

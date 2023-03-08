@@ -2,6 +2,7 @@ import { useTheme } from '@/hooks/useTheme';
 import { Menu, Transition } from '@headlessui/react';
 import clsx from 'clsx';
 import { signOut, useSession } from 'next-auth/react';
+import Link from 'next/link';
 import { useRouter } from 'next/router';
 import { Gear, Moon, PaintBrush, SignOut, User } from 'phosphor-react';
 import { Fragment } from 'react';
@@ -36,8 +37,8 @@ export function SignedInDropdown({ avatar }: Props) {
 					<div className="py-1">
 						<Menu.Item>
 							{({ active }) => (
-								<button
-									onClick={() => router.push(`/@${session.data?.user.username}`)}
+								<Link
+									href={`/@${session.data?.user.username}`}
 									className={clsx(
 										{ 'bg-zinc-100 dark:bg-zinc-700': active },
 										'flex gap-2 w-full items-center rounded-md p-2 text-sm text-zinc-800 dark:text-zinc-200 transition-colors ease-out',
@@ -45,7 +46,7 @@ export function SignedInDropdown({ avatar }: Props) {
 								>
 									<User weight="bold" />
 									Profile
-								</button>
+								</Link>
 							)}
 						</Menu.Item>
 
@@ -53,8 +54,8 @@ export function SignedInDropdown({ avatar }: Props) {
 						{(session.data?.user.isCreator || session.data?.user.username === 'brunordgs') && (
 							<Menu.Item>
 								{({ active }) => (
-									<button
-										onClick={() => router.push(`/creator/${session.data?.user.username}/home`)}
+									<Link
+										href={`/creator/${session.data?.user.username}/home`}
 										className={clsx(
 											{ 'bg-zinc-100 dark:bg-zinc-700': active },
 											'flex gap-2 w-full items-center rounded-md p-2 text-sm text-zinc-800 dark:text-zinc-200 transition-colors ease-out',
@@ -62,7 +63,7 @@ export function SignedInDropdown({ avatar }: Props) {
 									>
 										<PaintBrush weight="bold" />
 										Creator Dashboard
-									</button>
+									</Link>
 								)}
 							</Menu.Item>
 						)}
@@ -71,8 +72,8 @@ export function SignedInDropdown({ avatar }: Props) {
 					<div className="py-1">
 						<Menu.Item>
 							{({ active }) => (
-								<button
-									onClick={() => router.push('/settings/account')}
+								<Link
+									href={'/settings/account'}
 									className={clsx(
 										{ 'bg-zinc-100 dark:bg-zinc-700': active },
 										'flex gap-2 w-full items-center rounded-md p-2 text-sm text-zinc-800 dark:text-zinc-200  transition-colors ease-out',
@@ -80,7 +81,7 @@ export function SignedInDropdown({ avatar }: Props) {
 								>
 									<Gear weight="bold" />
 									Settings
-								</button>
+								</Link>
 							)}
 						</Menu.Item>
 

@@ -8,8 +8,8 @@ import { Container } from '@/components/ui/Container';
 import { Heading } from '@/components/ui/Typography/Heading';
 import { Text } from '@/components/ui/Typography/Text';
 import { zodResolver } from '@hookform/resolvers/zod';
+import { signIn } from 'next-auth/react';
 import Head from 'next/head';
-import { useRouter } from 'next/router';
 import { useForm } from 'react-hook-form';
 import { FaGithub } from 'react-icons/fa';
 import * as z from 'zod';
@@ -22,7 +22,6 @@ const schema = z.object({
 type SigninForm = z.infer<typeof schema>;
 
 export default function Signin() {
-	const router = useRouter();
 	const methods = useForm<SigninForm>({
 		defaultValues: {
 			email: '',
@@ -45,11 +44,7 @@ export default function Signin() {
 			<Container className="flex justify-center md:my-20">
 				<Form
 					onSubmit={handleSubmit(async (values) => {
-						const err = await signIn(values);
-
-						if (!err) {
-							router.push('/');
-						}
+						await signIn('email', values);
 					})}
 					className="w-full max-w-md space-y-8"
 					methods={methods}
@@ -67,7 +62,7 @@ export default function Signin() {
 					<button
 						type="button"
 						className="flex items-center justify-center gap-2 w-full bg-zinc-200 hover:bg-zinc-200/90 dark:bg-zinc-800 dark:hover:bg-zinc-800/90 p-2 rounded-md font-medium hover:text-black dark:hover:text-white text-sm transition-colors ease-out"
-						onClick={signInWithGithub}
+						onClick={() => signIn('github')}
 					>
 						<FaGithub size={18} /> Continue with Github
 					</button>

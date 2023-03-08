@@ -7,13 +7,13 @@ import { LoadingButton } from '@/components/ui/Buttons/LoadingButton';
 import { Container } from '@/components/ui/Container';
 import { Heading } from '@/components/ui/Typography/Heading';
 import { Text } from '@/components/ui/Typography/Text';
+import { prisma } from '@/lib/prisma';
 import { zodResolver } from '@hookform/resolvers/zod';
+import { signIn } from 'next-auth/react';
 import Head from 'next/head';
-import { useRouter } from 'next/router';
 import { useForm } from 'react-hook-form';
 import { FaGithub } from 'react-icons/fa';
 import * as z from 'zod';
-import { signIn } from 'next-auth/react';
 
 const schema = z.object({
 	name: z.string().min(3, 'Name must be at least 3 characters long'),
@@ -25,7 +25,6 @@ const schema = z.object({
 type SignupForm = z.infer<typeof schema>;
 
 export default function Signup() {
-	const router = useRouter();
 	const methods = useForm<SignupForm>({
 		defaultValues: {
 			name: '',
@@ -50,11 +49,19 @@ export default function Signup() {
 			<Container className="flex justify-center md:my-20">
 				<Form
 					onSubmit={handleSubmit(async (values) => {
-						const err = await signUp(values);
+						const user = await prisma.user.create({
+							data: {
+								name: values.name,
+								username: values.username,
+								email: values.email,
+								password: values.password, // TODO: Hash password
+							},
+						});
 
-						if (!err) {
-							router.push('/');
-						}
+						await signIn('email', {
+							email: user.email,
+							password: user.password,
+						});
 					})}
 					className="w-full max-w-md space-y-8"
 					methods={methods}

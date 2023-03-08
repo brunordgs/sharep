@@ -9,6 +9,9 @@ import { Container } from '@/components/ui/Container';
 import { Heading } from '@/components/ui/Typography/Heading';
 import { Text } from '@/components/ui/Typography/Text';
 import { prisma } from '@/lib/prisma';
+import { axios } from '@/services/axios';
+import { reloadSession } from '@/utils/session';
+import { toast } from '@/utils/toast';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { GetServerSideProps } from 'next';
 import { getSession } from 'next-auth/react';
@@ -74,34 +77,39 @@ export default function SettingsAccount({ user }: Props) {
 	} = methods;
 
 	const [isFormSubmmited, setIsFormSubmitted] = useState(false);
+	const [name, setName] = useState(user.name);
+	const [username, setUsername] = useState(user.username);
 
 	const isFormValid = !Object.entries(errors).length;
 
-	// async function updateUserProfile(values: ProfileForm) {
-	// 	try {
-	// 		await prisma.user.update({
-	// 			where: {
-	// 				email: session.data?.user.email,
-	// 			},
-	// 			data: values,
-	// 		});
+	async function handleUpdateProfile(values: ProfileForm) {
+		try {
+			const res = await axios.put(`/users/${user.username}`, {
+				username: values.username,
+				name: values.displayName,
+				bio: values.bio,
+				social: {
+					website: values.website,
+					github: values.github,
+					twitch: values.twitch,
+					youtube: values.youtube,
+				},
+			});
 
-	// 		setIsFormSubmitted(true);
-	// 	} catch (e) {
-	// 		toast('Something went wrong while trying to update user', {
-	// 			className: '!bg-zinc-50 dark:!bg-zinc-900 !text-zinc-900 dark:!text-zinc-200',
-	// 			progressClassName: '!bg-rose-700 dark:!bg-rose-900',
-	// 		});
-	// 	}
-	// }
+			setName(res.data.user.name);
+			setUsername(res.data.user.username);
 
-	// useEffect(() => {
-	// 	// TODO: Improve no auth validation
-	// 	if (!auth?.session) {
-	// 		router.push('/');
-	// 		return;
-	// 	}
-	// }, [auth]);
+			reloadSession();
+
+			toast('User has been updated successfully', {
+				type: 'success',
+			});
+		} catch {
+			toast('Something went wrong while trying to update user', {
+				type: 'error',
+			});
+		}
+	}
 
 	// Reset "isFormSubmitted" value after field changes, I'm not using "isSubmitted" or "isSubmitSuccessfull"
 	// provided by react-hook-form because these values doesn't reset (false in this case) after form submit
@@ -131,14 +139,14 @@ export default function SettingsAccount({ user }: Props) {
 						<Avatar src={user.image} size="sm" />
 
 						<div className="flex-1">
-							<Text weight="bold" className="truncate w-52" title={user.name}>
-								{user.name}
+							<Text weight="bold" className="truncate w-52" title={name}>
+								{name}
 							</Text>
-							<Text size="xs">@{user.username}</Text>
+							<Text size="xs">@{username}</Text>
 						</div>
 
 						<IconButton
-							href={`/@${user.username}`}
+							href={`/@${username}`}
 							isAnchor
 							icon={<User size={16} weight="bold" aria-label="Check profile" />}
 							title="Check profile"
@@ -156,7 +164,7 @@ export default function SettingsAccount({ user }: Props) {
 							</Text>
 						</header>
 
-						<Form onSubmit={handleSubmit((values) => console.log(values))} methods={methods}>
+						<Form onSubmit={handleSubmit(handleUpdateProfile)} methods={methods}>
 							<div className="mt-8 space-y-6">
 								<FormField
 									name="username"
