@@ -19,7 +19,7 @@ export type Props = GenericFieldHTMLAttributes & {
 
 export const INPUT_COLORS = {
 	primary: {
-		base: 'bg-zinc-100 dark:bg-zinc-900 border-zinc-200 dark:border-zinc-700 placeholder:text-zinc-400 dark:placeholder:text-zinc-600 text-zinc-900 dark:text-zinc-200',
+		base: 'bg-zinc-50 dark:bg-zinc-900 border-zinc-100 dark:border-zinc-700 placeholder:text-zinc-300 dark:placeholder:text-zinc-600 text-zinc-900 dark:text-zinc-200',
 	},
 	secondary: {
 		base: 'bg-white dark:bg-zinc-800 border-zinc-200 dark:border-zinc-700 placeholder:text-zinc-400 dark:placeholder:text-zinc-500',
@@ -43,7 +43,7 @@ export const Input = forwardRef<Props, Props>(
 						error,
 				},
 				inputAddon ? 'rounded-r-md' : 'rounded-md',
-				'border-2 p-2 text-sm w-full outline-none focus:border-zinc-400 dark:focus:border-zinc-500',
+				'border-2 p-2 text-sm w-full outline-none focus:border-zinc-300 dark:focus:border-zinc-500',
 			),
 			...props,
 		});

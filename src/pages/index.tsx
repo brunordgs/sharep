@@ -60,11 +60,12 @@ export async function getServerSideProps() {
 	const projects = await prisma.projects.findMany({
 		select: {
 			id: true,
+			image: true,
 			url: true,
 			name: true,
-			title: true,
 			description: true,
-			source: true,
+			sourceName: true,
+			sourceUrl: true,
 		},
 	});
 

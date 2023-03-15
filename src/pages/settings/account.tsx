@@ -1,22 +1,20 @@
 import { Form } from '@/components/Form';
 import { FormField } from '@/components/Form/FormField';
-import { Avatar } from '@/components/ui/Avatar';
 import { Button } from '@/components/ui/Buttons/Button';
-import { IconButton } from '@/components/ui/Buttons/IconButton';
 import { LoadingButton } from '@/components/ui/Buttons/LoadingButton';
-import { Card } from '@/components/ui/Card';
-import { Container } from '@/components/ui/Container';
 import { Heading } from '@/components/ui/Typography/Heading';
 import { Text } from '@/components/ui/Typography/Text';
+import { AccountLayout } from '@/layouts/AccountLayout';
 import { prisma } from '@/lib/prisma';
 import { axios } from '@/services/axios';
+import { UserProfile } from '@/shared/interfaces/UserProfile';
 import { reloadSession } from '@/utils/session';
 import { toast } from '@/utils/toast';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { GetServerSidePropsContext } from 'next';
 import { getSession } from 'next-auth/react';
 import Head from 'next/head';
-import { Check, Link, User } from 'phosphor-react';
+import { Check, Link } from 'phosphor-react';
 import { useEffect, useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { FaGithub, FaTwitch, FaYoutube } from 'react-icons/fa';
@@ -41,18 +39,7 @@ const schema = z.object({
 type ProfileForm = z.infer<typeof schema>;
 
 interface Props {
-	user: {
-		name: string;
-		username: string;
-		bio: string;
-		image: string;
-		social: {
-			website: string;
-			github: string;
-			twitch: string;
-			youtube: string;
-		};
-	};
+	user: UserProfile;
 }
 
 export default function SettingsAccount({ user }: Props) {
@@ -77,14 +64,12 @@ export default function SettingsAccount({ user }: Props) {
 	} = methods;
 
 	const [isFormSubmmited, setIsFormSubmitted] = useState(false);
-	const [name, setName] = useState(user.name);
-	const [username, setUsername] = useState(user.username);
 
 	const isFormValid = !Object.entries(errors).length;
 
 	async function handleUpdateProfile(values: ProfileForm) {
 		try {
-			const res = await axios.put(`/users/${user.username}`, {
+			await axios.put(`/users/${user.username}`, {
 				username: values.username,
 				name: values.displayName,
 				bio: values.bio,
@@ -95,9 +80,6 @@ export default function SettingsAccount({ user }: Props) {
 					youtube: values.youtube,
 				},
 			});
-
-			setName(res.data.user.name);
-			setUsername(res.data.user.username);
 
 			reloadSession();
 
@@ -133,115 +115,93 @@ export default function SettingsAccount({ user }: Props) {
 				<title>Your account | Sharep</title>
 			</Head>
 
-			<Container>
-				<main className="grid grid-cols-1 lg:grid-cols-4">
-					<div className="flex items-start gap-4 mb-4 lg:mb-0 mr-4">
-						<Avatar src={user.image} size="sm" />
+			<AccountLayout>
+				<header>
+					<Heading as="h2" transform="italic" size="sm">
+						Profile settings
+					</Heading>
 
-						<div className="flex-1">
-							<Text weight="bold" className="truncate w-52" title={name}>
-								{name}
-							</Text>
-							<Text size="xs">@{username}</Text>
-						</div>
+					<Text size="sm" className="dark:text-zinc-400">
+						Change identifying details for you account
+					</Text>
+				</header>
 
-						<IconButton
-							href={`/@${username}`}
-							isAnchor
-							icon={<User size={16} weight="bold" aria-label="Check profile" />}
-							title="Check profile"
+				<Form onSubmit={handleSubmit(handleUpdateProfile)} methods={methods}>
+					<div className="mt-8 space-y-6">
+						<FormField
+							name="username"
+							label="Username"
+							inputAddon="@"
+							placeholder="Your username..."
+							error={errors.username?.message}
 						/>
+
+						<FormField
+							name="displayName"
+							label="Display Name"
+							placeholder="Your display name..."
+							error={errors.displayName?.message}
+						/>
+
+						<FormField
+							as="textarea"
+							name="bio"
+							label="Bio"
+							rows={4}
+							helperText="Write a few sentences about yourself."
+							error={errors.bio?.message}
+						/>
+
+						<div className="grid sm:grid-cols-2 gap-4">
+							<FormField
+								name="website"
+								label="Website"
+								inputAddon={<Link weight="bold" />}
+								placeholder="example.com"
+								error={errors.website?.message}
+							/>
+
+							<FormField
+								name="github"
+								label="Github"
+								inputAddon={<FaGithub />}
+								placeholder="brunordgs"
+								error={errors.github?.message}
+							/>
+
+							<FormField
+								name="twitch"
+								label="Twitch"
+								inputAddon={<FaTwitch />}
+								placeholder="brunordgs"
+								error={errors.twitch?.message}
+							/>
+
+							<FormField
+								name="youtube"
+								label="Youtube"
+								inputAddon={<FaYoutube />}
+								placeholder="brunordgs"
+								error={errors.youtube?.message}
+							/>
+						</div>
 					</div>
 
-					<Card className="col-span-3">
-						<header>
-							<Heading as="h2" transform="italic" size="sm">
-								Profile settings
-							</Heading>
-
-							<Text size="sm" className="text-zinc-400">
-								Change identifying details for you account
-							</Text>
-						</header>
-
-						<Form onSubmit={handleSubmit(handleUpdateProfile)} methods={methods}>
-							<div className="mt-8 space-y-6">
-								<FormField
-									name="username"
-									label="Username"
-									inputAddon="sharep.vercel.app/@"
-									placeholder="Your username..."
-									error={errors.username?.message}
-								/>
-
-								<FormField
-									name="displayName"
-									label="Display Name"
-									placeholder="Your display name..."
-									error={errors.displayName?.message}
-								/>
-
-								<FormField
-									as="textarea"
-									name="bio"
-									label="Bio"
-									rows={4}
-									helperText="Write a few sentences about yourself."
-									error={errors.bio?.message}
-								/>
-
-								<div className="grid sm:grid-cols-2 gap-4">
-									<FormField
-										name="website"
-										label="Website"
-										inputAddon={<Link weight="bold" />}
-										placeholder="example.com"
-										error={errors.website?.message}
-									/>
-
-									<FormField
-										name="github"
-										label="Github"
-										inputAddon={<FaGithub />}
-										placeholder="brunordgs"
-										error={errors.github?.message}
-									/>
-
-									<FormField
-										name="twitch"
-										label="Twitch"
-										inputAddon={<FaTwitch />}
-										placeholder="brunordgs"
-										error={errors.twitch?.message}
-									/>
-
-									<FormField
-										name="youtube"
-										label="Youtube"
-										inputAddon={<FaYoutube />}
-										placeholder="brunordgs"
-										error={errors.youtube?.message}
-									/>
-								</div>
-							</div>
-
-							<div className="flex justify-end mt-6">
-								{isSubmitting ? (
-									<LoadingButton />
-								) : isFormSubmmited ? (
-									<Button color="success" className="cursor-not-allowed">
-										<Check size={20} weight="bold" />
-									</Button>
-								) : (
-									<Button type="submit" disabled={!isFormEditted}>
-										{isFormValid ? 'Update profile' : 'Failed to save profile. Try again.'}
-									</Button>
-								)}
-							</div>
-						</Form>
-					</Card>
-				</main>
-			</Container>
+					<div className="flex justify-end mt-6">
+						{isSubmitting ? (
+							<LoadingButton />
+						) : isFormSubmmited ? (
+							<Button color="success" className="cursor-not-allowed">
+								<Check size={20} weight="bold" />
+							</Button>
+						) : (
+							<Button type="submit" disabled={!isFormEditted}>
+								{isFormValid ? 'Update profile' : 'Failed to save profile. Try again.'}
+							</Button>
+						)}
+					</div>
+				</Form>
+			</AccountLayout>
 		</>
 	);
 }

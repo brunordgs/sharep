@@ -1,17 +1,11 @@
 import { Image } from '@/components/ui/Image';
+import { Project } from '@/shared/interfaces/Project';
+import clsx from 'clsx';
 import { FaGithub } from 'react-icons/fa';
 import { LinkButton } from '../../ui/Buttons/LinkButton';
 import { Text } from '../../ui/Typography/Text';
 
-interface Props {
-	url: string;
-	title: string;
-	description: string;
-	name: string;
-	source: string;
-}
-
-export function ProjectCard({ url, title, description, name, source }: Props) {
+export function ProjectCard({ image, name, description, url, sourceName, sourceUrl }: Project) {
 	return (
 		<LinkButton
 			href={url}
@@ -20,13 +14,22 @@ export function ProjectCard({ url, title, description, name, source }: Props) {
 			className="border-t border-zinc-200 first:border-0 dark:border-zinc-700 p-6 flex justify-between hover:bg-zinc-50 dark:hover:bg-zinc-700 w-full h-28"
 		>
 			<div className="flex items-center gap-4">
-				<div className="bg-rose-500 h-16 w-16 rounded-md flex items-center justify-center font-bold text-zinc-100 text-2xl italic overflow-hidden">
-					<Image src="/sharep-logo-icon.svg" className="w-[150px] h-[150px]" alt="Sharep logo" />
+				<div
+					className={clsx(
+						'h-16 w-16 rounded-md flex items-center justify-center font-bold text-zinc-100 text-2xl italic overflow-hidden',
+						{ 'bg-rose-500': !image },
+					)}
+				>
+					<Image
+						src={image ?? '/sharep-logo-icon.svg'}
+						className="w-[150px] h-[150px]"
+						alt={image ? name : 'Sharep'}
+					/>
 				</div>
 
 				<div>
 					<div className="flex items-center gap-1">
-						<Text weight="semibold">{title}</Text>
+						<Text weight="semibold">{name}</Text>
 					</div>
 
 					<Text
@@ -45,15 +48,13 @@ export function ProjectCard({ url, title, description, name, source }: Props) {
 						<button
 							type="button"
 							className="truncate max-w-[192px] sm:max-w-full"
-							onClick={() => window.open(source, '_blank')}
+							onClick={() => window.open(sourceUrl, '_blank')}
 						>
-							{name}
+							{sourceName}
 						</button>
 					</div>
 				</div>
 			</div>
-
-			{/* <div></div> */}
 		</LinkButton>
 	);
 }

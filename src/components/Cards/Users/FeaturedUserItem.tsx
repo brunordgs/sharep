@@ -22,7 +22,7 @@ export function FeaturedUserItem({ name, username, isVerified, image }: Props) {
 				<Avatar src={image} size="xs" alt={name} />
 
 				<div className="leading-3">
-					<div className="flex items-center gap-1">
+					<div className="flex items-center gap-1 hover:underline">
 						<Text
 							weight="bold"
 							size="sm"

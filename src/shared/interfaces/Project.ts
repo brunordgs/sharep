@@ -1,7 +1,8 @@
 export interface Project {
-	url: string;
+	image: string;
 	name: string;
-	title: string;
 	description: string;
-	source: string;
+	url: string;
+	sourceName: string;
+	sourceUrl: string;
 }

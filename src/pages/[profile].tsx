@@ -86,11 +86,12 @@ export async function getServerSideProps({ req, params }: GetServerSidePropsCont
 			},
 			select: {
 				id: true,
+				image: true,
 				url: true,
 				name: true,
-				title: true,
 				description: true,
-				source: true,
+				sourceName: true,
+				sourceUrl: true,
 			},
 		}),
 	]);

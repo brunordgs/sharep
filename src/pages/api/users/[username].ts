@@ -5,6 +5,31 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
 	const requestMethod = req.method;
 
 	switch (requestMethod) {
+		case 'GET': {
+			const user = await prisma.user.findUnique({
+				where: {
+					username: req.query.username as string,
+				},
+				select: {
+					name: true,
+					bio: true,
+					username: true,
+					image: true,
+					social: {
+						select: {
+							website: true,
+							github: true,
+							twitch: true,
+							youtube: true,
+						},
+					},
+				},
+			});
+
+			res.json(user);
+			break;
+		}
+
 		case 'PUT': {
 			const user = await prisma.user.update({
 				where: {

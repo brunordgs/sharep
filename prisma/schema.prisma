@@ -90,11 +90,12 @@ model Social {
 
 model Projects {
   id          String @id @default(cuid())
-  url         String
+  image       String?
   name        String
-  title       String
   description String
-  source      String
+  url         String
+  sourceName  String?
+  sourceUrl   String?
 
   user   User   @relation(fields: [userId], references: [id])
   userId String

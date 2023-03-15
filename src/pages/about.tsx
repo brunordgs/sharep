@@ -24,7 +24,6 @@ export default function About() {
 						>
 							community
 						</Text>
-						.
 					</Heading>
 
 					<Text className="mt-6">

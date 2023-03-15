@@ -54,13 +54,13 @@ export default function Signup() {
 								name: values.name,
 								username: values.username,
 								email: values.email,
-								password: values.password, // TODO: Hash password
+								// password: values.password, // TODO: Hash password
 							},
 						});
 
 						await signIn('email', {
 							email: user.email,
-							password: user.password,
+							// password: user.password,
 						});
 					})}
 					className="w-full max-w-md space-y-8"
