@@ -1,4 +1,7 @@
 /* eslint-disable no-undef */
+/* eslint-disable @typescript-eslint/no-var-requires */
+const { fontFamily } = require('tailwindcss/defaultTheme');
+
 /** @type {import('tailwindcss').Config} */
 module.exports = {
 	content: ['./src/**/*.tsx'],
@@ -14,7 +17,7 @@ module.exports = {
 		},
 		extend: {
 			fontFamily: {
-				inter: 'Inter',
+				sans: ['var(--font-inter)', ...fontFamily.sans],
 			},
 			screens: {
 				mobile: { raw: '(max-width: 1024px)' },

@@ -5,6 +5,7 @@ import { ThemeProvider } from '@/contexts/ThemeContext';
 import { queryClient } from '@/lib/react-query';
 import '@/styles/globals.css';
 import ProgressBar from '@badrap/bar-of-progress';
+import { Inter } from '@next/font/google';
 import clsx from 'clsx';
 import { SessionProvider } from 'next-auth/react';
 import type { AppProps } from 'next/app';
@@ -18,6 +19,12 @@ const progress = new ProgressBar({
 	color: '#f43f5e',
 	className: 'z-50',
 	delay: 100,
+});
+
+const inter = Inter({
+	subsets: ['latin'],
+	weight: ['300', '400', '500', '600', '700', '800', '900'],
+	variable: '--font-inter',
 });
 
 export default function App({ Component, pageProps: { session, ...pageProps }, router }: AppProps) {
@@ -36,27 +43,37 @@ export default function App({ Component, pageProps: { session, ...pageProps }, r
 	}, [router]);
 
 	return (
-		<QueryClientProvider client={queryClient}>
-			<SessionProvider session={session}>
-				<ThemeProvider>
-					<BecomeCreatorProvider>
-						<Navbar />
-						<Component {...pageProps} />
+		<>
+			<style jsx global>{`
+				html {
+					font-family: ${inter.style.fontFamily};
+				}
+			`}</style>
 
-						<div className={clsx({ 'lg:hidden': excludeRoutes.includes(router.pathname) }, 'mb-6')}>
-							<Footer />
-						</div>
-					</BecomeCreatorProvider>
-				</ThemeProvider>
+			<QueryClientProvider client={queryClient}>
+				<SessionProvider session={session}>
+					<ThemeProvider>
+						<BecomeCreatorProvider>
+							<Navbar />
+							<Component {...pageProps} />
 
-				<ToastContainer
-					theme="light"
-					transition={Flip}
-					position="bottom-center"
-					toastClassName="relative flex p-2 rounded-md justify-between overflow-hidden cursor-pointer mt-4 bg-zinc-50 dark:bg-zinc-900"
-					bodyClassName="text-sm text-zinc-600 dark:text-zinc-200"
-				/>
-			</SessionProvider>
-		</QueryClientProvider>
+							<div
+								className={clsx({ 'lg:hidden': excludeRoutes.includes(router.pathname) }, 'mb-6')}
+							>
+								<Footer />
+							</div>
+						</BecomeCreatorProvider>
+					</ThemeProvider>
+
+					<ToastContainer
+						theme="light"
+						transition={Flip}
+						position="bottom-center"
+						toastClassName="relative flex p-2 rounded-md justify-between overflow-hidden cursor-pointer mt-4 bg-zinc-50 dark:bg-zinc-900"
+						bodyClassName="text-sm text-zinc-600 dark:text-zinc-200"
+					/>
+				</SessionProvider>
+			</QueryClientProvider>
+		</>
 	);
 }
