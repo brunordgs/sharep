@@ -6,7 +6,7 @@ import { useMemo } from 'react';
 import { useQuery } from 'react-query';
 import { Card } from '../../ui/Card';
 import { Heading } from '../../ui/Typography/Heading';
-	import { FeaturedUserCard } from './FeaturedUserCard';
+import { FeaturedUserItem } from './FeaturedUserItem';
 
 export function FeaturedUsersCard() {
 	const { data: users, isLoading } = useQuery<ShortUser[]>(
@@ -42,7 +42,7 @@ export function FeaturedUsersCard() {
 
 					{shuffledUsers.length > 0 ? (
 						shuffledUsers.map(({ name, username, isVerified, image }) => (
-							<FeaturedUserCard
+							<FeaturedUserItem
 								key={username}
 								name={name as string}
 								image={image as string}

@@ -3,9 +3,9 @@ import { VerifiedAccountDialog } from '@/components/Modals/VerifiedAccountDialog
 import { Card } from '@/components/ui/Card';
 import { Tooltip } from '@/components/ui/Tooltip';
 import { Heading } from '@/components/ui/Typography/Heading';
-import projects from '@/data/projects.json';
 import { HTTP_PROTOCOL_REGEX } from '@/shared/constants';
 import { type Creator } from '@/shared/interfaces/Creator';
+import { Project } from '@/shared/interfaces/Project';
 import { type UserProfile } from '@/shared/interfaces/UserProfile';
 import clsx from 'clsx';
 import { useSession } from 'next-auth/react';
@@ -16,7 +16,11 @@ import { IconButton } from '../ui/Buttons/IconButton';
 import { LinkButton } from '../ui/Buttons/LinkButton';
 import { Text } from '../ui/Typography/Text';
 
-function BioContent({ bio }: { bio: string | undefined }) {
+interface BioContentProps {
+	bio: string | undefined;
+}
+
+function BioContent({ bio }: BioContentProps) {
 	const words = bio?.split(' ');
 	const matchUrl = /(?:www|https?)[^\s]+/g;
 
@@ -37,6 +41,7 @@ function BioContent({ bio }: { bio: string | undefined }) {
 
 interface Props extends UserProfile {
 	creator: Creator;
+	projects: Project[];
 }
 
 export function ProfileContent({
@@ -48,6 +53,7 @@ export function ProfileContent({
 	isCreator,
 	isVerified,
 	creator,
+	projects,
 }: Props) {
 	const session = useSession();
 
@@ -167,7 +173,7 @@ export function ProfileContent({
 				<div className="mt-2">
 					{bio && <BioContent bio={bio} />}
 
-					{projects.length && isCreator && (
+					{projects.length > 0 && isCreator && (
 						<>
 							<Heading as="h2" transform="italic" className="mt-8 mb-2">
 								Contributions

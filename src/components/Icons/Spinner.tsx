@@ -1,5 +1,6 @@
 import clsx from 'clsx';
 import { ComponentPropsWithoutRef } from 'react';
+import { Text } from '../ui/Typography/Text';
 
 export function Spinner({ className }: ComponentPropsWithoutRef<'svg'>) {
 	return (
@@ -21,7 +22,9 @@ export function Spinner({ className }: ComponentPropsWithoutRef<'svg'>) {
 				/>
 			</svg>
 
-			<span className="sr-only">Loading spinner</span>
+			<Text as="span" className="sr-only">
+				Loading spinner
+			</Text>
 		</>
 	);
 }

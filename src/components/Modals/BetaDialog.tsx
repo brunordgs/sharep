@@ -2,6 +2,7 @@ import { useLocalStorage } from '@/hooks/useLocalStorage';
 import { Dialog, Transition } from '@headlessui/react';
 import { Fragment, useEffect, useState } from 'react';
 import { Button } from '../ui/Buttons/Button';
+import { Text } from '../ui/Typography/Text';
 
 export function BetaDialog() {
 	const [betaPreview, setBetaPreview] = useLocalStorage('beta-preview', false);
@@ -30,11 +31,18 @@ export function BetaDialog() {
 				className="uppercase italic font-bold text-zinc-600 dark:text-zinc-200 text-[10px] lg:text-xs flex items-end ml-2 select-none cursor-pointer"
 				onClick={openModal}
 			>
-				<span className="bg-zinc-200 dark:bg-zinc-800 rounded-[4px] px-2">Beta</span>
+				<Text
+					as="span"
+					size="xs"
+					transform="uppercase"
+					className="bg-zinc-200 dark:bg-zinc-800 rounded px-2"
+				>
+					Beta
+				</Text>
 			</div>
 
 			<Transition appear show={isOpen} as={Fragment}>
-				<Dialog as="div" className="relative z-30" onClose={closeModal}>
+				<Dialog className="relative z-30" onClose={closeModal}>
 					<Transition.Child
 						as={Fragment}
 						enter="ease-out duration-150"

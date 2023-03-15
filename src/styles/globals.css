@@ -1,12 +1,10 @@
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap');
-
 @tailwind base;
 @tailwind utilities;
 @tailwind components;
 
 @layer base {
 	body {
-		@apply font-inter bg-zinc-100 dark:bg-zinc-900 text-zinc-700 dark:text-zinc-300;
+		@apply bg-zinc-100 dark:bg-zinc-900 text-zinc-700 dark:text-zinc-300;
 	}
 
 	select {
@@ -19,7 +17,7 @@
 	--toastify-color-light: #fff !important;
 	--toastify-color-dark: #121212 !important;
 	--toastify-color-info: #7dd3fc !important;
-	--toastify-color-success: #5eead4 !important;
+	--toastify-color-success: #14b8a6 !important;
 	--toastify-color-warning: #fcd34d !important;
-	--toastify-color-error: #fda4af !important;
+	--toastify-color-error: #be123c !important;
 }

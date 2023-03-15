@@ -1,5 +1,6 @@
 import { Switch } from '@headlessui/react';
 import clsx from 'clsx';
+import { Text } from './Typography/Text';
 
 interface Props {
 	title: string;
@@ -17,8 +18,12 @@ export function SwitchToggle({ title, enabled, setEnabled }: Props) {
 				'relative inline-flex h-4 w-8 shrink-0 cursor-pointer rounded-full border-2 border-transparent transition-colors duration-200 ease-in-out focus:outline-none focus-visible:ring-2  focus-visible:ring-white focus-visible:ring-opacity-75',
 			)}
 		>
-			<span className="sr-only">{title}</span>
-			<span
+			<Text as="span" className="sr-only">
+				{title}
+			</Text>
+
+			<Text
+				as="span"
 				aria-hidden="true"
 				className={clsx(
 					enabled ? 'translate-x-4' : 'translate-x-0',

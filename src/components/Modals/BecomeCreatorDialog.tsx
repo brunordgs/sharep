@@ -82,7 +82,7 @@ export function BecomeCreatorDialog() {
 			</button>
 
 			<Transition appear show={isOpen} as={Fragment}>
-				<Dialog as="div" className="relative z-30" onClose={closeModal}>
+				<Dialog className="relative z-30" onClose={closeModal}>
 					<Transition.Child
 						as={Fragment}
 						enter="ease-out duration-150"

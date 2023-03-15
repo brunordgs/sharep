@@ -57,6 +57,7 @@ model User {
   sessions Session[]
   social   Social?
   creator  Creator?
+  projects Projects[]
 
   @@map("users")
 }
@@ -85,6 +86,20 @@ model Social {
   userId String @unique
 
   @@map("social")
+}
+
+model Projects {
+  id          String @id @default(cuid())
+  url         String
+  name        String
+  title       String
+  description String
+  source      String
+
+  user   User   @relation(fields: [userId], references: [id])
+  userId String
+
+  @@map("projects")
 }
 
 model VerificationToken {

@@ -10,7 +10,7 @@ interface Props {
 	isVerified: boolean;
 }
 
-export function FeaturedUserCard({ name, username, isVerified, image }: Props) {
+export function FeaturedUserItem({ name, username, isVerified, image }: Props) {
 	return (
 		<LinkButton
 			key={username}

@@ -13,7 +13,7 @@ import { axios } from '@/services/axios';
 import { reloadSession } from '@/utils/session';
 import { toast } from '@/utils/toast';
 import { zodResolver } from '@hookform/resolvers/zod';
-import { GetServerSideProps } from 'next';
+import { GetServerSidePropsContext } from 'next';
 import { getSession } from 'next-auth/react';
 import Head from 'next/head';
 import { Check, Link, User } from 'phosphor-react';
@@ -246,7 +246,7 @@ export default function SettingsAccount({ user }: Props) {
 	);
 }
 
-export const getServerSideProps: GetServerSideProps = async (ctx) => {
+export async function getServerSideProps(ctx: GetServerSidePropsContext) {
 	try {
 		const session = await getSession(ctx);
 		const username = session?.user.username;
@@ -281,4 +281,4 @@ export const getServerSideProps: GetServerSideProps = async (ctx) => {
 			notFound: true,
 		};
 	}
-};
+}

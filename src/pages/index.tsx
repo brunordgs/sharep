@@ -5,13 +5,18 @@ import { ExploreMenu } from '@/components/ExploreMenu';
 import { DefaultHeader } from '@/components/Header/DefaultHeader';
 import { Card } from '@/components/ui/Card';
 import { Container } from '@/components/ui/Container';
-import projects from '@/data/projects.json';
 import { useBecomeCreator } from '@/hooks/useBecomeCreator';
+import { prisma } from '@/lib/prisma';
+import { Project } from '@/shared/interfaces/Project';
 import { useSession } from 'next-auth/react';
 import Head from 'next/head';
 
-export default function Home() {
-	const session = useSession()
+interface Props {
+	projects: Project[];
+}
+
+export default function Home({ projects }: Props) {
+	const session = useSession();
 	const { isBannerOpen, onBannerOpen } = useBecomeCreator();
 
 	return (
@@ -34,7 +39,7 @@ export default function Home() {
 						)}
 
 						<Card className="lg:h-full" noPadding>
-							{projects.length ? (
+							{projects.length > 0 ? (
 								projects.map(({ url, ...rest }) => <ProjectCard key={url} url={url} {...rest} />)
 							) : (
 								<NoProjectFound />
@@ -49,4 +54,23 @@ export default function Home() {
 			</Container>
 		</>
 	);
+}
+
+export async function getServerSideProps() {
+	const projects = await prisma.projects.findMany({
+		select: {
+			id: true,
+			url: true,
+			name: true,
+			title: true,
+			description: true,
+			source: true,
+		},
+	});
+
+	return {
+		props: {
+			projects,
+		},
+	};
 }
