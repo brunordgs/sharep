@@ -1,52 +1,53 @@
 import { Loading } from '@/components/ui/Loading';
 import { Text } from '@/components/ui/Typography/Text';
+import { axios } from '@/services/axios';
 import { type ShortUser } from '@/shared/interfaces/ShortUser';
-import { selectUsers } from '@/utils/supabase';
-import { useEffect, useState } from 'react';
+import { useMemo } from 'react';
+import { useQuery } from 'react-query';
 import { Card } from '../../ui/Card';
 import { Heading } from '../../ui/Typography/Heading';
-import { FeaturedUserCard } from './FeaturedUserCard';
+import { FeaturedUserItem } from './FeaturedUserItem';
 
 export function FeaturedUsersCard() {
-	const [users, setUsers] = useState<ShortUser[]>([]);
-	const [loading, setLoading] = useState(true);
+	const { data: users, isLoading } = useQuery<ShortUser[]>(
+		'users',
+		async () => {
+			const { data } = await axios.get('/users');
+			return data;
+		},
+		{ refetchOnWindowFocus: false },
+	);
 
-	useEffect(() => {
-		async function initializeAsync() {
-			const res = await selectUsers();
-
-			if (res.data) {
-				const shuffledUsers = res.data
-					.map((value) => ({ value, sort: Math.random() }))
-					.sort((a, b) => a.sort - b.sort)
-					.slice(0, 4)
-					.map(({ value }) => value);
-
-				setUsers(shuffledUsers);
-			}
-
-			setLoading(false);
+	const shuffledUsers = useMemo(() => {
+		if (!users) {
+			return [];
 		}
 
-		initializeAsync();
-	}, []);
+		const shuffledUsers = users
+			.map((value) => ({ value, sort: Math.random() }))
+			.sort((a, b) => a.sort - b.sort)
+			.slice(0, 4)
+			.map(({ value }) => value);
+
+		return shuffledUsers;
+	}, [users]);
 
 	return (
 		<Card className="py-6" noPadding>
-			<Loading loading={loading}>
+			<Loading loading={isLoading}>
 				<aside>
 					<Heading as="h2" transform="italic" className="text-xl mb-4 px-6">
 						Featured users
 					</Heading>
 
-					{users.length ? (
-						users.map(({ name, username, is_verified: isVerified, avatar_url: avatarUrl }) => (
-							<FeaturedUserCard
+					{shuffledUsers.length > 0 ? (
+						shuffledUsers.map(({ name, username, isVerified, image }) => (
+							<FeaturedUserItem
 								key={username}
-								name={name}
+								name={name as string}
+								image={image as string}
 								username={username}
 								isVerified={isVerified}
-								avatarUrl={avatarUrl}
 							/>
 						))
 					) : (

@@ -1,8 +1,8 @@
 import { SignedInDropdown } from '@/components/Dropdowns/SignedInDropdown';
 import { UserDropdown } from '@/components/Dropdowns/UserDropdown';
-import { useAuth } from '@/hooks/useAuth';
 import { useBreakpoint } from '@/hooks/useBreakpoint';
 import { AnimatePresence } from 'framer-motion';
+import { useSession } from 'next-auth/react';
 import { Article, List, MagnifyingGlass, PaintBrush, Question, X } from 'phosphor-react';
 import { useState } from 'react';
 import { Button } from '../../ui/Buttons/Button';
@@ -12,9 +12,9 @@ import { Logo } from '../Logo';
 import { MobileItem } from './MobileItem';
 
 export function MobileNavbar() {
-	const auth = useAuth();
 	const [collapse, setCollapse] = useState(false);
 	const breakpoint = useBreakpoint();
+	const session = useSession();
 
 	return (
 		<Container noMargin className="flex items-center justify-between lg:hidden">
@@ -28,7 +28,11 @@ export function MobileNavbar() {
 
 			{breakpoint && breakpoint < 1024 ? <Logo /> : null}
 
-			{!auth?.session ? <UserDropdown /> : <SignedInDropdown avatar={auth?.user?.image} />}
+			{session.status === 'unauthenticated' ? (
+				<UserDropdown />
+			) : (
+				<SignedInDropdown avatar={session.data?.user.image as string} />
+			)}
 
 			{/* Mobile navbar content */}
 			<AnimatePresence>

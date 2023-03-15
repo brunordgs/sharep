@@ -1,13 +1,17 @@
-import { signInWithGithub } from '@/utils/supabase';
 import { Dialog, Transition } from '@headlessui/react';
 import clsx from 'clsx';
+import { signIn } from 'next-auth/react';
 import { SignIn, User } from 'phosphor-react';
 import { Fragment, useState } from 'react';
 import { FaGithub } from 'react-icons/fa';
 import { LinkButton } from '../ui/Buttons/LinkButton';
 import { Text } from '../ui/Typography/Text';
 
-export function SigninDialog({ active }: { active: boolean }) {
+interface Props {
+	active: boolean;
+}
+
+export function SigninDialog({ active }: Props) {
 	const [isOpen, setIsOpen] = useState(false);
 
 	function openModal() {
@@ -33,7 +37,7 @@ export function SigninDialog({ active }: { active: boolean }) {
 			</button>
 
 			<Transition appear show={isOpen} as={Fragment}>
-				<Dialog as="div" className="relative z-30" onClose={closeModal}>
+				<Dialog className="relative z-30" onClose={closeModal}>
 					<Transition.Child
 						as={Fragment}
 						enter="ease-out duration-150"
@@ -70,16 +74,20 @@ export function SigninDialog({ active }: { active: boolean }) {
 										>
 											<User size={18} weight="bold" className="absolute left-3" />
 
-											<span>Use email</span>
+											<Text as="span" className="text-[15px]">
+												Use email
+											</Text>
 										</LinkButton>
 
 										<button
 											className="bg-zinc-100 hover:bg-zinc-200 dark:bg-zinc-800 rounded-md p-2 w-full flex items-center justify-center font-semibold text-[15px] relative transition-colors"
-											onClick={signInWithGithub}
+											onClick={() => signIn('github')}
 										>
 											<FaGithub size={18} className="absolute left-3" />
 
-											<span>Continue with Github</span>
+											<Text as="span" className="text-[15px]">
+												Continue with Github
+											</Text>
 										</button>
 									</div>
 

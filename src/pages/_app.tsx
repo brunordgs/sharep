@@ -1,13 +1,16 @@
 import { Footer } from '@/components/Footer';
 import { Navbar } from '@/components/Header/Navbar';
-import { AuthProvider } from '@/contexts/AuthContext';
 import { BecomeCreatorProvider } from '@/contexts/BecomeCreatorContext';
 import { ThemeProvider } from '@/contexts/ThemeContext';
+import { queryClient } from '@/lib/react-query';
 import '@/styles/globals.css';
 import ProgressBar from '@badrap/bar-of-progress';
+import { Inter } from '@next/font/google';
 import clsx from 'clsx';
+import { SessionProvider } from 'next-auth/react';
 import type { AppProps } from 'next/app';
 import { useEffect } from 'react';
+import { QueryClientProvider } from 'react-query';
 import { Flip, ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
@@ -18,16 +21,13 @@ const progress = new ProgressBar({
 	delay: 100,
 });
 
-const TOAST_COLORS_BG = {
-	success: 'bg-teal-500',
-	error: 'bg-rose-500',
-	info: 'bg-sky-500',
-	warning: 'bg-amber-400',
-	// default: 'bg-indigo-600',
-	// dark: 'bg-white-600',
-};
+const inter = Inter({
+	subsets: ['latin'],
+	weight: ['300', '400', '500', '600', '700', '800', '900'],
+	variable: '--font-inter',
+});
 
-export default function App({ Component, pageProps, router }: AppProps) {
+export default function App({ Component, pageProps: { session, ...pageProps }, router }: AppProps) {
 	const excludeRoutes = ['/', '/creators'];
 
 	useEffect(() => {
@@ -43,29 +43,37 @@ export default function App({ Component, pageProps, router }: AppProps) {
 	}, [router]);
 
 	return (
-		<AuthProvider>
-			<ThemeProvider>
-				<BecomeCreatorProvider>
-					<Navbar />
-					<Component {...pageProps} />
-
-					<div className={clsx({ 'lg:hidden': excludeRoutes.includes(router.pathname) }, 'mb-6')}>
-						<Footer />
-					</div>
-				</BecomeCreatorProvider>
-			</ThemeProvider>
-
-			<ToastContainer
-				theme="dark"
-				transition={Flip}
-				position="bottom-center"
-				toastClassName={({ type }: any) =>
-					TOAST_COLORS_BG[(type as keyof typeof TOAST_COLORS_BG) ?? 'default'] +
-					' relative flex p-2 rounded-md justify-between overflow-hidden cursor-pointer mt-4'
+		<>
+			<style jsx global>{`
+				html {
+					font-family: ${inter.style.fontFamily};
 				}
-				progressClassName="!bg-transparent"
-				bodyClassName="text-sm text-white"
-			/>
-		</AuthProvider>
+			`}</style>
+
+			<QueryClientProvider client={queryClient}>
+				<SessionProvider session={session}>
+					<ThemeProvider>
+						<BecomeCreatorProvider>
+							<Navbar />
+							<Component {...pageProps} />
+
+							<div
+								className={clsx({ 'lg:hidden': excludeRoutes.includes(router.pathname) }, 'mb-6')}
+							>
+								<Footer />
+							</div>
+						</BecomeCreatorProvider>
+					</ThemeProvider>
+
+					<ToastContainer
+						theme="light"
+						transition={Flip}
+						position="bottom-center"
+						toastClassName="relative flex p-2 rounded-md justify-between overflow-hidden cursor-pointer mt-4 bg-zinc-50 dark:bg-zinc-900"
+						bodyClassName="text-sm text-zinc-600 dark:text-zinc-200"
+					/>
+				</SessionProvider>
+			</QueryClientProvider>
+		</>
 	);
 }

@@ -1,7 +1,7 @@
-import clsx from 'clsx';
-import { HTMLAttributes } from 'react';
 import { FONT_WEIGHTS } from '@/shared/constants';
 import { type Typography } from '@/shared/interfaces/Typography';
+import clsx from 'clsx';
+import { HTMLAttributes } from 'react';
 
 export type Props = {
 	as?: 'p' | 'span' | 'small';
@@ -31,7 +31,15 @@ export function Text({
 	...props
 }: Props) {
 	return (
-		<Tag className={clsx(sizes[size], FONT_WEIGHTS[weight], transform, className)} {...props}>
+		<Tag
+			className={clsx(
+				!className?.includes('text-[') && sizes[size],
+				FONT_WEIGHTS[weight],
+				transform,
+				className,
+			)}
+			{...props}
+		>
 			{children}
 		</Tag>
 	);

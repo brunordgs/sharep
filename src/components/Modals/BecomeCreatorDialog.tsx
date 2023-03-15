@@ -1,6 +1,6 @@
-import { useAuth } from '@/hooks/useAuth';
 import { Dialog, Transition } from '@headlessui/react';
 import { zodResolver } from '@hookform/resolvers/zod';
+import { useSession } from 'next-auth/react';
 import { useRouter } from 'next/router';
 import { Check, X } from 'phosphor-react';
 import { Fragment, useEffect, useState } from 'react';
@@ -20,12 +20,12 @@ const schema = z.object({
 type CreatorForm = z.infer<typeof schema>;
 
 export function BecomeCreatorDialog() {
-	const auth = useAuth();
+	const session = useSession();
 	const router = useRouter();
 
 	const methods = useForm<CreatorForm>({
 		defaultValues: {
-			email: auth?.session?.user.email ?? '',
+			email: session.data?.user.email ?? '',
 			message: '',
 		},
 		resolver: zodResolver(schema),
@@ -45,7 +45,7 @@ export function BecomeCreatorDialog() {
 	const isFormValid = !Object.entries(errors).length;
 
 	function openModal() {
-		if (!auth?.session) {
+		if (session.status === 'unauthenticated') {
 			return router.push('/auth/signup');
 		}
 
@@ -82,7 +82,7 @@ export function BecomeCreatorDialog() {
 			</button>
 
 			<Transition appear show={isOpen} as={Fragment}>
-				<Dialog as="div" className="relative z-30" onClose={closeModal}>
+				<Dialog className="relative z-30" onClose={closeModal}>
 					<Transition.Child
 						as={Fragment}
 						enter="ease-out duration-150"
@@ -120,7 +120,7 @@ export function BecomeCreatorDialog() {
 
 									<Form
 										onSubmit={handleSubmit((values) => {
-											if (auth?.session?.user.email !== values.email) {
+											if (session.data?.user.email !== values.email) {
 												setError('email', {
 													message: 'Make sure the email is the same as your account.',
 												});

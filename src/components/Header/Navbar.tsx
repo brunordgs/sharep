@@ -1,5 +1,5 @@
-import { useAuth } from '@/hooks/useAuth';
 import clsx from 'clsx';
+import { useSession } from 'next-auth/react';
 import { useRouter } from 'next/router';
 import { Article, MagnifyingGlass, PaintBrush, Question } from 'phosphor-react';
 import { SignedInDropdown } from '../Dropdowns/SignedInDropdown';
@@ -11,7 +11,8 @@ import { MobileNavbar } from './Mobile/MobileNavbar';
 
 export function Navbar() {
 	const router = useRouter();
-	const auth = useAuth();
+
+	const session = useSession();
 
 	const menuItems = [
 		{
@@ -74,13 +75,13 @@ export function Navbar() {
 						/>
 					</div>
 
-					{!auth?.session ? (
+					{session.status === 'unauthenticated' ? (
 						<div className="flex gap-1">
 							<LinkButton href="/auth/signup">Sign up</LinkButton>
 							<UserDropdown />
 						</div>
 					) : (
-						<SignedInDropdown avatar={auth?.user.image} />
+						<SignedInDropdown avatar={session?.data?.user.image!} />
 					)}
 				</div>
 			</Container>

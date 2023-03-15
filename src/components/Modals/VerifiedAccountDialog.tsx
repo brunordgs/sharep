@@ -2,7 +2,11 @@ import { Dialog, Transition } from '@headlessui/react';
 import { CircleWavyCheck } from 'phosphor-react';
 import { Fragment, useState } from 'react';
 
-export function VerifiedAccountDialog({ size }: { size?: number }) {
+interface Props {
+	size?: number;
+}
+
+export function VerifiedAccountDialog({ size }: Props) {
 	const [isOpen, setIsOpen] = useState(false);
 
 	function openModal() {
@@ -25,7 +29,7 @@ export function VerifiedAccountDialog({ size }: { size?: number }) {
 			</button>
 
 			<Transition appear show={isOpen} as={Fragment}>
-				<Dialog as="div" className="relative z-30" onClose={closeModal}>
+				<Dialog className="relative z-30" onClose={closeModal}>
 					<Transition.Child
 						as={Fragment}
 						enter="ease-out duration-150"

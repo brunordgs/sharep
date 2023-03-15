@@ -1,20 +1,23 @@
 import { ProfileContent } from '@/components/Profile/ProfileContent';
 import { ProfileNotFound } from '@/components/Profile/ProfileNotFound';
 import { Loading } from '@/components/ui/Loading';
-import { POPULAR_USERS } from '@/shared/constants';
+import { prisma } from '@/lib/prisma';
 import { type Creator } from '@/shared/interfaces/Creator';
+import { Project } from '@/shared/interfaces/Project';
 import { type UserProfile } from '@/shared/interfaces/UserProfile';
-import { getCreatorInformation, getUserInformation } from '@/utils/supabase';
-import { GetStaticPropsContext } from 'next';
+import { formatDate } from '@/utils/helpers/formats';
+import { GetServerSidePropsContext } from 'next';
+import { getSession } from 'next-auth/react';
 import Head from 'next/head';
 import { useRouter } from 'next/router';
 
 interface Props {
 	user: UserProfile;
 	creator: Creator;
+	projects: Project[];
 }
 
-export default function Profile({ user, creator }: Props) {
+export default function Profile({ user, creator, projects }: Props) {
 	const router = useRouter();
 
 	const username = router.query.profile as string;
@@ -31,7 +34,7 @@ export default function Profile({ user, creator }: Props) {
 			<main className="max-w-5xl w-full mx-auto mb-10">
 				<Loading loading={router.isFallback} className="my-32">
 					{!userNotFound ? (
-						<ProfileContent creator={creator} {...user} />
+						<ProfileContent creator={creator} projects={projects} {...user} />
 					) : (
 						<ProfileNotFound username={username} />
 					)}
@@ -41,53 +44,74 @@ export default function Profile({ user, creator }: Props) {
 	);
 }
 
-export async function getStaticPaths() {
-	const paths = POPULAR_USERS.map((user) => ({
-		params: {
-			profile: '@' + user,
-		},
-	}));
+export async function getServerSideProps({ req, params }: GetServerSidePropsContext) {
+	const session = await getSession({ req });
+	const userId = session?.user.id;
 
-	return {
-		paths: paths,
-		fallback: true,
-	};
-}
-
-export async function getStaticProps({ params }: GetStaticPropsContext) {
-	const username = params!.profile!.toString();
+	const fullUsername = params!.profile!.toString();
 
 	// Prevent api request if username doesn't have @ as first character and redirect to 404 page
-	if (username.charAt(0) !== '@') {
+	if (fullUsername.charAt(0) !== '@') {
 		return {
-			props: {},
-			redirect: {
-				destination: '404',
-				permanent: false,
-			},
+			notFound: true,
 		};
 	}
 
-	const user = getUserInformation(username.replace('@', ''));
-	const creator = getCreatorInformation(username.replace('@', ''));
+	const username = fullUsername.replace('@', '');
 
-	const [{ data: userData, error: userError }, { data: creatorData }] = await Promise.all([
-		user,
-		creator,
+	const [user, projects] = await Promise.all([
+		prisma.user.findUnique({
+			where: {
+				username,
+			},
+			include: {
+				creator: {
+					select: {
+						createdAt: true,
+					},
+				},
+				social: {
+					select: {
+						website: true,
+						github: true,
+						twitch: true,
+						youtube: true,
+					},
+				},
+			},
+		}),
+		prisma.projects.findMany({
+			where: {
+				userId,
+			},
+			select: {
+				id: true,
+				image: true,
+				url: true,
+				name: true,
+				description: true,
+				sourceName: true,
+				sourceUrl: true,
+			},
+		}),
 	]);
 
-	if (userError || !userData?.length) {
-		return {
-			props: {
-				user: null,
+	const userFormatted = {
+		...user,
+		createdAt: formatDate(String(user?.createdAt)),
+		updatedAt: formatDate(String(user?.updatedAt)),
+		...(user?.creator && {
+			creator: {
+				createdAt: formatDate(String(user?.creator?.createdAt)),
 			},
-		};
-	}
+		}),
+	};
 
 	return {
 		props: {
-			user: userData[0],
-			creator: creatorData?.[0] ?? null,
+			user: userFormatted,
+			creator: userFormatted.creator,
+			projects,
 		},
 	};
 }
