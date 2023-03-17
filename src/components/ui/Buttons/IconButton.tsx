@@ -8,6 +8,8 @@ const variants = {
 		'bg-zinc-200/60 hover:bg-zinc-200 hover:text-black hover:dark:text-white dark:bg-zinc-800 dark:hover:bg-zinc-700',
 	secondary:
 		'bg-zinc-100/40 hover:bg-zinc-100/20 dark:bg-zinc-800/20 dark:hover:bg-zinc-800/40 hover:text-white',
+	tertiary:
+		'bg-zinc-200/60 hover:bg-zinc-200 hover:text-black hover:dark:text-white dark:bg-zinc-600 dark:hover:bg-zinc-700',
 	unstyled: '',
 };
 

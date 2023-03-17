@@ -11,7 +11,7 @@
     "prettier": "prettier -w \"./src/**/*.{ts,tsx,json}\"",
     "prisma:migrate": "prisma migrate dev",
     "prisma:studio": "prisma studio",
-		"compose:up": "docker compose -f docker-compose.yml up -d"
+		"docker:up": "docker compose -f docker-compose.yml up -d"
   },
   "keywords": [],
   "author": "",

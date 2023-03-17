@@ -96,21 +96,23 @@ export async function getServerSideProps({ req, params }: GetServerSidePropsCont
 		}),
 	]);
 
-	const userFormatted = {
-		...user,
-		createdAt: formatDate(String(user?.createdAt)),
-		updatedAt: formatDate(String(user?.updatedAt)),
-		...(user?.creator && {
-			creator: {
-				createdAt: formatDate(String(user?.creator?.createdAt)),
-			},
+	const userFormatted = JSON.parse(
+		JSON.stringify({
+			...user,
+			createdAt: formatDate(String(user?.createdAt)),
+			updatedAt: formatDate(String(user?.updatedAt)),
+			...(user?.creator && {
+				creator: {
+					createdAt: formatDate(String(user?.creator?.createdAt)),
+				},
+			}),
 		}),
-	};
+	);
 
 	return {
 		props: {
 			user: userFormatted,
-			creator: userFormatted.creator,
+			creator: userFormatted?.creator,
 			projects,
 		},
 	};

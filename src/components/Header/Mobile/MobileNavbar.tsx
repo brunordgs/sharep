@@ -16,6 +16,8 @@ export function MobileNavbar() {
 	const breakpoint = useBreakpoint();
 	const session = useSession();
 
+	const userAvatar = session.data?.user.image;
+
 	return (
 		<Container noMargin className="flex items-center justify-between lg:hidden">
 			<Button
@@ -31,7 +33,7 @@ export function MobileNavbar() {
 			{session.status === 'unauthenticated' ? (
 				<UserDropdown />
 			) : (
-				<SignedInDropdown avatar={session.data?.user.image as string} />
+				userAvatar && <SignedInDropdown avatar={userAvatar} />
 			)}
 
 			{/* Mobile navbar content */}

@@ -11,7 +11,6 @@ import { MobileNavbar } from './Mobile/MobileNavbar';
 
 export function Navbar() {
 	const router = useRouter();
-
 	const session = useSession();
 
 	const menuItems = [
@@ -34,6 +33,8 @@ export function Navbar() {
 			isActive: router.pathname === '/about',
 		},
 	];
+
+	const userAvatar = session.data?.user.image;
 
 	return (
 		<header className="border-b border-zinc-200 dark:border-zinc-800 shadow-sm dark:shadow-lg py-5 bg-zinc-100 dark:bg-zinc-900 sticky top-0 z-20">
@@ -81,7 +82,7 @@ export function Navbar() {
 							<UserDropdown />
 						</div>
 					) : (
-						<SignedInDropdown avatar={session?.data?.user.image!} />
+						userAvatar && <SignedInDropdown avatar={userAvatar} />
 					)}
 				</div>
 			</Container>
