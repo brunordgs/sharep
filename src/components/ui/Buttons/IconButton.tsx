@@ -1,6 +1,6 @@
 import clsx from 'clsx';
 import Link from 'next/link';
-import { ComponentPropsWithoutRef } from 'react';
+import { type ComponentPropsWithoutRef } from 'react';
 import type { UrlObject } from 'url';
 
 const variants = {
@@ -35,7 +35,7 @@ export function IconButton({
 		<Link
 			href={href}
 			className={clsx(
-				{ 'p-2': variant !== 'unstyled' },
+				{ 'p-2': !className?.includes('p-') },
 				'inline-flex items-center justify-center transition-all ease-out rounded-full',
 				variantStyles,
 				className,
@@ -49,7 +49,7 @@ export function IconButton({
 		<button
 			type="button"
 			className={clsx(
-				{ 'p-2': variant !== 'unstyled' },
+				{ 'p-2': !className?.includes('p-') },
 				'inline-flex items-center justify-center transition-all ease-out rounded-full',
 				variantStyles,
 				className,

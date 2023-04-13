@@ -1,5 +1,5 @@
 import clsx from 'clsx';
-import { ComponentPropsWithoutRef } from 'react';
+import { type ComponentPropsWithoutRef } from 'react';
 import { Text } from '../ui/Typography/Text';
 
 export function Spinner({ className }: ComponentPropsWithoutRef<'svg'>) {

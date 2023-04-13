@@ -22,6 +22,8 @@ export function NewCreatorDialog({ users }: Props) {
 		setIsOpen(false);
 	}
 
+	console.log(users);
+
 	return (
 		<>
 			<Button onClick={openModal}>Add creator</Button>
@@ -58,7 +60,7 @@ export function NewCreatorDialog({ users }: Props) {
 										You can add a new creator here.
 									</Dialog.Description>
 
-									<ul>
+									<ul className="space-y-4">
 										{users.map((user) => (
 											<li key={user.username} className="flex items-center gap-2">
 												<div className="flex items-center gap-4 flex-1">

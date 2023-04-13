@@ -19,7 +19,8 @@ export function CreatorBanner({ title, description, onHandleClose }: Props) {
 
 				<IconButton
 					variant="secondary"
-					icon={<X size={16} aria-label="Close banner" />}
+					className="w-6 h-6 p-0"
+					icon={<X size={12} weight="bold" aria-label="Close banner" />}
 					onClick={() => onHandleClose(false)}
 					title="Close banner"
 				/>

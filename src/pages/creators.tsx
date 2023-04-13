@@ -44,15 +44,9 @@ export default function Creators() {
 
 						<Card className="lg:h-full" noPadding>
 							<Loading loading={isLoading}>
-								{creators ? (
-									creators.map(({ name, username, isVerified, image }) => (
-										<CreatorCard
-											key={username}
-											name={name as string}
-											avatar={image as string}
-											username={username}
-											isVerified={isVerified}
-										/>
+								{creators && creators.length > 0 ? (
+									creators.map(({ username, image, ...rest }) => (
+										<CreatorCard key={username} username={username} avatar={image} {...rest} />
 									))
 								) : (
 									<NoCreatorFound />

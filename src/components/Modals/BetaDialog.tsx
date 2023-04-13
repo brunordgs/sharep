@@ -35,7 +35,7 @@ export function BetaDialog() {
 					as="span"
 					size="xs"
 					transform="uppercase"
-					className="bg-zinc-200 dark:bg-zinc-800 rounded px-2"
+					className="bg-zinc-200 dark:bg-zinc-800 rounded px-2 hover:text-black dark:hover:text-white transition-colors"
 				>
 					Beta
 				</Text>
