@@ -1,5 +1,5 @@
 import clsx from 'clsx';
-import { ComponentPropsWithoutRef } from 'react';
+import { type ComponentPropsWithoutRef } from 'react';
 import { Spinner } from '../Icons/Spinner';
 
 interface Props extends ComponentPropsWithoutRef<'div'> {

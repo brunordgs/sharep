@@ -11,6 +11,7 @@ import { UserProfile } from '@/shared/interfaces/UserProfile';
 import { reloadSession } from '@/utils/session';
 import { toast } from '@/utils/toast';
 import { zodResolver } from '@hookform/resolvers/zod';
+import { AxiosError } from 'axios';
 import { GetServerSidePropsContext } from 'next';
 import { getSession } from 'next-auth/react';
 import Head from 'next/head';
@@ -18,6 +19,7 @@ import { Check, Link } from 'phosphor-react';
 import { useEffect, useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { FaGithub, FaTwitch, FaYoutube } from 'react-icons/fa';
+import { useMutation, useQueryClient } from 'react-query';
 import * as z from 'zod';
 
 const schema = z.object({
@@ -43,15 +45,16 @@ interface Props {
 }
 
 export default function SettingsAccount({ user }: Props) {
+	const client = useQueryClient();
 	const methods = useForm<ProfileForm>({
 		defaultValues: {
 			username: user.username,
 			displayName: user.name,
 			bio: user.bio,
-			github: user.social.github,
-			twitch: user.social.twitch,
-			youtube: user.social.youtube,
-			website: user.social.website,
+			github: user.social?.github,
+			twitch: user.social?.twitch,
+			youtube: user.social?.youtube,
+			website: user.social?.website,
 		},
 		resolver: zodResolver(schema),
 	});
@@ -67,9 +70,9 @@ export default function SettingsAccount({ user }: Props) {
 
 	const isFormValid = !Object.entries(errors).length;
 
-	async function handleUpdateProfile(values: ProfileForm) {
-		try {
-			await axios.put(`/users/${user.username}`, {
+	const updateUser = useMutation(
+		(values: ProfileForm) =>
+			axios.put(`/users/${user.username}`, {
 				username: values.username,
 				name: values.displayName,
 				bio: values.bio,
@@ -79,14 +82,23 @@ export default function SettingsAccount({ user }: Props) {
 					twitch: values.twitch,
 					youtube: values.youtube,
 				},
-			});
+			}),
+		{
+			onSuccess: () => {
+				client.invalidateQueries('user');
+			},
+		},
+	);
 
+	async function handleUpdateProfile(values: ProfileForm) {
+		try {
+			updateUser.mutate(values);
 			reloadSession();
-
 			toast('User has been updated successfully', {
 				type: 'success',
 			});
-		} catch {
+		} catch (e) {
+			console.error((e as AxiosError).message);
 			toast('Something went wrong while trying to update user', {
 				type: 'error',
 			});

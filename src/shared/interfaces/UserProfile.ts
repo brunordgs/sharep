@@ -5,7 +5,7 @@ export interface UserProfile {
 	bio: string;
 	username: string;
 	image: string;
-	social: Social;
+	social?: Social;
 	isCreator: boolean;
 	isVerified: boolean;
 }

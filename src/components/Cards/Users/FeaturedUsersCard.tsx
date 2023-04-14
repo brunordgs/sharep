@@ -41,14 +41,8 @@ export function FeaturedUsersCard() {
 					</Heading>
 
 					{shuffledUsers.length > 0 ? (
-						shuffledUsers.map(({ name, username, isVerified, image }) => (
-							<FeaturedUserItem
-								key={username}
-								name={name as string}
-								image={image as string}
-								username={username}
-								isVerified={isVerified}
-							/>
+						shuffledUsers.map(({ username, ...rest }) => (
+							<FeaturedUserItem key={username} username={username} {...rest} />
 						))
 					) : (
 						<Text size="sm" className="px-6 text-zinc-400">

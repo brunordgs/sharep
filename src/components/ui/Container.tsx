@@ -9,9 +9,7 @@ export function Container({ noMargin = false, className, children }: Props) {
 	return (
 		<main
 			className={clsx(
-				{
-					'my-6': !noMargin,
-				},
+				{ 'my-6': !noMargin },
 				'container',
 				className,
 			)}

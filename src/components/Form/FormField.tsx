@@ -47,14 +47,14 @@ export function FormField({
 				)}
 			</label>
 
-			<div className="flex items-center bg-zinc-100 dark:bg-zinc-900 rounded-md">
+			<div className="flex items-center bg-zinc-200 dark:bg-zinc-900 rounded-md">
 				{inputAddon && (
 					<div
 						className={clsx(
 							{
 								'text-sm': typeof inputAddon === 'string',
 							},
-							'text-zinc-700 dark:text-zinc-300 bg-zinc-100 dark:bg-zinc-700 h-10 flex items-center px-3 rounded-tl-md rounded-bl-md select-none',
+							'text-zinc-700 dark:text-zinc-300 bg-zinc-200 dark:bg-zinc-700 h-10 flex items-center px-3 rounded-tl-md rounded-bl-md select-none',
 						)}
 					>
 						{inputAddon}

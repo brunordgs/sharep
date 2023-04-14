@@ -1,6 +1,7 @@
 export interface ShortUser {
-	name: string | null;
-	image: string | null;
+	id: string;
+	name: string;
+	image: string;
 	username: string;
 	isVerified: boolean;
 }

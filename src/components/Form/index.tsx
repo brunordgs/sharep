@@ -1,4 +1,4 @@
-import { ComponentPropsWithoutRef } from 'react';
+import { type ComponentPropsWithoutRef } from 'react';
 import { FormProvider } from 'react-hook-form';
 
 interface Props extends ComponentPropsWithoutRef<'form'> {
