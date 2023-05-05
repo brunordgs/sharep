@@ -38,18 +38,41 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
 				data: {
 					username: req.body.username,
 					name: req.body.name,
-					bio: req.body.bio,
+					bio: req.body.bio || null,
 				},
 			});
 
-			const social = await prisma.social.update({
+			const existingSocial = await prisma.social.findUnique({
 				where: {
 					userId: user.id,
 				},
-				data: {
-					website: req.body.social.website,
-				},
 			});
+
+			let social;
+
+			if (existingSocial) {
+				social = await prisma.social.update({
+					where: {
+						userId: user.id,
+					},
+					data: {
+						website: req.body.social.website,
+						github: req.body.social.github,
+						twitch: req.body.social.twitch,
+						youtube: req.body.social.youtube,
+					},
+				});
+			} else {
+				social = await prisma.social.create({
+					data: {
+						website: req.body.social.website,
+						github: req.body.social.github,
+						twitch: req.body.social.twitch,
+						youtube: req.body.social.youtube,
+						userId: user.id,
+					},
+				});
+			}
 
 			res.json({ user, social });
 			break;
