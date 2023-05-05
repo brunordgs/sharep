@@ -1,6 +1,6 @@
 import { SideNavigation } from '@/components/Settings/SideNavigation';
-import { Card } from '@/components/ui/Card';
-import { Container } from '@/components/ui/Container';
+import { Card } from '@ui/Card';
+import { Container } from '@ui/Container';
 import { Children } from '@/shared/interfaces/Children';
 
 export function AccountLayout({ children }: Children) {

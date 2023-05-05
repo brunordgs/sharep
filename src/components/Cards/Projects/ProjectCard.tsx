@@ -1,15 +1,15 @@
-import { Image } from '@/components/ui/Image';
+import { Image } from '@ui/Image';
 import { Project } from '@/shared/interfaces/Project';
 import Link from 'next/link';
 import { FaGithub } from 'react-icons/fa';
-import { Text } from '../../ui/Typography/Text';
+import { Text } from '@ui/Typography/Text';
 import { cx } from 'class-variance-authority';
 
 export function ProjectCard({ image, name, description, url, sourceName, sourceUrl }: Project) {
 	return (
 		<Link
 			href={url}
-			className="border-t border-zinc-200 first:border-0 dark:border-zinc-700 p-6 flex justify-between hover:bg-zinc-50 dark:hover:bg-zinc-700 w-full h-28"
+			className="border-t border-zinc-200 first:border-0 dark:border-zinc-700 p-6 flex justify-between hover:bg-zinc-50 dark:hover:bg-zinc-700 w-full h-28 transition-colors ease-out"
 			target="_blank"
 			rel="noopener noreferrer"
 		>

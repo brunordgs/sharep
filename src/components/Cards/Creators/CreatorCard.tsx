@@ -1,6 +1,6 @@
-import { Avatar } from '@/components/ui/Avatar';
-import { LinkButton } from '@/components/ui/Buttons/LinkButton';
-import { Text } from '@/components/ui/Typography/Text';
+import { Avatar } from '@ui/Avatar';
+import { LinkButton } from '@ui/Buttons/LinkButton';
+import { Text } from '@ui/Typography/Text';
 import { CircleWavyCheck } from 'phosphor-react';
 
 interface Props {
@@ -15,7 +15,7 @@ export function CreatorCard({ name, username, isVerified, avatar }: Props) {
 		<LinkButton
 			key={username}
 			href={`/@${username}`}
-			color="unstyled"
+			intent="unstyled"
 			className="border-t border-zinc-200 first:border-0 dark:border-zinc-700 p-6 flex justify-between hover:bg-zinc-50 dark:hover:bg-zinc-700 w-full h-28"
 		>
 			<div className="flex items-center gap-4">

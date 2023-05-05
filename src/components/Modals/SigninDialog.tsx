@@ -3,7 +3,7 @@ import { signIn } from 'next-auth/react';
 import { SignIn, User } from 'phosphor-react';
 import { Fragment, useState } from 'react';
 import { FaGithub } from 'react-icons/fa';
-import { Text } from '../ui/Typography/Text';
+import { Text } from '@ui/Typography/Text';
 import Link from 'next/link';
 import { cx } from 'class-variance-authority';
 

@@ -1,8 +1,8 @@
 import { useLocalStorage } from '@/hooks/useLocalStorage';
 import { Dialog, Transition } from '@headlessui/react';
 import { Fragment, useEffect, useState } from 'react';
-import { Button } from '../ui/Buttons/Button';
-import { Text } from '../ui/Typography/Text';
+import { Button } from '@ui/Buttons/Button';
+import { Text } from '@ui/Typography/Text';
 
 export function BetaDialog() {
 	const [betaPreview, setBetaPreview] = useLocalStorage('beta-preview', false);

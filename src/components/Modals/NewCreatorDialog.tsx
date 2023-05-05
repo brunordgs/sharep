@@ -3,9 +3,9 @@ import { ShortUser } from '@/shared/interfaces/ShortUser';
 import { Dialog, Transition } from '@headlessui/react';
 import { CircleWavyCheck } from 'phosphor-react';
 import { Fragment, useState } from 'react';
-import { Avatar } from '../ui/Avatar';
-import { Button } from '../ui/Buttons/Button';
-import { Text } from '../ui/Typography/Text';
+import { Avatar } from '@ui/Avatar';
+import { Button } from '@ui/Buttons/Button';
+import { Text } from '@ui/Typography/Text';
 
 interface Props {
 	users: ShortUser[];
@@ -21,8 +21,6 @@ export function NewCreatorDialog({ users }: Props) {
 	function closeModal() {
 		setIsOpen(false);
 	}
-
-	console.log(users);
 
 	return (
 		<>

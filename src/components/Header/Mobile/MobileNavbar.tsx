@@ -5,9 +5,9 @@ import { AnimatePresence } from 'framer-motion';
 import { useSession } from 'next-auth/react';
 import { Article, List, MagnifyingGlass, PaintBrush, Question, X } from 'phosphor-react';
 import { useState } from 'react';
-import { Button } from '../../ui/Buttons/Button';
-import { Container } from '../../ui/Container';
-import { Dialog } from '../../ui/Dialogs/Dialog';
+import { Button } from '@ui/Buttons/Button';
+import { Container } from '@ui/Container';
+import { Dialog } from '@ui/Dialogs/Dialog';
 import { Logo } from '../Logo';
 import { MobileItem } from './MobileItem';
 
@@ -20,13 +20,12 @@ export function MobileNavbar() {
 
 	return (
 		<Container noMargin className="flex items-center justify-between lg:hidden">
-			<Button
-				color="unstyled"
-				className="hover:bg-zinc-200/60 dark:hover:bg-zinc-700 w-[38px] h-[38px] rounded-md transition-colors ease-out"
+			<button
+				className="flex items-center justify-center hover:bg-zinc-200/60 dark:hover:bg-zinc-700 w-[38px] h-[38px] rounded-md transition-colors ease-out"
 				onClick={() => setCollapse(!collapse)}
 			>
 				{!collapse ? <List size={24} /> : <X size={24} />}
-			</Button>
+			</button>
 
 			{breakpoint && breakpoint < 1024 ? <Logo /> : null}
 
@@ -64,7 +63,7 @@ export function MobileNavbar() {
 							<Container noMargin>
 								<MobileItem href="/" onClick={() => setCollapse(false)}>
 									<Article size={20} weight="bold" />
-									Products
+									Projects
 								</MobileItem>
 
 								<MobileItem href="/creators" onClick={() => setCollapse(false)}>

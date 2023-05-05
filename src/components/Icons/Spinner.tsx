@@ -1,5 +1,5 @@
 import { type ComponentPropsWithoutRef } from 'react';
-import { Text } from '../ui/Typography/Text';
+import { Text } from '@ui/Typography/Text';
 import { cx } from 'class-variance-authority';
 
 export function Spinner({ className }: ComponentPropsWithoutRef<'svg'>) {

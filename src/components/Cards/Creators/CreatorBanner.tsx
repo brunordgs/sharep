@@ -1,7 +1,7 @@
 import { BecomeCreatorDialog } from '@/components/Modals/BecomeCreatorDialog';
-import { IconButton } from '@/components/ui/Buttons/IconButton';
+import { IconButton } from '@ui/Buttons/IconButton';
 import { X } from 'phosphor-react';
-import { Text } from '../../ui/Typography/Text';
+import { Text } from '@ui/Typography/Text';
 
 interface Props {
 	title: string;

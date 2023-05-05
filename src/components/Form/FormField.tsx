@@ -1,8 +1,8 @@
-import clsx from 'clsx';
+import { cx } from 'class-variance-authority';
 import { useFormContext } from 'react-hook-form';
-import { Input, type Props as InputProps } from '../ui/Inputs/Input';
-import { PasswordInput } from '../ui/Inputs/PasswordInput';
-import { Text } from '../ui/Typography/Text';
+import { Input, type Props as InputProps } from '@ui/Inputs/Input';
+import { PasswordInput } from '@ui/Inputs/PasswordInput';
+import { Text } from '@ui/Typography/Text';
 import { ErrorMessage } from './ErrorMessage';
 import { FormHelperText } from './FormHelperText';
 
@@ -31,7 +31,7 @@ export function FormField({
 		<div>
 			<label
 				htmlFor={name}
-				className={clsx(
+				className={cx(
 					{
 						'text-rose-400': error,
 					},
@@ -50,7 +50,7 @@ export function FormField({
 			<div className="flex items-center bg-zinc-200 dark:bg-zinc-900 rounded-md">
 				{inputAddon && (
 					<div
-						className={clsx(
+						className={cx(
 							{
 								'text-sm': typeof inputAddon === 'string',
 							},
@@ -62,7 +62,12 @@ export function FormField({
 				)}
 
 				{isPassword ? (
-					<PasswordInput color="secondary" error={error} {...props} {...register(name as string)} />
+					<PasswordInput
+						color="secondary"
+						error={error}
+						{...props}
+						{...register(name as string)}
+					/>
 				) : (
 					<Input
 						as={as}

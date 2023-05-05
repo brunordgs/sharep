@@ -5,8 +5,8 @@ import Link from 'next/link';
 import { useRouter } from 'next/router';
 import { Gear, Moon, PaintBrush, SignOut, User } from 'phosphor-react';
 import { Fragment } from 'react';
-import { Avatar } from '../ui/Avatar';
-import { SwitchToggle } from '../ui/SwitchToggle';
+import { Avatar } from '@ui/Avatar';
+import { SwitchToggle } from '@ui/SwitchToggle';
 import { cx } from 'class-variance-authority';
 
 interface Props {

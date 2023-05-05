@@ -3,7 +3,7 @@ import { Menu, Transition } from '@headlessui/react';
 import { Moon, User } from 'phosphor-react';
 import { Fragment } from 'react';
 import { SigninDialog } from '../Modals/SigninDialog';
-import { SwitchToggle } from '../ui/SwitchToggle';
+import { SwitchToggle } from '@ui/SwitchToggle';
 
 export function UserDropdown() {
 	const { theme, nextTheme, setTheme } = useTheme();

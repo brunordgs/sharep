@@ -1,6 +1,6 @@
-import { Avatar } from '@/components/ui/Avatar';
-import { LinkButton } from '@/components/ui/Buttons/LinkButton';
-import { Text } from '@/components/ui/Typography/Text';
+import { Avatar } from '@ui/Avatar';
+import { Text } from '@ui/Typography/Text';
+import Link from 'next/link';
 import { CircleWavyCheck } from 'phosphor-react';
 
 interface Props {
@@ -12,10 +12,9 @@ interface Props {
 
 export function FeaturedUserItem({ name, username, isVerified, image }: Props) {
 	return (
-		<LinkButton
+		<Link
 			key={username}
 			href={`/@${username}`}
-			color="unstyled"
 			className="flex items-center w-full hover:bg-zinc-50 dark:hover:bg-zinc-700 py-2 px-6"
 		>
 			<div className="flex-1 flex items-center gap-2">
@@ -45,17 +44,13 @@ export function FeaturedUserItem({ name, username, isVerified, image }: Props) {
 					<Text
 						as="span"
 						size="sm"
-						className="truncate max-w-[350px] inline-block"
+						className="truncate max-w-[350px] inline-block text-zinc-500 dark:text-zinc-300/70"
 						title={`@${username}`}
 					>
 						@{username}
 					</Text>
 				</div>
 			</div>
-
-			{/* <LinkButton href={`/@${username}`} fontSize="xs" size="custom" className="px-3 py-1">
-			Follow
-		</LinkButton> */}
-		</LinkButton>
+		</Link>
 	);
 }

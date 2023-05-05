@@ -1,5 +1,5 @@
-import { Heading } from '@/components/ui/Typography/Heading';
-import { Text } from '@/components/ui/Typography/Text';
+import { Heading } from '@ui/Typography/Heading';
+import { Text } from '@ui/Typography/Text';
 import Head from 'next/head';
 
 export default function Custom500() {

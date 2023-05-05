@@ -1,9 +1,9 @@
 import { NoCreatorFound } from '@/components/Cards/Creators/NoCreatorFound';
 import { NewCreatorDialog } from '@/components/Modals/NewCreatorDialog';
-import { Avatar } from '@/components/ui/Avatar';
-import { IconButton } from '@/components/ui/Buttons/IconButton';
-import { Heading } from '@/components/ui/Typography/Heading';
-import { Text } from '@/components/ui/Typography/Text';
+import { Avatar } from '@ui/Avatar';
+import { IconButton } from '@ui/Buttons/IconButton';
+import { Heading } from '@ui/Typography/Heading';
+import { Text } from '@ui/Typography/Text';
 import { AccountLayout } from '@/layouts/AccountLayout';
 import { prisma } from '@/lib/prisma';
 import { axios } from '@/services/axios';

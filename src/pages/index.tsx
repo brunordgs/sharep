@@ -3,8 +3,8 @@ import { NoProjectFound } from '@/components/Cards/Projects/NoProjectFound';
 import { ProjectCard } from '@/components/Cards/Projects/ProjectCard';
 import { ExploreMenu } from '@/components/ExploreMenu';
 import { DefaultHeader } from '@/components/Header/DefaultHeader';
-import { Card } from '@/components/ui/Card';
-import { Container } from '@/components/ui/Container';
+import { Card } from '@ui/Card';
+import { Container } from '@ui/Container';
 import { useBecomeCreator } from '@/hooks/useBecomeCreator';
 import { prisma } from '@/lib/prisma';
 import { Project } from '@/shared/interfaces/Project';
@@ -33,7 +33,7 @@ export default function Home({ projects }: Props) {
 						{!session.data?.user.isCreator && isBannerOpen && (
 							<CreatorBanner
 								title="Become a creator"
-								description="Start sharing products on Sharep by applying to become a creator, and start posting!"
+								description="Start sharing projects on Sharep by applying to become a creator, and start posting!"
 								onHandleClose={onBannerOpen}
 							/>
 						)}

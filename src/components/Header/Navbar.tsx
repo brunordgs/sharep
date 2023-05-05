@@ -5,8 +5,8 @@ import { useRouter } from 'next/router';
 import { Article, MagnifyingGlass, PaintBrush, Question } from 'phosphor-react';
 import { SignedInDropdown } from '../Dropdowns/SignedInDropdown';
 import { UserDropdown } from '../Dropdowns/UserDropdown';
-import { LinkButton } from '../ui/Buttons/LinkButton';
-import { Container } from '../ui/Container';
+import { LinkButton } from '@ui/Buttons/LinkButton';
+import { Container } from '@ui/Container';
 import { Logo } from './Logo';
 import { MobileNavbar } from './Mobile/MobileNavbar';
 

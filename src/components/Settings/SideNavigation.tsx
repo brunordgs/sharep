@@ -1,4 +1,4 @@
-import { Loading } from '@/components/ui/Loading';
+import { Loading } from '@ui/Loading';
 import { axios } from '@/services/axios';
 import { UserProfile } from '@/shared/interfaces/UserProfile';
 import { useSession } from 'next-auth/react';
@@ -6,8 +6,8 @@ import Link from 'next/link';
 import { useRouter } from 'next/router';
 import { PaintBrush, User } from 'phosphor-react';
 import { useQuery } from 'react-query';
-import { Avatar } from '../ui/Avatar';
-import { Text } from '../ui/Typography/Text';
+import { Avatar } from '@ui/Avatar';
+import { Text } from '@ui/Typography/Text';
 import { cx } from 'class-variance-authority';
 
 export function SideNavigation() {

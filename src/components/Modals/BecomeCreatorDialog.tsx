@@ -8,9 +8,9 @@ import { useForm } from 'react-hook-form';
 import * as z from 'zod';
 import { Form } from '../Form';
 import { FormField } from '../Form/FormField';
-import { Button } from '../ui/Buttons/Button';
-import { IconButton } from '../ui/Buttons/IconButton';
-import { LoadingButton } from '../ui/Buttons/LoadingButton';
+import { Button } from '@ui/Buttons/Button';
+import { IconButton } from '@ui/Buttons/IconButton';
+import { LoadingButton } from '@ui/Buttons/LoadingButton';
 
 const schema = z.object({
 	email: z.string().email('Please enter a valid email address').min(1, 'This field is required'),
@@ -156,7 +156,7 @@ export function BecomeCreatorDialog() {
 											{isSubmitting ? (
 												<LoadingButton />
 											) : isFormSubmmited ? (
-												<Button color="success" className="cursor-not-allowed">
+												<Button intent="success" className="cursor-not-allowed">
 													<Check size={20} weight="bold" />
 												</Button>
 											) : (

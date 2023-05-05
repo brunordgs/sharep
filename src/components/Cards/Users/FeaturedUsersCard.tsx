@@ -1,11 +1,11 @@
-import { Loading } from '@/components/ui/Loading';
-import { Text } from '@/components/ui/Typography/Text';
+import { Loading } from '@ui/Loading';
+import { Text } from '@ui/Typography/Text';
 import { axios } from '@/services/axios';
 import { type ShortUser } from '@/shared/interfaces/ShortUser';
 import { useMemo } from 'react';
 import { useQuery } from 'react-query';
-import { Card } from '../../ui/Card';
-import { Heading } from '../../ui/Typography/Heading';
+import { Card } from '@ui/Card';
+import { Heading } from '@ui/Typography/Heading';
 import { FeaturedUserItem } from './FeaturedUserItem';
 
 export function FeaturedUsersCard() {

@@ -1,20 +1,22 @@
 import { ProjectCard } from '@/components/Cards/Projects/ProjectCard';
 import { VerifiedAccountDialog } from '@/components/Modals/VerifiedAccountDialog';
-import { Card } from '@/components/ui/Card';
-import { Tooltip } from '@/components/ui/Tooltip';
-import { Heading } from '@/components/ui/Typography/Heading';
+import { Card } from '@ui/Card';
+import { Tooltip } from '@ui/Tooltip';
+import { Heading } from '@ui/Typography/Heading';
 import { HTTP_PROTOCOL_REGEX } from '@/shared/constants';
 import { type Creator } from '@/shared/interfaces/Creator';
-import { Project } from '@/shared/interfaces/Project';
+import { type Project } from '@/shared/interfaces/Project';
 import { type UserProfile } from '@/shared/interfaces/UserProfile';
-import clsx from 'clsx';
+import { type Platform } from '@/shared/types/Platform';
+import { cx } from 'class-variance-authority';
 import { useSession } from 'next-auth/react';
-import { Link, PaintBrush, Pencil } from 'phosphor-react';
-import { FaGithub, FaTwitch, FaYoutube } from 'react-icons/fa';
-import { Avatar } from '../ui/Avatar';
-import { IconButton } from '../ui/Buttons/IconButton';
-import { LinkButton } from '../ui/Buttons/LinkButton';
-import { Text } from '../ui/Typography/Text';
+import Link from 'next/link';
+import { Link as LinkIcon, PaintBrush, Pencil } from 'phosphor-react';
+import { FaGithub, FaTiktok, FaTwitch, FaTwitter, FaYoutube } from 'react-icons/fa';
+import { Avatar } from '@ui/Avatar';
+import { IconButton } from '@ui/Buttons/IconButton';
+import { LinkButton } from '@ui/Buttons/LinkButton';
+import { Text } from '@ui/Typography/Text';
 
 interface BioContentProps {
 	bio: string | undefined;
@@ -28,7 +30,7 @@ function BioContent({ bio }: BioContentProps) {
 		<Text className="text-zinc-600 dark:text-zinc-300">
 			{words?.map((word) =>
 				word.match(matchUrl) ? (
-					<LinkButton href={word} color="link" className="inline-flex" isExternal>
+					<LinkButton href={word} intent="link" className="inline-flex" isExternal>
 						{word.replace(HTTP_PROTOCOL_REGEX, '')}
 					</LinkButton>
 				) : (
@@ -57,6 +59,25 @@ export function ProfileContent({
 }: Props) {
 	const session = useSession();
 
+	function generateLinkForPlatform(platform: Platform, userOrLink: string) {
+		switch (platform) {
+			case 'website':
+				return `https://${userOrLink.replace(HTTP_PROTOCOL_REGEX, '')}`;
+			case 'github':
+				return `https:/github.com/${userOrLink}`;
+			case 'twitter':
+				return `https:/twitter.com/${userOrLink}`;
+			case 'twitch':
+				return `https:/twitch.tv/${userOrLink}`;
+			case 'youtube':
+				return `https:/youtube.com/c/${userOrLink}`;
+			case 'tiktok':
+				return `https:/tiktok.com/@${userOrLink}`;
+			default:
+				return `https://${userOrLink.replace(HTTP_PROTOCOL_REGEX, '')}`;
+		}
+	}
+
 	return (
 		<>
 			<div className="bg-gradient-to-b from-rose-500 to-pink-600 h-48 rounded-b-2xl relative">
@@ -77,71 +98,29 @@ export function ProfileContent({
 					<Avatar src={image} size="lg" hasBorder />
 
 					<div
-						className={clsx(
+						className={cx(
 							social ? 'justify-between' : 'justify-end',
 							'flex flex-1 items-center my-6',
 						)}
 					>
 						{social && (
-							<div className="ml-4 flex items-center gap-6">
-								{social.website && (
-									<LinkButton
-										href={`https://${social.website.replace(HTTP_PROTOCOL_REGEX, '')}`}
-										isExternal
-										color="unstyled"
-										fontSize="sm"
-										className="hover:text-black dark:hover:text-white"
-									>
-										<Link />
-										<Text as="span" className="hidden sm:block">
-											Website
-										</Text>
-									</LinkButton>
-								)}
-
-								{social.github && (
-									<LinkButton
-										href={`https://github.com/${social.github}`}
-										isExternal
-										color="unstyled"
-										fontSize="sm"
-										className="hover:text-black dark:hover:text-white"
-									>
-										<FaGithub className="text-base" />
-										<Text as="span" className="hidden sm:block">
-											Github
-										</Text>
-									</LinkButton>
-								)}
-
-								{social.twitch && (
-									<LinkButton
-										href={`https://twitch.tv/${social.twitch}`}
-										isExternal
-										color="unstyled"
-										fontSize="sm"
-										className="flex items-center gap-2 hover:text-black dark:hover:text-white"
-									>
-										<FaTwitch className="text-base" />
-										<Text as="span" className="hidden sm:block">
-											Twitch
-										</Text>
-									</LinkButton>
-								)}
-
-								{social.youtube && (
-									<LinkButton
-										href={`https://www.youtube.com/c/${social.youtube}`}
-										isExternal
-										color="unstyled"
-										fontSize="sm"
-										className="flex items-center gap-2 hover:text-black dark:hover:text-white"
-									>
-										<FaYoutube className="text-base" />
-										<Text as="span" className="hidden sm:block">
-											Youtube
-										</Text>
-									</LinkButton>
+							<div className="ml-4 flex items-center gap-x-3 sm:gap-x-4 md:gap-x-6">
+								{Object.entries(social).map(
+									([platform, link]) =>
+										link && (
+											<Link
+												key={platform}
+												href={generateLinkForPlatform(platform as Platform, link)}
+												className="hover:text-black dark:hover:text-white flex items-center gap-2 transition-colors ease-out"
+												target="_blank"
+												rel="noopener noreferrer"
+											>
+												<IconForPlatform platform={platform as Platform} />
+												<Text as="span" transform="capitalize" className="hidden sm:block">
+													{platform}
+												</Text>
+											</Link>
+										),
 								)}
 							</div>
 						)}
@@ -190,4 +169,27 @@ export function ProfileContent({
 			</div>
 		</>
 	);
+}
+
+interface IconForPlatformProps {
+	platform: Platform;
+}
+
+function IconForPlatform({ platform }: IconForPlatformProps) {
+	switch (platform) {
+		case 'website':
+			return <LinkIcon />;
+		case 'github':
+			return <FaGithub className="text-base" />;
+		case 'twitter':
+			return <FaTwitter className="text-base" />;
+		case 'twitch':
+			return <FaTwitch className="text-base" />;
+		case 'youtube':
+			return <FaYoutube className="text-base" />;
+		case 'tiktok':
+			return <FaTiktok className="text-base" />;
+		default:
+			return null;
+	}
 }

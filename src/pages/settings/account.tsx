@@ -1,12 +1,13 @@
 import { Form } from '@/components/Form';
 import { FormField } from '@/components/Form/FormField';
-import { Button } from '@/components/ui/Buttons/Button';
-import { LoadingButton } from '@/components/ui/Buttons/LoadingButton';
-import { Heading } from '@/components/ui/Typography/Heading';
-import { Text } from '@/components/ui/Typography/Text';
+import { Button } from '@ui/Buttons/Button';
+import { LoadingButton } from '@ui/Buttons/LoadingButton';
+import { Heading } from '@ui/Typography/Heading';
+import { Text } from '@ui/Typography/Text';
 import { AccountLayout } from '@/layouts/AccountLayout';
 import { prisma } from '@/lib/prisma';
 import { axios } from '@/services/axios';
+import { HTTP_PROTOCOL_REGEX } from '@/shared/constants';
 import { UserProfile } from '@/shared/interfaces/UserProfile';
 import { reloadSession } from '@/utils/session';
 import { toast } from '@/utils/toast';
@@ -18,7 +19,7 @@ import Head from 'next/head';
 import { Check, Link } from 'phosphor-react';
 import { useEffect, useState } from 'react';
 import { useForm } from 'react-hook-form';
-import { FaGithub, FaTwitch, FaYoutube } from 'react-icons/fa';
+import { FaGithub, FaTiktok, FaTwitch, FaTwitter, FaYoutube } from 'react-icons/fa';
 import { useMutation, useQueryClient } from 'react-query';
 import * as z from 'zod';
 
@@ -31,11 +32,13 @@ const schema = z.object({
 		.string()
 		.min(1, 'Display Name is required')
 		.max(50, 'Display Name should be less than 50 characters'),
-	bio: z.string().max(160, 'Bio should be less than 160 characters'),
+	bio: z.string().max(160, 'Bio should be less than 160 characters').nullable(),
+	website: z.string().max(200, 'Website should be less or equal than 200 characters'),
 	github: z.string().max(15, 'Github should be less or equal than 15 characters'),
+	twitter: z.string().max(15, 'Twitter should be less or equal than 15 characters'),
 	twitch: z.string().max(15, 'Twitch should be less or equal than 15 characters'),
 	youtube: z.string().max(200, 'Youtube should be less or equal than 200 characters'),
-	website: z.string().max(200, 'Website should be less or equal than 200 characters'),
+	tiktok: z.string().max(25, 'Tiktok should be less or equal than 25 characters'),
 });
 
 type ProfileForm = z.infer<typeof schema>;
@@ -52,9 +55,11 @@ export default function SettingsAccount({ user }: Props) {
 			displayName: user.name,
 			bio: user.bio,
 			github: user.social?.github,
+			twitter: user.social?.twitter,
 			twitch: user.social?.twitch,
 			youtube: user.social?.youtube,
-			website: user.social?.website,
+			website: user.social?.website.replace(HTTP_PROTOCOL_REGEX, ''),
+			tiktok: user.social?.tiktok,
 		},
 		resolver: zodResolver(schema),
 	});
@@ -75,12 +80,14 @@ export default function SettingsAccount({ user }: Props) {
 			axios.put(`/users/${user.username}`, {
 				username: values.username,
 				name: values.displayName,
-				bio: values.bio,
+				bio: values.bio?.replace(HTTP_PROTOCOL_REGEX, ''),
 				social: {
 					website: values.website,
-					github: values.github,
-					twitch: values.twitch,
-					youtube: values.youtube,
+					github: values.github.replace(HTTP_PROTOCOL_REGEX, ''),
+					twitter: values.twitter.replace(HTTP_PROTOCOL_REGEX, ''),
+					twitch: values.twitch.replace(HTTP_PROTOCOL_REGEX, ''),
+					youtube: values.youtube.replace(HTTP_PROTOCOL_REGEX, ''),
+					tiktok: values.tiktok.replace(HTTP_PROTOCOL_REGEX, ''),
 				},
 			}),
 		{
@@ -164,7 +171,7 @@ export default function SettingsAccount({ user }: Props) {
 							error={errors.bio?.message}
 						/>
 
-						<div className="grid sm:grid-cols-2 gap-4">
+						<div className="grid md:grid-cols-2 2xl:grid-cols-3 gap-y-4 gap-x-6">
 							<FormField
 								name="website"
 								label="Website"
@@ -182,6 +189,14 @@ export default function SettingsAccount({ user }: Props) {
 							/>
 
 							<FormField
+								name="twitter"
+								label="Twitter"
+								inputAddon={<FaTwitter />}
+								placeholder="brunordgs"
+								error={errors.twitter?.message}
+							/>
+
+							<FormField
 								name="twitch"
 								label="Twitch"
 								inputAddon={<FaTwitch />}
@@ -191,10 +206,18 @@ export default function SettingsAccount({ user }: Props) {
 
 							<FormField
 								name="youtube"
-								label="Youtube"
+								label="YouTube"
 								inputAddon={<FaYoutube />}
 								placeholder="brunordgs"
 								error={errors.youtube?.message}
+							/>
+
+							<FormField
+								name="tiktok"
+								label="TikTok"
+								inputAddon={<FaTiktok />}
+								placeholder="brunordgs"
+								error={errors.tiktok?.message}
 							/>
 						</div>
 					</div>
@@ -203,7 +226,7 @@ export default function SettingsAccount({ user }: Props) {
 						{isSubmitting ? (
 							<LoadingButton />
 						) : isFormSubmmited ? (
-							<Button color="success" className="cursor-not-allowed">
+							<Button intent="success" className="cursor-not-allowed">
 								<Check size={20} weight="bold" />
 							</Button>
 						) : (

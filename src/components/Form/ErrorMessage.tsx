@@ -1,5 +1,5 @@
 import { MinusCircle } from 'phosphor-react';
-import { Text, type Props as TextProps } from '../ui/Typography/Text';
+import { Text, type Props as TextProps } from '@ui/Typography/Text';
 
 export function ErrorMessage({ children, ...props }: TextProps) {
 	return (

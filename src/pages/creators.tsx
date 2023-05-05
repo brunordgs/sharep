@@ -3,9 +3,9 @@ import { CreatorCard } from '@/components/Cards/Creators/CreatorCard';
 import { NoCreatorFound } from '@/components/Cards/Creators/NoCreatorFound';
 import { ExploreMenu } from '@/components/ExploreMenu';
 import { DefaultHeader } from '@/components/Header/DefaultHeader';
-import { Card } from '@/components/ui/Card';
-import { Container } from '@/components/ui/Container';
-import { Loading } from '@/components/ui/Loading';
+import { Card } from '@ui/Card';
+import { Container } from '@ui/Container';
+import { Loading } from '@ui/Loading';
 import { useBecomeCreator } from '@/hooks/useBecomeCreator';
 import { axios } from '@/services/axios';
 import { type ShortUser } from '@/shared/interfaces/ShortUser';
@@ -37,7 +37,7 @@ export default function Creators() {
 						{!session.data?.user.isCreator && isBannerOpen && (
 							<CreatorBanner
 								title="Become a creator"
-								description="Start sharing products on Sharep by applying to become a creator, and start posting!"
+								description="Start sharing projects on Sharep by applying to become a creator, and start posting!"
 								onHandleClose={onBannerOpen}
 							/>
 						)}

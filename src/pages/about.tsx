@@ -1,9 +1,9 @@
-import { IconButton } from '@/components/ui/Buttons/IconButton';
-import { LinkButton } from '@/components/ui/Buttons/LinkButton';
-import { Image } from '@/components/ui/Image';
-import { Heading } from '@/components/ui/Typography/Heading';
-import { Text } from '@/components/ui/Typography/Text';
+import { IconButton } from '@ui/Buttons/IconButton';
+import { Image } from '@ui/Image';
+import { Heading } from '@ui/Typography/Heading';
+import { Text } from '@ui/Typography/Text';
 import Head from 'next/head';
+import Link from 'next/link';
 import { FaGithub } from 'react-icons/fa';
 
 export default function About() {
@@ -27,7 +27,7 @@ export default function About() {
 					</Heading>
 
 					<Text className="mt-6">
-						Sharep was created to share great and useful products to our community.
+						Sharep was created to share great and useful projects to our community.
 					</Text>
 				</section>
 
@@ -40,13 +40,13 @@ export default function About() {
 
 					<ol className="grid grid-cols-2 xs:grid-cols-3 sm:grid-cols-4 gap-x-5 gap-y-10">
 						<li className="flex flex-col items-start gap-4">
-							<LinkButton color="unstyled" href="@brunordgs" className="hover:opacity-80">
+							<Link href="@brunordgs" className="hover:opacity-80">
 								<Image
 									src="https://github.com/brunordgs.png"
 									className="w-32 h-32 rounded-md overflow-hidden"
 									alt="Bruno Rodrigues"
 								/>
-							</LinkButton>
+							</Link>
 
 							<div>
 								<Text

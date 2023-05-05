@@ -1,7 +1,7 @@
 import { type Children } from '@/shared/interfaces/Children';
 import { useRouter } from 'next/router';
 import { CaretDown } from 'phosphor-react';
-import { Heading } from '../ui/Typography/Heading';
+import { Heading } from '@ui/Typography/Heading';
 
 export function DefaultHeader({ children }: Children) {
 	const router = useRouter();

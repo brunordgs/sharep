@@ -1,4 +1,4 @@
-import { Text } from '@/components/ui/Typography/Text';
+import { Text } from '@ui/Typography/Text';
 import { User } from 'phosphor-react';
 
 export function NoCreatorFound() {

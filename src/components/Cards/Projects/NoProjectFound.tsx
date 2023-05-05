@@ -1,5 +1,5 @@
 import { FileSearch } from 'phosphor-react';
-import { Text } from '../../ui/Typography/Text';
+import { Text } from '@ui/Typography/Text';
 
 export function NoProjectFound() {
 	return (

@@ -1,11 +1,12 @@
-import { Card } from '@/components/ui/Card';
-import { Container } from '@/components/ui/Container';
-import { Text } from '@/components/ui/Typography/Text';
+import { LinkButton } from '@ui/Buttons/LinkButton';
+import { Card } from '@ui/Card';
+import { Container } from '@ui/Container';
+import { Text } from '@ui/Typography/Text';
 import { useSession } from 'next-auth/react';
 import Head from 'next/head';
 
 export default function CreatorHome() {
-	const session = useSession()
+	const session = useSession();
 
 	return (
 		<>
@@ -26,6 +27,8 @@ export default function CreatorHome() {
 						<Text size="sm">
 							Post and interact with people, and build a community that helps each other.
 						</Text>
+
+						<LinkButton href="/projects">Add new project</LinkButton>
 					</div>
 				</Card>
 

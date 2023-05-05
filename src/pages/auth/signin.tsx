@@ -1,12 +1,12 @@
 import { Form } from '@/components/Form';
 import { FormField } from '@/components/Form/FormField';
-import { Alert } from '@/components/ui/Alert';
-import { Button } from '@/components/ui/Buttons/Button';
-import { LinkButton } from '@/components/ui/Buttons/LinkButton';
-import { LoadingButton } from '@/components/ui/Buttons/LoadingButton';
-import { Container } from '@/components/ui/Container';
-import { Heading } from '@/components/ui/Typography/Heading';
-import { Text } from '@/components/ui/Typography/Text';
+import { Alert } from '@ui/Alert';
+import { Button } from '@ui/Buttons/Button';
+import { LinkButton } from '@ui/Buttons/LinkButton';
+import { LoadingButton } from '@ui/Buttons/LoadingButton';
+import { Container } from '@ui/Container';
+import { Heading } from '@ui/Typography/Heading';
+import { Text } from '@ui/Typography/Text';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { signIn } from 'next-auth/react';
 import Head from 'next/head';
@@ -101,7 +101,7 @@ export default function Signin() {
 					<div className="flex items-center justify-between">
 						<LinkButton
 							href="/auth/signup"
-							color="unstyled"
+							intent="unstyled"
 							className="inline-flex font-medium text-base text-rose-500 hover:text-rose-600 dark:hover:text-rose-400"
 						>
 							Need an account? Sign up
