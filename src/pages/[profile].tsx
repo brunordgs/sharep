@@ -1,6 +1,6 @@
 import { ProfileContent } from '@/components/Profile/ProfileContent';
 import { ProfileNotFound } from '@/components/Profile/ProfileNotFound';
-import { Loading } from '@/components/ui/Loading';
+import { Loading } from '@ui/Loading';
 import { prisma } from '@/lib/prisma';
 import { type Creator } from '@/shared/interfaces/Creator';
 import { Project } from '@/shared/interfaces/Project';
