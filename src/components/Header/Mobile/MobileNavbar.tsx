@@ -5,7 +5,6 @@ import { AnimatePresence } from 'framer-motion';
 import { useSession } from 'next-auth/react';
 import { Article, List, MagnifyingGlass, PaintBrush, Question, X } from 'phosphor-react';
 import { useState } from 'react';
-import { Button } from '@ui/Buttons/Button';
 import { Container } from '@ui/Container';
 import { Dialog } from '@ui/Dialogs/Dialog';
 import { Logo } from '../Logo';

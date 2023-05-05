@@ -1,15 +1,15 @@
 import { Form } from '@/components/Form';
 import { FormField } from '@/components/Form/FormField';
+import { zodResolver } from '@hookform/resolvers/zod';
 import { Alert } from '@ui/Alert';
 import { Button } from '@ui/Buttons/Button';
-import { LinkButton } from '@ui/Buttons/LinkButton';
 import { LoadingButton } from '@ui/Buttons/LoadingButton';
 import { Container } from '@ui/Container';
 import { Heading } from '@ui/Typography/Heading';
 import { Text } from '@ui/Typography/Text';
-import { zodResolver } from '@hookform/resolvers/zod';
 import { signIn } from 'next-auth/react';
 import Head from 'next/head';
+import Link from 'next/link';
 import { useForm } from 'react-hook-form';
 import { FaGithub } from 'react-icons/fa';
 import * as z from 'zod';
@@ -99,13 +99,12 @@ export default function Signin() {
 					</div>
 
 					<div className="flex items-center justify-between">
-						<LinkButton
+						<Link
 							href="/auth/signup"
-							intent="unstyled"
-							className="inline-flex font-medium text-base text-rose-500 hover:text-rose-600 dark:hover:text-rose-400"
+							className="inline-flex font-medium text-base text-rose-500 hover:text-rose-600 dark:hover:text-rose-400 transition-colors ease-out"
 						>
 							Need an account? Sign up
-						</LinkButton>
+						</Link>
 
 						{isSubmitting ? <LoadingButton /> : <Button type="submit">Sign In</Button>}
 					</div>

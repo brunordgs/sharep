@@ -1,14 +1,13 @@
 import { Form } from '@/components/Form';
 import { FormField } from '@/components/Form/FormField';
+import { prisma } from '@/lib/prisma';
+import { zodResolver } from '@hookform/resolvers/zod';
 import { Alert } from '@ui/Alert';
 import { Button } from '@ui/Buttons/Button';
-import { LinkButton } from '@ui/Buttons/LinkButton';
 import { LoadingButton } from '@ui/Buttons/LoadingButton';
 import { Container } from '@ui/Container';
 import { Heading } from '@ui/Typography/Heading';
 import { Text } from '@ui/Typography/Text';
-import { prisma } from '@/lib/prisma';
-import { zodResolver } from '@hookform/resolvers/zod';
 import { signIn } from 'next-auth/react';
 import Head from 'next/head';
 import Link from 'next/link';
@@ -99,7 +98,7 @@ export default function Signup() {
 
 					<div className="space-y-4">
 						<FormField
-							intent="secondary"
+							color="secondary"
 							name="name"
 							label="Name"
 							placeholder="Name..."
@@ -107,7 +106,7 @@ export default function Signup() {
 						/>
 
 						<FormField
-							intent="secondary"
+							color="secondary"
 							name="username"
 							label="Username"
 							placeholder="Username..."
@@ -115,7 +114,7 @@ export default function Signup() {
 						/>
 
 						<FormField
-							intent="secondary"
+							color="secondary"
 							name="email"
 							label="Email"
 							placeholder="Email address..."
@@ -123,7 +122,7 @@ export default function Signup() {
 						/>
 
 						<FormField
-							intent="secondary"
+							color="secondary"
 							name="password"
 							label="Password"
 							placeholder="Password..."
