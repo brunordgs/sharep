@@ -4,7 +4,7 @@
   </a>
 </h1>
 
-Sharep was created to share great and useful products to our community.
+Sharep was created to share great and useful projects to our community.
 
 ## Getting started
 
