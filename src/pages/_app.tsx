@@ -6,7 +6,7 @@ import { queryClient } from '@/lib/react-query';
 import '@/styles/globals.css';
 import ProgressBar from '@badrap/bar-of-progress';
 import { Inter } from '@next/font/google';
-import clsx from 'clsx';
+import { cx } from 'class-variance-authority';
 import { SessionProvider } from 'next-auth/react';
 import type { AppProps } from 'next/app';
 import { useEffect } from 'react';
@@ -58,7 +58,7 @@ export default function App({ Component, pageProps: { session, ...pageProps }, r
 							<Component {...pageProps} />
 
 							<div
-								className={clsx({ 'lg:hidden': excludeRoutes.includes(router.pathname) }, 'mb-6')}
+								className={cx({ 'lg:hidden': excludeRoutes.includes(router.pathname) }, 'mb-6')}
 							>
 								<Footer />
 							</div>

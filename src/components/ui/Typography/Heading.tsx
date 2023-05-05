@@ -1,7 +1,7 @@
-import clsx from 'clsx';
 import { HTMLAttributes } from 'react';
 import { FONT_WEIGHTS } from '@/shared/constants';
 import { type Typography } from '@/shared/interfaces/Typography';
+import { cx } from 'class-variance-authority';
 
 type Props = {
 	as?: 'h1' | 'h2' | 'h3' | 'h4' | 'h5' | 'h6';
@@ -32,7 +32,7 @@ export function Heading({
 	...props
 }: Props) {
 	return (
-		<Tag className={clsx(sizes[size], FONT_WEIGHTS[weight], transform, className)} {...props}>
+		<Tag className={cx(sizes[size], FONT_WEIGHTS[weight], transform, className)} {...props}>
 			{children}
 		</Tag>
 	);

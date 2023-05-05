@@ -1,4 +1,4 @@
-import clsx from 'clsx';
+import { cx } from 'class-variance-authority';
 import { HTMLAttributes } from 'react';
 
 interface Props extends HTMLAttributes<HTMLDivElement> {
@@ -8,7 +8,7 @@ interface Props extends HTMLAttributes<HTMLDivElement> {
 export function Container({ noMargin = false, className, children }: Props) {
 	return (
 		<main
-			className={clsx(
+			className={cx(
 				{ 'my-6': !noMargin },
 				'container',
 				className,

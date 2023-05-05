@@ -1,21 +1,21 @@
 import { Image } from '@/components/ui/Image';
 import { Project } from '@/shared/interfaces/Project';
-import clsx from 'clsx';
+import Link from 'next/link';
 import { FaGithub } from 'react-icons/fa';
-import { LinkButton } from '../../ui/Buttons/LinkButton';
 import { Text } from '../../ui/Typography/Text';
+import { cx } from 'class-variance-authority';
 
 export function ProjectCard({ image, name, description, url, sourceName, sourceUrl }: Project) {
 	return (
-		<LinkButton
+		<Link
 			href={url}
-			isExternal
-			color="unstyled"
 			className="border-t border-zinc-200 first:border-0 dark:border-zinc-700 p-6 flex justify-between hover:bg-zinc-50 dark:hover:bg-zinc-700 w-full h-28"
+			target="_blank"
+			rel="noopener noreferrer"
 		>
 			<div className="flex items-center gap-4">
 				<div
-					className={clsx(
+					className={cx(
 						'h-16 w-16 rounded-md flex items-center justify-center font-bold text-zinc-100 text-2xl italic overflow-hidden',
 						{ 'bg-rose-500': !image },
 					)}
@@ -55,6 +55,6 @@ export function ProjectCard({ image, name, description, url, sourceName, sourceU
 					</div>
 				</div>
 			</div>
-		</LinkButton>
+		</Link>
 	);
 }

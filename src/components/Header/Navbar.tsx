@@ -1,5 +1,6 @@
-import clsx from 'clsx';
+import { cx } from 'class-variance-authority';
 import { useSession } from 'next-auth/react';
+import Link from 'next/link';
 import { useRouter } from 'next/router';
 import { Article, MagnifyingGlass, PaintBrush, Question } from 'phosphor-react';
 import { SignedInDropdown } from '../Dropdowns/SignedInDropdown';
@@ -16,7 +17,7 @@ export function Navbar() {
 	const menuItems = [
 		{
 			link: '/',
-			text: 'Products',
+			text: 'Projects',
 			icon: Article,
 			isActive: router.pathname === '/',
 		},
@@ -47,18 +48,16 @@ export function Navbar() {
 						<ul className="flex items-center gap-6 border-l-4 border-rose-600 px-8 ml-8 font-bold text-zinc-700 dark:text-zinc-300">
 							{menuItems.map(({ link, text, icon: Icon, isActive }) => (
 								<li key={link}>
-									<LinkButton
+									<Link
 										href={link}
-										color="unstyled"
-										fontSize="base"
-										className={clsx(
+										className={cx(
 											isActive && 'text-black dark:text-white',
-											'hover:text-black dark:hover:text-white',
+											'hover:text-black dark:hover:text-white flex items-center gap-2 transition-all ease-out',
 										)}
 									>
 										<Icon size={20} weight="bold" />
 										{text}
-									</LinkButton>
+									</Link>
 								</li>
 							))}
 						</ul>
@@ -76,7 +75,7 @@ export function Navbar() {
 						/>
 					</div>
 
-					{session.status === 'unauthenticated' ? (
+					{session.status == 'unauthenticated' ? (
 						<div className="flex gap-1">
 							<LinkButton href="/auth/signup">Sign up</LinkButton>
 							<UserDropdown />

@@ -1,4 +1,4 @@
-import clsx from 'clsx';
+import { cx } from 'class-variance-authority';
 import { createElement, forwardRef, ReactNode } from 'react';
 
 interface FieldProps {
@@ -35,7 +35,7 @@ export const Input = forwardRef<Props, Props>(
 			name,
 			id: name,
 			ref,
-			className: clsx(
+			className: cx(
 				colorStyles.base,
 				{
 					'h-10': asElement !== 'textarea',

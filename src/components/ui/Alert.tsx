@@ -1,6 +1,6 @@
-import clsx from 'clsx';
 import { Warning, WarningCircle } from 'phosphor-react';
 import { Text } from './Typography/Text';
+import { cx } from 'class-variance-authority';
 
 interface Props {
 	color?: keyof typeof ALERT_COLORS;
@@ -28,14 +28,14 @@ export function Alert({ color = 'primary', title, description }: Props) {
 	const Icon = color === 'primary' ? WarningCircle : Warning;
 
 	return (
-		<div className={clsx(colorStyles.bg, 'rounded-md border-2 p-4')}>
+		<div className={cx(colorStyles.bg, 'rounded-md border-2 p-4')}>
 			<header className="flex items-center gap-4 mb-2">
 				<Icon weight="fill" size={20} className={colorStyles.icon} />
 
-				<Text className={clsx(colorStyles.title, 'font-semibold')}>{title}</Text>
+				<Text className={cx(colorStyles.title, 'font-semibold')}>{title}</Text>
 			</header>
 
-			<Text size="sm" className={clsx(colorStyles.text, 'ml-9')}>
+			<Text size="sm" className={cx(colorStyles.text, 'ml-9')}>
 				{description}
 			</Text>
 		</div>

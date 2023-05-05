@@ -1,6 +1,5 @@
 import { useTheme } from '@/hooks/useTheme';
 import { Menu, Transition } from '@headlessui/react';
-import clsx from 'clsx';
 import { signOut, useSession } from 'next-auth/react';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
@@ -8,6 +7,7 @@ import { Gear, Moon, PaintBrush, SignOut, User } from 'phosphor-react';
 import { Fragment } from 'react';
 import { Avatar } from '../ui/Avatar';
 import { SwitchToggle } from '../ui/SwitchToggle';
+import { cx } from 'class-variance-authority';
 
 interface Props {
 	avatar: string;
@@ -39,7 +39,7 @@ export function SignedInDropdown({ avatar }: Props) {
 							{({ active }) => (
 								<Link
 									href={`/@${session.data?.user.username}`}
-									className={clsx(
+									className={cx(
 										{ 'bg-zinc-100 dark:bg-zinc-700': active },
 										'flex gap-2 w-full items-center rounded-md p-2 text-sm text-zinc-800 dark:text-zinc-200 transition-colors ease-out',
 									)}
@@ -56,7 +56,7 @@ export function SignedInDropdown({ avatar }: Props) {
 								{({ active }) => (
 									<Link
 										href={`/creator/${session.data?.user.username}/home`}
-										className={clsx(
+										className={cx(
 											{ 'bg-zinc-100 dark:bg-zinc-700': active },
 											'flex gap-2 w-full items-center rounded-md p-2 text-sm text-zinc-800 dark:text-zinc-200 transition-colors ease-out',
 										)}
@@ -74,7 +74,7 @@ export function SignedInDropdown({ avatar }: Props) {
 							{({ active }) => (
 								<Link
 									href={'/settings/account'}
-									className={clsx(
+									className={cx(
 										{ 'bg-zinc-100 dark:bg-zinc-700': active },
 										'flex gap-2 w-full items-center rounded-md p-2 text-sm text-zinc-800 dark:text-zinc-200  transition-colors ease-out',
 									)}
@@ -113,7 +113,7 @@ export function SignedInDropdown({ avatar }: Props) {
 
 										router.push(data.url);
 									}}
-									className={clsx(
+									className={cx(
 										{ 'bg-zinc-100 dark:bg-zinc-700': active },
 										'flex gap-2 w-full items-center rounded-md p-2 text-sm text-zinc-800 hover:bg-zinc-100 dark:text-zinc-200 dark:hover:bg-zinc-700 transition-colors ease-out',
 									)}

@@ -1,7 +1,6 @@
 import { Loading } from '@/components/ui/Loading';
 import { axios } from '@/services/axios';
 import { UserProfile } from '@/shared/interfaces/UserProfile';
-import clsx from 'clsx';
 import { useSession } from 'next-auth/react';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
@@ -9,6 +8,7 @@ import { PaintBrush, User } from 'phosphor-react';
 import { useQuery } from 'react-query';
 import { Avatar } from '../ui/Avatar';
 import { Text } from '../ui/Typography/Text';
+import { cx } from 'class-variance-authority';
 
 export function SideNavigation() {
 	const session = useSession();
@@ -67,7 +67,7 @@ export function SideNavigation() {
 				{menuItems.map(({ link, text, icon: Icon, isCurrentItem, disabled }) => (
 					<li
 						key={link}
-						className={clsx(
+						className={cx(
 							{
 								hidden: disabled,
 							},
@@ -76,7 +76,7 @@ export function SideNavigation() {
 					>
 						<Link
 							href={link}
-							className={clsx(
+							className={cx(
 								{
 									'font-bold text-black dark:text-white after:content-[""] after:w-1 after:h-10 after:absolute after:right-0 after:top-1/2 after:-translate-y-1/2 after:bg-rose-500 after:rounded-full':
 										isCurrentItem,

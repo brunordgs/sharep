@@ -1,4 +1,4 @@
-import clsx from 'clsx';
+import { cx } from 'class-variance-authority';
 import Link from 'next/link';
 import { type ComponentPropsWithoutRef } from 'react';
 import type { UrlObject } from 'url';
@@ -34,7 +34,7 @@ export function IconButton({
 	return isAnchor ? (
 		<Link
 			href={href}
-			className={clsx(
+			className={cx(
 				{ 'p-2': !className?.includes('p-') },
 				'inline-flex items-center justify-center transition-all ease-out rounded-full',
 				variantStyles,
@@ -48,7 +48,7 @@ export function IconButton({
 	) : (
 		<button
 			type="button"
-			className={clsx(
+			className={cx(
 				{ 'p-2': !className?.includes('p-') },
 				'inline-flex items-center justify-center transition-all ease-out rounded-full',
 				variantStyles,

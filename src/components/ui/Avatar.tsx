@@ -1,4 +1,4 @@
-import clsx from 'clsx';
+import { cx } from 'class-variance-authority';
 import Image from 'next/legacy/image';
 
 interface Props {
@@ -12,7 +12,7 @@ export function Avatar({ src, size = 'md', hasBorder = false, alt }: Props) {
 	return (
 		<div>
 			<div
-				className={clsx(
+				className={cx(
 					{
 						'w-8 h-8': size === 'xs',
 						'w-10 h-10': size === 'sm',

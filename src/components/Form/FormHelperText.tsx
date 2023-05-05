@@ -1,9 +1,9 @@
-import clsx from 'clsx';
+import { cx } from 'class-variance-authority';
 import { Text, type Props as TextProps } from '../ui/Typography/Text';
 
 export function FormHelperText({ children, className }: TextProps) {
 	return (
-		<Text size="xs" className={clsx('text-zinc-400', className)}>
+		<Text size="xs" className={cx('text-zinc-400', className)}>
 			{children}
 		</Text>
 	);

@@ -1,11 +1,11 @@
 import { Dialog, Transition } from '@headlessui/react';
-import clsx from 'clsx';
 import { signIn } from 'next-auth/react';
 import { SignIn, User } from 'phosphor-react';
 import { Fragment, useState } from 'react';
 import { FaGithub } from 'react-icons/fa';
-import { LinkButton } from '../ui/Buttons/LinkButton';
 import { Text } from '../ui/Typography/Text';
+import Link from 'next/link';
+import { cx } from 'class-variance-authority';
 
 interface Props {
 	active: boolean;
@@ -27,7 +27,7 @@ export function SigninDialog({ active }: Props) {
 			<button
 				type="button"
 				onClick={openModal}
-				className={clsx(
+				className={cx(
 					{ 'bg-zinc-100 dark:bg-zinc-700': active },
 					'flex gap-2 w-full items-center rounded-md p-2 text-sm text-zinc-800 hover:bg-zinc-100 dark:text-zinc-200 dark:hover:bg-zinc-700 transition-colors ease-out',
 				)}
@@ -66,21 +66,20 @@ export function SigninDialog({ active }: Props) {
 									</Dialog.Title>
 
 									<div className="space-y-4 px-6 pb-8">
-										<LinkButton
+										<Link
 											href="/auth/signin"
-											color="unstyled"
 											onClick={closeModal}
-											className="bg-zinc-100 hover:bg-zinc-200 dark:bg-zinc-800 rounded-md p-2 w-full flex items-center justify-center font-semibold text-[15px] relative transition-colors"
+											className="bg-zinc-200 hover:bg-zinc-200/90 dark:bg-zinc-800 dark:hover:bg-zinc-800/90 hover:text-black dark:hover:text-white rounded-md p-2 w-full flex items-center justify-center font-semibold text-[15px] relative transition-colors ease-out"
 										>
 											<User size={18} weight="bold" className="absolute left-3" />
 
 											<Text as="span" className="text-[15px]">
 												Use email
 											</Text>
-										</LinkButton>
+										</Link>
 
 										<button
-											className="bg-zinc-100 hover:bg-zinc-200 dark:bg-zinc-800 rounded-md p-2 w-full flex items-center justify-center font-semibold text-[15px] relative transition-colors"
+											className="bg-zinc-200 hover:bg-zinc-200/90 dark:bg-zinc-800 dark:hover:bg-zinc-800/90 hover:text-black dark:hover:text-white rounded-md p-2 w-full flex items-center justify-center font-semibold text-[15px] relative transition-colors ease-out"
 											onClick={() => signIn('github')}
 										>
 											<FaGithub size={18} className="absolute left-3" />
@@ -91,16 +90,15 @@ export function SigninDialog({ active }: Props) {
 										</button>
 									</div>
 
-									<div className="border-t border-zinc-200 dark:border-zinc-800 h-12 flex items-center justify-center gap-1">
+									<div className="border-t border-zinc-200 dark:border-zinc-800 h-12 flex items-center justify-center gap-1 text-sm">
 										<Text size="sm">Don't have an account?</Text>
-										<LinkButton
+										<Link
 											href="/auth/signup"
-											color="unstyled"
-											className="font-bold text-rose-500"
+											className="font-bold text-rose-500 hover:text-rose-600 dark:hover:text-rose-400 transition-colors ease-out"
 											onClick={closeModal}
 										>
 											Sign up
-										</LinkButton>
+										</Link>
 									</div>
 								</Dialog.Panel>
 							</Transition.Child>

@@ -1,4 +1,4 @@
-import clsx from 'clsx';
+import { cx } from 'class-variance-authority';
 import NextImage, { ImageProps } from 'next/legacy/image';
 import { useState } from 'react';
 
@@ -13,13 +13,13 @@ export function Image({
 	const [loading, setLoading] = useState(true);
 
 	return (
-		<div className={clsx('relative', className)}>
+		<div className={cx('relative', className)}>
 			<NextImage
 				src={src}
 				alt={alt}
 				layout={layout}
 				objectFit={objectFit}
-				className={clsx(
+				className={cx(
 					loading ? 'grayscale blur-2xl scale-110' : 'grayscale-0 blur-0 scale-100',
 					'select-none duration-700 ease-in-out',
 				)}
