@@ -1,5 +1,5 @@
 import { Dispatch, SetStateAction } from 'react';
-import { Theme } from '../types/Theme';
+import { type Theme } from '../types/Theme';
 
 export interface ThemeContext {
 	theme: Theme;

@@ -1,13 +1,13 @@
 import { NoCreatorFound } from '@/components/Cards/Creators/NoCreatorFound';
 import { NewCreatorDialog } from '@/components/Modals/NewCreatorDialog';
+import { AccountLayout } from '@/layouts/AccountLayout';
+import { prisma } from '@/lib/prisma';
+import { axios } from '@/services/axios';
+import { type ShortUser } from '@/shared/interfaces/ShortUser';
 import { Avatar } from '@ui/Avatar';
 import { IconButton } from '@ui/Buttons/IconButton';
 import { Heading } from '@ui/Typography/Heading';
 import { Text } from '@ui/Typography/Text';
-import { AccountLayout } from '@/layouts/AccountLayout';
-import { prisma } from '@/lib/prisma';
-import { axios } from '@/services/axios';
-import { ShortUser } from '@/shared/interfaces/ShortUser';
 import Head from 'next/head';
 import Link from 'next/link';
 import { CircleWavyCheck, Trash, User } from 'phosphor-react';

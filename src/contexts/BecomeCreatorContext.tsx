@@ -1,5 +1,5 @@
 import { useLocalStorage } from '@/hooks/useLocalStorage';
-import { Children } from '@/shared/interfaces/Children';
+import { type Children } from '@/shared/interfaces/Children';
 import { createContext, useEffect, useState } from 'react';
 
 interface BecomeCreatorContextProps {

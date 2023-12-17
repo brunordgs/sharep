@@ -43,9 +43,14 @@ export default function Signin() {
 
 			<Container className="flex justify-center md:my-20">
 				<Form
-					onSubmit={handleSubmit(async (values) => {
-						await signIn('email', values);
-					})}
+					onSubmit={handleSubmit(
+						async (values) =>
+							await signIn('credentials', {
+								email: values.email,
+								password: values.password,
+								redirect: false,
+							}),
+					)}
 					className="w-full max-w-md space-y-8"
 					methods={methods}
 				>

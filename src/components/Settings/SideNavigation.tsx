@@ -1,14 +1,14 @@
-import { Loading } from '@ui/Loading';
 import { axios } from '@/services/axios';
-import { UserProfile } from '@/shared/interfaces/UserProfile';
+import { type UserProfile } from '@/shared/interfaces/UserProfile';
+import { Avatar } from '@ui/Avatar';
+import { Loading } from '@ui/Loading';
+import { Text } from '@ui/Typography/Text';
+import { cx } from 'class-variance-authority';
 import { useSession } from 'next-auth/react';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
 import { PaintBrush, User } from 'phosphor-react';
 import { useQuery } from 'react-query';
-import { Avatar } from '@ui/Avatar';
-import { Text } from '@ui/Typography/Text';
-import { cx } from 'class-variance-authority';
 
 export function SideNavigation() {
 	const session = useSession();
@@ -50,7 +50,10 @@ export function SideNavigation() {
 
 	return (
 		<aside>
-			<Link href={`/@${user.username}`} className="flex items-start gap-4 mb-4 lg:mb-0 mr-4 hover:bg-zinc-200 dark:hover:bg-zinc-700 rounded-md p-2 transition-all">
+			<Link
+				href={`/@${user.username}`}
+				className="flex items-start gap-4 mb-4 lg:mb-0 mr-4 hover:bg-zinc-200 dark:hover:bg-zinc-700 rounded-md p-2 transition-all"
+			>
 				<Avatar src={user.image} size="base" />
 
 				<div className="flex-1">
@@ -63,7 +66,7 @@ export function SideNavigation() {
 				</div>
 			</Link>
 
-			<ul className="mt-6 space-y-7 font-medium">
+			<ul className="mt-6 font-medium">
 				{menuItems.map(({ link, text, icon: Icon, isCurrentItem, disabled }) => (
 					<li
 						key={link}
@@ -81,7 +84,7 @@ export function SideNavigation() {
 									'font-bold text-black dark:text-white after:content-[""] after:w-1 after:h-10 after:absolute after:right-0 after:top-1/2 after:-translate-y-1/2 after:bg-rose-500 after:rounded-full':
 										isCurrentItem,
 								},
-								'flex items-center gap-4 hover:text-black dark:hover:text-white transition-all text-[15px] leading-none',
+								'flex items-center gap-4 hover:text-black dark:hover:text-white transition-all text-[15px] leading-none py-4',
 							)}
 						>
 							<Icon size={16} weight="bold" aria-label={text} />

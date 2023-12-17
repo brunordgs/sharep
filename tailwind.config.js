@@ -22,6 +22,12 @@ module.exports = {
 			screens: {
 				mobile: { raw: '(max-width: 1024px)' },
 			},
+		// outlineColor: {
+		// 		DEFAULT: '#bd93f9'
+		// 	},
+		// 	ringColor: {
+		// 		DEFAULT: '#bd93f9',
+		// 	},
 		},
 	},
 	plugins: [],

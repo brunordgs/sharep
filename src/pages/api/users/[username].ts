@@ -19,8 +19,10 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
 						select: {
 							website: true,
 							github: true,
+							twitter: true,
 							twitch: true,
 							youtube: true,
+							tiktok: true,
 						},
 					},
 				},
@@ -58,8 +60,10 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
 					data: {
 						website: req.body.social.website,
 						github: req.body.social.github,
+						twitter: req.body.social.twitter,
 						twitch: req.body.social.twitch,
 						youtube: req.body.social.youtube,
+						tiktok: req.body.social.tiktok,
 					},
 				});
 			} else {
@@ -67,8 +71,10 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
 					data: {
 						website: req.body.social.website,
 						github: req.body.social.github,
+						twitter: req.body.social.twitter,
 						twitch: req.body.social.twitch,
 						youtube: req.body.social.youtube,
+						tiktok: req.body.social.tiktok,
 						userId: user.id,
 					},
 				});

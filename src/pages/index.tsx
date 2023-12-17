@@ -3,11 +3,11 @@ import { NoProjectFound } from '@/components/Cards/Projects/NoProjectFound';
 import { ProjectCard } from '@/components/Cards/Projects/ProjectCard';
 import { ExploreMenu } from '@/components/ExploreMenu';
 import { DefaultHeader } from '@/components/Header/DefaultHeader';
-import { Card } from '@ui/Card';
-import { Container } from '@ui/Container';
 import { useBecomeCreator } from '@/hooks/useBecomeCreator';
 import { prisma } from '@/lib/prisma';
-import { Project } from '@/shared/interfaces/Project';
+import { type Project } from '@/shared/interfaces/Project';
+import { Card } from '@ui/Card';
+import { Container } from '@ui/Container';
 import { useSession } from 'next-auth/react';
 import Head from 'next/head';
 

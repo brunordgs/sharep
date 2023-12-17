@@ -3,7 +3,7 @@ import { ProfileNotFound } from '@/components/Profile/ProfileNotFound';
 import { Loading } from '@ui/Loading';
 import { prisma } from '@/lib/prisma';
 import { type Creator } from '@/shared/interfaces/Creator';
-import { Project } from '@/shared/interfaces/Project';
+import { type Project } from '@/shared/interfaces/Project';
 import { type UserProfile } from '@/shared/interfaces/UserProfile';
 import { formatDate } from '@/utils/helpers/formats';
 import { GetServerSidePropsContext } from 'next';
@@ -76,6 +76,8 @@ export async function getServerSideProps({ req, params }: GetServerSidePropsCont
 						github: true,
 						twitch: true,
 						youtube: true,
+						twitter: true,
+						tiktok: true,
 					},
 				},
 			},

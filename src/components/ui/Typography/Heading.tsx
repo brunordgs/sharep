@@ -1,7 +1,7 @@
-import { HTMLAttributes } from 'react';
 import { FONT_WEIGHTS } from '@/shared/constants';
 import { type Typography } from '@/shared/interfaces/Typography';
 import { cx } from 'class-variance-authority';
+import { HTMLAttributes } from 'react';
 
 type Props = {
 	as?: 'h1' | 'h2' | 'h3' | 'h4' | 'h5' | 'h6';

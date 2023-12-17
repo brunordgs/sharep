@@ -1,13 +1,13 @@
 import { useTheme } from '@/hooks/useTheme';
 import { Menu, Transition } from '@headlessui/react';
-import { signOut, useSession } from 'next-auth/react';
-import Link from 'next/link';
-import { useRouter } from 'next/router';
-import { Gear, Moon, PaintBrush, SignOut, User } from 'phosphor-react';
-import { Fragment } from 'react';
 import { Avatar } from '@ui/Avatar';
 import { SwitchToggle } from '@ui/SwitchToggle';
 import { cx } from 'class-variance-authority';
+import { signOut, useSession } from 'next-auth/react';
+import Link from 'next/link';
+import { useRouter } from 'next/router';
+import { CaretRight, Gear, Globe, Moon, PaintBrush, SignOut, User } from 'phosphor-react';
+import { Fragment } from 'react';
 
 interface Props {
 	avatar: string;
@@ -79,10 +79,22 @@ export function SignedInDropdown({ avatar }: Props) {
 										'flex gap-2 w-full items-center rounded-md p-2 text-sm text-zinc-800 dark:text-zinc-200  transition-colors ease-out',
 									)}
 								>
-									<Gear weight="bold" />
+									<Gear weight="fill" />
 									Settings
 								</Link>
 							)}
+						</Menu.Item>
+
+						<Menu.Item>
+							<div className="flex gap-2 w-full items-center justify-between rounded-md p-2 text-sm text-zinc-800 dark:text-zinc-200">
+								<div className="flex items-center justify-between w-full">
+									<div className="flex items-center gap-2">
+										<Globe weight="bold" />
+										Language
+									</div>
+									<CaretRight weight="bold" size={18} />
+								</div>
+							</div>
 						</Menu.Item>
 
 						<Menu.Item>

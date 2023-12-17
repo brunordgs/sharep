@@ -20,8 +20,8 @@ export default NextAuth({
 					},
 				});
 
-				if (!user) {
-					return null;
+				if (!user || user.password !== credentials?.password) {
+					throw new Error('Invalid email or password');
 				}
 
 				return user;
@@ -49,7 +49,7 @@ export default NextAuth({
 	],
 	secret: process.env.NEXTAUTH_SECRET,
 	pages: {
-		signIn: '/',
+		signIn: '/auth/signin',
 	},
 	debug: true,
 	callbacks: {

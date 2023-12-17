@@ -1,5 +1,5 @@
 import { cx } from 'class-variance-authority';
-import { createElement, forwardRef, ReactNode } from 'react';
+import { createElement, forwardRef, type ReactNode } from 'react';
 
 interface FieldProps {
 	field: 'input' | 'select' | 'textarea';

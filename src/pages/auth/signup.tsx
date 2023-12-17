@@ -1,6 +1,7 @@
 import { Form } from '@/components/Form';
 import { FormField } from '@/components/Form/FormField';
 import { prisma } from '@/lib/prisma';
+import { axios } from '@/services/axios';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { Alert } from '@ui/Alert';
 import { Button } from '@ui/Buttons/Button';
@@ -11,8 +12,10 @@ import { Text } from '@ui/Typography/Text';
 import { signIn } from 'next-auth/react';
 import Head from 'next/head';
 import Link from 'next/link';
+import { useRouter } from 'next/router';
 import { useForm } from 'react-hook-form';
 import { FaGithub } from 'react-icons/fa';
+import { useMutation } from 'react-query';
 import * as z from 'zod';
 
 const schema = z.object({
@@ -25,6 +28,7 @@ const schema = z.object({
 type SignupForm = z.infer<typeof schema>;
 
 export default function Signup() {
+	const router = useRouter();
 	const methods = useForm<SignupForm>({
 		defaultValues: {
 			name: '',
@@ -40,6 +44,16 @@ export default function Signup() {
 		formState: { errors, isSubmitting },
 	} = methods;
 
+	const createUser = useMutation((values: SignupForm) =>
+		axios.post('/users', {
+			email: values.email,
+			name: values.name,
+			username: values.username,
+			password: values.password,
+			image: 'https://ik.imagekit.io/sharep/icon_3uHBhmu8u.svg',
+		}),
+	);
+
 	return (
 		<>
 			<Head>
@@ -49,19 +63,11 @@ export default function Signup() {
 			<Container className="flex justify-center md:my-20">
 				<Form
 					onSubmit={handleSubmit(async (values) => {
-						const user = await prisma.user.create({
-							data: {
-								name: values.name,
-								username: values.username,
-								email: values.email,
-								// password: values.password, // TODO: Hash password
-							},
-						});
-
-						await signIn('email', {
-							email: user.email,
-							// password: user.password,
-						});
+						createUser.mutate(values);
+						// await signIn('email', {
+						// email: user.email,
+						// password: user.password,
+						// });
 					})}
 					className="w-full max-w-md space-y-8"
 					methods={methods}

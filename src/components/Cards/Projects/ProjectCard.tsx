@@ -1,5 +1,5 @@
 import { Image } from '@ui/Image';
-import { Project } from '@/shared/interfaces/Project';
+import { type Project } from '@/shared/interfaces/Project';
 import Link from 'next/link';
 import { FaGithub } from 'react-icons/fa';
 import { Text } from '@ui/Typography/Text';
