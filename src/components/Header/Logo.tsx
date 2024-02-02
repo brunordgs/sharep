@@ -1,5 +1,4 @@
 import Link from 'next/link';
-import { BetaDialog } from '../Modals/BetaDialog';
 
 export function Logo() {
 	return (
@@ -12,7 +11,7 @@ export function Logo() {
 			</Link>
 
 			{/* NOTE: Should be removed soon, only available for demonstration purposes */}
-			<BetaDialog />
+			{/* <BetaDialog /> */}
 		</div>
 	);
 }

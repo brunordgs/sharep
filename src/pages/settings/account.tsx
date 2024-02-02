@@ -16,12 +16,12 @@ import { AxiosError } from 'axios';
 import { GetServerSidePropsContext } from 'next';
 import { getSession } from 'next-auth/react';
 import Head from 'next/head';
-import { Check, Link } from 'phosphor-react';
+// import { Check, Link } from 'phosphor-react';
 import { useEffect, useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { FaGithub, FaTiktok, FaTwitch, FaTwitter, FaYoutube } from 'react-icons/fa';
-import { useMutation, useQueryClient } from 'react-query';
-import * as z from 'zod';
+import { useMutation, useQueryClient } from '@tanstack/react-query';
+import { z } from 'zod';
 
 const schema = z.object({
 	username: z
@@ -175,7 +175,7 @@ export default function SettingsAccount({ user }: Props) {
 							<FormField
 								name="website"
 								label="Website"
-								inputAddon={<Link weight="bold" />}
+								// inputAddon={<Link weight="bold" />}
 								placeholder="example.com"
 								error={errors.website?.message}
 							/>
@@ -227,7 +227,7 @@ export default function SettingsAccount({ user }: Props) {
 							<LoadingButton />
 						) : isFormSubmmited ? (
 							<Button intent="success" className="cursor-not-allowed">
-								<Check size={20} weight="bold" />
+								{/* <Check size={20} weight="bold" /> */}
 							</Button>
 						) : (
 							<Button type="submit" disabled={!isFormEditted}>

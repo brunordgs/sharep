@@ -1,4 +1,4 @@
-import { cx } from 'class-variance-authority';
+import { cn } from '@/lib/utils';
 import { createElement, forwardRef, type ReactNode } from 'react';
 
 interface FieldProps {
@@ -35,7 +35,7 @@ export const Input = forwardRef<Props, Props>(
 			name,
 			id: name,
 			ref,
-			className: cx(
+			className: cn(
 				colorStyles.base,
 				{
 					'h-10': asElement !== 'textarea',

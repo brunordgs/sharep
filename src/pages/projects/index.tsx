@@ -10,7 +10,7 @@ import { getSession } from 'next-auth/react';
 import Head from 'next/head';
 import { FaGithub } from 'react-icons/fa';
 import { type Project } from '../../shared/interfaces/Project';
-import { LinkButton } from '@ui/Buttons/LinkButton';
+import { LinkButton } from '@/components/ui/Buttons/LinkButton';
 
 // const schema = z.object({
 // 	name: z.string(),

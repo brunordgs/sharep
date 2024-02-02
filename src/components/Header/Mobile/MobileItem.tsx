@@ -1,4 +1,4 @@
-import { type Props as LinkButtonProps } from '@ui/Buttons/LinkButton';
+import { type Props as LinkButtonProps } from '@/components/ui/Buttons/LinkButton';
 import { cx } from 'class-variance-authority';
 import Link from 'next/link';
 

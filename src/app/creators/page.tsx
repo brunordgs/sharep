@@ -2,12 +2,12 @@ import { CreatorCard } from '@/components/Cards/Creators/CreatorCard';
 import { NoCreatorFound } from '@/components/Cards/Creators/NoCreatorFound';
 import { ExploreMenu } from '@/components/ExploreMenu';
 import { DefaultHeader } from '@/components/Header/DefaultHeader';
-import { axios } from '@/services/axios';
 import { Card } from '@ui/Card';
 import { Container } from '@ui/Container';
 import { getServerSession } from 'next-auth';
-import { authOptions } from '../api/auth/[...nextauth]/route';
 import { Metadata } from 'next';
+import { authOptions } from '../api/auth/[...nextauth]/auth';
+import { ShortUser } from '@/shared/interfaces/ShortUser';
 
 export const metadata: Metadata = {
 	title: 'Creators',
@@ -16,7 +16,7 @@ export const metadata: Metadata = {
 export default async function Creators() {
 	const session = getServerSession(authOptions);
 
-	async function listCreators() {
+	async function listCreators(): Promise<ShortUser[]> {
 		const res = await fetch('http://localhost:3000/api/creators');
 		const data = res.json();
 

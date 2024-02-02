@@ -1,10 +1,11 @@
 import { prisma } from '@/lib/prisma';
 import { PrismaAdapter } from '@next-auth/prisma-adapter';
-import NextAuth from 'next-auth';
+import bcrypt from 'bcrypt';
+import { NextAuthOptions } from 'next-auth';
 import CredentialsProvider from 'next-auth/providers/credentials';
 import GithubProvider, { GithubProfile } from 'next-auth/providers/github';
 
-export default NextAuth({
+export const authOptions = {
 	adapter: PrismaAdapter(prisma),
 	providers: [
 		CredentialsProvider({
@@ -14,14 +15,24 @@ export default NextAuth({
 				password: { label: 'Password', type: 'password' },
 			},
 			async authorize(credentials) {
+				if (!credentials?.email || !credentials.password) {
+					throw new Error('Please enter an email and password');
+				}
+
 				const user = await prisma.user.findUnique({
 					where: {
-						email: credentials?.email,
+						email: credentials.email,
 					},
 				});
 
-				if (!user || user.password !== credentials?.password) {
-					throw new Error('Invalid email or password');
+				if (!user || !user?.password) {
+					throw new Error('No user found');
+				}
+
+				const passwordMatch = await bcrypt.compare(credentials.password, user.password);
+
+				if (!passwordMatch) {
+					throw new Error('Invalid password');
 				}
 
 				return user;
@@ -63,4 +74,4 @@ export default NextAuth({
 			};
 		},
 	},
-});
+} satisfies NextAuthOptions;

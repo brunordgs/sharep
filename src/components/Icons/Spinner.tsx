@@ -1,13 +1,13 @@
 import { type ComponentPropsWithoutRef } from 'react';
 import { Text } from '@ui/Typography/Text';
-import { cx } from 'class-variance-authority';
+import { cn } from '@/lib/utils';
 
 export function Spinner({ className }: ComponentPropsWithoutRef<'svg'>) {
 	return (
 		<>
 			<svg
 				aria-hidden="true"
-				className={cx('animate-spin', className)}
+				className={cn('animate-spin', className)}
 				viewBox="0 0 100 101"
 				fill="none"
 				xmlns="http://www.w3.org/2000/svg"

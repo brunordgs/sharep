@@ -1,7 +1,7 @@
 import { Avatar } from '@ui/Avatar';
 import { Text } from '@ui/Typography/Text';
 import Link from 'next/link';
-import { CircleWavyCheck } from 'phosphor-react';
+// import { CircleWavyCheck } from 'phosphor-react';
 
 interface Props {
 	name: string;
@@ -31,14 +31,14 @@ export function FeaturedUserItem({ name, username, isVerified, image }: Props) {
 							{name}
 						</Text>
 
-						{isVerified && (
+						{/* {isVerified && (
 							<CircleWavyCheck
 								weight="fill"
 								size={16}
 								className="text-indigo-500"
 								aria-label="Verified account"
 							/>
-						)}
+						)} */}
 					</div>
 
 					<Text

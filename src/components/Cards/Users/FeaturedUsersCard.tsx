@@ -1,40 +1,32 @@
-import { Loading } from '@ui/Loading';
-import { Text } from '@ui/Typography/Text';
-import { axios } from '@/services/axios';
-import { type ShortUser } from '@/shared/interfaces/ShortUser';
-import { useMemo } from 'react';
-import { useQuery } from 'react-query';
 import { Card } from '@ui/Card';
-import { Heading } from '@ui/Typography/Heading';
-import { FeaturedUserItem } from './FeaturedUserItem';
 
 export function FeaturedUsersCard() {
-	const { data: users, isLoading } = useQuery<ShortUser[]>(
-		'users',
-		async () => {
-			const { data } = await axios.get('/users');
-			return data;
-		},
-		{ refetchOnWindowFocus: false },
-	);
+	// const { data: users, isLoading } = useQuery<ShortUser[]>(
+	// 	'users',
+	// 	async () => {
+	// 		const { data } = await axios.get('/users');
+	// 		return data;
+	// 	},
+	// 	{ refetchOnWindowFocus: false },
+	// );
 
-	const shuffledUsers = useMemo(() => {
-		if (!users) {
-			return [];
-		}
+	// const shuffledUsers = useMemo(() => {
+	// 	if (!users) {
+	// 		return [];
+	// 	}
 
-		const shuffledUsers = users
-			.map((value) => ({ value, sort: Math.random() }))
-			.sort((a, b) => a.sort - b.sort)
-			.slice(0, 4)
-			.map(({ value }) => value);
+	// 	const shuffledUsers = users
+	// 		.map((value) => ({ value, sort: Math.random() }))
+	// 		.sort((a, b) => a.sort - b.sort)
+	// 		.slice(0, 4)
+	// 		.map(({ value }) => value);
 
-		return shuffledUsers;
-	}, [users]);
+	// 	return shuffledUsers;
+	// }, [users]);
 
 	return (
 		<Card className="py-6" noPadding>
-			<Loading loading={isLoading}>
+			{/* <Loading loading={isLoading}>
 				<aside>
 					<Heading as="h2" transform="italic" className="text-xl mb-4 px-6">
 						Featured users
@@ -42,7 +34,8 @@ export function FeaturedUsersCard() {
 
 					{shuffledUsers.length > 0 ? (
 						shuffledUsers.map(({ username, ...rest }) => (
-							<FeaturedUserItem key={username} username={username} {...rest} />
+							null
+							// <FeaturedUserItem key={username} username={username} {...rest} />
 						))
 					) : (
 						<Text size="sm" className="px-6 text-zinc-400">
@@ -50,7 +43,7 @@ export function FeaturedUsersCard() {
 						</Text>
 					)}
 				</aside>
-			</Loading>
+			</Loading> */}
 		</Card>
 	);
 }

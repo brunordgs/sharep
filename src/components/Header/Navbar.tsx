@@ -1,37 +1,35 @@
-import { cx } from 'class-variance-authority';
+'use client';
+
 import { useSession } from 'next-auth/react';
 import Link from 'next/link';
-import { useRouter } from 'next/router';
-import { Article, MagnifyingGlass, PaintBrush, Question } from 'phosphor-react';
-import { SignedInDropdown } from '../Dropdowns/SignedInDropdown';
-import { UserDropdown } from '../Dropdowns/UserDropdown';
-import { LinkButton } from '@ui/Buttons/LinkButton';
-import { Container } from '@ui/Container';
+import { MagnifyingGlass, Newspaper, PaintBrush, Question } from '@phosphor-icons/react';
+import { LinkButton } from '@/components/ui/Buttons/LinkButton';
 import { Logo } from './Logo';
-import { MobileNavbar } from './Mobile/MobileNavbar';
+import { usePathname } from 'next/navigation';
+import { cn } from '@/lib/utils';
 
 export function Navbar() {
-	const router = useRouter();
+	const pathname = usePathname();
 	const session = useSession();
 
 	const menuItems = [
 		{
 			link: '/',
 			text: 'Projects',
-			icon: Article,
-			isActive: router.pathname === '/',
+			icon: Newspaper,
+			isActive: pathname === '/',
 		},
 		{
 			link: '/creators',
 			text: 'Creators',
 			icon: PaintBrush,
-			isActive: router.pathname === '/creators',
+			isActive: pathname === '/creators',
 		},
 		{
 			link: '/about',
 			text: 'About',
 			icon: Question,
-			isActive: router.pathname === '/about',
+			isActive: pathname === '/about',
 		},
 	];
 
@@ -40,7 +38,7 @@ export function Navbar() {
 	return (
 		<header className="border-b border-zinc-200 dark:border-zinc-800 shadow-sm dark:shadow-lg py-5 bg-zinc-100 dark:bg-zinc-900 sticky top-0 z-20">
 			{/* Desktop navbar */}
-			<Container noMargin className="hidden lg:flex items-center">
+			<div className="container hidden lg:flex items-center">
 				<div className="flex-1">
 					<nav className="flex">
 						<Logo />
@@ -50,7 +48,7 @@ export function Navbar() {
 								<li key={link}>
 									<Link
 										href={link}
-										className={cx(
+										className={cn(
 											isActive && 'text-black dark:text-white',
 											'hover:text-black dark:hover:text-white flex items-center gap-2 transition-all ease-out',
 										)}
@@ -75,18 +73,15 @@ export function Navbar() {
 						/>
 					</div>
 
-					{session.status == 'unauthenticated' ? (
+					{!session.data && (
 						<div className="flex gap-1">
 							<LinkButton href="/auth/signup">Sign up</LinkButton>
-							<UserDropdown />
+							{/* <UserDropdown /> */}
 						</div>
-					) : (
-						userAvatar && <SignedInDropdown avatar={userAvatar} />
 					)}
+					{/* <SignedInDropdown avatar={userAvatar} /> */}
 				</div>
-			</Container>
-
-			<MobileNavbar />
+			</div>
 		</header>
 	);
 }

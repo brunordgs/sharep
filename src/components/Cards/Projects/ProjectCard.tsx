@@ -3,9 +3,9 @@ import { type Project } from '@/shared/interfaces/Project';
 import Link from 'next/link';
 import { FaGithub } from 'react-icons/fa';
 import { Text } from '@ui/Typography/Text';
-import { cx } from 'class-variance-authority';
+import { cn } from '@/lib/utils';
 
-export function ProjectCard({ image, name, description, url, sourceName, sourceUrl }: Project) {
+export function ProjectCard({ image, name, description, url, repo, repoUrl }: Project) {
 	return (
 		<Link
 			href={url}
@@ -15,7 +15,7 @@ export function ProjectCard({ image, name, description, url, sourceName, sourceU
 		>
 			<div className="flex items-center gap-4">
 				<div
-					className={cx(
+					className={cn(
 						'h-16 w-16 rounded-md flex items-center justify-center font-bold text-zinc-100 text-2xl italic overflow-hidden',
 						{ 'bg-rose-500': !image },
 					)}
@@ -48,9 +48,9 @@ export function ProjectCard({ image, name, description, url, sourceName, sourceU
 						<button
 							type="button"
 							className="truncate max-w-[192px] sm:max-w-full"
-							onClick={() => window.open(sourceUrl, '_blank')}
+							onClick={() => window.open(repoUrl, '_blank')}
 						>
-							{sourceName}
+							{repo}
 						</button>
 					</div>
 				</div>

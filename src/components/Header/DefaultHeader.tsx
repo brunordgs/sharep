@@ -1,26 +1,18 @@
 import { type Children } from '@/shared/interfaces/Children';
-import { useRouter } from 'next/router';
-import { CaretDown } from 'phosphor-react';
 import { Heading } from '@ui/Typography/Heading';
+import { CaretDown } from '@phosphor-icons/react/dist/ssr';
 
 export function DefaultHeader({ children }: Children) {
-	const router = useRouter();
-
 	return (
 		<>
 			<div className="flex item-start lg:items-center justify-between flex-col md:flex-row gap-4">
 				<Heading transform="italic" size="lg" className="flex items-end gap-2">
 					{children}
-					{/* Include arrow icon at home page */}
-					{router.pathname === '/' && <CaretDown className="animate-bounce" />}
 				</Heading>
 
 				<div className="flex items-center gap-2">
 					<div className="relative bg-zinc-200 dark:bg-zinc-800 h-10 rounded-md w-full md:w-48 2xl:w-56 shadow-sm">
-						<select
-							className="bg-zinc-200 dark:bg-zinc-800 w-full h-10 focus:outline-none placeholder:text-zinc-400 dark:placeholder:text-zinc-500 text-sm rounded-md pl-4 font-medium"
-							placeholder="Search..."
-						>
+						<select className="bg-zinc-200 dark:bg-zinc-800 w-full h-10 focus:outline-none placeholder:text-zinc-400 dark:placeholder:text-zinc-500 text-sm rounded-md pl-4 font-medium">
 							<option value="">Latest</option>
 						</select>
 

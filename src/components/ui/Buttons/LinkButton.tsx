@@ -1,33 +1,43 @@
+import { type VariantProps } from 'class-variance-authority';
 import Link, { type LinkProps } from 'next/link';
-import { type ComponentPropsWithoutRef } from 'react';
-import { buttonStyles, type Props as ButtonProps } from './Button';
+import { cn } from '@/lib/utils';
+import { buttonVariants } from '../button';
+import { type Icon } from '@phosphor-icons/react';
 
-export type Props = {
-	isExternal?: boolean;
-} & ComponentPropsWithoutRef<'a'> &
-	ButtonProps &
-	LinkProps;
+interface Props
+	extends React.AnchorHTMLAttributes<HTMLAnchorElement>,
+		LinkProps,
+		VariantProps<typeof buttonVariants> {
+	href: string;
+	leftIcon?: Icon;
+	rightIcon?: Icon;
+	disabled?: boolean;
+}
 
 export function LinkButton({
-	intent,
-	size,
-	fontSize,
-	icon,
-	isExternal = false,
+	href,
 	className,
+	variant,
+	size,
+	leftIcon: LeftIcon,
+	rightIcon: RightIcon,
 	children,
+	disabled,
 	...props
 }: Props) {
 	return (
 		<Link
-			className={buttonStyles({ intent, fontSize, size, className })}
-			target={isExternal ? '_blank' : '_self'}
-			rel="noopener noreferrer"
+			href={href}
+			className={cn(buttonVariants({ variant, size, className }), {
+				'pointer-events-none opacity-50': disabled,
+			})}
 			{...props}
 		>
-			{icon?.position === 'left' && <icon.icon className={icon.className} />}
-			{children}
-			{icon?.position === 'right' && <icon.icon className={icon.className} />}
+			<>
+				{LeftIcon && <LeftIcon className="w-4 h-4" />}
+				{children}
+				{RightIcon && <RightIcon className="w-4 h-4" />}
+			</>
 		</Link>
 	);
 }

@@ -1,4 +1,4 @@
-import { LinkButton } from '@ui/Buttons/LinkButton';
+import { LinkButton } from '@/components/ui/Buttons/LinkButton';
 import { Card } from '@ui/Card';
 import { Container } from '@ui/Container';
 import { Text } from '@ui/Typography/Text';

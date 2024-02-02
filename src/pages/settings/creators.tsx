@@ -1,5 +1,4 @@
 import { NoCreatorFound } from '@/components/Cards/Creators/NoCreatorFound';
-import { NewCreatorDialog } from '@/components/Modals/NewCreatorDialog';
 import { AccountLayout } from '@/layouts/AccountLayout';
 import { prisma } from '@/lib/prisma';
 import { axios } from '@/services/axios';
@@ -10,8 +9,8 @@ import { Heading } from '@ui/Typography/Heading';
 import { Text } from '@ui/Typography/Text';
 import Head from 'next/head';
 import Link from 'next/link';
-import { CircleWavyCheck, Trash, User } from 'phosphor-react';
-import { useMutation, useQuery, useQueryClient } from 'react-query';
+// import { CircleWavyCheck, Trash, User } from 'phosphor-react';
+import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
 
 interface Props {
 	users: ShortUser[];
@@ -57,7 +56,7 @@ export default function SettingsCreators({ users }: Props) {
 						</Text>
 					</div>
 
-					{users.length > 0 && <NewCreatorDialog users={users} />}
+					{/* {users.length > 0 && <NewCreatorDialog users={users} />} */}
 				</header>
 
 				<ul className="mt-8">
@@ -70,13 +69,13 @@ export default function SettingsCreators({ users }: Props) {
 									<div>
 										<div className="flex items-center gap-1">
 											<Text weight="bold">{name}</Text>
-											{isVerified && (
+											{/* {isVerified && (
 												<CircleWavyCheck
 													weight="fill"
 													className="text-indigo-500"
 													aria-label="Verified account"
 												/>
-											)}
+											)} */}
 										</div>
 
 										<Text size="sm">@{username}</Text>
@@ -87,11 +86,11 @@ export default function SettingsCreators({ users }: Props) {
 									<Link href={`/@${username}`} title="Check profile">
 										<IconButton variant="tertiary" icon={<User size={18} weight="bold" />} />
 									</Link>
-									<IconButton
+									{/* <IconButton
 										variant="tertiary"
 										icon={<Trash size={18} weight="bold" />}
 										onClick={() => removeCreator.mutate(id)}
-									/>
+									/> */}
 								</div>
 							</li>
 						))

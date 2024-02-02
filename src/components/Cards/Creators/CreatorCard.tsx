@@ -1,7 +1,7 @@
 import { Avatar } from '@ui/Avatar';
 import { Text } from '@ui/Typography/Text';
+import { CircleWavyCheck } from '@phosphor-icons/react/dist/ssr';
 import Link from 'next/link';
-import { CircleWavyCheck } from 'phosphor-react';
 
 interface Props {
 	name: string;

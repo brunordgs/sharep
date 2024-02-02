@@ -1,4 +1,4 @@
-import { cx } from 'class-variance-authority';
+import { cn } from '@/lib/utils';
 import Image from 'next/legacy/image';
 
 interface Props {
@@ -12,7 +12,7 @@ export function Avatar({ src, size = 'md', hasBorder = false, alt }: Props) {
 	return (
 		<div>
 			<div
-				className={cx(
+				className={cn(
 					{
 						'w-8 h-8': size === 'xs',
 						'w-10 h-10': size === 'sm',

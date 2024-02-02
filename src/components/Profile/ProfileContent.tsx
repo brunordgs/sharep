@@ -1,5 +1,5 @@
 import { ProjectCard } from '@/components/Cards/Projects/ProjectCard';
-import { VerifiedAccountDialog } from '@/components/Modals/VerifiedAccountDialog';
+// import { VerifiedAccountDialog } from '@/components/Modals/VerifiedAccountDialog';
 import { Card } from '@ui/Card';
 import { Tooltip } from '@ui/Tooltip';
 import { Heading } from '@ui/Typography/Heading';
@@ -8,15 +8,15 @@ import { type Creator } from '@/shared/interfaces/Creator';
 import { type Project } from '@/shared/interfaces/Project';
 import { type UserProfile } from '@/shared/interfaces/UserProfile';
 import { type Platform } from '@/shared/types/Platform';
-import { cx } from 'class-variance-authority';
 import { useSession } from 'next-auth/react';
 import Link from 'next/link';
-import { Link as LinkIcon, PaintBrush, Pencil } from 'phosphor-react';
+// import { Link as LinkIcon, PaintBrush, Pencil } from 'phosphor-react';
 import { FaGithub, FaTiktok, FaTwitch, FaTwitter, FaYoutube } from 'react-icons/fa';
 import { Avatar } from '@ui/Avatar';
 import { IconButton } from '@ui/Buttons/IconButton';
-import { LinkButton } from '@ui/Buttons/LinkButton';
+import { LinkButton } from '@/components/ui/Buttons/LinkButton';
 import { Text } from '@ui/Typography/Text';
+import { cn } from '@/lib/utils';
 
 interface BioContentProps {
 	bio: string | undefined;
@@ -86,7 +86,7 @@ export function ProfileContent({
 						<Tooltip data-tip={`Creator since ${creator.createdAt}`}>
 							<div className="bg-gradient-to-r from-pink-700 to-pink-800 shadow-md text-zinc-100 rounded-md py-1 px-2 text-sm italic font-semibold inline-flex items-center gap-2 select-none">
 								Creator
-								<PaintBrush size={16} />
+								{/* <PaintBrush size={16} /> */}
 							</div>
 						</Tooltip>
 					</div>
@@ -98,7 +98,7 @@ export function ProfileContent({
 					<Avatar src={image} size="lg" hasBorder />
 
 					<div
-						className={cx(
+						className={cn(
 							social ? 'justify-between' : 'justify-end',
 							'flex flex-1 items-center my-6',
 						)}
@@ -129,7 +129,7 @@ export function ProfileContent({
 							<IconButton
 								href="/settings/account"
 								isAnchor
-								icon={<Pencil size={16} weight="duotone" aria-label="Edit profile" />}
+								// icon={<Pencil size={16} weight="duotone" aria-label="Edit profile" />}
 								title="Edit profile"
 							/>
 						)}
@@ -141,7 +141,7 @@ export function ProfileContent({
 						<Text size="xl" weight="bold" className="md:text-3xl">
 							{name}
 						</Text>
-						{isVerified && <VerifiedAccountDialog size={24} />}
+						{/* {isVerified && <VerifiedAccountDialog size={24} />} */}
 					</div>
 
 					<Text as="span" className="text-[15px]">
@@ -178,7 +178,8 @@ interface IconForPlatformProps {
 function IconForPlatform({ platform }: IconForPlatformProps) {
 	switch (platform) {
 		case 'website':
-			return <LinkIcon />;
+			return null;
+			// return <LinkIcon />;
 		case 'github':
 			return <FaGithub className="text-base" />;
 		case 'twitter':

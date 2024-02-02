@@ -97,8 +97,8 @@ model Projects {
   name        String
   description String
   url         String
-  sourceName  String?
-  sourceUrl   String?
+  repo        String
+  repoUrl     String
 
   user   User   @relation(fields: [userId], references: [id])
   userId String

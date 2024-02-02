@@ -1,4 +1,4 @@
-import { FileSearch } from 'phosphor-react';
+import { FileSearch } from '@phosphor-icons/react/dist/ssr';
 import { Text } from '@ui/Typography/Text';
 
 export function NoProjectFound() {

@@ -1,6 +1,5 @@
-import { BecomeCreatorDialog } from '@/components/Modals/BecomeCreatorDialog';
 import { IconButton } from '@ui/Buttons/IconButton';
-import { X } from 'phosphor-react';
+import { X } from '@phosphor-icons/react/dist/ssr';
 import { Text } from '@ui/Typography/Text';
 
 interface Props {
@@ -20,7 +19,7 @@ export function CreatorBanner({ title, description, onHandleClose }: Props) {
 				<IconButton
 					variant="secondary"
 					className="w-6 h-6 p-0"
-					icon={<X size={12} weight="bold" aria-label="Close banner" />}
+					icon={<X className="w-3 h-3" aria-label="Close banner" />}
 					onClick={() => onHandleClose(false)}
 					title="Close banner"
 				/>
@@ -30,7 +29,7 @@ export function CreatorBanner({ title, description, onHandleClose }: Props) {
 				{description}
 			</Text>
 
-			<BecomeCreatorDialog />
+			{/* <BecomeCreatorDialog /> */}
 		</div>
 	);
 }

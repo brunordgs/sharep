@@ -42,21 +42,21 @@ export function SignUpForm() {
 		formState: { errors, isSubmitting },
 	} = methods;
 
-	const createUser = useMutation((values: SignUpSchema) =>
-		axios.post('/users', {
-			email: values.email,
-			name: values.name,
-			username: values.username,
-			password: values.password,
-			image: 'https://ik.imagekit.io/sharep/icon_3uHBhmu8u.svg',
-		}),
-	);
+	// const createUser = useMutation((values: SignUpSchema) =>
+	// 	axios.post('/users', {
+	// 		email: values.email,
+	// 		name: values.name,
+	// 		username: values.username,
+	// 		password: values.password,
+	// 		image: 'https://ik.imagekit.io/sharep/icon_3uHBhmu8u.svg',
+	// 	}),
+	// );
 
 	return (
 		<Container className="flex justify-center md:my-20">
 			<Form
 				onSubmit={handleSubmit(async (values) => {
-					createUser.mutate(values);
+					// createUser.mutate(values);
 					// await signIn('email', {
 					// email: user.email,
 					// password: user.password,

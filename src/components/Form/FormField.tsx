@@ -1,3 +1,5 @@
+'use client';
+
 import { cx } from 'class-variance-authority';
 import { useFormContext } from 'react-hook-form';
 import { Input, type Props as InputProps } from '@ui/Inputs/Input';

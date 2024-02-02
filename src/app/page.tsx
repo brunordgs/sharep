@@ -4,6 +4,7 @@ import { ProjectCard } from '@/components/Cards/Projects/ProjectCard';
 import { ExploreMenu } from '@/components/ExploreMenu';
 import { DefaultHeader } from '@/components/Header/DefaultHeader';
 import { prisma } from '@/lib/prisma';
+import { Project } from '@/shared/interfaces/Project';
 import { CaretDown } from '@phosphor-icons/react/dist/ssr';
 import { Card } from '@ui/Card';
 import { Container } from '@ui/Container';
@@ -18,8 +19,8 @@ export default async function Home() {
 			url: true,
 			name: true,
 			description: true,
-			sourceName: true,
-			sourceUrl: true,
+			repo: true,
+			repoUrl: true,
 		},
 	});
 
