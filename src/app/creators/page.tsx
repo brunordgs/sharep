@@ -1,13 +1,20 @@
-import { CreatorCard } from '@/components/Cards/Creators/CreatorCard';
-import { NoCreatorFound } from '@/components/Cards/Creators/NoCreatorFound';
-import { ExploreMenu } from '@/components/ExploreMenu';
-import { DefaultHeader } from '@/components/Header/DefaultHeader';
+import { CreatorCard } from '@/components/cards/Creators/CreatorCard';
+import { ExploreMenu } from '@/components/explore-menu';
+import { NoDataFound } from '@/components/no-data-found';
+import { ShortUser } from '@/shared/interfaces/ShortUser';
 import { Card } from '@ui/Card';
 import { Container } from '@ui/Container';
-import { getServerSession } from 'next-auth';
 import { Metadata } from 'next';
+import { getServerSession } from 'next-auth';
 import { authOptions } from '../api/auth/[...nextauth]/auth';
-import { ShortUser } from '@/shared/interfaces/ShortUser';
+import { Heading } from '@/components/ui/Typography/Heading';
+import {
+	Select,
+	SelectContent,
+	SelectItem,
+	SelectTrigger,
+	SelectValue,
+} from '@/components/ui/select';
 
 export const metadata: Metadata = {
 	title: 'Creators',
@@ -33,7 +40,23 @@ export default async function Creators() {
 		<Container>
 			<div className="lg:grid grid-cols-7 gap-8 mt-6">
 				<div className="md:col-span-4 lg:col-span-5 space-y-4">
-					<DefaultHeader>Awesome creators</DefaultHeader>
+					<div className="flex item-start lg:items-center justify-between flex-col md:flex-row gap-4">
+						<Heading transform="italic" size="lg" className="flex items-end gap-2">
+							Awesome creators
+						</Heading>
+
+						<Select>
+							<SelectTrigger className="w-full md:w-56">
+								<SelectValue placeholder="Latest" />
+							</SelectTrigger>
+							<SelectContent>
+								<SelectItem value="latest">Latest</SelectItem>
+								<SelectItem value="all">All</SelectItem>
+							</SelectContent>
+						</Select>
+					</div>
+
+					<div className="border-b border-zinc-200 dark:border-zinc-800" />
 
 					{/* {!session.data?.user.isCreator && isBannerOpen && (
 							<CreatorBanner
@@ -50,7 +73,10 @@ export default async function Creators() {
 								<CreatorCard key={username} username={username} avatar={image} {...rest} />
 							))
 						) : (
-							<NoCreatorFound />
+							<NoDataFound
+								title="No creators"
+								description="There is no registered creator."
+							/>
 						)}
 						{/* </Loading> */}
 					</Card>

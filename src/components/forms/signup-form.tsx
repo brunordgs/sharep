@@ -5,7 +5,6 @@ import { FormField } from '@/components/Form/FormField';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useMutation } from '@tanstack/react-query';
 import { Alert } from '@ui/Alert';
-import { Button } from '@ui/Buttons/Button';
 import { LoadingButton } from '@ui/Buttons/LoadingButton';
 import { Container } from '@ui/Container';
 import { Heading } from '@ui/Typography/Heading';
@@ -16,6 +15,7 @@ import Link from 'next/link';
 import { useForm } from 'react-hook-form';
 import { FaGithub } from 'react-icons/fa';
 import { z } from 'zod';
+import { Button } from '../ui/button';
 
 const signUpSchema = z.object({
 	name: z.string().min(3, 'Name must be at least 3 characters long'),
@@ -138,7 +138,9 @@ export function SignUpForm() {
 						Have an account? Sign in
 					</Link>
 
-					{isSubmitting ? <LoadingButton /> : <Button type="submit">Sign Up</Button>}
+					<Button type="submit" variant="destructive">
+						Sign Up
+					</Button>
 				</div>
 			</Form>
 		</Container>

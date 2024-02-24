@@ -9,6 +9,7 @@ declare module 'next-auth' {
 		username: string;
 		isVerified?: boolean;
 		isCreator?: boolean;
+		isAdmin?: boolean;
 	}
 
 	interface Session {

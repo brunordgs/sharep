@@ -1,7 +1,7 @@
 import { cn } from '@/lib/utils';
 import { axios } from '@/services/axios';
 import { type UserProfile } from '@/shared/interfaces/UserProfile';
-import { Avatar } from '@ui/Avatar';
+import { Avatar } from '@/components/ui/avatar';
 import { Loading } from '@ui/Loading';
 import { Text } from '@ui/Typography/Text';
 import { useSession } from 'next-auth/react';

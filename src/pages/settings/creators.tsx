@@ -1,15 +1,15 @@
-import { NoCreatorFound } from '@/components/Cards/Creators/NoCreatorFound';
 import { AccountLayout } from '@/layouts/AccountLayout';
 import { prisma } from '@/lib/prisma';
 import { axios } from '@/services/axios';
 import { type ShortUser } from '@/shared/interfaces/ShortUser';
-import { Avatar } from '@ui/Avatar';
+import { Avatar } from '@/components/ui/avatar';
 import { IconButton } from '@ui/Buttons/IconButton';
 import { Heading } from '@ui/Typography/Heading';
 import { Text } from '@ui/Typography/Text';
 import Head from 'next/head';
 import Link from 'next/link';
-// import { CircleWavyCheck, Trash, User } from 'phosphor-react';
+import { NoDataFound } from '@/components/no-data-found';
+import { User } from '@phosphor-icons/react/dist/ssr';
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
 
 interface Props {
@@ -96,7 +96,10 @@ export default function SettingsCreators({ users }: Props) {
 						))
 					) : (
 						<div className="p-4">
-							<NoCreatorFound />
+							<NoDataFound
+								title="No creators"
+								description="There is no registered creator."
+							/>
 						</div>
 					)}
 				</ul>

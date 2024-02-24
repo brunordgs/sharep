@@ -68,10 +68,20 @@ export const authOptions = {
 			return true;
 		},
 		async session({ session, user }) {
-			return {
-				...session,
-				user,
+			const finalSession = {
+				expires: session.expires,
+				user: {
+					name: user.name,
+					username: user.username,
+					image: user.image,
+					email: user.email,
+					isAdmin: user.isAdmin,
+					isCreator: user.isCreator,
+					isVerified: user.isVerified,
+				},
 			};
+
+			return finalSession;
 		},
 	},
 } satisfies NextAuthOptions;

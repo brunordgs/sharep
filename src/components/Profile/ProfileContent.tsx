@@ -1,22 +1,22 @@
-import { ProjectCard } from '@/components/Cards/Projects/ProjectCard';
+'use client';
+import { ProjectCard } from '@/components/cards/Projects/ProjectCard';
 // import { VerifiedAccountDialog } from '@/components/Modals/VerifiedAccountDialog';
 import { Card } from '@ui/Card';
 import { Tooltip } from '@ui/Tooltip';
 import { Heading } from '@ui/Typography/Heading';
 import { HTTP_PROTOCOL_REGEX } from '@/shared/constants';
 import { type Creator } from '@/shared/interfaces/Creator';
-import { type Project } from '@/shared/interfaces/Project';
 import { type UserProfile } from '@/shared/interfaces/UserProfile';
 import { type Platform } from '@/shared/types/Platform';
-import { useSession } from 'next-auth/react';
 import Link from 'next/link';
-// import { Link as LinkIcon, PaintBrush, Pencil } from 'phosphor-react';
+import { Link as LinkIcon, PaintBrush, Pencil } from '@phosphor-icons/react/dist/ssr';
 import { FaGithub, FaTiktok, FaTwitch, FaTwitter, FaYoutube } from 'react-icons/fa';
-import { Avatar } from '@ui/Avatar';
-import { IconButton } from '@ui/Buttons/IconButton';
+import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
 import { LinkButton } from '@/components/ui/Buttons/LinkButton';
 import { Text } from '@ui/Typography/Text';
 import { cn } from '@/lib/utils';
+import { getFallbackInitials } from '@/utils/helpers/format';
+import { Project } from '@prisma/client';
 
 interface BioContentProps {
 	bio: string | undefined;
@@ -43,7 +43,7 @@ function BioContent({ bio }: BioContentProps) {
 
 interface Props extends UserProfile {
 	creator: Creator;
-	projects: Project[];
+	projects: Omit<Project, 'userId'>[];
 }
 
 export function ProfileContent({
@@ -57,8 +57,6 @@ export function ProfileContent({
 	creator,
 	projects,
 }: Props) {
-	const session = useSession();
-
 	function generateLinkForPlatform(platform: Platform, userOrLink: string) {
 		switch (platform) {
 			case 'website':
@@ -86,7 +84,7 @@ export function ProfileContent({
 						<Tooltip data-tip={`Creator since ${creator.createdAt}`}>
 							<div className="bg-gradient-to-r from-pink-700 to-pink-800 shadow-md text-zinc-100 rounded-md py-1 px-2 text-sm italic font-semibold inline-flex items-center gap-2 select-none">
 								Creator
-								{/* <PaintBrush size={16} /> */}
+								<PaintBrush size={16} />
 							</div>
 						</Tooltip>
 					</div>
@@ -95,7 +93,10 @@ export function ProfileContent({
 
 			<div className="-mt-20 mx-4 relative z-10">
 				<div className="flex items-end">
-					<Avatar src={image} size="lg" hasBorder />
+					<Avatar className="w-36 h-36 border-4 border-zinc-100 dark:border-zinc-900">
+						<AvatarImage src={image} alt={name} />
+						<AvatarFallback>{getFallbackInitials(name)}</AvatarFallback>
+					</Avatar>
 
 					<div
 						className={cn(
@@ -125,31 +126,31 @@ export function ProfileContent({
 							</div>
 						)}
 
-						{session.data?.user.username === username && (
+						{/* {session.data?.user.username === username && (
 							<IconButton
 								href="/settings/account"
 								isAnchor
 								// icon={<Pencil size={16} weight="duotone" aria-label="Edit profile" />}
 								title="Edit profile"
 							/>
-						)}
+						)} */}
 					</div>
 				</div>
 
-				<div>
+				<div className="mt-4">
 					<div className="flex items-center gap-2">
-						<Text size="xl" weight="bold" className="md:text-3xl">
+						<Text size="xl" weight="bold" className="md:text-3xl md:leading-none">
 							{name}
 						</Text>
 						{/* {isVerified && <VerifiedAccountDialog size={24} />} */}
 					</div>
 
-					<Text as="span" className="text-[15px]">
+					<Text as="span" className="text-[15px] text-zinc-400">
 						@{username}
 					</Text>
 				</div>
 
-				<div className="mt-2">
+				<div className="mt-4">
 					{bio && <BioContent bio={bio} />}
 
 					{projects.length > 0 && isCreator && (
@@ -178,8 +179,7 @@ interface IconForPlatformProps {
 function IconForPlatform({ platform }: IconForPlatformProps) {
 	switch (platform) {
 		case 'website':
-			return null;
-			// return <LinkIcon />;
+			return <LinkIcon />;
 		case 'github':
 			return <FaGithub className="text-base" />;
 		case 'twitter':

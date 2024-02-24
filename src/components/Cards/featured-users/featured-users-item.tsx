@@ -1,7 +1,8 @@
-import { Avatar } from '@ui/Avatar';
+import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
 import { Text } from '@ui/Typography/Text';
 import Link from 'next/link';
-// import { CircleWavyCheck } from 'phosphor-react';
+import { CircleWavyCheck } from '@phosphor-icons/react/dist/ssr';
+import { getFallbackInitials } from '@/utils/helpers/format';
 
 interface Props {
 	name: string;
@@ -18,7 +19,10 @@ export function FeaturedUserItem({ name, username, isVerified, image }: Props) {
 			className="flex items-center w-full hover:bg-zinc-50 dark:hover:bg-zinc-700 py-2 px-6"
 		>
 			<div className="flex-1 flex items-center gap-2">
-				<Avatar src={image} size="xs" alt={name} />
+				<Avatar>
+					<AvatarImage src={image} alt={name} />
+					<AvatarFallback>{getFallbackInitials(name)}</AvatarFallback>
+				</Avatar>
 
 				<div className="leading-3">
 					<div className="flex items-center gap-1 hover:underline">
@@ -31,14 +35,14 @@ export function FeaturedUserItem({ name, username, isVerified, image }: Props) {
 							{name}
 						</Text>
 
-						{/* {isVerified && (
+						{isVerified && (
 							<CircleWavyCheck
 								weight="fill"
 								size={16}
 								className="text-indigo-500"
 								aria-label="Verified account"
 							/>
-						)} */}
+						)}
 					</div>
 
 					<Text

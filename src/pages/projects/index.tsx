@@ -1,4 +1,3 @@
-import { NoProjectFound } from '@/components/Cards/Projects/NoProjectFound';
 import { Card } from '@ui/Card';
 import { Container } from '@ui/Container';
 import { Image } from '@ui/Image';
@@ -11,6 +10,7 @@ import Head from 'next/head';
 import { FaGithub } from 'react-icons/fa';
 import { type Project } from '../../shared/interfaces/Project';
 import { LinkButton } from '@/components/ui/Buttons/LinkButton';
+import { NoDataFound } from '@/components/no-data-found';
 
 // const schema = z.object({
 // 	name: z.string(),
@@ -74,7 +74,10 @@ export default function Projects({ projects }: Props) {
 					<div className="mt-6">
 						{projects.length > 0 ? (
 							projects.map(({ url, name, image, description }) => (
-								<div key={url} className="flex items-center gap-4 bg-zinc-100 dark:bg-zinc-700/40 p-4 rounded-md">
+								<div
+									key={url}
+									className="flex items-center gap-4 bg-zinc-100 dark:bg-zinc-700/40 p-4 rounded-md"
+								>
 									<Image
 										src={image ?? '/sharep-logo-icon.svg'}
 										className="w-10 h-10"
@@ -94,7 +97,10 @@ export default function Projects({ projects }: Props) {
 								</div>
 							))
 						) : (
-							<NoProjectFound />
+							<NoDataFound
+								title="No projects"
+								description="There is no registered project."
+							/>
 						)}
 					</div>
 

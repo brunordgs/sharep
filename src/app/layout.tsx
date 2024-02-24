@@ -1,4 +1,4 @@
-import { Navbar } from '@/components/Header/Navbar';
+import { Navbar } from '@/components/navbar';
 import { Children } from '@/shared/interfaces/Children';
 import '@/styles/globals.css';
 import { Metadata } from 'next';

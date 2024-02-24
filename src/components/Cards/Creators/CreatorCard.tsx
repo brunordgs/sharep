@@ -1,4 +1,4 @@
-import { Avatar } from '@ui/Avatar';
+import { Avatar } from '@/components/ui/avatar';
 import { Text } from '@ui/Typography/Text';
 import { CircleWavyCheck } from '@phosphor-icons/react/dist/ssr';
 import Link from 'next/link';

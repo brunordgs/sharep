@@ -1,5 +1,5 @@
-import { FeaturedUsersCard } from './Cards/Users/FeaturedUsersCard';
 import { Footer } from './Footer';
+import { FeaturedUsersCard } from './cards/featured-users/featured-users-card';
 
 export function ExploreMenu() {
 	return (
