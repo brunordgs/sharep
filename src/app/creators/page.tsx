@@ -2,7 +2,7 @@ import { CreatorCard } from '@/components/cards/Creators/CreatorCard';
 import { ExploreMenu } from '@/components/explore-menu';
 import { NoDataFound } from '@/components/no-data-found';
 import { ShortUser } from '@/shared/interfaces/ShortUser';
-import { Card } from '@ui/Card';
+import { Card } from '@/components/ui/card';
 import { Container } from '@ui/Container';
 import { Metadata } from 'next';
 import { getServerSession } from 'next-auth';
@@ -15,13 +15,14 @@ import {
 	SelectTrigger,
 	SelectValue,
 } from '@/components/ui/select';
+import { BecomeCreatorBanner } from '@/components/become-creator-banner';
 
 export const metadata: Metadata = {
 	title: 'Creators',
 };
 
 export default async function Creators() {
-	const session = getServerSession(authOptions);
+	const session = await getServerSession(authOptions);
 
 	async function listCreators(): Promise<ShortUser[]> {
 		const res = await fetch('http://localhost:3000/api/creators');
@@ -58,27 +59,17 @@ export default async function Creators() {
 
 					<div className="border-b border-zinc-200 dark:border-zinc-800" />
 
-					{/* {!session.data?.user.isCreator && isBannerOpen && (
-							<CreatorBanner
-								title="Become a creator"
-								description="Start sharing projects on Sharep by applying to become a creator, and start posting!"
-								onHandleClose={onBannerOpen}
-							/>
-						)} */}
+					{/* {!session.data?.user.isCreator && isBannerOpen && ( */}
+					{!session?.user.isCreator && <BecomeCreatorBanner />}
 
-					<Card className="lg:h-full" noPadding>
-						{/* <Loading loading={isLoading}> */}
+					<Card className="lg:h-full">
 						{creators && creators.length > 0 ? (
 							creators.map(({ username, image, ...rest }) => (
 								<CreatorCard key={username} username={username} avatar={image} {...rest} />
 							))
 						) : (
-							<NoDataFound
-								title="No creators"
-								description="There is no registered creator."
-							/>
+							<NoDataFound title="No creators" description="There is no registered creator." />
 						)}
-						{/* </Loading> */}
 					</Card>
 				</div>
 

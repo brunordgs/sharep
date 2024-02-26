@@ -8,7 +8,7 @@ import { FaGithub } from 'react-icons/fa';
 
 export const metadata: Metadata = {
 	title: 'About',
-	description: 'Work with us to share the best projects',
+	description: 'Work with us to share the best content',
 };
 
 export default function About() {
@@ -28,7 +28,7 @@ export default function About() {
 				</Heading>
 
 				<Text className="mt-6">
-					Sharep was created to share great and useful projects to our community.
+					Sharep was created to share great and useful content to our community.
 				</Text>
 			</section>
 
@@ -44,7 +44,7 @@ export default function About() {
 						<Link href="@brunordgs" className="group">
 							<Image
 								src="https://github.com/brunordgs.png"
-								className="w-32 h-32 group-hover:opacity-60 duration-500 transition-opacity rounded-md overflow-hidden"
+								className="w-32 h-32 group-hover:opacity-80 dark:group-hover:opacity-60 duration-500 transition-opacity rounded-md overflow-hidden"
 								alt="Bruno Rodrigues"
 							/>
 

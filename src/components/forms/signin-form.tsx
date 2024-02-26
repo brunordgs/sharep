@@ -4,8 +4,6 @@ import { Form } from '@/components/Form';
 import { FormField } from '@/components/Form/FormField';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { Alert } from '@ui/Alert';
-import { Button } from '@ui/Buttons/Button';
-import { LoadingButton } from '@ui/Buttons/LoadingButton';
 import { Container } from '@ui/Container';
 import { Heading } from '@ui/Typography/Heading';
 import { Text } from '@ui/Typography/Text';
@@ -14,6 +12,8 @@ import Link from 'next/link';
 import { useForm } from 'react-hook-form';
 import { FaGithub } from 'react-icons/fa';
 import { z } from 'zod';
+import { Button } from '../ui/button';
+import { LinkButton } from '../ui/link-button';
 
 const signInSchema = z.object({
 	email: z.string().email('Please enter a valid email address'),
@@ -100,14 +100,11 @@ export function SignInForm() {
 				</div>
 
 				<div className="flex items-center justify-between">
-					<Link
-						href="/auth/signup"
-						className="inline-flex font-medium text-base text-rose-500 hover:text-rose-600 dark:hover:text-rose-400 transition-colors ease-out"
-					>
+					<LinkButton href="/auth/signup" variant="link" className="px-0">
 						Need an account? Sign up
-					</Link>
+					</LinkButton>
 
-					{isSubmitting ? <LoadingButton /> : <Button type="submit">Sign In</Button>}
+					<Button type="submit">Sign In</Button>
 				</div>
 			</Form>
 		</Container>

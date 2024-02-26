@@ -16,6 +16,7 @@ import { useForm } from 'react-hook-form';
 import { FaGithub } from 'react-icons/fa';
 import { z } from 'zod';
 import { Button } from '../ui/button';
+import { LinkButton } from '../ui/link-button';
 
 const signUpSchema = z.object({
 	name: z.string().min(3, 'Name must be at least 3 characters long'),
@@ -131,14 +132,15 @@ export function SignUpForm() {
 				</div>
 
 				<div className="flex items-center justify-between">
-					<Link
+					<LinkButton
 						href="/auth/signin"
-						className="inline-flex font-medium text-base text-rose-500 hover:text-rose-600 dark:hover:text-rose-400 transition-colors ease-out"
+						variant="link"
+						className="px-0"
 					>
-						Have an account? Sign in
-					</Link>
+						Already have an account? Sign in
+					</LinkButton>
 
-					<Button type="submit" variant="destructive">
+					<Button type="submit">
 						Sign Up
 					</Button>
 				</div>

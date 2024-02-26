@@ -1,11 +1,19 @@
 import { Image } from '@ui/Image';
-import { type Project } from '@/shared/interfaces/Project';
 import Link from 'next/link';
 import { FaGithub } from 'react-icons/fa';
 import { Text } from '@ui/Typography/Text';
 import { cn } from '@/lib/utils';
 
-export function ProjectCard({ image, name, description, url, repo, repoUrl }: Project) {
+interface Props {
+	image: string | null;
+	name: string;
+	description: string;
+	url: string;
+	repo: string;
+	repoUrl: string;
+}
+
+export function ProjectCard({ image, name, description, url, repo, repoUrl }: Props) {
 	return (
 		<Link
 			href={url}

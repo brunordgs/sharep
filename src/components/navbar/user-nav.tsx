@@ -11,10 +11,13 @@ import {
 } from '../ui/dropdown-menu';
 import { getFallbackInitials } from '@/utils/helpers/format';
 import { signOut } from 'next-auth/react';
-import { User } from '@prisma/client';
 
 interface Props {
-	user: User;
+	user: {
+		image: string | null;
+		name: string | null;
+		username: string;
+	};
 }
 
 export function UserNav({ user }: Props) {
@@ -23,7 +26,7 @@ export function UserNav({ user }: Props) {
 			<DropdownMenuTrigger asChild>
 				<Button variant="ghost" className="relative h-8 w-8 rounded-full">
 					<Avatar className="h-8 w-8">
-						<AvatarImage src={user.image} alt={user.name} />
+						<AvatarImage src={user.image!} alt={user.name!} />
 						<AvatarFallback>{getFallbackInitials(user.name)}</AvatarFallback>
 					</Avatar>
 				</Button>

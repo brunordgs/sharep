@@ -2,7 +2,6 @@ import { cn } from '@/lib/utils';
 import { axios } from '@/services/axios';
 import { type UserProfile } from '@/shared/interfaces/UserProfile';
 import { Avatar } from '@/components/ui/avatar';
-import { Loading } from '@ui/Loading';
 import { Text } from '@ui/Typography/Text';
 import { useSession } from 'next-auth/react';
 import Link from 'next/link';
@@ -31,26 +30,18 @@ export function SideNavigation() {
 		},
 	];
 
-	const { data: user, isLoading } = useQuery<UserProfile>(
-		['user', session.data?.user.username],
-		async () => {
-			const { data } = await axios.get(`/users/${session.data?.user.username}`);
+	// const { data: user, isLoading } = useQuery<UserProfile>(
+	// 	['user', session.data?.user.username],
+	// 	async () => {
+	// 		const { data } = await axios.get(`/users/${session.data?.user.username}`);
 
-			return data;
-		},
-	);
-
-	if (isLoading || !user) {
-		return (
-			<div className="h-0 my-6">
-				<Loading loading={isLoading} />
-			</div>
-		);
-	}
+	// 		return data;
+	// 	},
+	// );
 
 	return (
 		<aside>
-			<Link
+			{/* <Link
 				href={`/@${user.username}`}
 				className="flex items-start gap-4 mb-4 lg:mb-0 mr-4 hover:bg-zinc-200 dark:hover:bg-zinc-700 rounded-md p-2 transition-all"
 			>
@@ -64,7 +55,7 @@ export function SideNavigation() {
 						@{user.username}
 					</Text>
 				</div>
-			</Link>
+			</Link> */}
 
 			<ul className="mt-6 font-medium">
 				{menuItems.map(({ link, text, icon: Icon, isCurrentItem, disabled }) => (

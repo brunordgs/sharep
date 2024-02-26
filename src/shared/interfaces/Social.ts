@@ -1,8 +1,8 @@
 export interface Social {
-	website: string;
-	github: string;
-	twitter: string;
-	twitch: string;
-	youtube: string;
-	tiktok: string;
+	website: string | null;
+	github: string | null;
+	twitter: string | null;
+	twitch: string | null;
+	youtube: string | null;
+	tiktok: string | null;
 }

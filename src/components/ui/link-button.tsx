@@ -1,7 +1,7 @@
 import { type VariantProps } from 'class-variance-authority';
 import Link, { type LinkProps } from 'next/link';
 import { cn } from '@/lib/utils';
-import { buttonVariants } from '../button';
+import { buttonVariants } from './button';
 import { type Icon } from '@phosphor-icons/react';
 
 interface Props

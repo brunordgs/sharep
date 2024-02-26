@@ -1,4 +1,3 @@
-// import { CreatorBanner } from '@/components/Cards/Creators/CreatorBanner';
 import { ProjectCard } from '@/components/cards/Projects/ProjectCard';
 import { ExploreMenu } from '@/components/explore-menu';
 import { NoDataFound } from '@/components/no-data-found';
@@ -12,12 +11,10 @@ import {
 } from '@/components/ui/select';
 import { prisma } from '@/lib/prisma';
 import { CaretDown } from '@phosphor-icons/react/dist/ssr';
-import { Card } from '@ui/Card';
+import { Card } from '@/components/ui/card';
 import { Container } from '@ui/Container';
 
 export default async function Home() {
-	// const session = useSession();
-
 	const projects = await prisma.project.findMany({
 		select: {
 			id: true,
@@ -53,22 +50,11 @@ export default async function Home() {
 
 					<div className="border-b border-zinc-200 dark:border-zinc-800" />
 
-					{/* {!session.data?.user.isCreator && isBannerOpen && (
-							<CreatorBanner
-								title="Become a creator"
-								description="Start sharing projects on Sharep by applying to become a creator, and start posting!"
-								onHandleClose={onBannerOpen}
-							/>
-						)} */}
-
-					<Card className="lg:h-full" noPadding>
+					<Card className="lg:h-full">
 						{projects.length > 0 ? (
 							projects.map(({ url, ...rest }) => <ProjectCard key={url} url={url} {...rest} />)
 						) : (
-							<NoDataFound
-								title="No projects"
-								description="There is no registered project."
-							/>
+							<NoDataFound title="No content" description="There is no registered content." />
 						)}
 					</Card>
 				</div>
