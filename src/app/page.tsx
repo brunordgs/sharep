@@ -1,4 +1,3 @@
-import { ProjectCard } from '@/components/cards/Projects/ProjectCard';
 import { ExploreMenu } from '@/components/explore-menu';
 import { NoDataFound } from '@/components/no-data-found';
 import { Heading } from '@/components/ui/Typography/Heading';
@@ -13,6 +12,7 @@ import { prisma } from '@/lib/prisma';
 import { CaretDown } from '@phosphor-icons/react/dist/ssr';
 import { Card } from '@/components/ui/card';
 import { Container } from '@ui/Container';
+import { ProjectCard } from '@/components/project-card';
 
 export default async function Home() {
 	const projects = await prisma.project.findMany({

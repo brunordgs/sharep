@@ -1,4 +1,3 @@
-import { CreatorCard } from '@/components/cards/Creators/CreatorCard';
 import { ExploreMenu } from '@/components/explore-menu';
 import { NoDataFound } from '@/components/no-data-found';
 import { ShortUser } from '@/shared/interfaces/ShortUser';
@@ -16,6 +15,7 @@ import {
 	SelectValue,
 } from '@/components/ui/select';
 import { BecomeCreatorBanner } from '@/components/become-creator-banner';
+import { CreatorCard } from '@/components/creator-card';
 
 export const metadata: Metadata = {
 	title: 'Creators',

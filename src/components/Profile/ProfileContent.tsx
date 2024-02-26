@@ -1,5 +1,4 @@
 'use client';
-import { ProjectCard } from '@/components/cards/Projects/ProjectCard';
 // import { VerifiedAccountDialog } from '@/components/Modals/VerifiedAccountDialog';
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
 import { Card } from '@/components/ui/card';
@@ -16,6 +15,7 @@ import { Heading } from '@ui/Typography/Heading';
 import { Text } from '@ui/Typography/Text';
 import Link from 'next/link';
 import { FaGithub, FaTiktok, FaTwitch, FaTwitter, FaYoutube } from 'react-icons/fa';
+import { ProjectCard } from '../project-card';
 
 interface BioContentProps {
 	bio: string | undefined;
