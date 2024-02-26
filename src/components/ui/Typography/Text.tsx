@@ -1,6 +1,6 @@
+import { cn } from '@/lib/utils';
 import { FONT_WEIGHTS } from '@/shared/constants';
 import { type Typography } from '@/shared/interfaces/Typography';
-import { cx } from 'class-variance-authority';
 import { HTMLAttributes } from 'react';
 
 export type Props = {
@@ -32,7 +32,7 @@ export function Text({
 }: Props) {
 	return (
 		<Tag
-			className={cx(
+			className={cn(
 				!className?.includes('text-[') && sizes[size],
 				FONT_WEIGHTS[weight],
 				transform,

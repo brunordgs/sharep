@@ -1,22 +1,21 @@
-import { ProjectCard } from '@/components/Cards/Projects/ProjectCard';
-import { VerifiedAccountDialog } from '@/components/Modals/VerifiedAccountDialog';
-import { Card } from '@ui/Card';
-import { Tooltip } from '@ui/Tooltip';
-import { Heading } from '@ui/Typography/Heading';
+'use client';
+// import { VerifiedAccountDialog } from '@/components/Modals/VerifiedAccountDialog';
+import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
+import { Card } from '@/components/ui/card';
+import { LinkButton } from '@/components/ui/link-button';
+import { cn } from '@/lib/utils';
 import { HTTP_PROTOCOL_REGEX } from '@/shared/constants';
 import { type Creator } from '@/shared/interfaces/Creator';
-import { type Project } from '@/shared/interfaces/Project';
-import { type UserProfile } from '@/shared/interfaces/UserProfile';
+import { type Social } from '@/shared/interfaces/Social';
 import { type Platform } from '@/shared/types/Platform';
-import { cx } from 'class-variance-authority';
-import { useSession } from 'next-auth/react';
-import Link from 'next/link';
-import { Link as LinkIcon, PaintBrush, Pencil } from 'phosphor-react';
-import { FaGithub, FaTiktok, FaTwitch, FaTwitter, FaYoutube } from 'react-icons/fa';
-import { Avatar } from '@ui/Avatar';
-import { IconButton } from '@ui/Buttons/IconButton';
-import { LinkButton } from '@ui/Buttons/LinkButton';
+import { getFallbackInitials } from '@/utils/helpers/format';
+import { Link as LinkIcon, PaintBrush } from '@phosphor-icons/react/dist/ssr';
+import { Tooltip } from '@ui/Tooltip';
+import { Heading } from '@ui/Typography/Heading';
 import { Text } from '@ui/Typography/Text';
+import Link from 'next/link';
+import { FaGithub, FaTiktok, FaTwitch, FaTwitter, FaYoutube } from 'react-icons/fa';
+import { ProjectCard } from '../project-card';
 
 interface BioContentProps {
 	bio: string | undefined;
@@ -30,7 +29,7 @@ function BioContent({ bio }: BioContentProps) {
 		<Text className="text-zinc-600 dark:text-zinc-300">
 			{words?.map((word) =>
 				word.match(matchUrl) ? (
-					<LinkButton href={word} intent="link" className="inline-flex" isExternal>
+					<LinkButton href={word} className="inline-flex">
 						{word.replace(HTTP_PROTOCOL_REGEX, '')}
 					</LinkButton>
 				) : (
@@ -41,9 +40,23 @@ function BioContent({ bio }: BioContentProps) {
 	);
 }
 
-interface Props extends UserProfile {
-	creator: Creator;
-	projects: Project[];
+interface Props {
+	name: string;
+	username: string;
+	bio: string | null;
+	image: string;
+	creator: Creator | null;
+	isCreator: boolean;
+	isVerified: boolean;
+	projects: {
+		image: string | null;
+		name: string;
+		description: string;
+		url: string;
+		repo: string;
+		repoUrl: string;
+	}[];
+	social: Social | null;
 }
 
 export function ProfileContent({
@@ -57,8 +70,6 @@ export function ProfileContent({
 	creator,
 	projects,
 }: Props) {
-	const session = useSession();
-
 	function generateLinkForPlatform(platform: Platform, userOrLink: string) {
 		switch (platform) {
 			case 'website':
@@ -83,7 +94,7 @@ export function ProfileContent({
 			<div className="bg-gradient-to-b from-rose-500 to-pink-600 h-48 rounded-b-2xl relative">
 				{isCreator && (
 					<div className="absolute bottom-2 right-4 flex gap-2 z-[11]">
-						<Tooltip data-tip={`Creator since ${creator.createdAt}`}>
+						<Tooltip data-tip={`Creator since ${creator?.createdAt}`}>
 							<div className="bg-gradient-to-r from-pink-700 to-pink-800 shadow-md text-zinc-100 rounded-md py-1 px-2 text-sm italic font-semibold inline-flex items-center gap-2 select-none">
 								Creator
 								<PaintBrush size={16} />
@@ -95,10 +106,13 @@ export function ProfileContent({
 
 			<div className="-mt-20 mx-4 relative z-10">
 				<div className="flex items-end">
-					<Avatar src={image} size="lg" hasBorder />
+					<Avatar className="w-36 h-36 border-4 border-zinc-100 dark:border-zinc-900">
+						<AvatarImage src={image} alt={name} />
+						<AvatarFallback>{getFallbackInitials(name)}</AvatarFallback>
+					</Avatar>
 
 					<div
-						className={cx(
+						className={cn(
 							social ? 'justify-between' : 'justify-end',
 							'flex flex-1 items-center my-6',
 						)}
@@ -115,7 +129,7 @@ export function ProfileContent({
 												target="_blank"
 												rel="noopener noreferrer"
 											>
-												<IconForPlatform platform={platform as Platform} />
+												<PlatformIcon platform={platform as Platform} />
 												<Text as="span" transform="capitalize" className="hidden sm:block">
 													{platform}
 												</Text>
@@ -125,31 +139,31 @@ export function ProfileContent({
 							</div>
 						)}
 
-						{session.data?.user.username === username && (
+						{/* {session.data?.user.username === username && (
 							<IconButton
 								href="/settings/account"
 								isAnchor
-								icon={<Pencil size={16} weight="duotone" aria-label="Edit profile" />}
+								// icon={<Pencil size={16} weight="duotone" aria-label="Edit profile" />}
 								title="Edit profile"
 							/>
-						)}
+						)} */}
 					</div>
 				</div>
 
-				<div>
+				<div className="mt-4">
 					<div className="flex items-center gap-2">
-						<Text size="xl" weight="bold" className="md:text-3xl">
+						<Text size="xl" weight="bold" className="md:text-3xl md:leading-none">
 							{name}
 						</Text>
-						{isVerified && <VerifiedAccountDialog size={24} />}
+						{/* {isVerified && <VerifiedAccountDialog size={24} />} */}
 					</div>
 
-					<Text as="span" className="text-[15px]">
+					<Text as="span" className="text-[15px] text-zinc-400">
 						@{username}
 					</Text>
 				</div>
 
-				<div className="mt-2">
+				<div className="mt-4">
 					{bio && <BioContent bio={bio} />}
 
 					{projects.length > 0 && isCreator && (
@@ -158,7 +172,7 @@ export function ProfileContent({
 								Contributions
 							</Heading>
 
-							<Card noPadding>
+							<Card>
 								{projects.map(({ url, ...rest }) => (
 									<ProjectCard key={url} url={url} {...rest} />
 								))}
@@ -171,11 +185,11 @@ export function ProfileContent({
 	);
 }
 
-interface IconForPlatformProps {
+interface PlatformIconProps {
 	platform: Platform;
 }
 
-function IconForPlatform({ platform }: IconForPlatformProps) {
+function PlatformIcon({ platform }: PlatformIconProps) {
 	switch (platform) {
 		case 'website':
 			return <LinkIcon />;

@@ -1,5 +1,4 @@
 import { cva, type VariantProps } from 'class-variance-authority';
-import { type IconProps } from 'phosphor-react';
 import {
 	type ButtonHTMLAttributes,
 	type ForwardRefExoticComponent,
@@ -13,7 +12,7 @@ export interface Props
 	size?: 'small' | 'default' | 'large';
 	fontSize?: 'xs' | 'sm' | 'base' | 'lg';
 	icon?: {
-		icon: IconType | ForwardRefExoticComponent<IconProps & RefAttributes<SVGSVGElement>>;
+		icon: IconType | ForwardRefExoticComponent<any & RefAttributes<SVGSVGElement>>;
 		position: 'left' | 'right';
 		className?: string;
 	};

@@ -1,20 +1,8 @@
-import { cx } from 'class-variance-authority';
+import { cn } from '@/lib/utils';
 import { HTMLAttributes } from 'react';
 
-interface Props extends HTMLAttributes<HTMLDivElement> {
-	noMargin?: boolean;
-}
+interface Props extends HTMLAttributes<HTMLDivElement> {}
 
-export function Container({ noMargin = false, className, children }: Props) {
-	return (
-		<main
-			className={cx(
-				{ 'my-6': !noMargin },
-				'container',
-				className,
-			)}
-		>
-			{children}
-		</main>
-	);
+export function Container({ className, children }: Props) {
+	return <main className={cn('container mt-12', className)}>{children}</main>;
 }

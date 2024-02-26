@@ -1,4 +1,4 @@
-import { Eye, EyeSlash } from 'phosphor-react';
+// import { Eye, EyeSlash } from 'phosphor-react';
 import { forwardRef, useState } from 'react';
 import { Input, INPUT_COLORS } from './Input';
 
@@ -17,7 +17,7 @@ export const PasswordInput = forwardRef<Props, Props>(({ error, ...props }, ref)
 				className="absolute top-2 right-4 text-zinc-500 dark:text-zinc-400 cursor-pointer"
 				onClick={() => setShowPassword(!showPassword)}
 			>
-				{!showPassword ? <Eye size={22} weight="bold" /> : <EyeSlash size={22} weight="bold" />}
+				{/* {!showPassword ? <Eye size={22} weight="bold" /> : <EyeSlash size={22} weight="bold" />} */}
 			</div>
 		</div>
 	);

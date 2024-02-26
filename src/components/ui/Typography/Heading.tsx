@@ -1,6 +1,6 @@
+import { cn } from '@/lib/utils';
 import { FONT_WEIGHTS } from '@/shared/constants';
 import { type Typography } from '@/shared/interfaces/Typography';
-import { cx } from 'class-variance-authority';
 import { HTMLAttributes } from 'react';
 
 type Props = {
@@ -32,7 +32,7 @@ export function Heading({
 	...props
 }: Props) {
 	return (
-		<Tag className={cx(sizes[size], FONT_WEIGHTS[weight], transform, className)} {...props}>
+		<Tag className={cn(sizes[size], FONT_WEIGHTS[weight], transform, className)} {...props}>
 			{children}
 		</Tag>
 	);

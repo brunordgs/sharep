@@ -1,31 +1,18 @@
-import { cx } from 'class-variance-authority';
-import NextImage, { ImageProps } from 'next/legacy/image';
-import { useState } from 'react';
+'use client';
+import { cn } from '@/lib/utils';
+import NextImage, { type ImageProps } from 'next/image';
 
-export function Image({
-	src,
-	alt,
-	layout = 'fill',
-	objectFit = 'contain',
-	className,
-	...props
-}: ImageProps) {
-	const [loading, setLoading] = useState(true);
-
+export function Image({ src, className, alt, ...props }: ImageProps) {
 	return (
-		<div className={cx('relative', className)}>
-			<NextImage
-				src={src}
-				alt={alt}
-				layout={layout}
-				objectFit={objectFit}
-				className={cx(
-					loading ? 'grayscale blur-2xl scale-110' : 'grayscale-0 blur-0 scale-100',
-					'select-none duration-700 ease-in-out',
-				)}
-				onLoadingComplete={() => setLoading(false)}
-				{...props}
-			/>
-		</div>
+		<NextImage
+			src={src}
+			className={cn('blur-sm select-none duration-700 ease-in-out', className)}
+			onLoadingComplete={(img) => img.classList.remove(...['blur-sm'])}
+			width={0}
+			height={0}
+			sizes="100vw"
+			alt={alt}
+			{...props}
+		/>
 	);
 }

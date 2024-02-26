@@ -1,4 +1,4 @@
-import { Warning, WarningCircle } from 'phosphor-react';
+// import { Warning, WarningCircle } from 'phosphor-react';
 import { Text } from './Typography/Text';
 import { cx } from 'class-variance-authority';
 
@@ -25,12 +25,12 @@ const ALERT_COLORS = {
 
 export function Alert({ color = 'primary', title, description }: Props) {
 	const colorStyles = ALERT_COLORS[color] ?? ALERT_COLORS.primary;
-	const Icon = color === 'primary' ? WarningCircle : Warning;
+	// const Icon = color === 'primary' ? WarningCircle : Warning;
 
 	return (
 		<div className={cx(colorStyles.bg, 'rounded-md border-2 p-4')}>
 			<header className="flex items-center gap-4 mb-2">
-				<Icon weight="fill" size={20} className={colorStyles.icon} />
+				{/* <Icon weight="fill" size={20} className={colorStyles.icon} /> */}
 
 				<Text className={cx(colorStyles.title, 'font-semibold')}>{title}</Text>
 			</header>

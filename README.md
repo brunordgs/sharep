@@ -4,7 +4,8 @@
   </a>
 </h1>
 
-Sharep was created to share great and useful projects to our community.
+Sharep was created to share great and useful content to our community.
+
 
 ## Getting started
 
@@ -22,26 +23,15 @@ $ cd sharep
 $ pnpm install
 ```
 
-Set up Supabase database
-
-```bash
-# You must create an account in the Supabase and generate an access token in order to proceed.
-$ pnpm supabase login
-$ pnpm supabase start
-
-# NOTE: In case of the tables don't show up, you can run:
-$ pnpm supabase db reset
-```
-
-Finally, run application
+After that, run application.
 
 ```bash
 $ pnpm dev
 ```
 
-Open `http://localhost:3000` with your browser to see the web result and `http://localhost:54323` to check Supabase dashboard.
+Open `http://localhost:3000` with your browser to see the web result.
 
-\_Obs: don't forget to create the `.env.local` (please duplicate `.env.example`). **Application won't work correctly without it**.
+\_Obs: don't forget to create the `.env` file (please duplicate `.env.example`). **Application won't work correctly without it**.
 
 ## Contributing
 
