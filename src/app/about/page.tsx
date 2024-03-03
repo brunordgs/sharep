@@ -1,9 +1,9 @@
-import { Container } from '@/components/ui/Container';
+import { Container } from '@/components/container';
 import { LinkButton } from '@/components/ui/link-button';
 import { prisma } from '@/lib/prisma';
 import { Image } from '@ui/Image';
-import { Heading } from '@ui/Typography/Heading';
-import { Text } from '@ui/Typography/Text';
+import { Heading } from '@/components/ui/typography/heading';
+import { Text } from '@/components/ui/typography/text';
 import { Metadata } from 'next';
 import Link from 'next/link';
 import { FaGithub } from 'react-icons/fa';

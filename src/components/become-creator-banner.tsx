@@ -1,7 +1,6 @@
 'use client';
-import { IconButton } from '@ui/Buttons/IconButton';
-import { X } from '@phosphor-icons/react/dist/ssr';
-import { Text } from '@ui/Typography/Text';
+import { Text } from '@/components/ui/typography/text';
+import { X } from 'lucide-react';
 import { useState } from 'react';
 
 export function BecomeCreatorBanner() {
@@ -15,13 +14,13 @@ export function BecomeCreatorBanner() {
 						Become a creator
 					</Text>
 
-					<IconButton
-						variant="secondary"
-						className="w-6 h-6 p-0"
-						icon={<X className="w-3 h-3" aria-label="Close banner" />}
+					<button
+						type="button"
 						onClick={() => setOpen(false)}
-						title="Close banner"
-					/>
+						className="bg-zinc-100/40 hover:bg-zinc-100/20 dark:bg-zinc-800/20 dark:hover:bg-zinc-800/40 hover:text-white w-6 h-6 rounded-full flex items-center justify-center transition-colors"
+					>
+						<X className="w-3 h-3" aria-label="Close banner" />
+					</button>
 				</header>
 
 				<Text size="sm" className="mt-2 mb-4 max-w-3xl">

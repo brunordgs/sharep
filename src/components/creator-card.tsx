@@ -1,7 +1,7 @@
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
 import { getFallbackInitials } from '@/utils/helpers/format';
 import { CircleWavyCheck } from '@phosphor-icons/react/dist/ssr';
-import { Text } from '@ui/Typography/Text';
+import { Text } from '@/components/ui/typography/text';
 import Link from 'next/link';
 
 interface Props {

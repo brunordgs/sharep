@@ -4,7 +4,7 @@ import { Monitor, User } from 'lucide-react';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import { createElement } from 'react';
-import { Text } from '../ui/Typography/Text';
+import { Text } from '../ui/typography/text';
 import { Avatar, AvatarImage } from '../ui/avatar';
 
 interface Props {

@@ -1,5 +1,5 @@
 import { Children } from '@/shared/interfaces/Children';
-import { Text } from './ui/Typography/Text';
+import { Text } from './ui/typography/text';
 import { TextSearch } from 'lucide-react';
 
 interface Props extends Children {

@@ -1,17 +1,19 @@
 'use client';
-import { Form } from '@/components/Form';
-import { FormField } from '@/components/Form/FormField';
 import { zodResolver } from '@hookform/resolvers/zod';
-import { Container } from '@ui/Container';
-import { Heading } from '@ui/Typography/Heading';
-import { Text } from '@ui/Typography/Text';
+import { Container } from '@/components/container';
 import { signIn } from 'next-auth/react';
-import { useForm } from 'react-hook-form';
-import { FaGithub } from 'react-icons/fa';
-import { z } from 'zod';
-import { Button } from '../ui/button';
-import { LinkButton } from '../ui/link-button';
 import { useRouter } from 'next/navigation';
+import { useForm } from 'react-hook-form';
+import { z } from 'zod';
+import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from '../ui/form';
+import { Input } from '../ui/input';
+import { Heading } from '../ui/typography/heading';
+import { FaGithub } from 'react-icons/fa';
+import { Text } from '../ui/typography/text';
+import { Card, CardContent, CardHeader } from '../ui/card';
+import { LinkButton } from '../ui/link-button';
+import { Button } from '../ui/button';
+import { PasswordInput } from '../ui/password-input';
 
 const signInSchema = z.object({
 	email: z.string().email('Please enter a valid email address'),
@@ -23,7 +25,7 @@ type SignInSchema = z.infer<typeof signInSchema>;
 export function SignInForm() {
 	const router = useRouter();
 
-	const methods = useForm<SignInSchema>({
+	const form = useForm<SignInSchema>({
 		defaultValues: {
 			email: '',
 			password: '',
@@ -33,8 +35,9 @@ export function SignInForm() {
 
 	const {
 		handleSubmit,
+		control,
 		formState: { errors, isDirty, isValid },
-	} = methods;
+	} = form;
 
 	async function handleSignIn(values: SignInSchema) {
 		const { email, password } = values;
@@ -57,63 +60,77 @@ export function SignInForm() {
 	}
 
 	return (
-		<Container className="flex justify-center md:my-20">
-			<Form
-				onSubmit={handleSubmit(handleSignIn)}
-				className="w-full max-w-md space-y-8"
-				methods={methods}
-			>
-				<Heading size="3xl" transform="italic">
-					Sign in.
-				</Heading>
+		<Container className="max-w-xl">
+			<Card>
+				<CardContent>
+					<CardHeader className="space-y-8 px-0">
+						<Heading size="3xl" transform="italic">
+							Sign in.
+						</Heading>
 
-				<button
-					type="button"
-					className="flex items-center justify-center gap-2 w-full bg-zinc-200 hover:bg-zinc-200/90 dark:bg-zinc-800 dark:hover:bg-zinc-800/90 p-2 rounded-md font-medium hover:text-black dark:hover:text-white text-sm transition-colors ease-out"
-					onClick={() => signIn('github')}
-				>
-					<FaGithub size={18} /> Continue with Github
-				</button>
+						<button
+							type="button"
+							className="flex items-center justify-center gap-2 w-full bg-zinc-200 hover:bg-zinc-200/90 dark:bg-zinc-800 dark:hover:bg-zinc-800/90 p-2 rounded-md font-medium hover:text-black dark:hover:text-white text-sm transition-colors ease-out"
+							onClick={() => signIn('github')}
+						>
+							<FaGithub size={18} /> Continue with Github
+						</button>
+					</CardHeader>
 
-				<div className="relative">
-					<div className="absolute inset-0 flex items-center">
-						<div className="w-full border-t" />
+					<div className="space-y-8">
+						<div className="relative">
+							<div className="absolute inset-0 flex items-center">
+								<div className="w-full border-t" />
+							</div>
+
+							<div className="relative flex justify-center text-sm">
+								<Text as="span" size="sm" className="px-2 bg-card">
+									or
+								</Text>
+							</div>
+						</div>
+
+						<Form {...form}>
+							<form onSubmit={handleSubmit(handleSignIn)} className="space-y-4">
+								<FormField
+									control={control}
+									name="email"
+									render={({ field }) => (
+										<FormItem>
+											<FormLabel>Email</FormLabel>
+											<FormControl>
+												<Input type="email" placeholder="Email address..." {...field} />
+											</FormControl>
+											<FormMessage />
+										</FormItem>
+									)}
+								/>
+								<FormField
+									control={control}
+									name="password"
+									render={({ field }) => (
+										<FormItem>
+											<FormLabel>Password</FormLabel>
+											<FormControl>
+												<PasswordInput placeholder="Password..." {...field} />
+											</FormControl>
+											<FormMessage />
+										</FormItem>
+									)}
+								/>
+
+								<div className="flex items-center justify-between">
+									<LinkButton href="/auth/signup" variant="link" className="px-0">
+										Need an account? Sign up
+									</LinkButton>
+
+									<Button disabled={!isDirty || !isValid}>Sign In</Button>
+								</div>
+							</form>
+						</Form>
 					</div>
-
-					<div className="relative flex justify-center text-sm">
-						<Text as="span" size="sm" className="px-2 bg-background">
-							or
-						</Text>
-					</div>
-				</div>
-
-				<div className="space-y-6">
-					<FormField
-						color="secondary"
-						name="email"
-						label="Email or username"
-						placeholder="Email address..."
-						error={errors.email?.message}
-					/>
-
-					<FormField
-						color="secondary"
-						name="password"
-						label="Password"
-						placeholder="Password..."
-						error={errors.password?.message}
-						isPassword
-					/>
-				</div>
-
-				<div className="flex items-center justify-between">
-					<LinkButton href="/auth/signup" variant="link" className="px-0">
-						Need an account? Sign up
-					</LinkButton>
-
-					<Button disabled={!isDirty || !isValid}>Sign In</Button>
-				</div>
-			</Form>
+				</CardContent>
+			</Card>
 		</Container>
 	);
 }

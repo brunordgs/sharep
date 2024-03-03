@@ -23,13 +23,19 @@ $ cd sharep
 $ pnpm install
 ```
 
+Don't forget to run Prisma studio
+
+```bash
+$ pnpm prisma:studio
+```
+
 After that, run application.
 
 ```bash
 $ pnpm dev
 ```
 
-Open `http://localhost:3000` with your browser to see the web result.
+Open `http://localhost:3000` with your browser to see the web result and http://localhost:5555 to check Prisma studio.
 
 \_Obs: don't forget to create the `.env` file (please duplicate `.env.example`). **Application won't work correctly without it**.
 

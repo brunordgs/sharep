@@ -1,5 +1,5 @@
-import { Heading } from '@ui/Typography/Heading';
-import { Text } from '@ui/Typography/Text';
+import { Heading } from '@/components/ui/typography/heading';
+import { Text } from '@/components/ui/typography/text';
 import { Metadata } from 'next';
 
 export const metadata: Metadata = {

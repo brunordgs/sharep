@@ -1,5 +1,5 @@
-import { ProfileContent } from '@/components/Profile/ProfileContent';
-import { ProfileNotFound } from '@/components/profile-not-found';
+import { ProfileContent } from '@/components/profile/profile-content';
+import { ProfileNotFound } from '@/components/profile/profile-not-found';
 import { prisma } from '@/lib/prisma';
 import { notFound } from 'next/navigation';
 

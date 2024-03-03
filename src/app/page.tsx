@@ -1,6 +1,6 @@
 import { ExploreMenu } from '@/components/explore-menu';
 import { NoDataFound } from '@/components/no-data-found';
-import { Heading } from '@/components/ui/Typography/Heading';
+import { Heading } from '@/components/ui/typography/heading';
 import {
 	Select,
 	SelectContent,
@@ -11,7 +11,7 @@ import {
 import { prisma } from '@/lib/prisma';
 import { CaretDown } from '@phosphor-icons/react/dist/ssr';
 import { Card } from '@/components/ui/card';
-import { Container } from '@ui/Container';
+import { Container } from '@/components/container';
 import { ProjectCard } from '@/components/project-card';
 import { BecomeCreatorBanner } from '@/components/become-creator-banner';
 import { getServerSession } from 'next-auth';

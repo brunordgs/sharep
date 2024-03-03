@@ -4,8 +4,8 @@ import { Card } from '@/components/ui/card';
 import { LinkButton } from '@/components/ui/link-button';
 import { HTTP_PROTOCOL_REGEX } from '@/shared/constants';
 import { getFallbackInitials } from '@/utils/helpers/format';
-import { Heading } from '@ui/Typography/Heading';
-import { Text } from '@ui/Typography/Text';
+import { Heading } from '@/components/ui/typography/heading';
+import { Text } from '@/components/ui/typography/text';
 import { CalendarDays } from 'lucide-react';
 import { ProjectCard } from '../project-card';
 import { VerifiedAccountDialog } from '../verified-account-dialog';
@@ -76,15 +76,10 @@ export function ProfileContent({
 						<AvatarFallback>{getFallbackInitials(name)}</AvatarFallback>
 					</Avatar>
 
-					<div className="flex flex-1 items-center justify-end my-6">
-						{/* {session.data?.user.username === username && (
-							<IconButton
-								href="/settings/account"
-								isAnchor
-								// icon={<Pencil size={16} weight="duotone" aria-label="Edit profile" />}
-								title="Edit profile"
-							/>
-						)} */}
+					<div className="flex flex-1 items-center justify-end">
+						<LinkButton href="/account/profile" variant="outline">
+							Edit profile
+						</LinkButton>
 					</div>
 				</div>
 

@@ -1,5 +1,5 @@
 import { SideNavigation } from "@/components/account/side-navigation";
-import { Container } from "@/components/ui/Container";
+import { Container } from "@/components/container";
 import { Card } from "@/components/ui/card";
 import { Children } from "@/shared/interfaces/Children";
 import { getServerSession } from "next-auth";

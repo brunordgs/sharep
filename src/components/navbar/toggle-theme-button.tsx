@@ -7,8 +7,7 @@ export function ToggleThemeButton() {
 	const { theme, setTheme } = useTheme();
 
 	return (
-		<button
-			type="button"
+		<div
 			onClick={(e) => e.preventDefault()}
 			className="flex items-center justify-between w-full cursor-default"
 		>
@@ -22,6 +21,6 @@ export function ToggleThemeButton() {
 				onCheckedChange={() => setTheme(theme === 'dark' ? 'light' : 'dark')}
 				className="w-8 h-4 [&>span]:w-3 [&>span]:h-3 [&>span]:data-[state=checked]:translate-x-4 [&>span]:bg-white"
 			/>
-		</button>
+		</div>
 	);
 }
