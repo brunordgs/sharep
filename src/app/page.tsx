@@ -13,8 +13,13 @@ import { CaretDown } from '@phosphor-icons/react/dist/ssr';
 import { Card } from '@/components/ui/card';
 import { Container } from '@ui/Container';
 import { ProjectCard } from '@/components/project-card';
+import { BecomeCreatorBanner } from '@/components/become-creator-banner';
+import { getServerSession } from 'next-auth';
+import { authOptions } from './api/auth/[...nextauth]/auth';
 
 export default async function Home() {
+	const session = await getServerSession(authOptions);
+	
 	const projects = await prisma.project.findMany({
 		select: {
 			id: true,
@@ -39,22 +44,27 @@ export default async function Home() {
 
 						<Select>
 							<SelectTrigger className="w-full md:w-56">
-								<SelectValue placeholder="Latest" />
+								<SelectValue placeholder="Featured" />
 							</SelectTrigger>
 							<SelectContent>
+								<SelectItem value="featured">Featured</SelectItem>
 								<SelectItem value="latest">Latest</SelectItem>
-								<SelectItem value="all">All</SelectItem>
 							</SelectContent>
 						</Select>
 					</div>
 
 					<div className="border-b border-zinc-200 dark:border-zinc-800" />
 
+					{session && <BecomeCreatorBanner />}
+
 					<Card className="lg:h-full">
 						{projects.length > 0 ? (
 							projects.map(({ url, ...rest }) => <ProjectCard key={url} url={url} {...rest} />)
 						) : (
-							<NoDataFound title="No content" description="There is no registered content." />
+							<NoDataFound
+								title="No post found"
+								description="There aren't any posts at the moment"
+							/>
 						)}
 					</Card>
 				</div>

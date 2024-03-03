@@ -8,10 +8,10 @@ interface Props {
 	name: string;
 	username: string;
 	isVerified: boolean;
-	avatar: string;
+	image: string;
 }
 
-export function CreatorCard({ name, username, isVerified, avatar }: Props) {
+export function CreatorCard({ name, username, isVerified, image }: Props) {
 	return (
 		<Link
 			key={username}
@@ -19,8 +19,8 @@ export function CreatorCard({ name, username, isVerified, avatar }: Props) {
 			className="border-t border-zinc-200 first:border-0 dark:border-zinc-700 p-6 flex justify-between hover:bg-zinc-50 dark:hover:bg-zinc-700 w-full h-28 transition-colors ease-out"
 		>
 			<div className="flex items-center gap-4">
-				<Avatar>
-					<AvatarImage src={avatar} alt={name} />
+				<Avatar className="w-16 h-16">
+					<AvatarImage src={image} alt={name} />
 					<AvatarFallback>{getFallbackInitials(name)}</AvatarFallback>
 				</Avatar>
 

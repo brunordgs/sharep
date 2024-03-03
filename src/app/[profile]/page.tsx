@@ -1,5 +1,5 @@
 import { ProfileContent } from '@/components/Profile/ProfileContent';
-import { ProfileNotFound } from '@/components/Profile/ProfileNotFound';
+import { ProfileNotFound } from '@/components/profile-not-found';
 import { prisma } from '@/lib/prisma';
 import { notFound } from 'next/navigation';
 
@@ -12,16 +12,6 @@ async function getUser(username: string) {
 			creator: {
 				select: {
 					createdAt: true,
-				},
-			},
-			social: {
-				select: {
-					website: true,
-					github: true,
-					twitch: true,
-					youtube: true,
-					twitter: true,
-					tiktok: true,
 				},
 			},
 		},

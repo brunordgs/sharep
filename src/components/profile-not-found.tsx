@@ -13,9 +13,9 @@ export function ProfileNotFound({ username }: Props) {
 					<div className="bg-zinc-200 dark:bg-zinc-800 w-36 h-36 border-4 border-zinc-100 dark:border-zinc-900 rounded-full" />
 				</div>
 
-				<div>
-					<Text as="span" className="text-[15px]">
-						{username}
+				<div className="mt-4">
+					<Text size="xl" weight="bold" className="md:text-2xl md:leading-none">
+						@{username}
 					</Text>
 				</div>
 

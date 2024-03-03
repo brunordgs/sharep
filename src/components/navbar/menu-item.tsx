@@ -9,7 +9,7 @@ interface Props extends Children {
 	text: string;
 }
 
-export function NavLink({ link, text, children }: Props) {
+export function MenuItem({ link, text, children }: Props) {
 	const pathname = usePathname();
 	const isActive = pathname === link;
 
@@ -19,7 +19,7 @@ export function NavLink({ link, text, children }: Props) {
 				href={link}
 				className={cn(
 					isActive && 'text-black dark:text-white',
-					'h-9 px-2 py-2 hover:text-black dark:hover:text-white flex items-center gap-2 rounded-md transition-all ease-out focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring',
+					'h-9 px-2 py-2 hover:text-black dark:hover:text-white flex items-center gap-2 rounded-md transition-all ease-out',
 				)}
 				data-active={isActive}
 			>

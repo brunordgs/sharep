@@ -3,6 +3,6 @@
  */
 module.exports = {
 	images: {
-		domains: ['github.com', 'avatars.githubusercontent.com', 'ik.imagekit.io'],
+		domains: ['github.com', 'avatars.githubusercontent.com', 'ik.imagekit.io', 'lucide.dev'],
 	},
 };

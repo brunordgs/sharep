@@ -1,17 +1,32 @@
 import { Container } from '@/components/ui/Container';
+import { LinkButton } from '@/components/ui/link-button';
+import { prisma } from '@/lib/prisma';
 import { Image } from '@ui/Image';
 import { Heading } from '@ui/Typography/Heading';
 import { Text } from '@ui/Typography/Text';
 import { Metadata } from 'next';
 import Link from 'next/link';
 import { FaGithub } from 'react-icons/fa';
+import { FaXTwitter } from 'react-icons/fa6';
 
 export const metadata: Metadata = {
 	title: 'About',
 	description: 'Work with us to share the best content',
 };
 
-export default function About() {
+export default async function About() {
+	const teamMembers = await prisma.teamMember.findMany({
+		include: {
+			user: {
+				select: {
+					name: true,
+					username: true,
+					image: true,
+				},
+			},
+		},
+	});
+
 	return (
 		<Container className="max-w-3xl">
 			<section>
@@ -40,34 +55,67 @@ export default function About() {
 				</Text>
 
 				<ol className="grid grid-cols-2 xs:grid-cols-3 sm:grid-cols-4 gap-x-7 gap-y-12">
-					<li className="space-y-4">
-						<Link href="@brunordgs" className="group">
-							<Image
-								src="https://github.com/brunordgs.png"
-								className="w-32 h-32 group-hover:opacity-80 dark:group-hover:opacity-60 duration-500 transition-opacity rounded-md overflow-hidden"
-								alt="Bruno Rodrigues"
-							/>
+					{teamMembers.map(({ id, role, socials, user: { name, username, image } }) => (
+						<li key={id} className="flex flex-col">
+							<Link href={`@${username}`} className="group">
+								<Image
+									src={image}
+									className="w-32 h-32 group-hover:opacity-80 dark:group-hover:opacity-60 duration-500 transition-opacity rounded-md overflow-hidden"
+									alt={name}
+								/>
 
-							<Text
-								size="sm"
-								weight="bold"
-								className="sm:text-base text-zinc-800 dark:text-zinc-200 mb-1 mt-3"
-							>
-								Bruno Rodrigues
-							</Text>
-							<Text size="xs">Founder, React Engineer & Designer.</Text>
-						</Link>
+								<Text
+									size="sm"
+									weight="bold"
+									className="sm:text-base text-zinc-800 dark:text-zinc-200 mt-3"
+								>
+									{name}
+								</Text>
+								<Text size="xs" className="mb-5 leading-5 max-w-[140px]">
+									{role}
+								</Text>
+							</Link>
 
-						<Link
-							href="https://github.com/brunordgs"
-							className="inline-block hover:scale-105 hover:opacity-80 duration-300 transition"
-							target="_blank"
-							rel="noreferrer"
-						>
-							<FaGithub size={22} />
-						</Link>
-					</li>
+							<div className="flex items-center gap-2">
+								{socials?.x && (
+									<Link
+										href={socials.x}
+										className="inline-block hover:scale-105 hover:opacity-80 duration-300 transition mt-auto"
+										target="_blank"
+										rel="noreferrer"
+									>
+										<FaXTwitter size={22} />
+									</Link>
+								)}
+
+								{socials?.github && (
+									<Link
+										href={socials.github}
+										className="inline-block hover:scale-105 hover:opacity-80 duration-300 transition mt-auto"
+										target="_blank"
+										rel="noreferrer"
+									>
+										<FaGithub size={22} />
+									</Link>
+								)}
+							</div>
+						</li>
+					))}
 				</ol>
+
+				<p className="text-muted-foreground text-xs mt-8">
+					...and all the awesome{' '}
+					<LinkButton
+						href="https://github.com/brunordgs/sharep/graphs/contributors"
+						variant="link"
+						className="p-0 text-xs"
+						target="_blank"
+						rel="noreferrer"
+					>
+						open source contributors
+					</LinkButton>{' '}
+					on GitHub.
+				</p>
 			</section>
 		</Container>
 	);

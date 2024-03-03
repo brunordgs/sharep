@@ -1,3 +1,4 @@
+import { Footer } from '@/components/footer';
 import { Navbar } from '@/components/navbar';
 import { Children } from '@/shared/interfaces/Children';
 import '@/styles/globals.css';
@@ -33,6 +34,7 @@ export default function RootLayout({ children }: Children) {
 				<Providers>
 					<Navbar />
 					{children}
+					<Footer />
 				</Providers>
 			</body>
 		</html>

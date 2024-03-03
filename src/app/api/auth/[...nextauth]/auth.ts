@@ -1,6 +1,6 @@
 import { prisma } from '@/lib/prisma';
 import { PrismaAdapter } from '@next-auth/prisma-adapter';
-import bcrypt from 'bcrypt';
+import { compare } from 'bcrypt';
 import { NextAuthOptions } from 'next-auth';
 import CredentialsProvider from 'next-auth/providers/credentials';
 import GithubProvider, { GithubProfile } from 'next-auth/providers/github';
@@ -9,33 +9,37 @@ export const authOptions = {
 	adapter: PrismaAdapter(prisma),
 	providers: [
 		CredentialsProvider({
-			name: 'Email and Password',
+			name: 'Credentials',
 			credentials: {
-				email: { label: 'Email', type: 'email' },
-				password: { label: 'Password', type: 'password' },
+				email: {},
+				password: {},
 			},
 			async authorize(credentials) {
-				if (!credentials?.email || !credentials.password) {
-					throw new Error('Please enter an email and password');
+				try {
+					if (!credentials?.email || !credentials.password) {
+						throw new Error('Please enter an email and password');
+					}
+
+					const user = await prisma.user.findUnique({
+						where: {
+							email: credentials.email,
+						},
+					});
+
+					if (!user || !user?.password) {
+						throw new Error('No user found');
+					}
+
+					const passwordMatch = await compare(credentials.password, user.password);
+
+					if (!passwordMatch) {
+						throw new Error('Invalid password');
+					}
+
+					return user;
+				} catch (e) {
+					console.log(e);
 				}
-
-				const user = await prisma.user.findUnique({
-					where: {
-						email: credentials.email,
-					},
-				});
-
-				if (!user || !user?.password) {
-					throw new Error('No user found');
-				}
-
-				const passwordMatch = await bcrypt.compare(credentials.password, user.password);
-
-				if (!passwordMatch) {
-					throw new Error('Invalid password');
-				}
-
-				return user;
 			},
 		}),
 		GithubProvider<GithubProfile>({
@@ -59,6 +63,9 @@ export const authOptions = {
 		}),
 	],
 	secret: process.env.NEXTAUTH_SECRET,
+	session: {
+		strategy: 'jwt',
+	},
 	pages: {
 		signIn: '/auth/signin',
 	},
@@ -67,21 +74,29 @@ export const authOptions = {
 		async signIn() {
 			return true;
 		},
-		async session({ session, user }) {
+		async session({ session, token }) {
 			const finalSession = {
 				expires: session.expires,
 				user: {
-					name: user.name,
-					username: user.username,
-					image: user.image,
-					email: user.email,
-					isAdmin: user.isAdmin,
-					isCreator: user.isCreator,
-					isVerified: user.isVerified,
+					name: token.name,
+					username: token.username,
+					image: token.image,
+					email: token.email,
+					bio: token.bio,
+					isAdmin: token.isAdmin,
+					isCreator: token.isCreator,
+					isVerified: token.isVerified,
 				},
 			};
 
 			return finalSession;
+		},
+		async jwt({ session, token, user, trigger }) {
+			if (trigger === 'update') {
+				return { ...token, ...session.user };
+			}
+
+			return { ...token, ...user };
 		},
 	},
 } satisfies NextAuthOptions;

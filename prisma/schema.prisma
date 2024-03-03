@@ -29,32 +29,32 @@ model Account {
 model Session {
   id           String   @id @default(uuid())
   sessionToken String   @unique
-  userId       String
   expires      DateTime
   user         User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  userId       String
 
   @@map("sessions")
 }
 
 model User {
-  id            String     @id @default(uuid())
+  id            String       @id @default(uuid())
   name          String
-  email         String    @unique
-  username      String     @unique
+  email         String       @unique
+  username      String       @unique
   emailVerified DateTime?
   image         String
   bio           String?
-  isCreator     Boolean    @default(false)
-  isVerified    Boolean    @default(false)
-  isAdmin       Boolean    @default(false)
-  createdAt     DateTime   @default(now())
-  updatedAt     DateTime   @default(now())
+  isCreator     Boolean      @default(false)
+  isVerified    Boolean      @default(false)
+  isAdmin       Boolean      @default(false)
+  createdAt     DateTime     @default(now())
+  updatedAt     DateTime     @default(now())
   password      String?
   accounts      Account[]
   creator       Creator?
   projects      Project[]
   sessions      Session[]
-  social        Social?
+  teamMember    TeamMember[]
 
   @@map("users")
 }
@@ -67,22 +67,6 @@ model Creator {
   user      User     @relation(fields: [userId], references: [id])
 
   @@map("creators")
-}
-
-model Social {
-  id        String   @id @default(uuid())
-  website   String?
-  twitter   String?
-  github    String?
-  twitch    String?
-  youtube   String?
-  tiktok    String?
-  createdAt DateTime @default(now())
-  updatedAt DateTime @default(now())
-  userId    String   @unique
-  user      User     @relation(fields: [userId], references: [id])
-
-  @@map("socials")
 }
 
 model Project {
@@ -106,4 +90,14 @@ model VerificationToken {
 
   @@unique([identifier, token])
   @@map("verification_tokens")
+}
+
+model TeamMember {
+  id      String @id @default(uuid())
+  role    String
+  socials Json
+  user    User   @relation(fields: [userId], references: [id])
+  userId  String
+
+  @@map("team_members")
 }

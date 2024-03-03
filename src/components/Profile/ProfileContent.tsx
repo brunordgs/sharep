@@ -1,21 +1,14 @@
 'use client';
-// import { VerifiedAccountDialog } from '@/components/Modals/VerifiedAccountDialog';
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
 import { Card } from '@/components/ui/card';
 import { LinkButton } from '@/components/ui/link-button';
-import { cn } from '@/lib/utils';
 import { HTTP_PROTOCOL_REGEX } from '@/shared/constants';
-import { type Creator } from '@/shared/interfaces/Creator';
-import { type Social } from '@/shared/interfaces/Social';
-import { type Platform } from '@/shared/types/Platform';
 import { getFallbackInitials } from '@/utils/helpers/format';
-import { Link as LinkIcon, PaintBrush } from '@phosphor-icons/react/dist/ssr';
-import { Tooltip } from '@ui/Tooltip';
 import { Heading } from '@ui/Typography/Heading';
 import { Text } from '@ui/Typography/Text';
-import Link from 'next/link';
-import { FaGithub, FaTiktok, FaTwitch, FaTwitter, FaYoutube } from 'react-icons/fa';
+import { CalendarDays } from 'lucide-react';
 import { ProjectCard } from '../project-card';
+import { VerifiedAccountDialog } from '../verified-account-dialog';
 
 interface BioContentProps {
 	bio: string | undefined;
@@ -26,10 +19,16 @@ function BioContent({ bio }: BioContentProps) {
 	const matchUrl = /(?:www|https?)[^\s]+/g;
 
 	return (
-		<Text className="text-zinc-600 dark:text-zinc-300">
+		<Text>
 			{words?.map((word) =>
 				word.match(matchUrl) ? (
-					<LinkButton href={word} className="inline-flex">
+					<LinkButton
+						href={word}
+						variant="link"
+						className="inline-flex p-0 font-normal text-base"
+						target="_blank"
+						rel="noreferrer"
+					>
 						{word.replace(HTTP_PROTOCOL_REGEX, '')}
 					</LinkButton>
 				) : (
@@ -45,18 +44,15 @@ interface Props {
 	username: string;
 	bio: string | null;
 	image: string;
-	creator: Creator | null;
 	isCreator: boolean;
 	isVerified: boolean;
+	createdAt: Date;
 	projects: {
 		image: string | null;
 		name: string;
 		description: string;
 		url: string;
-		repo: string;
-		repoUrl: string;
 	}[];
-	social: Social | null;
 }
 
 export function ProfileContent({
@@ -64,45 +60,14 @@ export function ProfileContent({
 	username,
 	bio,
 	image,
-	social,
 	isCreator,
 	isVerified,
-	creator,
+	createdAt,
 	projects,
 }: Props) {
-	function generateLinkForPlatform(platform: Platform, userOrLink: string) {
-		switch (platform) {
-			case 'website':
-				return `https://${userOrLink.replace(HTTP_PROTOCOL_REGEX, '')}`;
-			case 'github':
-				return `https:/github.com/${userOrLink}`;
-			case 'twitter':
-				return `https:/twitter.com/${userOrLink}`;
-			case 'twitch':
-				return `https:/twitch.tv/${userOrLink}`;
-			case 'youtube':
-				return `https:/youtube.com/c/${userOrLink}`;
-			case 'tiktok':
-				return `https:/tiktok.com/@${userOrLink}`;
-			default:
-				return `https://${userOrLink.replace(HTTP_PROTOCOL_REGEX, '')}`;
-		}
-	}
-
 	return (
 		<>
-			<div className="bg-gradient-to-b from-rose-500 to-pink-600 h-48 rounded-b-2xl relative">
-				{isCreator && (
-					<div className="absolute bottom-2 right-4 flex gap-2 z-[11]">
-						<Tooltip data-tip={`Creator since ${creator?.createdAt}`}>
-							<div className="bg-gradient-to-r from-pink-700 to-pink-800 shadow-md text-zinc-100 rounded-md py-1 px-2 text-sm italic font-semibold inline-flex items-center gap-2 select-none">
-								Creator
-								<PaintBrush size={16} />
-							</div>
-						</Tooltip>
-					</div>
-				)}
-			</div>
+			<div className="bg-gradient-to-b from-rose-500 to-pink-600 h-48 rounded-b-2xl relative" />
 
 			<div className="-mt-20 mx-4 relative z-10">
 				<div className="flex items-end">
@@ -111,34 +76,7 @@ export function ProfileContent({
 						<AvatarFallback>{getFallbackInitials(name)}</AvatarFallback>
 					</Avatar>
 
-					<div
-						className={cn(
-							social ? 'justify-between' : 'justify-end',
-							'flex flex-1 items-center my-6',
-						)}
-					>
-						{social && (
-							<div className="ml-4 flex items-center gap-x-3 sm:gap-x-4 md:gap-x-6">
-								{Object.entries(social).map(
-									([platform, link]) =>
-										link && (
-											<Link
-												key={platform}
-												href={generateLinkForPlatform(platform as Platform, link)}
-												className="hover:text-black dark:hover:text-white flex items-center gap-2 transition-colors ease-out"
-												target="_blank"
-												rel="noopener noreferrer"
-											>
-												<PlatformIcon platform={platform as Platform} />
-												<Text as="span" transform="capitalize" className="hidden sm:block">
-													{platform}
-												</Text>
-											</Link>
-										),
-								)}
-							</div>
-						)}
-
+					<div className="flex flex-1 items-center justify-end my-6">
 						{/* {session.data?.user.username === username && (
 							<IconButton
 								href="/settings/account"
@@ -152,10 +90,10 @@ export function ProfileContent({
 
 				<div className="mt-4">
 					<div className="flex items-center gap-2">
-						<Text size="xl" weight="bold" className="md:text-3xl md:leading-none">
+						<Text size="xl" weight="bold" className="md:text-2xl md:leading-none">
 							{name}
 						</Text>
-						{/* {isVerified && <VerifiedAccountDialog size={24} />} */}
+						{isVerified && <VerifiedAccountDialog />}
 					</div>
 
 					<Text as="span" className="text-[15px] text-zinc-400">
@@ -163,8 +101,16 @@ export function ProfileContent({
 					</Text>
 				</div>
 
-				<div className="mt-4">
+				<div className="mt-2">
 					{bio && <BioContent bio={bio} />}
+
+					<Text size="sm" className="text-muted-foreground flex items-center gap-2 mt-2">
+						<CalendarDays className="w-4 h-4" /> Joined{' '}
+						{new Intl.DateTimeFormat('en-US', {
+							month: 'long',
+							year: 'numeric',
+						}).format(createdAt)}
+					</Text>
 
 					{projects.length > 0 && isCreator && (
 						<>
@@ -183,27 +129,4 @@ export function ProfileContent({
 			</div>
 		</>
 	);
-}
-
-interface PlatformIconProps {
-	platform: Platform;
-}
-
-function PlatformIcon({ platform }: PlatformIconProps) {
-	switch (platform) {
-		case 'website':
-			return <LinkIcon />;
-		case 'github':
-			return <FaGithub className="text-base" />;
-		case 'twitter':
-			return <FaTwitter className="text-base" />;
-		case 'twitch':
-			return <FaTwitch className="text-base" />;
-		case 'youtube':
-			return <FaYoutube className="text-base" />;
-		case 'tiktok':
-			return <FaTiktok className="text-base" />;
-		default:
-			return null;
-	}
 }

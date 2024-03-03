@@ -36,11 +36,11 @@ export function SearchButton() {
 		<>
 			<Button
 				type="button"
-				className="text-card-foreground font-normal md:w-64 md:px-4 gap-2 group bg-card hover:bg-white/10 border"
+				className="text-card-foreground font-normal w-10 lg:w-60 xl:w-64 lg:px-4 gap-2 group bg-card hover:bg-white/10 border"
 				onClick={() => setCommandOpen(true)}
 				leftIcon={Search}
 			>
-				<span className="hidden md:flex flex-1">Search</span>
+				<span className="hidden lg:flex flex-1">Search</span>
 
 				<Device>
 					{({ isMacOs }) => (

@@ -25,7 +25,7 @@ export async function FeaturedUsersCard() {
 	return (
 		<Card>
 			<CardHeader className="pb-4">
-				<CardTitle className="text-xl font-bold">Featured users</CardTitle>
+				<CardTitle className="text-xl font-bold italic">Featured users</CardTitle>
 			</CardHeader>
 
 			<CardContent className="px-0">
@@ -57,7 +57,7 @@ export async function FeaturedUsersCard() {
 											<CircleWavyCheck
 												weight="fill"
 												size={16}
-												className="text-indigo-500"
+												className="text-blue-500"
 												aria-label="Verified account"
 											/>
 										)}

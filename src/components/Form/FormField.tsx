@@ -37,7 +37,7 @@ export function FormField({
 					{
 						'text-rose-400': error,
 					},
-					'block font-bold text-sm mb-1 capitalize',
+					'block font-bold text-sm mb-1',
 				)}
 			>
 				{label}

@@ -1,17 +1,11 @@
 'use client';
-
 import { Form } from '@/components/Form';
 import { FormField } from '@/components/Form/FormField';
 import { zodResolver } from '@hookform/resolvers/zod';
-import { useMutation } from '@tanstack/react-query';
-import { Alert } from '@ui/Alert';
-import { LoadingButton } from '@ui/Buttons/LoadingButton';
 import { Container } from '@ui/Container';
 import { Heading } from '@ui/Typography/Heading';
 import { Text } from '@ui/Typography/Text';
-import axios from 'axios';
 import { signIn } from 'next-auth/react';
-import Link from 'next/link';
 import { useForm } from 'react-hook-form';
 import { FaGithub } from 'react-icons/fa';
 import { z } from 'zod';
@@ -20,7 +14,10 @@ import { LinkButton } from '../ui/link-button';
 
 const signUpSchema = z.object({
 	name: z.string().min(3, 'Name must be at least 3 characters long'),
-	username: z.string().min(1, 'This field is required'),
+	username: z
+		.string()
+		.min(1, 'This field is required')
+		.max(15, 'Username must be at maximum 15 characters long'),
 	email: z.string().email('Please enter a valid email address'),
 	password: z.string().min(6, 'Password must be at least 6 characters long'),
 });
@@ -40,41 +37,39 @@ export function SignUpForm() {
 
 	const {
 		handleSubmit,
-		formState: { errors, isSubmitting },
+		formState: { errors, isDirty, isValid },
 	} = methods;
 
-	// const createUser = useMutation((values: SignUpSchema) =>
-	// 	axios.post('/users', {
-	// 		email: values.email,
-	// 		name: values.name,
-	// 		username: values.username,
-	// 		password: values.password,
-	// 		image: 'https://ik.imagekit.io/sharep/icon_3uHBhmu8u.svg',
-	// 	}),
-	// );
+	async function handleSignUp(values: SignUpSchema) {
+		const { name, username, email, password } = values;
+
+		try {
+			const res = await fetch('/api/auth/register', {
+				method: 'POST',
+				headers: {
+					'Content-Type': 'application/json',
+				},
+				body: JSON.stringify({ name, username, email, password }),
+			});
+
+			if (!res.ok) {
+				throw new Error('Network response was not ok');
+			}
+		} catch (e) {
+			console.error(e);
+		}
+	}
 
 	return (
 		<Container className="flex justify-center md:my-20">
 			<Form
-				onSubmit={handleSubmit(async (values) => {
-					// createUser.mutate(values);
-					// await signIn('email', {
-					// email: user.email,
-					// password: user.password,
-					// });
-				})}
+				onSubmit={handleSubmit(handleSignUp)}
 				className="w-full max-w-md space-y-8"
 				methods={methods}
 			>
 				<Heading size="3xl" transform="italic">
 					Sign up.
 				</Heading>
-
-				<Alert
-					color="warning"
-					title="Beta Preview Warning"
-					description="This site is only for demonstration purposes. All data created or uploaded will be lost."
-				/>
 
 				<button
 					type="button"
@@ -86,17 +81,17 @@ export function SignUpForm() {
 
 				<div className="relative">
 					<div className="absolute inset-0 flex items-center">
-						<div className="w-full border-t dark:border-zinc-800" />
+						<div className="w-full border-t" />
 					</div>
 
 					<div className="relative flex justify-center text-sm">
-						<Text as="span" size="sm" className="px-2 bg-zinc-100 dark:bg-zinc-900">
+						<Text as="span" size="sm" className="px-2 bg-background">
 							or
 						</Text>
 					</div>
 				</div>
 
-				<div className="space-y-4">
+				<div className="space-y-6">
 					<FormField
 						color="secondary"
 						name="name"
@@ -132,17 +127,11 @@ export function SignUpForm() {
 				</div>
 
 				<div className="flex items-center justify-between">
-					<LinkButton
-						href="/auth/signin"
-						variant="link"
-						className="px-0"
-					>
+					<LinkButton href="/auth/signin" variant="link" className="px-0">
 						Already have an account? Sign in
 					</LinkButton>
 
-					<Button type="submit">
-						Sign Up
-					</Button>
+					<Button disabled={!isDirty || !isValid}>Sign Up</Button>
 				</div>
 			</Form>
 		</Container>
