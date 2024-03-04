@@ -77,7 +77,7 @@ export async function FeaturedUsersCard() {
 					))
 				) : (
 					<Text size="sm" className="px-6 text-zinc-400">
-						There is no recent users.
+						There is no featured users
 					</Text>
 				)}
 			</CardContent>

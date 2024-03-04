@@ -33,7 +33,7 @@ export async function Navbar() {
 	];
 
 	return (
-		<header className="border-b shadow-sm dark:shadow-lg py-5 sticky top-0 z-20">
+		<header className="border-b shadow-sm dark:shadow-lg py-5 sticky top-0 z-20 bg-background">
 			{/* Desktop navbar */}
 			<div className="container hidden lg:flex items-center">
 				<div className="flex-1">

@@ -13,6 +13,7 @@ import { Card, CardContent, CardHeader } from '../ui/card';
 import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from '../ui/form';
 import { Input } from '../ui/input';
 import { PasswordInput } from '../ui/password-input';
+import { useRouter } from 'next/navigation';
 
 const signUpSchema = z.object({
 	name: z.string().min(3, 'Name must be at least 3 characters long'),
@@ -27,6 +28,8 @@ const signUpSchema = z.object({
 type SignUpSchema = z.infer<typeof signUpSchema>;
 
 export function SignUpForm() {
+	const router = useRouter();
+
 	const form = useForm<SignUpSchema>({
 		defaultValues: {
 			name: '',
@@ -40,7 +43,7 @@ export function SignUpForm() {
 	const {
 		handleSubmit,
 		control,
-		formState: { errors, isDirty, isValid },
+		formState: { errors, isDirty, isValid, isSubmitting },
 	} = form;
 
 	async function handleSignUp(values: SignUpSchema) {
@@ -55,8 +58,14 @@ export function SignUpForm() {
 				body: JSON.stringify({ name, username, email, password }),
 			});
 
-			if (!res.ok) {
-				throw new Error('Network response was not ok');
+			if (res.ok) {
+				await signIn('credentials', {
+					email,
+					password,
+					redirect: false,
+				});
+
+				router.refresh();
 			}
 		} catch (e) {
 			console.error(e);
@@ -154,7 +163,9 @@ export function SignUpForm() {
 										Already have an account? Sign in
 									</LinkButton>
 
-									<Button disabled={!isDirty || !isValid}>Sign Up</Button>
+									<Button isLoading={isSubmitting} disabled={isSubmitting || !isDirty || !isValid}>
+										Sign Up
+									</Button>
 								</div>
 							</form>
 						</Form>

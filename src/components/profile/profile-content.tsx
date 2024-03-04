@@ -1,70 +1,32 @@
-'use client';
+import { authOptions } from '@/app/api/auth/[...nextauth]/auth';
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
-import { Card } from '@/components/ui/card';
 import { LinkButton } from '@/components/ui/link-button';
+import { Text } from '@/components/ui/typography/text';
 import { HTTP_PROTOCOL_REGEX } from '@/shared/constants';
 import { getFallbackInitials } from '@/utils/helpers/format';
-import { Heading } from '@/components/ui/typography/heading';
-import { Text } from '@/components/ui/typography/text';
 import { CalendarDays } from 'lucide-react';
-import { ProjectCard } from '../project-card';
+import { getServerSession } from 'next-auth';
 import { VerifiedAccountDialog } from '../verified-account-dialog';
-
-interface BioContentProps {
-	bio: string | undefined;
-}
-
-function BioContent({ bio }: BioContentProps) {
-	const words = bio?.split(' ');
-	const matchUrl = /(?:www|https?)[^\s]+/g;
-
-	return (
-		<Text>
-			{words?.map((word) =>
-				word.match(matchUrl) ? (
-					<LinkButton
-						href={word}
-						variant="link"
-						className="inline-flex p-0 font-normal text-base"
-						target="_blank"
-						rel="noreferrer"
-					>
-						{word.replace(HTTP_PROTOCOL_REGEX, '')}
-					</LinkButton>
-				) : (
-					word + ' '
-				),
-			)}
-		</Text>
-	);
-}
 
 interface Props {
 	name: string;
 	username: string;
 	bio: string | null;
 	image: string;
-	isCreator: boolean;
 	isVerified: boolean;
 	createdAt: Date;
-	projects: {
-		image: string | null;
-		name: string;
-		description: string;
-		url: string;
-	}[];
 }
 
-export function ProfileContent({
+export async function ProfileContent({
 	name,
 	username,
 	bio,
 	image,
-	isCreator,
 	isVerified,
 	createdAt,
-	projects,
 }: Props) {
+	const session = await getServerSession(authOptions);
+
 	return (
 		<>
 			<div className="bg-gradient-to-b from-rose-500 to-pink-600 h-48 rounded-b-2xl relative" />
@@ -76,11 +38,13 @@ export function ProfileContent({
 						<AvatarFallback>{getFallbackInitials(name)}</AvatarFallback>
 					</Avatar>
 
-					<div className="flex flex-1 items-center justify-end">
-						<LinkButton href="/account/profile" variant="outline">
-							Edit profile
-						</LinkButton>
-					</div>
+					{session?.user.username === username && (
+						<div className="flex flex-1 items-center justify-end">
+							<LinkButton href="/account/profile" variant="outline">
+								Edit profile
+							</LinkButton>
+						</div>
+					)}
 				</div>
 
 				<div className="mt-4">
@@ -97,7 +61,26 @@ export function ProfileContent({
 				</div>
 
 				<div className="mt-2">
-					{bio && <BioContent bio={bio} />}
+					{/* Replace url to a real page link */}
+					{bio && (
+						<Text>
+							{bio.split(' ').map((word) =>
+								word.match(/(?:www|https?)[^\s]+/g) ? (
+									<LinkButton
+										href={word}
+										variant="link"
+										className="inline-flex p-0 font-normal text-base"
+										target="_blank"
+										rel="noreferrer"
+									>
+										{word.replace(HTTP_PROTOCOL_REGEX, '')}
+									</LinkButton>
+								) : (
+									word + ' '
+								),
+							)}
+						</Text>
+					)}
 
 					<Text size="sm" className="text-muted-foreground flex items-center gap-2 mt-2">
 						<CalendarDays className="w-4 h-4" /> Joined{' '}
@@ -106,20 +89,6 @@ export function ProfileContent({
 							year: 'numeric',
 						}).format(createdAt)}
 					</Text>
-
-					{projects.length > 0 && isCreator && (
-						<>
-							<Heading as="h2" transform="italic" className="mt-8 mb-2">
-								Contributions
-							</Heading>
-
-							<Card>
-								{projects.map(({ url, ...rest }) => (
-									<ProjectCard key={url} url={url} {...rest} />
-								))}
-							</Card>
-						</>
-					)}
 				</div>
 			</div>
 		</>

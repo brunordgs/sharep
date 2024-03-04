@@ -1,6 +1,7 @@
+import { BecomeCreatorBanner } from '@/components/become-creator-banner';
+import { Container } from '@/components/container';
 import { ExploreMenu } from '@/components/explore-menu';
-import { NoDataFound } from '@/components/no-data-found';
-import { Heading } from '@/components/ui/typography/heading';
+import { ProductsCard } from '@/components/products-card';
 import {
 	Select,
 	SelectContent,
@@ -8,29 +9,13 @@ import {
 	SelectTrigger,
 	SelectValue,
 } from '@/components/ui/select';
-import { prisma } from '@/lib/prisma';
+import { Heading } from '@/components/ui/typography/heading';
 import { CaretDown } from '@phosphor-icons/react/dist/ssr';
-import { Card } from '@/components/ui/card';
-import { Container } from '@/components/container';
-import { ProjectCard } from '@/components/project-card';
-import { BecomeCreatorBanner } from '@/components/become-creator-banner';
 import { getServerSession } from 'next-auth';
 import { authOptions } from './api/auth/[...nextauth]/auth';
 
 export default async function Home() {
 	const session = await getServerSession(authOptions);
-	
-	const projects = await prisma.project.findMany({
-		select: {
-			id: true,
-			image: true,
-			url: true,
-			name: true,
-			description: true,
-			repo: true,
-			repoUrl: true,
-		},
-	});
 
 	return (
 		<Container>
@@ -57,16 +42,7 @@ export default async function Home() {
 
 					{session && <BecomeCreatorBanner />}
 
-					<Card className="lg:h-full">
-						{projects.length > 0 ? (
-							projects.map(({ url, ...rest }) => <ProjectCard key={url} url={url} {...rest} />)
-						) : (
-							<NoDataFound
-								title="No post found"
-								description="There aren't any posts at the moment"
-							/>
-						)}
-					</Card>
+					<ProductsCard />
 				</div>
 
 				<div className="hidden lg:block lg:col-span-2">

@@ -8,35 +8,9 @@ async function getUser(username: string) {
 		where: {
 			username,
 		},
-		include: {
-			creator: {
-				select: {
-					createdAt: true,
-				},
-			},
-		},
 	});
 
 	return user;
-}
-
-async function getProjects(userId: string | undefined) {
-	const projects = await prisma.project.findMany({
-		where: {
-			userId: userId,
-		},
-		select: {
-			id: true,
-			image: true,
-			url: true,
-			name: true,
-			description: true,
-			repo: true,
-			repoUrl: true,
-		},
-	});
-
-	return projects;
 }
 
 interface Props {
@@ -48,7 +22,6 @@ interface Props {
 export default async function Profile({ params }: Props) {
 	const username = decodeURIComponent(params.profile).replace('@', '') as string;
 	const user = await getUser(username);
-	const projects = await getProjects(user?.id);
 
 	const userNotFound = !user;
 
@@ -59,7 +32,7 @@ export default async function Profile({ params }: Props) {
 	return (
 		<main className="max-w-5xl w-full mx-auto mb-10">
 			{!userNotFound ? (
-				<ProfileContent projects={projects} {...user} />
+				<ProfileContent {...user} />
 			) : (
 				<ProfileNotFound username={username} />
 			)}

@@ -3,6 +3,7 @@ import { cva, type VariantProps } from 'class-variance-authority';
 import { cn } from '@/lib/utils';
 import { forwardRef } from 'react';
 import { type LucideIcon } from 'lucide-react';
+import { Spinner } from '../spinner';
 
 const buttonVariants = cva(
 	'inline-flex items-center justify-center whitespace-nowrap rounded-md text-sm font-medium ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50',
@@ -37,6 +38,7 @@ export interface ButtonProps
 	asChild?: boolean;
 	leftIcon?: LucideIcon;
 	rightIcon?: LucideIcon;
+	isLoading?: boolean;
 }
 
 const Button = forwardRef<HTMLButtonElement, ButtonProps>(
@@ -48,6 +50,7 @@ const Button = forwardRef<HTMLButtonElement, ButtonProps>(
 			asChild = false,
 			leftIcon: LeftIcon,
 			rightIcon: RightIcon,
+			isLoading,
 			children,
 			...props
 		},
@@ -57,7 +60,7 @@ const Button = forwardRef<HTMLButtonElement, ButtonProps>(
 		return (
 			<Comp className={cn(buttonVariants({ variant, size, className }))} ref={ref} {...props}>
 				{LeftIcon && <LeftIcon className="w-4 h-4" />}
-				{children}
+				{isLoading ? <Spinner /> : children}
 				{RightIcon && <RightIcon className="w-4 h-4" />}
 			</Comp>
 		);

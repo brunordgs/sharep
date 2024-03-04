@@ -36,7 +36,8 @@ export function SignInForm() {
 	const {
 		handleSubmit,
 		control,
-		formState: { errors, isDirty, isValid },
+		setError,
+		formState: { errors, isDirty, isValid, isSubmitting },
 	} = form;
 
 	async function handleSignIn(values: SignInSchema) {
@@ -49,8 +50,9 @@ export function SignInForm() {
 				redirect: false,
 			});
 
-			if (!res?.ok) {
-				throw new Error('Network response was not ok');
+			if (res?.status === 401) {
+				setError('email', { message: 'Invalid email address or password' });
+				return;
 			}
 
 			router.refresh();
@@ -124,7 +126,12 @@ export function SignInForm() {
 										Need an account? Sign up
 									</LinkButton>
 
-									<Button disabled={!isDirty || !isValid}>Sign In</Button>
+									<Button
+										isLoading={isSubmitting}
+										disabled={isSubmitting || !isDirty || !isValid || 'email' in errors}
+									>
+										Sign In
+									</Button>
 								</div>
 							</form>
 						</Form>

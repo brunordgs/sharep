@@ -9,7 +9,7 @@ interface Props extends Children {
 
 export function NoDataFound({ title, description, children }: Props) {
 	return (
-		<div className="flex flex-col items-center lg:justify-center h-full p-6">
+		<div className="flex flex-col items-center lg:justify-center h-full px-6 py-16">
 			<TextSearch className="w-20 h-20" />
 
 			<Text size="xl" weight="bold" className="mt-2">
