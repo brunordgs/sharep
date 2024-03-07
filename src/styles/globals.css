@@ -27,7 +27,7 @@
 	}
 
 	.dark {
-		--background: 240 10% 3.9% ; /* zinc-950 */
+		--background: 240 10% 3.9%; /* zinc-950 */
 		--foreground: 0 0% 95%;
 		--card: 240 5.9% 10%; /* zinc-900 */
 		--card-foreground: 240 4.9% 83.9% /* zinc-300 */;
@@ -56,5 +56,30 @@
 
 	body {
 		@apply bg-background text-card-foreground;
-  }
+	}
+}
+
+html.dark .bloom {
+	background: radial-gradient(at right top, #e11e48 0%, #09090b 40%);
+	background-repeat: no-repeat;
+}
+
+html.light .bloom {
+	background: radial-gradient(at right top, #e11e48 0%, #fafafa 40%);
+	background-repeat: no-repeat;
+}
+
+/* Update gradient background based on OS theme */
+@media (prefers-color-scheme: dark) {
+	.bloom {
+		background: radial-gradient(at right top, #e11e48 0%, #09090b 40%);
+		background-repeat: no-repeat;
+	}
+}
+
+@media (prefers-color-scheme: light) {
+	.bloom {
+		background: radial-gradient(at right top, #e11e48 0%, #fafafa 40%);
+		background-repeat: no-repeat;
+	}
 }

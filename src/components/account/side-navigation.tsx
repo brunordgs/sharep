@@ -7,7 +7,7 @@ import { createElement } from 'react';
 import { Text } from '../ui/typography/text';
 import { Avatar, AvatarImage } from '../ui/avatar';
 
-interface Props {
+export interface Props {
 	user: {
 		name: string;
 		username: string;

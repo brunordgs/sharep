@@ -28,7 +28,7 @@ export async function POST(req: Request) {
 				username,
 				email,
 				password: hashedPassword,
-				image: 'https://ik.imagekit.io/sharep/Group_thINgsmo8.svg',
+				image: 'https://ik.imagekit.io/sharep/profile-user-svgrepo-com%202_zVv3Gve40.svg?updatedAt=1709600070117',
 			},
 		});
 	} catch (e) {

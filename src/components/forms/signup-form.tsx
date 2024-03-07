@@ -65,7 +65,7 @@ export function SignUpForm() {
 					redirect: false,
 				});
 
-				router.refresh();
+				router.push('/auth/signup/confirm');
 			}
 		} catch (e) {
 			console.error(e);

@@ -3,8 +3,8 @@ import { NextResponse } from 'next/server';
 
 export async function GET(req: Request) {
 	const products = await prisma.product.findMany({
-		skip: 3,
-		take: 4,
+		// skip: 3,
+		// take: 4,
 		select: {
 			image: true,
 			url: true,

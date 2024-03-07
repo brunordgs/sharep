@@ -77,7 +77,7 @@ export default async function About() {
 							</Link>
 
 							<div className="flex items-center gap-2">
-								{socials?.x && (
+								{/* {socials?.x && (
 									<Link
 										href={socials.x}
 										className="inline-block hover:scale-105 hover:opacity-80 duration-300 transition mt-auto"
@@ -97,7 +97,7 @@ export default async function About() {
 									>
 										<FaGithub size={22} />
 									</Link>
-								)}
+								)} */}
 							</div>
 						</li>
 					))}

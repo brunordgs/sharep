@@ -14,7 +14,7 @@ export const authOptions = {
 				email: {},
 				password: {},
 			},
-			async authorize(credentials) {
+			async authorize(credentials): Promise<any> {
 				try {
 					if (!credentials?.email || !credentials.password) {
 						throw new Error('Please enter an email and password');
@@ -74,10 +74,11 @@ export const authOptions = {
 		async signIn() {
 			return true;
 		},
-		async session({ session, token }) {
+		async session({ session, token }): Promise<any> {
 			const finalSession = {
 				expires: session.expires,
 				user: {
+					id: token.id,
 					name: token.name,
 					username: token.username,
 					image: token.image,
@@ -86,6 +87,7 @@ export const authOptions = {
 					isAdmin: token.isAdmin,
 					isCreator: token.isCreator,
 					isVerified: token.isVerified,
+					emailVerified: token.emailVerified,
 				},
 			};
 

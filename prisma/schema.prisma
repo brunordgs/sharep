@@ -7,33 +7,23 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
-model Session {
-  id           String   @id @default(uuid())
-  sessionToken String   @unique
-  expires      DateTime
-  user         User     @relation(fields: [userId], references: [id], onDelete: Cascade)
-  userId       String
-
-  @@map("sessions")
-}
-
 model User {
-  id            String     @id @default(uuid())
+  id            String      @id @default(uuid())
   name          String
-  email         String     @unique
-  username      String     @unique
+  email         String      @unique
+  username      String      @unique
   emailVerified DateTime?
   image         String
   bio           String?
   password      String?
-  isCreator     Boolean    @default(false)
-  isVerified    Boolean    @default(false)
-  isAdmin       Boolean    @default(false)
-  createdAt     DateTime   @default(now())
-  updatedAt     DateTime   @default(now())
+  isCreator     Boolean     @default(false)
+  isVerified    Boolean     @default(false)
+  isAdmin       Boolean     @default(false)
+  createdAt     DateTime    @default(now())
+  updatedAt     DateTime    @default(now())
   creator       Creator?
   teamMember    TeamMember?
-  sessions      Session[]
+  favorites     Favorite[]
 
   @@map("users")
 }
@@ -49,21 +39,50 @@ model Creator {
 }
 
 model Product {
-  id          String  @id @default(uuid())
+  id          String     @id @default(uuid())
   url         String
   name        String
   description String
   image       String?
+  createdAt   DateTime   @default(now())
+  updatedAt   DateTime   @default(now())
+  favorites   Favorite[]
+  categories  Category[]
 
   @@map("products")
 }
 
 model TeamMember {
-  id      String @id @default(uuid())
-  role    String
-  socials Json
-  user    User   @relation(fields: [userId], references: [id])
-  userId  String @unique
+  id        String   @id @default(uuid())
+  role      String
+  socials   Json
+  createdAt DateTime @default(now())
+  updatedAt DateTime @default(now())
+  user      User     @relation(fields: [userId], references: [id])
+  userId    String   @unique
 
   @@map("team_members")
+}
+
+model Favorite {
+  id        String   @id @default(uuid())
+  createdAt DateTime @default(now())
+  updatedAt DateTime @default(now())
+  user      User     @relation(fields: [userId], references: [id])
+  userId    String
+  product   Product  @relation(fields: [productId], references: [id])
+  productId String
+
+  @@map("favorites")
+}
+
+model Category {
+  id        String   @id @default(uuid())
+  name      String
+  createdAt DateTime @default(now())
+  updatedAt DateTime @default(now())
+  product   Product  @relation(fields: [productId], references: [id])
+  productId String
+
+  @@map("categories")
 }

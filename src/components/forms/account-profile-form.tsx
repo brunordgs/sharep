@@ -28,7 +28,7 @@ const profileSchema = z.object({
 
 type ProfileForm = z.infer<typeof profileSchema>;
 
-interface Props {
+export interface Props {
 	user: {
 		name: string;
 		username: string;

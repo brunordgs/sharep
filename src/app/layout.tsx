@@ -5,6 +5,9 @@ import '@/styles/globals.css';
 import { Metadata } from 'next';
 import { Inter } from 'next/font/google';
 import { Providers } from './providers';
+import { BackgroundGradient } from '@/components/background-gradient';
+import { getServerSession } from 'next-auth';
+import { authOptions } from './api/auth/[...nextauth]/auth';
 
 export const metadata: Metadata = {
 	title: {
@@ -19,7 +22,9 @@ const inter = Inter({
 	variable: '--font-inter',
 });
 
-export default function RootLayout({ children }: Children) {
+export default async function RootLayout({ children }: Children) {
+	const session = await getServerSession(authOptions);
+
 	return (
 		<html lang="en" className={inter.className} suppressHydrationWarning>
 			<link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png" />
@@ -32,9 +37,11 @@ export default function RootLayout({ children }: Children) {
 
 			<body>
 				<Providers>
-					<Navbar />
-					{children}
-					<Footer />
+					<BackgroundGradient>
+						<Navbar />
+						{children}
+						<Footer />
+					</BackgroundGradient>
 				</Providers>
 			</body>
 		</html>

@@ -4,8 +4,8 @@ import { getServerSession } from 'next-auth';
 import Link from 'next/link';
 import { createElement } from 'react';
 import { FaGithub } from 'react-icons/fa';
-import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from '../ui/tooltip';
 import { LinkButton } from '../ui/link-button';
+import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from '../ui/tooltip';
 import { Logo } from './logo';
 import { MenuItem } from './menu-item';
 import { SearchButton } from './search-button';
@@ -33,7 +33,7 @@ export async function Navbar() {
 	];
 
 	return (
-		<header className="border-b shadow-sm dark:shadow-lg py-5 sticky top-0 z-20 bg-background">
+		<header className="shadow-sm dark:shadow-lg py-5 sticky top-0 z-20 backdrop-blur-[6px]">
 			{/* Desktop navbar */}
 			<div className="container hidden lg:flex items-center">
 				<div className="flex-1">

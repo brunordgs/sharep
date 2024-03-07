@@ -1,5 +1,8 @@
 import { authOptions } from '@/app/api/auth/[...nextauth]/auth';
-import { AccountProfileForm } from '@/components/forms/account-profile-form';
+import {
+	AccountProfileForm,
+	Props as AccountProfileFormProps,
+} from '@/components/forms/account-profile-form';
 import { CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { getServerSession } from 'next-auth';
 
@@ -15,7 +18,7 @@ export default async function AccountProfile() {
 				</div>
 			</CardHeader>
 
-			<AccountProfileForm user={session.user} />
+			<AccountProfileForm user={session?.user as AccountProfileFormProps['user']} />
 		</CardContent>
 	);
 }

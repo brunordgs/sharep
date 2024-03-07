@@ -30,12 +30,10 @@ export function ProductsCard() {
 			)}
 
 			{products.length
-				? products.map(({ url, image, name, description }) => (
+				? products.map(({ image, name, description }) => (
 						<Link
-							href={url}
+							href={`/products/${decodeURI(name.toLowerCase().replace(' ', '-'))}`}
 							className="border-t first:border-0 px-6 flex justify-between hover:bg-zinc-50 dark:hover:bg-zinc-700 w-full h-20 transition-colors ease-out first:rounded-t-md"
-							target="_blank"
-							rel="noopener noreferrer"
 						>
 							<div className="flex items-center gap-4">
 								<Avatar className="w-12 h-12">

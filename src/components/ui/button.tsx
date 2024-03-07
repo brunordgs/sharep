@@ -59,9 +59,9 @@ const Button = forwardRef<HTMLButtonElement, ButtonProps>(
 		const Comp = asChild ? Slot : 'button';
 		return (
 			<Comp className={cn(buttonVariants({ variant, size, className }))} ref={ref} {...props}>
-				{LeftIcon && <LeftIcon className="w-4 h-4" />}
+				{LeftIcon && <LeftIcon className="w-4 h-4 mr-2" />}
 				{isLoading ? <Spinner /> : children}
-				{RightIcon && <RightIcon className="w-4 h-4" />}
+				{RightIcon && <RightIcon className="w-4 h-4 ml-2" />}
 			</Comp>
 		);
 	},

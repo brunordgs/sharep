@@ -10,6 +10,7 @@ declare module 'next-auth' {
 		isVerified?: boolean;
 		isCreator?: boolean;
 		isAdmin?: boolean;
+		emailVerified?: Date;
 	}
 
 	interface Session {
