@@ -1,0 +1,89 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id            String      @id @default(uuid())
+  name          String
+  email         String      @unique
+  username      String      @unique
+  emailVerified DateTime?
+  image         String
+  bio           String?
+  password      String?
+	salt					String?
+  isCreator     Boolean     @default(false)
+  isVerified    Boolean     @default(false)
+  isAdmin       Boolean     @default(false)
+  createdAt     DateTime    @default(now())
+  updatedAt     DateTime    @default(now())
+  creator       Creator?
+  teamMember    TeamMember?
+  favorites     Favorite[]
+
+  @@map("users")
+}
+
+model Creator {
+  id        String   @id @default(uuid())
+  createdAt DateTime @default(now())
+  updatedAt DateTime @default(now())
+  user      User     @relation(fields: [userId], references: [id])
+  userId    String   @unique
+
+  @@map("creators")
+}
+
+model Product {
+  id          String     @id @default(uuid())
+  url         String
+  name        String
+  description String
+  image       String?
+  createdAt   DateTime   @default(now())
+  updatedAt   DateTime   @default(now())
+  favorites   Favorite[]
+  categories  Category[]
+
+  @@map("products")
+}
+
+model TeamMember {
+  id        String   @id @default(uuid())
+  role      String
+  socials   Json
+  createdAt DateTime @default(now())
+  updatedAt DateTime @default(now())
+  user      User     @relation(fields: [userId], references: [id])
+  userId    String   @unique
+
+  @@map("team_members")
+}
+
+model Favorite {
+  id        String   @id @default(uuid())
+  createdAt DateTime @default(now())
+  updatedAt DateTime @default(now())
+  user      User     @relation(fields: [userId], references: [id])
+  userId    String
+  product   Product  @relation(fields: [productId], references: [id])
+  productId String
+
+  @@map("favorites")
+}
+
+model Category {
+  id        String   @id @default(uuid())
+  name      String
+  createdAt DateTime @default(now())
+  updatedAt DateTime @default(now())
+  product   Product  @relation(fields: [productId], references: [id])
+  productId String
+
+  @@map("categories")
+}
