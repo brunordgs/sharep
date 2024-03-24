@@ -14,12 +14,39 @@ export async function createUser(input: CreateUserInput) {
 			...rest,
 			salt,
 			email,
-			username, 
+			username,
 			password: hash,
-			image:
-				'https://ik.imagekit.io/sharep/profile-user-svgrepo-com%202_zVv3Gve40.svg',
+			image: 'https://ik.imagekit.io/sharep/profile-user-svgrepo-com%202_zVv3Gve40.svg',
 		},
 	});
 
 	return user;
+}
+
+export async function findUserByEmail(email: string) {
+	return prisma.user.findUnique({
+		where: {
+			email,
+		},
+	});
+}
+
+export async function findUserByUsername(username: string) {
+	return prisma.user.findUnique({
+		where: {
+			username,
+		},
+	});
+}
+
+export async function findUsers() {
+	return prisma.user.findMany({
+		select: {
+			name: true,
+			username: true,
+			email: true,
+			image: true,
+			isVerified: true,
+		}
+	});
 }

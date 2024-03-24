@@ -14,7 +14,6 @@ import { z } from 'zod';
 import { Input } from '../ui/input';
 import { Textarea } from '../ui/textarea';
 import { Button } from '../ui/button';
-import { useSession } from 'next-auth/react';
 import { useRouter } from 'next/navigation';
 
 const profileSchema = z.object({
@@ -39,7 +38,7 @@ export interface Props {
 
 export function AccountProfileForm({ user }: Props) {
 	const router = useRouter();
-	const { data: session, update } = useSession();
+	// const { data: session, update } = useSession();
 
 	const form = useForm<ProfileForm>({
 		defaultValues: {
@@ -68,12 +67,12 @@ export function AccountProfileForm({ user }: Props) {
 			}),
 		});
 
-		await update({
-			...session,
-			user: {
-				...values,
-			},
-		});
+		// await update({
+		// 	...session,
+		// 	user: {
+		// 		...values,
+		// 	},
+		// });
 
 		router.refresh();
 	}

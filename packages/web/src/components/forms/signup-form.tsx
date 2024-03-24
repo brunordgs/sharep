@@ -3,7 +3,6 @@ import { Container } from '@/components/container';
 import { Heading } from '@/components/ui/typography/heading';
 import { Text } from '@/components/ui/typography/text';
 import { zodResolver } from '@hookform/resolvers/zod';
-import { signIn } from 'next-auth/react';
 import { useRouter } from 'next/navigation';
 import { useForm } from 'react-hook-form';
 import { FaGithub } from 'react-icons/fa';
@@ -13,6 +12,7 @@ import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from '
 import { Input } from '../ui/input';
 import { LinkButton } from '../ui/link-button';
 import { PasswordInput } from '../ui/password-input';
+import { fetchAPI } from '@/utils/fetch';
 
 const signUpSchema = z.object({
 	name: z.string().min(3, 'Name must be at least 3 characters long'),
@@ -37,6 +37,7 @@ export function SignUpForm() {
 	const {
 		handleSubmit,
 		control,
+		setError,
 		formState: { errors, isDirty, isValid, isSubmitting },
 	} = form;
 
@@ -44,17 +45,21 @@ export function SignUpForm() {
 		const { name, email, password } = values;
 
 		try {
-			const res = await fetch('/api/auth/register', {
+			const res = await fetchAPI('users', {
 				method: 'POST',
-				headers: {
-					'Content-Type': 'application/json',
-				},
 				body: JSON.stringify({ name, email, password }),
 			});
 
-			if (res.ok) {
-				router.push('/auth/signup/confirm');
+			// if (res.ok) {
+			// 	router.push('/auth/signup/confirm');
+			// }
+
+			if (res.status === 409) {
+				setError('email', { message: 'Email address is already in use' });
+			} else if (res.ok) {
+				router.push('/auth/signin');
 			}
+			
 		} catch (e) {
 			console.error(e);
 		}
@@ -71,7 +76,7 @@ export function SignUpForm() {
 				variant="secondary"
 				size="sm"
 				className="w-full text-center"
-				onClick={() => signIn('github')}
+				// onClick={() => signIn('github')}
 				leftIcon={FaGithub}
 			>
 				Continue with Github
@@ -131,7 +136,7 @@ export function SignUpForm() {
 						)}
 					/>
 
-					<div className="flex flex-col pt-6">
+					<div className="flex flex-col gap-2 pt-6">
 						<Button isLoading={isSubmitting} disabled={isSubmitting || !isDirty || !isValid}>
 							Sign up
 						</Button>
@@ -140,7 +145,7 @@ export function SignUpForm() {
 							<Text as="span" size="sm" className="text-muted-foreground">
 								Already have an account?
 							</Text>{' '}
-							<LinkButton href="/auth/signin" variant="link" className="px-0">
+							<LinkButton href="/auth/signin" variant="link" className="p-0 h-auto">
 								Sign in
 							</LinkButton>
 						</div>

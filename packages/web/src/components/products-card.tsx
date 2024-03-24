@@ -1,18 +1,33 @@
 'use client';
 import { Text } from '@/components/ui/typography/text';
-import { useProducts } from '@/hooks/use-products';
 import Link from 'next/link';
 import { NoDataFound } from './no-data-found';
 import { Avatar, AvatarImage } from './ui/avatar';
 import { Card } from './ui/card';
 import { Skeleton } from './ui/skeleton';
+import { useInfiniteQuery } from '@tanstack/react-query';
 
 export function ProductsCard() {
-	const { products, isProductsLoading } = useProducts({ pageSize: 1 });
+	const { data, isLoading } = useInfiniteQuery({
+		queryKey: ['list-products'],
+		queryFn: async ({ pageParam = 1 }) => {
+			const res = await fetch('/api/products');
+			return await res.json();
+		},
+		initialPageParam: 1,
+		getNextPageParam: (_, pages) => {
+			return pages.length + 1;
+		},
+		retry: 0,
+		refetchOnWindowFocus: false,
+	});
+
+	const products = data?.pages.flatMap((page) => page) ?? [];
+	
 
 	return (
 		<Card>
-			{isProductsLoading && (
+			{isLoading && (
 				<div>
 					{Array.from({ length: 10 }, (_, index) => (
 						<div
@@ -56,7 +71,7 @@ export function ProductsCard() {
 						</Link>
 					))
 				: !products.length &&
-					!isProductsLoading && (
+					!isLoading && (
 						<NoDataFound
 							title="No product found"
 							description="There aren't any products at the moment"

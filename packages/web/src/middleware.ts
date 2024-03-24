@@ -1,19 +1,20 @@
-import { getToken } from 'next-auth/jwt';
 import { NextRequest, NextResponse } from 'next/server';
+import { parseJwt } from './utils/parse';
 
 export default async function middleware(req: NextRequest) {
-	const token = await getToken({ req, secret: process.env.NEXTAUTH_SECRET });
+	const session = req.cookies.get('token');
+	const token = parseJwt(session?.value);
 
-	const { pathname } = req.nextUrl;
+	const { pathname, origin } = req.nextUrl;
 
 	// Check authenticated routes when user is logged in
 	if (token && (pathname.startsWith('/auth/signin') || pathname.startsWith('/auth/signup'))) {
-		return NextResponse.redirect(new URL('/', req.url));
+		return NextResponse.redirect(new URL('/', origin));
 	}
 
 	// Check private routes when user isn't logged in
 	if (!token && (pathname.startsWith('/dashboard') || pathname.startsWith('/account'))) {
-		return NextResponse.redirect(new URL('/404', req.url));
+		return NextResponse.redirect(new URL('/404', origin));
 	}
 
 	return NextResponse.next();

@@ -1,6 +1,5 @@
 import { Container } from '@/components/container';
 import { LinkButton } from '@/components/ui/link-button';
-import { prisma } from '@/lib/prisma';
 import { Image } from '@/components/ui/image';
 import { Heading } from '@/components/ui/typography/heading';
 import { Text } from '@/components/ui/typography/text';
@@ -8,6 +7,7 @@ import { Metadata } from 'next';
 import Link from 'next/link';
 import { FaGithub } from 'react-icons/fa';
 import { FaXTwitter } from 'react-icons/fa6';
+import { fetchAPI } from '@/utils/fetch';
 
 export const metadata: Metadata = {
 	title: 'About',
@@ -15,17 +15,7 @@ export const metadata: Metadata = {
 };
 
 export default async function About() {
-	const teamMembers = await prisma.teamMember.findMany({
-		include: {
-			user: {
-				select: {
-					name: true,
-					username: true,
-					image: true,
-				},
-			},
-		},
-	});
+	const teamMembers = await fetchAPI('team-members');
 
 	return (
 		<Container className="max-w-3xl">
@@ -77,7 +67,7 @@ export default async function About() {
 							</Link>
 
 							<div className="flex items-center gap-2">
-								{/* {socials?.x && (
+								{socials?.x && (
 									<Link
 										href={socials.x}
 										className="inline-block hover:scale-105 hover:opacity-80 duration-300 transition mt-auto"
@@ -97,7 +87,7 @@ export default async function About() {
 									>
 										<FaGithub size={22} />
 									</Link>
-								)} */}
+								)}
 							</div>
 						</li>
 					))}

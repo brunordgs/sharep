@@ -1,19 +1,21 @@
 import { Text } from '@/components/ui/typography/text';
-import { prisma } from '@/lib/prisma';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import Link from 'next/link';
 import { Avatar, AvatarFallback, AvatarImage } from './ui/avatar';
 import { getFallbackInitials } from '@/utils/format';
 import { CircleWavyCheck } from '@phosphor-icons/react/dist/ssr';
+import { fetchAPI } from '@/utils/fetch';
 
 export async function FeaturedUsersCard() {
-	const users = await prisma.user.findMany({
-		select: {
-			name: true,
-			image: true,
-			username: true,
-			isVerified: true,
-		},
+	const users = await fetchAPI<
+		{
+			username: string;
+			image: string;
+			isVerified: boolean;
+			name: string;
+		}[]
+	>('users', {
+		method: 'GET',
 	});
 
 	const shuffledUsers = users

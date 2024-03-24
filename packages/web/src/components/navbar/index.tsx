@@ -1,6 +1,4 @@
-import { authOptions } from '@/app/api/auth/[...nextauth]/auth';
 import { Newspaper, Question, SquaresFour } from '@phosphor-icons/react/dist/ssr';
-import { getServerSession } from 'next-auth';
 import Link from 'next/link';
 import { createElement } from 'react';
 import { FaGithub } from 'react-icons/fa';
@@ -10,9 +8,13 @@ import { Logo } from './logo';
 import { MenuItem } from './menu-item';
 import { SearchButton } from './search-button';
 import { UserNav } from './user-nav';
+import { cookies } from 'next/headers';
+import { parseJwt } from '@/utils/parse';
 
 export async function Navbar() {
-	const session = await getServerSession(authOptions);
+	const session = cookies().get('token');
+
+	const user = parseJwt(session?.value);
 
 	const menuItems = [
 		{
@@ -57,7 +59,7 @@ export async function Navbar() {
 					<SearchButton />
 
 					{session ? (
-						<UserNav user={session.user} />
+						<UserNav {...user} />
 					) : (
 						<div className="flex items-center gap-2">
 							<LinkButton href="/auth/signin" variant="secondary">

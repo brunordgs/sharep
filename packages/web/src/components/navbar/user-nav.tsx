@@ -13,50 +13,48 @@ import {
 	DropdownMenuSeparator,
 	DropdownMenuTrigger,
 } from '../ui/dropdown-menu';
-import { LogOutButton } from './log-out-button';
-import { ToggleThemeButton } from './toggle-theme-button';
+import { SignOutButton } from './sign-out-button';
+import { ThemeButton } from './theme-button';
 
 interface Props {
-	user: {
-		image: string | null;
-		name: string | null;
-		username: string;
-		isCreator?: boolean;
-	};
+	image: string;
+	name: string;
+	username: string;
+	isCreator?: boolean;
 }
 
-export function UserNav({ user }: Props) {
+export function UserNav({ name, image, username, isCreator }: Props) {
 	return (
 		<DropdownMenu modal={false}>
 			<DropdownMenuTrigger asChild>
 				<Button variant="ghost" className="relative size-8 rounded-full">
 					<Avatar className="size-8">
-						<AvatarImage src={user.image!} alt={user.name!} />
-						<AvatarFallback>{getFallbackInitials(user.name)}</AvatarFallback>
+						<AvatarImage src={image!} alt={name!} />
+						<AvatarFallback>{getFallbackInitials(name)}</AvatarFallback>
 					</Avatar>
 				</Button>
 			</DropdownMenuTrigger>
 			<DropdownMenuContent className="w-56" align="end" forceMount>
 				<DropdownMenuLabel>
-					<p>{user.name}</p>
-					<p className="text-xs leading-none text-muted-foreground">@{user.username}</p>
+					<p>{name}</p>
+					<p className="text-xs leading-none text-muted-foreground">@{username}</p>
 				</DropdownMenuLabel>
 
 				<DropdownMenuSeparator />
 
 				<DropdownMenuItem asChild>
-					<Link href={`/@${user.username}`} className="flex items-center gap-1.5 cursor-pointer">
+					<Link href={`/@${username}`} className="flex items-center gap-1.5 cursor-pointer">
 						<UserRound className="size-4" />
 						Profile
 					</Link>
 				</DropdownMenuItem>
 				<DropdownMenuItem asChild>
-					<Link href={`/@${user.username}`} className="flex items-center gap-1.5 cursor-pointer">
+					<Link href={`/@${username}`} className="flex items-center gap-1.5 cursor-pointer">
 						<Star className="size-4" />
 						Favorite products
 					</Link>
 				</DropdownMenuItem>
-				{user.isCreator && (
+				{isCreator && (
 					<>
 						<DropdownMenuSeparator />
 						<DropdownMenuItem asChild>
@@ -75,9 +73,7 @@ export function UserNav({ user }: Props) {
 					</Link>
 				</DropdownMenuItem>
 
-				<DropdownMenuItem>
-					<ToggleThemeButton />
-				</DropdownMenuItem>
+				<ThemeButton />
 
 				<DropdownMenuSeparator />
 
@@ -96,7 +92,7 @@ export function UserNav({ user }: Props) {
 				<DropdownMenuSeparator />
 
 				<DropdownMenuItem>
-					<LogOutButton />
+					<SignOutButton />
 				</DropdownMenuItem>
 			</DropdownMenuContent>
 		</DropdownMenu>

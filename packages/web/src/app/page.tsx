@@ -11,12 +11,8 @@ import {
 } from '@/components/ui/select';
 import { Heading } from '@/components/ui/typography/heading';
 import { CaretDown } from '@phosphor-icons/react/dist/ssr';
-import { getServerSession } from 'next-auth';
-import { authOptions } from './api/auth/[...nextauth]/auth';
 
 export default async function Home() {
-	const session = await getServerSession(authOptions);
-
 	return (
 		<Container>
 			<div className="lg:grid grid-cols-7 gap-8">
@@ -40,7 +36,7 @@ export default async function Home() {
 
 					<div className="border-b border-zinc-200 dark:border-zinc-800" />
 
-					{session && <BecomeCreatorBanner />}
+					{/* {session && <BecomeCreatorBanner />} */}
 
 					<ProductsCard />
 				</div>

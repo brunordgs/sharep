@@ -1,7 +1,6 @@
 'use client';
 import { Container } from '@/components/container';
 import { zodResolver } from '@hookform/resolvers/zod';
-import { signIn } from 'next-auth/react';
 import { useRouter } from 'next/navigation';
 import { useForm } from 'react-hook-form';
 import { FaGithub } from 'react-icons/fa';
@@ -43,10 +42,9 @@ export function SignInForm() {
 		const { email, password } = values;
 
 		try {
-			const res = await signIn('credentials', {
-				email,
-				password,
-				redirect: false,
+			const res = await fetch('/api/auth/signin', {
+				method: 'POST',
+				body: JSON.stringify({ email, password }),
 			});
 
 			if (res?.status === 401) {
@@ -71,7 +69,7 @@ export function SignInForm() {
 				variant="secondary"
 				size="sm"
 				className="w-full text-center"
-				onClick={() => signIn('github')}
+				// onClick={() => signIn('github')}
 				leftIcon={FaGithub}
 			>
 				Continue with Github
@@ -95,7 +93,7 @@ export function SignInForm() {
 						control={control}
 						name="email"
 						render={({ field }) => (
-							<FormItem>
+							<FormItem tabIndex={0}>
 								<FormLabel>Email</FormLabel>
 								<FormControl>
 									<Input type="email" placeholder="Enter your email" {...field} />
@@ -111,11 +109,11 @@ export function SignInForm() {
 							<FormItem>
 								<div className="flex items-end justify-between pb-1">
 									<FormLabel>Password</FormLabel>
-									<LinkButton href="/auth/forgot-password" variant="link" className="p-0 h-fit">
+									<LinkButton href="/auth/forgot-password" variant="link" className="p-0 h-auto" tabIndex={1}>
 										Forgot password?
 									</LinkButton>
 								</div>
-								<FormControl>
+								<FormControl tabIndex={0}>
 									<PasswordInput placeholder="Enter your password" {...field} />
 								</FormControl>
 								<FormMessage />
@@ -134,7 +132,7 @@ export function SignInForm() {
 							<Text as="span" size="sm" className="text-muted-foreground">
 								Don't have an account?
 							</Text>{' '}
-							<LinkButton href="/auth/signup" variant="link" className="px-0">
+							<LinkButton href="/auth/signup" variant="link" className="p-0 h-auto">
 								Sign up
 							</LinkButton>
 						</div>

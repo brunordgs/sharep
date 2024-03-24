@@ -1,12 +1,12 @@
-import { authOptions } from '@/app/api/auth/[...nextauth]/auth';
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
 import { LinkButton } from '@/components/ui/link-button';
 import { Text } from '@/components/ui/typography/text';
 import { HTTP_PROTOCOL_REGEX } from '@/shared/constants';
 import { getFallbackInitials } from '@/utils/format';
 import { CalendarDays } from 'lucide-react';
-import { getServerSession } from 'next-auth';
 import { VerifiedAccountDialog } from '../verified-account-dialog';
+import { cookies } from 'next/headers';
+import { parseJwt } from '@/utils/parse';
 
 interface Props {
 	name: string;
@@ -14,18 +14,12 @@ interface Props {
 	bio: string | null;
 	image: string;
 	isVerified: boolean;
-	createdAt: Date;
+	createdAt: string;
 }
 
-export async function ProfileContent({
-	name,
-	username,
-	bio,
-	image,
-	isVerified,
-	createdAt,
-}: Props) {
-	const session = await getServerSession(authOptions);
+export async function ProfileContent({ name, username, bio, image, isVerified, createdAt }: Props) {
+	const session = cookies().get('token');
+	const user = parseJwt<{ username: string }>(session?.value);
 
 	return (
 		<>
@@ -38,7 +32,7 @@ export async function ProfileContent({
 						<AvatarFallback>{getFallbackInitials(name)}</AvatarFallback>
 					</Avatar>
 
-					{session?.user.username === username && (
+					{user?.username === username && (
 						<div className="flex flex-1 items-center justify-end">
 							<LinkButton href="/account/profile" variant="outline">
 								Edit profile
@@ -61,7 +55,6 @@ export async function ProfileContent({
 				</div>
 
 				<div className="mt-2">
-					{/* Replace url to a real page link */}
 					{bio && (
 						<Text>
 							{bio.split(' ').map((word) =>
@@ -87,7 +80,7 @@ export async function ProfileContent({
 						{new Intl.DateTimeFormat('en-US', {
 							month: 'long',
 							year: 'numeric',
-						}).format(createdAt)}
+						}).format(new Date(createdAt))}
 					</Text>
 				</div>
 			</div>

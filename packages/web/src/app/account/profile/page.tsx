@@ -1,13 +1,14 @@
-import { authOptions } from '@/app/api/auth/[...nextauth]/auth';
 import {
 	AccountProfileForm,
 	Props as AccountProfileFormProps,
 } from '@/components/forms/account-profile-form';
 import { CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
-import { getServerSession } from 'next-auth';
+import { parseJwt } from '@/utils/parse';
+import { cookies } from 'next/headers';
 
 export default async function AccountProfile() {
-	const session = await getServerSession(authOptions);
+	const session = cookies().get('token');
+	const user = parseJwt(session?.value);
 
 	return (
 		<CardContent>
@@ -18,7 +19,7 @@ export default async function AccountProfile() {
 				</div>
 			</CardHeader>
 
-			<AccountProfileForm user={session?.user as AccountProfileFormProps['user']} />
+			<AccountProfileForm user={user as AccountProfileFormProps['user']} />
 		</CardContent>
 	);
 }
